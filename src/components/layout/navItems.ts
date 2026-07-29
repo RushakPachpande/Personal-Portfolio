@@ -1,10 +1,10 @@
 export const navItems = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
-  { to: '/experience', label: 'Experience' },
-  { to: '/projects', label: 'Projects' },
-  { to: '/skills', label: 'Skills' },
+  { to: '/work', label: 'What I Build' },
+  { to: '/infrastructure', label: 'Infrastructure' },
+  { to: '/automation', label: 'Automation' },
   { to: '/philosophy', label: 'Philosophy' },
-  { to: '/resume', label: 'Resume' },
+  { to: '/experience', label: 'Experience' },
   { to: '/contact', label: 'Contact' },
 ] as const

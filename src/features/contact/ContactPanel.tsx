@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { Mail, RadioTower, Send } from 'lucide-react'
+import { Download, ExternalLink, Mail, Send } from 'lucide-react'
 import { profile } from '@/content/profile'
 import { MagneticButton } from '@/components/shared/MagneticButton'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 
-export function ContactMissionControl() {
+export function ContactPanel() {
   const [status, setStatus] = useState<'idle' | 'sent'>('idle')
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -28,46 +28,51 @@ export function ContactMissionControl() {
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
         <SectionHeader
-          eyebrow="Mission Control"
-          title="Open a channel"
-          description="Professional contact surface designed like an operations console — ready for a future backend without changing the UI."
+          eyebrow="Contact"
+          title="Let’s talk platforms"
+          description="Simple, professional channels—email, LinkedIn, GitHub, and resume."
         />
       </Reveal>
 
-      <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_1.2fr]">
+      <div className="mt-12 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <Reveal>
           <Card className="glass h-full border-border/80">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 font-display text-2xl">
-                <RadioTower className="size-5 text-soft-cyan" />
-                Channel status
-              </CardTitle>
+              <CardTitle className="font-display text-2xl">Channels</CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-col gap-4 text-sm text-muted-foreground">
-              <p>
-                <span className="text-foreground">Operator:</span> {profile.name}
-              </p>
-              <p>
-                <span className="text-foreground">Status:</span> {profile.currentStatus}
-              </p>
-              <p>
-                <span className="text-foreground">Location:</span> {profile.location}
-              </p>
+            <CardContent className="flex flex-col gap-4 text-sm">
               <a
                 href={profile.socials.email}
-                className="inline-flex items-center gap-2 text-electric-blue hover:underline"
+                className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
               >
-                <Mail className="size-4" />
+                <Mail className="size-4 text-electric-blue" />
                 {profile.email}
               </a>
-              <div className="mt-2 flex flex-wrap gap-2">
-                <MagneticButton href={profile.socials.linkedin} variant="outline" size="default">
-                  LinkedIn
-                </MagneticButton>
-                <MagneticButton href={profile.socials.github} variant="outline" size="default">
-                  GitHub
+              <a
+                href={profile.socials.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <ExternalLink className="size-4 text-electric-blue" />
+                linkedin.com/in/rushak-pachpande
+              </a>
+              <a
+                href={profile.socials.github}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <ExternalLink className="size-4 text-electric-blue" />
+                github.com/RushakPachpande
+              </a>
+              <div className="pt-2">
+                <MagneticButton href={profile.resumeUrl} variant="outline" size="default">
+                  Download Resume
+                  <Download data-icon="inline-end" />
                 </MagneticButton>
               </div>
+              <p className="text-muted-foreground">{profile.location}</p>
             </CardContent>
           </Card>
         </Reveal>
@@ -75,7 +80,7 @@ export function ContactMissionControl() {
         <Reveal delay={0.06}>
           <Card className="glass border-border/80">
             <CardHeader>
-              <CardTitle className="font-display text-2xl">Transmit message</CardTitle>
+              <CardTitle className="font-display text-2xl">Send a message</CardTitle>
             </CardHeader>
             <CardContent>
               <form className="flex flex-col gap-4" onSubmit={onSubmit}>
@@ -98,12 +103,12 @@ export function ContactMissionControl() {
                   />
                 </div>
                 <Button type="submit" size="lg" className="self-start">
-                  Send transmission
+                  Send message
                   <Send data-icon="inline-end" />
                 </Button>
                 {status === 'sent' ? (
                   <p className="font-mono text-xs text-soft-cyan">
-                    Mailto handoff initiated. Backend slot reserved for Supabase later.
+                    Opening your email client…
                   </p>
                 ) : null}
               </form>

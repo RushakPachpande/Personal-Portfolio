@@ -9,50 +9,50 @@ export const philosophyPillars: PhilosophyPillar[] = [
   {
     id: 'ownership',
     title: 'Ownership',
-    summary: 'Own the outcome, not just the ticket.',
+    summary: 'Own the outcome end-to-end.',
     detail:
-      'Platform work means carrying architecture, delivery, operations, and follow-through — not throwing unfinished systems over the wall.',
+      'Platform work means carrying architecture, delivery, operations, and follow-through—not handing off unfinished systems.',
   },
   {
-    id: 'documentation',
-    title: 'Documentation',
-    summary: 'If it is not written down, it is not finished.',
+    id: 'maintainability',
+    title: 'Build for maintainability',
+    summary: 'Design for the people who will run it next.',
     detail:
-      'Clear runbooks, decisions, and diagrams reduce tribal knowledge and make platforms transferable under pressure.',
+      'Clear environments, CI/CD, and durable data models matter as much as shipping the first version.',
   },
   {
     id: 'automation',
-    title: 'Automation',
+    title: 'Automation over repetition',
     summary: 'Automate the repeatable; escalate the exceptional.',
     detail:
-      'Workflows should remove toil without hiding failures. Good automation is observable, guarded, and reversible.',
+      'Workflow platforms and operational automation free people for judgment work—when the automation is observable and reliable.',
   },
   {
-    id: 'scalability',
-    title: 'Scalability',
-    summary: 'Design for growth without premature complexity.',
+    id: 'documentation',
+    title: 'Documentation matters',
+    summary: 'If it is not written down, it is not finished.',
     detail:
-      'Scale the boundaries that matter — environments, identity, deployments, and ownership — before inventing abstractions nobody needs.',
+      'Decisions, runbooks, and architecture notes reduce tribal knowledge and make platforms transferable under pressure.',
   },
   {
-    id: 'simplicity',
-    title: 'Simplicity',
-    summary: 'Prefer the system you can explain.',
+    id: 'infrastructure',
+    title: 'Infrastructure is part of software',
+    summary: 'Apps do not exist without the platform beneath them.',
     detail:
-      'Elegant platforms are operable. Complexity is earned by constraints, not by fashion.',
+      'Hosting, identity, networking, backups, and environments are product concerns—not someone else’s leftover work.',
   },
   {
     id: 'business-first',
-    title: 'Business-first thinking',
+    title: 'Solve business problems first',
     summary: 'Engineering exists to move real outcomes.',
     detail:
-      'Infrastructure and automation earn their place by reducing risk, cost, and friction for the business — not by collecting tools.',
+      'Choose tools and architecture that reduce risk, cost, and friction for the organization—not for novelty.',
   },
   {
-    id: 'learning',
-    title: 'Continuous learning',
-    summary: 'Stay sharp without chasing every trend.',
+    id: 'simplicity',
+    title: 'Simple systems outperform complicated ones',
+    summary: 'Prefer the system you can explain and operate.',
     detail:
-      'Learn deeply in the domains that compound: cloud, networking, automation, and product delivery under real constraints.',
+      'Complexity should be earned by constraints. Operable platforms beat clever ones that only the author understands.',
   },
 ]

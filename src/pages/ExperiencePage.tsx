@@ -6,7 +6,7 @@ export function ExperiencePage() {
     <>
       <Seo
         title="Experience"
-        description="Career timeline, education, major deployments, and achievements."
+        description="Career at NextGenInnov8, education, major deployments, and verified achievements."
         path="/experience"
       />
       <div className="pt-8">

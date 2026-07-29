@@ -2,8 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TerminalSquare, X } from 'lucide-react'
 import { profile } from '@/content/profile'
-import { projects } from '@/content/projects'
-import { skillCategories } from '@/content/skills'
+import { products } from '@/content/products'
+import { initiatives } from '@/content/initiatives'
 import { resolveTerminalInput, terminalCommands } from '@/content/terminal'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -72,39 +72,53 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
       push([
         {
           type: 'output',
-          text: `${profile.name}\n${profile.role}\n${profile.location}\n\n${profile.about.join('\n\n')}`,
+          text: `${profile.name}\n${profile.role}\n${profile.location}\n\n${profile.about.whoIAm}`,
         },
       ])
       navigate('/about')
-    } else if (input === 'projects') {
+    } else if (input === 'work' || input === 'projects') {
       push([
         {
           type: 'output',
-          text: projects.map((project) => `• ${project.name} — ${project.status}`).join('\n'),
+          text: products.map((product) => `• ${product.name} — ${product.role}`).join('\n'),
         },
       ])
-      navigate('/projects')
-    } else if (input === 'skills') {
+      navigate('/work')
+    } else if (input === 'infrastructure') {
       push([
         {
           type: 'output',
-          text: skillCategories.map((category) => `• ${category.name}`).join('\n'),
+          text: initiatives.map((item) => `• ${item.name}`).join('\n'),
         },
       ])
-      navigate('/skills')
+      navigate('/infrastructure')
+    } else if (input === 'automation') {
+      push([
+        {
+          type: 'output',
+          text: 'Automation: self-hosted n8n, Microsoft integrations, operational improvements.',
+        },
+      ])
+      navigate('/automation')
+    } else if (input === 'experience') {
+      push([{ type: 'output', text: 'Opening experience timeline…' }])
+      navigate('/experience')
+    } else if (input === 'philosophy') {
+      push([{ type: 'output', text: 'Opening engineering philosophy…' }])
+      navigate('/philosophy')
     } else if (input === 'resume') {
       push([
         {
           type: 'output',
-          text: `Resume route ready. Download path: ${profile.resumeUrl}`,
+          text: `Resume download path: ${profile.resumeUrl}`,
         },
       ])
-      navigate('/resume')
+      window.open(profile.resumeUrl, '_blank')
     } else if (input === 'contact') {
       push([
         {
           type: 'output',
-          text: `Mission Control\nEmail: ${profile.email}\nStatus: ${profile.currentStatus}`,
+          text: `Email: ${profile.email}\nLinkedIn: ${profile.socials.linkedin}\nGitHub: ${profile.socials.github}`,
         },
       ])
       navigate('/contact')
@@ -112,7 +126,7 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
       push([
         {
           type: 'output',
-          text: 'rushak — platform engineer. Owns systems, not just tickets.',
+          text: 'rushak — platform engineer. Builds complete digital platforms from infrastructure to production.',
         },
       ])
     } else if (input === 'deploy') {
@@ -158,7 +172,7 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-end justify-center p-4 sm:items-center">
+    <div className="fixed inset-0 z-80 flex items-end justify-center p-4 sm:items-center">
       <button
         type="button"
         aria-label="Close terminal overlay"

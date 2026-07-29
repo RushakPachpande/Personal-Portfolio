@@ -8,23 +8,28 @@ const HomePage = lazy(() =>
 const AboutPage = lazy(() =>
   import('@/pages/AboutPage').then((module) => ({ default: module.AboutPage })),
 )
-const ExperiencePage = lazy(() =>
-  import('@/pages/ExperiencePage').then((module) => ({ default: module.ExperiencePage })),
+const WorkPage = lazy(() =>
+  import('@/pages/WorkPage').then((module) => ({ default: module.WorkPage })),
 )
-const ProjectsPage = lazy(() =>
-  import('@/pages/ProjectsPage').then((module) => ({ default: module.ProjectsPage })),
+const ProductDetailPage = lazy(() =>
+  import('@/pages/ProductDetailPage').then((module) => ({ default: module.ProductDetailPage })),
 )
-const ProjectDetailPage = lazy(() =>
-  import('@/pages/ProjectDetailPage').then((module) => ({ default: module.ProjectDetailPage })),
+const InfrastructurePage = lazy(() =>
+  import('@/pages/InfrastructurePage').then((module) => ({ default: module.InfrastructurePage })),
 )
-const SkillsPage = lazy(() =>
-  import('@/pages/SkillsPage').then((module) => ({ default: module.SkillsPage })),
+const InitiativeDetailPage = lazy(() =>
+  import('@/pages/InitiativeDetailPage').then((module) => ({
+    default: module.InitiativeDetailPage,
+  })),
+)
+const AutomationPage = lazy(() =>
+  import('@/pages/AutomationPage').then((module) => ({ default: module.AutomationPage })),
 )
 const PhilosophyPage = lazy(() =>
   import('@/pages/PhilosophyPage').then((module) => ({ default: module.PhilosophyPage })),
 )
-const ResumePage = lazy(() =>
-  import('@/pages/ResumePage').then((module) => ({ default: module.ResumePage })),
+const ExperiencePage = lazy(() =>
+  import('@/pages/ExperiencePage').then((module) => ({ default: module.ExperiencePage })),
 )
 const ContactPage = lazy(() =>
   import('@/pages/ContactPage').then((module) => ({ default: module.ContactPage })),
@@ -52,13 +57,18 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: withSuspense(<HomePage />) },
       { path: 'about', element: withSuspense(<AboutPage />) },
-      { path: 'experience', element: withSuspense(<ExperiencePage />) },
-      { path: 'projects', element: withSuspense(<ProjectsPage />) },
-      { path: 'projects/:slug', element: withSuspense(<ProjectDetailPage />) },
-      { path: 'skills', element: withSuspense(<SkillsPage />) },
+      { path: 'work', element: withSuspense(<WorkPage />) },
+      { path: 'work/:slug', element: withSuspense(<ProductDetailPage />) },
+      { path: 'infrastructure', element: withSuspense(<InfrastructurePage />) },
+      { path: 'infrastructure/:slug', element: withSuspense(<InitiativeDetailPage />) },
+      { path: 'automation', element: withSuspense(<AutomationPage />) },
       { path: 'philosophy', element: withSuspense(<PhilosophyPage />) },
-      { path: 'resume', element: withSuspense(<ResumePage />) },
+      { path: 'experience', element: withSuspense(<ExperiencePage />) },
       { path: 'contact', element: withSuspense(<ContactPage />) },
+      { path: 'projects', element: <Navigate to="/work" replace /> },
+      { path: 'projects/:slug', element: <Navigate to="/work" replace /> },
+      { path: 'skills', element: <Navigate to="/about" replace /> },
+      { path: 'resume', element: <Navigate to="/contact" replace /> },
       { path: '404', element: withSuspense(<NotFoundPage />) },
       { path: '*', element: <Navigate to="/404" replace /> },
     ],

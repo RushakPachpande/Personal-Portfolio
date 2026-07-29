@@ -1,6 +1,6 @@
 # Rushak Pachpande Portfolio
 
-Premium Mission Control–inspired portfolio for Rushak Pachpande — Platform Engineer.
+Premium portfolio for Rushak Pachpande — Platform Engineer.
 
 ## Stack
 
@@ -23,19 +23,18 @@ npm run lint
 
 Editable typed content lives in `src/content/`:
 
-- `profile.ts` — identity, CTAs, overview metrics
-- `projects.ts` — featured systems
-- `skills.ts` — capability matrix
-- `timeline.ts` — experience timeline
-- `philosophy.ts` — engineering pillars
-- `terminal.ts` — command list
+- `profile.ts` — identity and contact
+- `products.ts` — What I Build
+- `initiatives.ts` — Infrastructure & Operations
+- `automation.ts` — Automation section
+- `timeline.ts` — Experience timeline
+- `philosophy.ts` — Engineering pillars
+- `terminal.ts` — Command list
 
-Replace `public/resume.pdf` with the real resume file.
+Factual source: `docs/resume/`. Incomplete Phase 1 items are marked `TODO` in content modules.
 
-## Architecture notes
+Replace `public/resume.pdf` with the compiled resume when ready.
 
-- Multi-route SPA with lazy-loaded pages
-- Boot sequence runs once per browser session
-- Command terminal (navbar icon) supports navigation commands
-- Konami code unlocks Developer Mode
-- Contact form uses `mailto:` today; UI is ready for a future Supabase backend
+## Routes
+
+Home, About, What I Build (`/work`), Infrastructure, Automation, Philosophy, Experience, Contact.

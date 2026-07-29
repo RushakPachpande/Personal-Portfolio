@@ -1,16 +1,18 @@
 export type TerminalCommand = {
   name: string
   description: string
-  aliases?: string[]
 }
 
 export const terminalCommands: TerminalCommand[] = [
   { name: 'help', description: 'List available commands' },
-  { name: 'about', description: 'Who Rushak is and what he owns' },
-  { name: 'projects', description: 'List featured systems' },
-  { name: 'skills', description: 'Show capability matrix categories' },
-  { name: 'resume', description: 'Open resume route / download path' },
-  { name: 'contact', description: 'Mission control contact details' },
+  { name: 'about', description: 'Who Rushak is and how he works' },
+  { name: 'work', description: 'List software products' },
+  { name: 'infrastructure', description: 'List infrastructure initiatives' },
+  { name: 'automation', description: 'Open automation section' },
+  { name: 'experience', description: 'Open experience timeline' },
+  { name: 'philosophy', description: 'Open engineering philosophy' },
+  { name: 'resume', description: 'Resume download path' },
+  { name: 'contact', description: 'Contact details' },
   { name: 'whoami', description: 'Identity check' },
   { name: 'deploy', description: 'Simulate a calm production deploy' },
   { name: 'coffee', description: 'Fuel status' },

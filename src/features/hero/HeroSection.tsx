@@ -50,7 +50,7 @@ export function HeroSection() {
         </motion.p>
 
         <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center gap-3">
-          <MagneticButton to="/projects">
+          <MagneticButton to="/work">
             Explore My Work
             <ArrowDownRight data-icon="inline-end" />
           </MagneticButton>
@@ -65,12 +65,12 @@ export function HeroSection() {
           className="mt-10 flex flex-wrap gap-2"
           aria-label="Focus areas"
         >
-          {profile.roles.map((role) => (
+          {profile.focusAreas.map((area) => (
             <li
-              key={role}
+              key={area}
               className="rounded-full border border-border bg-card/50 px-3 py-1 text-xs text-muted-foreground"
             >
-              {role}
+              {area}
             </li>
           ))}
         </motion.ul>

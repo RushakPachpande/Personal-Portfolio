@@ -17,22 +17,22 @@ export function ExperienceTimeline() {
         <SectionHeader
           eyebrow="Experience Timeline"
           title="Career, education, and major deployments"
-          description="An interactive vertical timeline of how platform ownership was earned in practice."
+          description="An interactive vertical timeline of career, education, and major deployments from verified experience."
         />
       </Reveal>
 
       <ol className="relative mx-auto mt-14 max-w-3xl">
         <div
           aria-hidden
-          className="absolute top-2 bottom-2 left-[11px] w-px bg-gradient-to-b from-electric-blue via-deep-purple to-soft-cyan opacity-50"
+          className="absolute top-2 bottom-2 left-2.75 w-px bg-linear-to-b from-electric-blue via-deep-purple to-soft-cyan opacity-50"
         />
         {timeline.map((item, index) => (
           <Reveal key={item.id} delay={index * 0.05}>
             <li className="relative mb-10 pl-12 last:mb-0">
               <span
                 className={cn(
-                  'absolute top-1.5 left-0 size-[22px] rounded-full border-2 border-background',
-                  'bg-gradient-to-br from-electric-blue to-soft-cyan shadow-[0_0_20px_rgba(59,130,246,0.35)]',
+                  'absolute top-1.5 left-0 size-5.5 rounded-full border-2 border-background',
+                  'bg-linear-to-br from-electric-blue to-soft-cyan shadow-[0_0_20px_rgba(59,130,246,0.35)]',
                 )}
               />
               <div className="glass rounded-2xl border-border/80 p-5 transition-transform duration-300 hover:-translate-y-1">

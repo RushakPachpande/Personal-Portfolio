@@ -1,16 +1,16 @@
 import { Seo } from '@/components/layout/Seo'
-import { ContactMissionControl } from '@/features/contact/ContactMissionControl'
+import { ContactPanel } from '@/features/contact/ContactPanel'
 
 export function ContactPage() {
   return (
     <>
       <Seo
         title="Contact"
-        description="Mission Control contact panel for Rushak Pachpande."
+        description="Contact Rushak Pachpande — email, LinkedIn, GitHub, and resume."
         path="/contact"
       />
       <div className="pt-8">
-        <ContactMissionControl />
+        <ContactPanel />
       </div>
     </>
   )

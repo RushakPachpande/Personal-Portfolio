@@ -4,6 +4,7 @@ export const profile = {
   name: 'Rushak Pachpande',
   shortName: 'Rushak',
   role: 'Platform Engineer',
+  resumeTitle: 'Platform & Solutions Engineer',
   roles: [
     'Platform Engineer',
     'Cloud & Infrastructure Engineer',
@@ -11,39 +12,37 @@ export const profile = {
     'Full Stack Systems Developer',
   ],
   location: 'Pune, Maharashtra, India',
-  experienceYears: 2,
+  phone: '+91 8483880482',
   headline: 'Building Systems,\nNot Just Software.',
   description:
-    'I design, build, automate and deploy scalable digital platforms that solve real business problems.',
-  email: 'rushak.pachpande@example.com',
+    'I design, build, automate and operate digital platforms that solve real business problems.',
+  email: 'rushakgp06@gmail.com',
   resumeUrl: '/resume.pdf',
   socials: {
-    github: 'https://github.com/',
-    linkedin: 'https://linkedin.com/in/',
-    email: 'mailto:rushak.pachpande@example.com',
+    github: 'https://github.com/RushakPachpande',
+    linkedin: 'https://www.linkedin.com/in/rushak-pachpande/',
+    email: 'mailto:rushakgp06@gmail.com',
   },
-  currentMission: 'Owning platforms end-to-end — architecture to production.',
-  currentStatus: 'Open to platform engineering opportunities',
-  about: [
-    'Unlike traditional software developers, my strength is owning complete systems.',
-    'I architect infrastructure, automate business workflows, manage Microsoft 365 tenants, and deploy production applications.',
-    'From Azure and Docker to React, Supabase, VPNs, Linux servers, and n8n automation — I build complete products from idea to production deployment.',
+  focusAreas: [
+    'Platform ownership',
+    'Cloud & infrastructure',
+    'Workflow automation',
+    'Application engineering',
   ],
-  overview: {
-    experience: 2,
-    projects: 8,
-    deployments: 20,
-    cloudPlatforms: 4,
-    automationWorkflows: 12,
+  about: {
+    whoIAm:
+      'I am a Platform Engineer specializing in building complete software platforms from concept to production. I work across frontend, backend, cloud, networking, DevOps, automation, Microsoft 365 administration, and infrastructure.',
+    howIThink:
+      'I focus on understanding complete systems, identifying root causes, and making well-informed engineering decisions through research, analysis, and practical implementation. I evaluate multiple solution approaches before implementing production changes.',
+    whatIEnjoy:
+      'I enjoy solving business problems through technology—designing, building, and operating production platforms, cloud infrastructure, and enterprise systems.',
+    approach:
+      'I take end-to-end technical ownership of applications from solution design and development to deployment, automation, and production support. Infrastructure, documentation, and maintainability are part of the product—not afterthoughts.',
   },
-  messages: [
-    'Ownership',
-    'Architecture',
-    'Automation',
-    'Scalability',
-    'Problem Solving',
-    'Business Impact',
-    'Engineering Thinking',
+  summaryBullets: [
+    'End-to-end technical ownership from solution design to deployment, automation, and production support.',
+    'Work across application engineering, cloud infrastructure, platform operations, and workflow automation.',
+    'Strong focus on complete systems, root-cause analysis, and practical implementation.',
   ],
 } as const
 
