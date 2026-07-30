@@ -38,21 +38,35 @@ export const automationItems: AutomationItem[] = [
   },
   {
     id: 'sharepoint-automations',
-    title: 'SharePoint automations',
-    summary: 'Details forthcoming.',
-    details: 'TODO: Document SharePoint automation work from verified source material.',
-    technologies: [],
-    incomplete: true,
-    todoNote: 'Listed in Phase 1; not explicitly detailed in the current resume.',
+    title: 'Microsoft 365 & SharePoint Workflow Automation',
+    summary:
+      'Designed M365/SharePoint workflows that cut repetitive admin work and standardize internal IT processes.',
+    details:
+      'Designed workflow architecture integrating Outlook with SharePoint for automated data collection and ticket logging; standardized processes and centralized tracking for operational visibility; documented flows for future enhancements—establishing a foundation for centralized automation with better consistency, traceability, and scalability.',
+    technologies: [
+      'Microsoft 365',
+      'SharePoint',
+      'Outlook',
+      'REST APIs',
+      'Automation',
+      'Power Platform Concepts',
+      'n8n',
+    ],
   },
   {
-    id: 'future-workflow-platform',
-    title: 'Future workflow platform',
-    summary: 'Details forthcoming.',
+    id: 'it-support-ticket-automation',
+    title: 'IT Support Ticket Automation',
+    summary:
+      'Automated IT support workflow that turns requests into structured, trackable tickets with minimal manual work.',
     details:
-      'TODO: Document the intended future workflow platform direction once product scope is confirmed.',
-    technologies: [],
-    incomplete: true,
-    todoNote: 'Forward-looking Phase 1 item; not a completed resume achievement.',
+      'Designed the end-to-end workflow with Outlook email triggers, SharePoint ticket storage, automatic ticket generation, and acknowledgement emails; structured lifecycle logging and planned extensibility for approvals and notifications—creating a scalable framework that reduces manual IT admin and supports future service desk enhancements.',
+    technologies: [
+      'n8n',
+      'Microsoft Outlook',
+      'SharePoint',
+      'REST APIs',
+      'JavaScript',
+      'Webhooks',
+    ],
   },
 ]

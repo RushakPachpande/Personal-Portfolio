@@ -42,11 +42,7 @@ export function MagneticButton({
   } else if (href) {
     control = (
       <Button variant={variant} size={size} className={classes} asChild>
-        <a
-          href={href}
-          target={href.startsWith('http') ? '_blank' : undefined}
-          rel={href.startsWith('http') ? 'noreferrer' : undefined}
-        >
+        <a href={href} target="_blank" rel="noreferrer">
           {children}
         </a>
       </Button>
