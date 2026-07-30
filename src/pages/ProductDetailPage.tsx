@@ -17,7 +17,7 @@ export function ProductDetailPage() {
         <h1 className="font-display text-3xl font-semibold">Product not found</h1>
         <p className="mt-3 text-muted-foreground">That work item does not exist in the catalog.</p>
         <Button asChild className="mt-8">
-          <Link to="/work">Back to What I Build</Link>
+          <Link to="/work">Back to What I Built</Link>
         </Button>
       </div>
     )
@@ -44,19 +44,30 @@ export function ProductDetailPage() {
 
         <Reveal>
           <div className="glass rounded-2xl border-border/80 p-6 sm:p-8">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge>{product.incomplete ? 'TODO' : product.status}</Badge>
-              <Badge variant="secondary">{product.role}</Badge>
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+              <div className="flex size-24 shrink-0 items-center justify-center rounded-2xl border border-border bg-secondary/40 p-3">
+                <img
+                  src={product.logo}
+                  alt={product.logoAlt}
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge>{product.incomplete ? 'TODO' : product.status}</Badge>
+                  <Badge variant="secondary">{product.role}</Badge>
+                </div>
+                <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+                  {product.name}
+                </h1>
+                <p className="mt-3 max-w-3xl text-lg text-muted-foreground">{product.tagline}</p>
+                {product.incomplete ? (
+                  <p className="mt-4 font-mono text-sm text-amber-300/90">
+                    Details forthcoming — {product.todoNote}
+                  </p>
+                ) : null}
+              </div>
             </div>
-            <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-              {product.name}
-            </h1>
-            <p className="mt-3 max-w-3xl text-lg text-muted-foreground">{product.tagline}</p>
-            {product.incomplete ? (
-              <p className="mt-4 font-mono text-sm text-amber-300/90">
-                Details forthcoming — {product.todoNote}
-              </p>
-            ) : null}
           </div>
         </Reveal>
 

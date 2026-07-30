@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 const teasers = [
   {
     to: '/work',
-    title: 'What I Build',
+    title: 'What I Built',
     description: 'Software products owned from architecture to production.',
     icon: Cpu,
   },

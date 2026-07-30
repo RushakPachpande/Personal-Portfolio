@@ -21,7 +21,7 @@ export function ProductGrid({ products, showHeader = true, limit }: ProductGridP
       {showHeader ? (
         <Reveal>
           <SectionHeader
-            eyebrow="What I Build"
+            eyebrow="What I Built"
             title="Software products"
             description="End-to-end platforms with clear ownership—from architecture to production."
           />
@@ -33,9 +33,14 @@ export function ProductGrid({ products, showHeader = true, limit }: ProductGridP
           <Reveal key={product.slug} delay={index * 0.05}>
             <Link to={`/work/${product.slug}`} className="group block h-full">
               <Card className="glass h-full overflow-hidden border-border/80 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40">
-                <div className="relative h-32 overflow-hidden bg-linear-to-br from-electric-blue/20 via-deep-purple/15 to-soft-cyan/10">
-                  <div className="absolute inset-0 opacity-40 transition-transform duration-500 group-hover:scale-110 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.18),transparent_45%)]" />
-                  <div className="absolute right-4 bottom-4 left-4 flex items-end justify-between gap-2">
+                <div className="relative flex h-36 items-center justify-center overflow-hidden bg-gradient-to-br from-electric-blue/15 via-deep-purple/10 to-soft-cyan/10">
+                  <img
+                    src={product.logo}
+                    alt={product.logoAlt}
+                    className="relative z-10 max-h-20 max-w-[70%] object-contain transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  <div className="absolute right-4 bottom-4 left-4 z-10 flex items-end justify-between gap-2">
                     <Badge variant="secondary" className="font-mono text-[10px] tracking-wide uppercase">
                       {product.incomplete ? 'TODO' : product.status}
                     </Badge>

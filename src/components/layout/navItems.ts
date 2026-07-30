@@ -1,7 +1,7 @@
 export const navItems = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
-  { to: '/work', label: 'What I Build' },
+  { to: '/work', label: 'What I Built' },
   { to: '/infrastructure', label: 'Infrastructure' },
   { to: '/automation', label: 'Automation' },
   { to: '/philosophy', label: 'Philosophy' },

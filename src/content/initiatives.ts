@@ -68,27 +68,44 @@ export const initiatives: Initiative[] = [
   },
   {
     slug: 'truenas-migration',
-    name: 'TrueNAS / Secure Remote NAS',
-    tagline: 'Secure remote NAS architecture.',
-    role: 'TODO',
-    objective: 'TODO: Document objective from verified initiative notes.',
-    technologies: ['TrueNAS'],
-    outcome: 'TODO: Document verified outcome.',
-    incomplete: true,
-    todoNote:
-      'Resume lists Secure Remote NAS Architecture and TrueNAS expertise; detailed migration narrative pending source material.',
+    name: 'TrueNAS Migration & Secure Remote NAS',
+    tagline:
+      'Secure, centralized NAS via TrueNAS SCALE migration with VPN-based remote access.',
+    role: 'Planned and executed the migration from ThinkStation S30 to P500; configured pools, datasets, permissions, and shares; integrated VPN-based remote access; validated the cutover and documented operations.',
+    objective:
+      'Modernize organizational storage by migrating to TrueNAS SCALE—improving hardware reliability, centralizing file storage, and enabling secure remote access for authorized users.',
+    technologies: [
+      'TrueNAS SCALE',
+      'Linux',
+      'Storage Management',
+      'SMB',
+      'Networking',
+      'VPN',
+      'RBAC',
+    ],
+    outcome:
+      'Successfully migrated the NAS with minimal disruption while improving performance, scalability, maintainability, and secure remote accessibility.',
   },
   {
     slug: 'sophos-vpn',
-    name: 'Sophos VPN Architecture',
-    tagline: 'Secure remote access architecture.',
-    role: 'TODO',
-    objective: 'TODO: Document objective from verified initiative notes.',
-    technologies: [],
-    outcome: 'TODO: Document verified outcome.',
-    incomplete: true,
-    todoNote:
-      'Listed in Phase 1 structure; not detailed in the current resume. Content pending verified source material.',
+    name: 'Sophos VPN & Secure Remote Access Architecture',
+    tagline:
+      'Sophos Firewall VPN for protected remote access to internal servers and NAS.',
+    role: 'Designed the VPN architecture; configured Sophos firewall policies, NAT, and access rules; planned role-based access to internal resources; integrated VPN with servers and NAS; tested connectivity/routing/security and documented operations.',
+    objective:
+      'Provide secure remote connectivity for employees and administrators via VPN instead of exposing services directly to the internet.',
+    technologies: [
+      'Sophos Firewall',
+      'SSL VPN',
+      'IPSec VPN',
+      'Networking',
+      'Firewall Policies',
+      'NAT',
+      'Remote Access',
+      'Security',
+    ],
+    outcome:
+      'Implemented secure remote access so administrators can reach internal infrastructure while reducing external attack surface and improving operational flexibility.',
   },
 ]
 

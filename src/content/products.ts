@@ -1,3 +1,7 @@
+import navdrishtiLogo from '@/assets/logos/navdrishti.png'
+import brainpulsesLogo from '@/assets/logos/brainpulses.png'
+import n8nLogo from '@/assets/logos/n8n.webp'
+
 export type Product = {
   slug: string
   name: string
@@ -9,6 +13,8 @@ export type Product = {
   solution: string
   technology: string[]
   outcome: string
+  logo: string
+  logoAlt: string
   incomplete?: boolean
   todoNote?: string
 }
@@ -37,6 +43,8 @@ export const products: Product[] = [
     ],
     outcome:
       'Established end-to-end technical ownership of Navdrishti with CI/CD and environment separation supporting future platform scalability.',
+    logo: navdrishtiLogo,
+    logoAlt: 'Navdrishti logo',
   },
   {
     slug: 'brainpulses',
@@ -53,6 +61,8 @@ export const products: Product[] = [
     technology: ['React', 'JavaScript', 'MongoDB', 'Azure Storage', 'n8n'],
     outcome:
       'Sustained production operations for live events while defining a clearer architecture path for BrainPulses 2.0.',
+    logo: brainpulsesLogo,
+    logoAlt: 'BrainPulses logo',
   },
   {
     slug: 'it-ticket-automation',
@@ -65,6 +75,8 @@ export const products: Product[] = [
     solution: 'TODO: Document the solution approach once source details are available.',
     technology: [],
     outcome: 'TODO: Document verified outcomes.',
+    logo: n8nLogo,
+    logoAlt: 'n8n logo',
     incomplete: true,
     todoNote:
       'Listed in Phase 1 structure; not detailed as a named project in the current resume. Content pending verified source material.',

@@ -10,7 +10,7 @@ export function NotFoundPage() {
         <p className="font-mono text-xs tracking-[0.25em] text-soft-cyan uppercase">Error 404</p>
         <h1 className="mt-4 font-display text-5xl font-semibold tracking-tight">Route not found</h1>
         <p className="mt-4 text-muted-foreground">
-          This page does not exist. Return home or browse what I build.
+          This page does not exist. Return home or browse what I built.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <MagneticButton to="/">Return home</MagneticButton>

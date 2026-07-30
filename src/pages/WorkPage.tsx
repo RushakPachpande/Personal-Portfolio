@@ -6,7 +6,7 @@ export function WorkPage() {
   return (
     <>
       <Seo
-        title="What I Build"
+        title="What I Built"
         description="Software products including Navdrishti and BrainPulses—owned from architecture to production."
         path="/work"
       />
