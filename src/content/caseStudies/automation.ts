@@ -112,6 +112,13 @@ export const automationCaseStudies: CaseStudy[] = [
     name: 'Microsoft 365 & SharePoint Workflow Automation',
     summary: 'Outlook–SharePoint workflows that standardize internal IT processes.',
     status: 'Implemented',
+    difficulty: 'Advanced',
+    timeline: '2025',
+    logo: n8nLogo,
+    logoAlt: 'n8n logo',
+    coverImage: n8nLogo,
+    coverImageAlt: 'SharePoint workflow automation branding',
+    technologyIds: ['microsoft-365', 'sharepoint', 'outlook', 'rest-apis', 'n8n'],
     technologies: [
       'Microsoft 365',
       'SharePoint',
@@ -134,6 +141,23 @@ export const automationCaseStudies: CaseStudy[] = [
       'Designed workflow architecture integrating Outlook with SharePoint for automated data collection and ticket logging; standardized processes and centralized tracking; documented flows for future enhancements.',
     architecture:
       'Outlook as an intake surface, SharePoint as structured storage/tracking, with automation orchestration (including n8n and Microsoft platform concepts) connecting collection, logging, and operational visibility.',
+    architectureNodes: [
+      {
+        id: 'sp-intake',
+        label: 'Outlook Intake',
+        detail: 'Email-first operational requests enter standardized flows.',
+      },
+      {
+        id: 'sp-orchestration',
+        label: 'Automation Layer',
+        detail: 'n8n and Microsoft workflow concepts connect collection to tracking.',
+      },
+      {
+        id: 'sp-record',
+        label: 'SharePoint Record',
+        detail: 'Structured storage for tickets, logs, and operational visibility.',
+      },
+    ],
     responsibilities: [
       'Workflow architecture',
       'Integration design',
@@ -164,6 +188,13 @@ export const automationCaseStudies: CaseStudy[] = [
     learnings: [
       'Business automation wins when it respects existing channels and still creates structure.',
       'Documentation is what turns a working flow into an owned platform capability.',
+    ],
+    gallery: [
+      {
+        src: n8nLogo,
+        caption: 'Automation orchestration connecting Outlook intake to SharePoint tracking.',
+        type: 'workflow',
+      },
     ],
     relatedSlugs: [
       'it-support-ticket-automation',
@@ -275,6 +306,13 @@ export const automationCaseStudies: CaseStudy[] = [
     name: 'Microsoft & Enterprise SaaS Operations',
     summary: 'Day-to-day ownership of Microsoft 365 and related SaaS platforms.',
     status: 'Ongoing',
+    difficulty: 'Intermediate',
+    timeline: '2025 — Present',
+    logo: n8nLogo,
+    logoAlt: 'n8n logo',
+    coverImage: n8nLogo,
+    coverImageAlt: 'Enterprise SaaS operations context',
+    technologyIds: ['microsoft-365'],
     technologies: ['Microsoft 365', 'Google Workspace', 'Zoho People', 'Zoho Bigin', 'DNS'],
     stack: [
       { group: 'Collaboration', items: ['Microsoft 365', 'Google Workspace'] },
@@ -291,6 +329,23 @@ export const automationCaseStudies: CaseStudy[] = [
       'Administered Microsoft 365, Google Workspace, Zoho, DNS, domains, and SaaS platforms supporting organizational operations—connecting identity, collaboration, and operational tooling.',
     architecture:
       'Operational layer spanning Microsoft 365 and adjacent SaaS (Google Workspace, Zoho), with DNS/domain administration as the routing and identity-adjacent foundation those services rely on.',
+    architectureNodes: [
+      {
+        id: 'saas-collab',
+        label: 'Collaboration Suites',
+        detail: 'Microsoft 365 and Google Workspace administration.',
+      },
+      {
+        id: 'saas-apps',
+        label: 'Business Apps',
+        detail: 'Zoho People and Zoho Bigin operational tooling.',
+      },
+      {
+        id: 'saas-dns',
+        label: 'DNS & Domains',
+        detail: 'Routing and identity-adjacent foundations for SaaS platforms.',
+      },
+    ],
     responsibilities: [
       'Platform administration',
       'SaaS operations',
@@ -317,6 +372,13 @@ export const automationCaseStudies: CaseStudy[] = [
       'Enterprise SaaS is infrastructure by another name.',
       'Automation quality is capped by how well the surrounding platforms are administered.',
     ],
+    gallery: [
+      {
+        src: n8nLogo,
+        caption: 'Enterprise SaaS operations that keep automation and infrastructure work grounded.',
+        type: 'infrastructure',
+      },
+    ],
     relatedSlugs: [
       'microsoft-365-migration',
       'sharepoint-automations',
@@ -330,6 +392,13 @@ export const automationCaseStudies: CaseStudy[] = [
     name: 'Operational Improvements',
     summary: 'Research-driven automation and platform changes that improve reliability and efficiency.',
     status: 'Ongoing',
+    difficulty: 'Advanced',
+    timeline: '2025 — Present',
+    logo: n8nLogo,
+    logoAlt: 'n8n logo',
+    coverImage: n8nLogo,
+    coverImageAlt: 'Operational improvement initiatives',
+    technologyIds: ['n8n', 'azure', 'github-actions'],
     technologies: ['n8n', 'Zapier', 'CI/CD', 'Azure'],
     stack: [
       { group: 'Automation', items: ['n8n', 'Zapier'] },
@@ -346,6 +415,23 @@ export const automationCaseStudies: CaseStudy[] = [
       'Researched and implemented technical solutions improving platform reliability, automation, operational efficiency, and infrastructure scalability—using structured root-cause analysis before production changes.',
     architecture:
       'Cross-cutting improvement work spanning automation tooling (n8n/Zapier), delivery discipline (CI/CD), and Azure-hosted platforms—applied where analysis showed durable leverage.',
+    architectureNodes: [
+      {
+        id: 'ops-analysis',
+        label: 'Root-Cause Analysis',
+        detail: 'Structured evaluation before production changes.',
+      },
+      {
+        id: 'ops-automation',
+        label: 'Automation Changes',
+        detail: 'n8n and workflow improvements that remove recurrence.',
+      },
+      {
+        id: 'ops-platform',
+        label: 'Platform & Cloud',
+        detail: 'CI/CD and Azure changes that improve reliability at scale.',
+      },
+    ],
     responsibilities: [
       'Root-cause analysis',
       'Solution evaluation',
@@ -371,6 +457,13 @@ export const automationCaseStudies: CaseStudy[] = [
     learnings: [
       'Root-cause analysis is an engineering acceleration tool, not bureaucracy.',
       'The best automation removes recurrence, not only symptoms.',
+    ],
+    gallery: [
+      {
+        src: n8nLogo,
+        caption: 'Automation-led operational improvements grounded in root-cause analysis.',
+        type: 'workflow',
+      },
     ],
     relatedSlugs: ['self-hosted-n8n', 'azure-infrastructure', 'docker-deployment'],
   },

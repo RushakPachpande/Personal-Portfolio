@@ -1,5 +1,6 @@
 import navdrishtiLogo from '@/assets/logos/navdrishti.png'
 import brainpulsesLogo from '@/assets/logos/brainpulses.png'
+import n8nLogo from '@/assets/logos/n8n.webp'
 import type { CaseStudy } from './types'
 
 export const platformCaseStudies: CaseStudy[] = [
@@ -120,6 +121,11 @@ export const platformCaseStudies: CaseStudy[] = [
         caption: 'Navdrishti platform branding used across production environments.',
         type: 'screenshot',
       },
+      {
+        src: n8nLogo,
+        caption: 'Related delivery and ops tooling used alongside platform ownership practices.',
+        type: 'deployment',
+      },
     ],
     relatedSlugs: ['brainpulses', 'self-hosted-supabase', 'azure-infrastructure', 'docker-deployment'],
   },
@@ -224,6 +230,11 @@ export const platformCaseStudies: CaseStudy[] = [
         src: brainpulsesLogo,
         caption: 'BrainPulses production platform identity from live event deployments.',
         type: 'screenshot',
+      },
+      {
+        src: n8nLogo,
+        caption: 'n8n operational automation supporting live quiz platform operations.',
+        type: 'workflow',
       },
     ],
     relatedSlugs: ['navdrishti', 'self-hosted-n8n', 'azure-infrastructure'],

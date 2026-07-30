@@ -3,10 +3,7 @@ import { getCaseStudy, getCaseStudyPath } from '@/content/caseStudies'
 import { technologies, technologyCategories, type TechnologyCategory } from '@/content/technologies'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
 import { TechBadge } from '@/components/tech/TechBadge'
-
-type TechnologyLibraryGridProps = {
-  usedInMap: Record<string, string[]>
-}
+import { Badge } from '@/components/ui/badge'
 
 const categoryOrder: TechnologyCategory[] = [
   'frontend',
@@ -20,7 +17,7 @@ const categoryOrder: TechnologyCategory[] = [
   'enterprise',
 ]
 
-export function TechnologyLibraryGrid({ usedInMap }: TechnologyLibraryGridProps) {
+export function TechnologyLibraryGrid() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
@@ -41,11 +38,16 @@ export function TechnologyLibraryGrid({ usedInMap }: TechnologyLibraryGridProps)
               <h2 className="font-display text-2xl font-semibold">{technologyCategories[category]}</h2>
               <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {items.map((technology, index) => {
-                  const slugs = usedInMap[technology.id] ?? []
+                  const slugs = technology.usedInSlugs
                   return (
                     <Reveal key={technology.id} delay={index * 0.02}>
                       <article className="glass rounded-2xl border-border/80 p-4">
-                        <TechBadge technology={technology} />
+                        <div className="flex flex-wrap items-center gap-2">
+                          <TechBadge technology={technology} />
+                          <Badge variant="outline" className="font-mono text-[10px] uppercase">
+                            {technologyCategories[technology.category]}
+                          </Badge>
+                        </div>
                         <p className="mt-3 text-sm text-muted-foreground text-pretty">
                           {technology.description}
                         </p>
