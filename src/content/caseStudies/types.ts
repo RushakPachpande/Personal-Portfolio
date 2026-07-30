@@ -15,6 +15,18 @@ export type CaseStudyStackGroup = {
   items: string[]
 }
 
+export type CaseStudyMediaItem = {
+  src: string
+  caption: string
+  type: 'screenshot' | 'architecture' | 'workflow' | 'infrastructure' | 'deployment' | 'network'
+}
+
+export type ArchitectureNode = {
+  id: string
+  label: string
+  detail: string
+}
+
 export type CaseStudy = {
   slug: string
   category: CaseStudyCategory
@@ -22,20 +34,27 @@ export type CaseStudy = {
   summary: string
   status: string
   featured?: boolean
+  difficulty?: 'Intermediate' | 'Advanced' | 'Complex'
+  timeline?: string
   logo?: string
   logoAlt?: string
+  coverImage?: string
+  coverImageAlt?: string
   technologies: string[]
+  technologyIds?: string[]
   stack: CaseStudyStackGroup[]
   businessContext: string
   problem: string
   objective: string
   solution: string
   architecture: string
+  architectureNodes?: ArchitectureNode[]
   responsibilities: string[]
   decisions: CaseStudyDecision[]
   challenges: CaseStudyChallenge[]
   outcome: string
   learnings: string[]
+  gallery?: CaseStudyMediaItem[]
   relatedSlugs: string[]
   incomplete?: boolean
   todoNote?: string

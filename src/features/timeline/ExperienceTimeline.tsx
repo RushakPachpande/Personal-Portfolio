@@ -11,6 +11,8 @@ const typeLabel = {
 } as const
 
 export function ExperienceTimeline() {
+  const initiativePoints = ['Navdrishti', 'BrainPulses', 'Azure', 'M365', 'TrueNAS', 'Docker', 'n8n']
+
   return (
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
@@ -19,6 +21,26 @@ export function ExperienceTimeline() {
           title="Career, education, and major deployments"
           description="An interactive vertical timeline of career, education, and major deployments from verified experience."
         />
+      </Reveal>
+
+      <Reveal delay={0.05}>
+        <div className="mx-auto mt-8 max-w-3xl">
+          <p className="font-mono text-[11px] tracking-wide text-soft-cyan uppercase">
+            Linked initiatives
+          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            {initiativePoints.map((point, index) => (
+              <div key={point} className="flex items-center gap-2">
+                <span className="rounded-full border border-border bg-secondary/35 px-2.5 py-1 text-xs text-muted-foreground">
+                  {point}
+                </span>
+                {index < initiativePoints.length - 1 ? (
+                  <span className="h-px w-4 bg-border/80" aria-hidden />
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </div>
       </Reveal>
 
       <ol className="relative mx-auto mt-14 max-w-3xl">

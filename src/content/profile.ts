@@ -1,4 +1,4 @@
-export const SITE_VERSION = '2.0.0'
+export const SITE_VERSION = '3.0.0'
 
 export const profile = {
   name: 'Rushak Pachpande',

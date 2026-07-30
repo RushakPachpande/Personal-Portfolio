@@ -105,6 +105,9 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
         },
       ])
       navigate('/automation')
+    } else if (input === 'technologies' || input === 'technology-library') {
+      push([{ type: 'output', text: 'Opening Technology Library…' }])
+      navigate('/technology-library')
     } else if (input === 'experience') {
       push([{ type: 'output', text: 'Opening experience timeline…' }])
       navigate('/experience')

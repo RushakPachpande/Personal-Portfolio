@@ -3,6 +3,7 @@ import { Seo } from '@/components/layout/Seo'
 import { HeroSection } from '@/features/hero/HeroSection'
 import { HomeAbout, ExperienceSnapshot } from '@/features/home/HomeSections'
 import { EngineeringAreas } from '@/features/home/EngineeringAreas'
+import { EngineeringStats } from '@/features/home/EngineeringStats'
 import { CaseStudyCard } from '@/features/case-studies/CaseStudyCard'
 import { MagneticButton } from '@/components/shared/MagneticButton'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
@@ -20,8 +21,10 @@ export function HomePage() {
       <HeroSection />
       <HomeAbout />
       <EngineeringAreas />
+      <EngineeringStats />
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <div className="mb-10 h-px w-full bg-linear-to-r from-transparent via-border to-transparent" />
         <Reveal>
           <SectionHeader
             eyebrow="Featured Case Studies"

@@ -9,6 +9,7 @@ export const terminalCommands: TerminalCommand[] = [
   { name: 'platforms', description: 'List platform case studies' },
   { name: 'infrastructure', description: 'List infrastructure case studies' },
   { name: 'automation', description: 'List automation case studies' },
+  { name: 'technologies', description: 'Open technology library' },
   { name: 'experience', description: 'Open experience timeline' },
   { name: 'philosophy', description: 'Open engineering philosophy' },
   { name: 'resume', description: 'Open resume page' },

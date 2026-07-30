@@ -14,6 +14,10 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Reveal } from '@/components/shared/Reveal'
 import { RelatedCaseStudies } from './CaseStudyGrid'
+import { TechBanner } from '@/components/tech/TechBanner'
+import { ArchitectureFlow } from './ArchitectureFlow'
+import { MediaCarousel } from '@/components/media/MediaCarousel'
+import { getTechnologyById } from '@/content/technologies'
 import { cn } from '@/lib/utils'
 
 const TOC = [
@@ -26,6 +30,8 @@ const TOC = [
   { id: 'decisions', label: 'Engineering Decisions' },
   { id: 'challenges', label: 'Challenges' },
   { id: 'stack', label: 'Technology Stack' },
+  { id: 'gallery', label: 'Engineering Gallery' },
+  { id: 'cross-references', label: 'Cross References' },
   { id: 'outcome', label: 'Outcome' },
   { id: 'learnings', label: 'Key Learnings' },
 ] as const
@@ -91,15 +97,18 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                   {study.name}
                 </h1>
                 <p className="mt-3 max-w-3xl text-lg text-muted-foreground">{study.summary}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {study.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-md border border-border px-2 py-1 font-mono text-[11px] text-muted-foreground"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                <div className="mt-5 space-y-2">
+                  <TechBanner technologyIds={study.technologyIds ?? []} />
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline" className="font-mono uppercase text-[10px]">
+                      {study.difficulty ?? 'Advanced'}
+                    </Badge>
+                    {study.timeline ? (
+                      <Badge variant="outline" className="font-mono uppercase text-[10px]">
+                        {study.timeline}
+                      </Badge>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </div>
@@ -148,6 +157,11 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
             <Section id="architecture" title="Architecture">
               {study.architecture}
             </Section>
+            <Reveal>
+              <section className="scroll-mt-28">
+                <ArchitectureFlow nodes={study.architectureNodes ?? []} />
+              </section>
+            </Reveal>
 
             <Reveal>
               <section id="responsibilities" className="scroll-mt-28">
@@ -236,6 +250,54 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                         </ul>
                       </div>
                     ))}
+                  </CardContent>
+                </Card>
+              </section>
+            </Reveal>
+
+            <Reveal>
+              <section id="gallery" className="scroll-mt-28">
+                <Card className="glass border-border/80">
+                  <CardHeader>
+                    <CardTitle className="font-display text-xl">Engineering Gallery</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {study.gallery && study.gallery.length > 0 ? (
+                      <MediaCarousel items={study.gallery} />
+                    ) : (
+                      <p className="text-sm text-muted-foreground">
+                        Gallery assets will appear here as screenshots, diagrams, and workflow visuals are added.
+                      </p>
+                    )}
+                  </CardContent>
+                </Card>
+              </section>
+            </Reveal>
+
+            <Reveal>
+              <section id="cross-references" className="scroll-mt-28">
+                <Card className="glass border-border/80">
+                  <CardHeader>
+                    <CardTitle className="font-display text-xl">Used Technologies</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex flex-wrap gap-2">
+                    {(study.technologyIds ?? []).map((technologyId) => {
+                      const technology = getTechnologyById(technologyId)
+                      if (!technology) return null
+                      return (
+                        <span
+                          key={technology.id}
+                          className="inline-flex items-center gap-2 rounded-md border border-border px-2 py-1 text-xs text-muted-foreground"
+                        >
+                          <img
+                            src={technology.logo}
+                            alt={`${technology.name} logo`}
+                            className="size-3.5 rounded-sm object-contain"
+                          />
+                          {technology.name}
+                        </span>
+                      )
+                    })}
                   </CardContent>
                 </Card>
               </section>
