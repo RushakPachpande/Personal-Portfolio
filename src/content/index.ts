@@ -1,10 +1,21 @@
 export { profile, SITE_VERSION } from './profile'
-export { products, getProductBySlug, getCompleteProducts } from './products'
-export type { Product } from './products'
-export { initiatives, getInitiativeBySlug } from './initiatives'
-export type { Initiative } from './initiatives'
-export { automationItems } from './automation'
-export type { AutomationItem } from './automation'
+export {
+  caseStudies,
+  getCaseStudy,
+  getCaseStudiesByCategory,
+  getFeaturedCaseStudies,
+  getRelatedCaseStudies,
+  getCaseStudyPath,
+  categoryLabels,
+  categoryPaths,
+} from './caseStudies'
+export type {
+  CaseStudy,
+  CaseStudyCategory,
+  CaseStudyChallenge,
+  CaseStudyDecision,
+  CaseStudyStackGroup,
+} from './caseStudies'
 export { timeline } from './timeline'
 export type { TimelineItem } from './timeline'
 export { philosophyPillars } from './philosophy'

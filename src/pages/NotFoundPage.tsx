@@ -18,8 +18,8 @@ export function NotFoundPage() {
             Contact
           </MagneticButton>
         </div>
-        <Link to="/work" className="mt-6 text-sm text-muted-foreground hover:text-foreground">
-          Or browse products →
+        <Link to="/platforms" className="mt-6 text-sm text-muted-foreground hover:text-foreground">
+          Or browse platforms →
         </Link>
       </section>
     </>

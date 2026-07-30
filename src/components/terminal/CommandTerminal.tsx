@@ -2,8 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TerminalSquare, X } from 'lucide-react'
 import { profile } from '@/content/profile'
-import { products } from '@/content/products'
-import { initiatives } from '@/content/initiatives'
+import { getCaseStudiesByCategory } from '@/content/caseStudies'
 import { resolveTerminalInput, terminalCommands } from '@/content/terminal'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -76,19 +75,23 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
         },
       ])
       navigate('/about')
-    } else if (input === 'work' || input === 'projects') {
+    } else if (input === 'platforms' || input === 'work' || input === 'projects') {
       push([
         {
           type: 'output',
-          text: products.map((product) => `• ${product.name} — ${product.role}`).join('\n'),
+          text: getCaseStudiesByCategory('platform')
+            .map((study) => `• ${study.name} — ${study.status}`)
+            .join('\n'),
         },
       ])
-      navigate('/work')
+      navigate('/platforms')
     } else if (input === 'infrastructure') {
       push([
         {
           type: 'output',
-          text: initiatives.map((item) => `• ${item.name}`).join('\n'),
+          text: getCaseStudiesByCategory('infrastructure')
+            .map((study) => `• ${study.name}`)
+            .join('\n'),
         },
       ])
       navigate('/infrastructure')
@@ -96,7 +99,9 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
       push([
         {
           type: 'output',
-          text: 'Automation: self-hosted n8n, Microsoft integrations, operational improvements.',
+          text: getCaseStudiesByCategory('automation')
+            .map((study) => `• ${study.name}`)
+            .join('\n'),
         },
       ])
       navigate('/automation')
@@ -107,13 +112,8 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
       push([{ type: 'output', text: 'Opening engineering philosophy…' }])
       navigate('/philosophy')
     } else if (input === 'resume') {
-      push([
-        {
-          type: 'output',
-          text: `Resume download path: ${profile.resumeUrl}`,
-        },
-      ])
-      window.open(profile.resumeUrl, '_blank')
+      push([{ type: 'output', text: `Resume page + download: ${profile.resumeUrl}` }])
+      navigate('/resume')
     } else if (input === 'contact') {
       push([
         {
@@ -126,7 +126,7 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
       push([
         {
           type: 'output',
-          text: 'rushak — platform engineer. Builds complete digital platforms from infrastructure to production.',
+          text: 'rushak — platform engineer. Owns business problems through architecture, delivery, and production.',
         },
       ])
     } else if (input === 'deploy') {
@@ -153,7 +153,7 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
       push([
         {
           type: 'output',
-          text: 'Permission granted.\nRecommendation: schedule a conversation.\nExpected outcome: someone who owns the platform end-to-end.',
+          text: 'Permission granted.\nRecommendation: schedule a conversation.\nExpected outcome: someone who owns engineering outcomes end-to-end.',
         },
       ])
       navigate('/contact')

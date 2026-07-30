@@ -9,50 +9,57 @@ export const philosophyPillars: PhilosophyPillar[] = [
   {
     id: 'ownership',
     title: 'Ownership',
-    summary: 'Own the outcome end-to-end.',
+    summary: 'Carry the outcome past the merge.',
     detail:
-      'Platform work means carrying architecture, delivery, operations, and follow-through—not handing off unfinished systems.',
-  },
-  {
-    id: 'maintainability',
-    title: 'Build for maintainability',
-    summary: 'Design for the people who will run it next.',
-    detail:
-      'Clear environments, CI/CD, and durable data models matter as much as shipping the first version.',
-  },
-  {
-    id: 'automation',
-    title: 'Automation over repetition',
-    summary: 'Automate the repeatable; escalate the exceptional.',
-    detail:
-      'Workflow platforms and operational automation free people for judgment work—when the automation is observable and reliable.',
+      'Architecture, delivery, operations, and follow-through belong together. Unowned systems fail quietly until they fail loudly.',
   },
   {
     id: 'documentation',
-    title: 'Documentation matters',
-    summary: 'If it is not written down, it is not finished.',
+    title: 'Documentation',
+    summary: 'Writable systems transfer under pressure.',
     detail:
-      'Decisions, runbooks, and architecture notes reduce tribal knowledge and make platforms transferable under pressure.',
+      'Decisions, runbooks, and diagrams reduce tribal knowledge. If only one person can operate it, it is unfinished.',
   },
   {
-    id: 'infrastructure',
-    title: 'Infrastructure is part of software',
-    summary: 'Apps do not exist without the platform beneath them.',
+    id: 'automation',
+    title: 'Automation',
+    summary: 'Remove recurrence, not judgment.',
     detail:
-      'Hosting, identity, networking, backups, and environments are product concerns—not someone else’s leftover work.',
+      'Automate repeatable work when the path is observable and reversible. Escalate exceptions to humans with context.',
   },
   {
-    id: 'business-first',
-    title: 'Solve business problems first',
-    summary: 'Engineering exists to move real outcomes.',
+    id: 'scalability',
+    title: 'Scalability',
+    summary: 'Scale the boundaries that matter.',
     detail:
-      'Choose tools and architecture that reduce risk, cost, and friction for the organization—not for novelty.',
+      'Environments, identity, deployments, and ownership models should grow before inventing abstractions nobody can run.',
+  },
+  {
+    id: 'maintainability',
+    title: 'Maintainability',
+    summary: 'Design for the next operator.',
+    detail:
+      'CI/CD, clear data models, and environment discipline keep platforms honest after the first release.',
   },
   {
     id: 'simplicity',
-    title: 'Simple systems outperform complicated ones',
-    summary: 'Prefer the system you can explain and operate.',
+    title: 'Simplicity',
+    summary: 'Prefer systems you can explain.',
     detail:
-      'Complexity should be earned by constraints. Operable platforms beat clever ones that only the author understands.',
+      'Complexity is earned by constraints. Operable platforms outperform clever ones that only the author understands.',
+  },
+  {
+    id: 'learning',
+    title: 'Continuous Learning',
+    summary: 'Stay sharp where it compounds.',
+    detail:
+      'Deepen cloud, networking, automation, and delivery under real constraints—not every trendy tool.',
+  },
+  {
+    id: 'business-impact',
+    title: 'Business Impact',
+    summary: 'Engineering exists to move outcomes.',
+    detail:
+      'Choose approaches that reduce risk, cost, and friction for the organization. Tools are means, not trophies.',
   },
 ]

@@ -1,34 +1,52 @@
-import { getCompleteProducts } from '@/content/products'
-import { initiatives } from '@/content/initiatives'
+import { getFeaturedCaseStudies } from '@/content/caseStudies'
 import { Seo } from '@/components/layout/Seo'
 import { HeroSection } from '@/features/hero/HeroSection'
-import { HomeTeasers } from '@/features/home/HomeTeasers'
-import { ProductGrid } from '@/features/work/ProductGrid'
-import { InitiativeGrid } from '@/features/infrastructure/InitiativeGrid'
+import { HomeAbout, ExperienceSnapshot } from '@/features/home/HomeSections'
+import { EngineeringAreas } from '@/features/home/EngineeringAreas'
+import { CaseStudyCard } from '@/features/case-studies/CaseStudyCard'
 import { MagneticButton } from '@/components/shared/MagneticButton'
-import { Reveal } from '@/components/shared/Reveal'
+import { Reveal, SectionHeader } from '@/components/shared/Reveal'
 
 export function HomePage() {
+  const featured = getFeaturedCaseStudies().slice(0, 4)
+
   return (
     <>
       <Seo
         title="Home"
-        description="Platform engineer building complete digital platforms—from infrastructure to production."
+        description="Platform engineer who owns business problems through architecture, implementation, deployment, and continuous improvement."
         path="/"
       />
       <HeroSection />
-      <HomeTeasers />
-      <ProductGrid products={getCompleteProducts()} limit={2} />
-      <InitiativeGrid initiatives={initiatives.filter((item) => !item.incomplete)} limit={3} />
+      <HomeAbout />
+      <EngineeringAreas />
+
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <Reveal>
+          <SectionHeader
+            eyebrow="Featured Case Studies"
+            title="How the work was owned"
+            description="Not project cards—engineering narratives covering context, decisions, challenges, and outcomes."
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {featured.map((study, index) => (
+            <CaseStudyCard key={study.slug} study={study} index={index} />
+          ))}
+        </div>
+      </section>
+
+      <ExperienceSnapshot />
+
       <Reveal>
         <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
           <div className="glass flex flex-col items-start justify-between gap-6 rounded-2xl p-8 md:flex-row md:items-center">
             <div>
               <h2 className="font-display text-2xl font-semibold sm:text-3xl">
-                Need someone who owns the whole platform?
+                Need someone who owns engineering outcomes?
               </h2>
               <p className="mt-2 max-w-xl text-muted-foreground">
-                From architecture and automation to deployment and operations—let’s talk.
+                From problem framing and architecture to production operations—let’s talk.
               </p>
             </div>
             <MagneticButton to="/contact">Get in touch</MagneticButton>

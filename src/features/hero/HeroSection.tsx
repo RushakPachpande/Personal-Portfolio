@@ -50,7 +50,7 @@ export function HeroSection() {
         </motion.p>
 
         <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center gap-3">
-          <MagneticButton to="/work">
+          <MagneticButton to="/platforms">
             Explore My Work
             <ArrowDownRight data-icon="inline-end" />
           </MagneticButton>

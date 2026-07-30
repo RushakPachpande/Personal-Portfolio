@@ -1,17 +1,22 @@
-import { initiatives } from '@/content/initiatives'
+import { getCaseStudiesByCategory } from '@/content/caseStudies'
 import { Seo } from '@/components/layout/Seo'
-import { InitiativeGrid } from '@/features/infrastructure/InitiativeGrid'
+import { CaseStudyGrid } from '@/features/case-studies/CaseStudyGrid'
 
 export function InfrastructurePage() {
   return (
     <>
       <Seo
-        title="Infrastructure & Operations"
-        description="Engineering initiatives across Microsoft 365, Azure, Docker, Linux, and self-hosted platforms."
+        title="Infrastructure"
+        description="Engineering initiatives across Microsoft 365, Azure, Docker, Linux, storage, and secure remote access."
         path="/infrastructure"
       />
-      <div className="pt-8">
-        <InitiativeGrid initiatives={initiatives} />
+      <div className="pt-8 pb-12">
+        <CaseStudyGrid
+          studies={getCaseStudiesByCategory('infrastructure')}
+          eyebrow="Infrastructure Engineering"
+          title="Engineering initiatives"
+          description="Cloud, tenants, hosting, storage, and remote access—owned as operable platforms, not one-off tickets."
+        />
       </div>
     </>
   )

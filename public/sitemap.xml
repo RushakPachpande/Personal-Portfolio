@@ -2,10 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://rushak.dev/</loc></url>
   <url><loc>https://rushak.dev/about</loc></url>
-  <url><loc>https://rushak.dev/work</loc></url>
+  <url><loc>https://rushak.dev/platforms</loc></url>
   <url><loc>https://rushak.dev/infrastructure</loc></url>
   <url><loc>https://rushak.dev/automation</loc></url>
   <url><loc>https://rushak.dev/philosophy</loc></url>
   <url><loc>https://rushak.dev/experience</loc></url>
+  <url><loc>https://rushak.dev/resume</loc></url>
   <url><loc>https://rushak.dev/contact</loc></url>
 </urlset>

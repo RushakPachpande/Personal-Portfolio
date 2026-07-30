@@ -6,7 +6,7 @@ export function PhilosophyPage() {
     <>
       <Seo
         title="Engineering Philosophy"
-        description="Ownership, maintainability, automation, documentation, infrastructure as software, business-first thinking, and simplicity."
+        description="Ownership, documentation, automation, scalability, maintainability, simplicity, continuous learning, and business impact."
         path="/philosophy"
       />
       <div className="pt-8">
