@@ -14,7 +14,7 @@ export function ExperienceTimeline() {
   const initiativePoints = ['Navdrishti', 'BrainPulses', 'Azure', 'M365', 'TrueNAS', 'Docker', 'n8n']
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <section className="mx-auto max-w-6xl min-w-0 px-4 py-12 sm:px-6">
       <Reveal>
         <SectionHeader
           eyebrow="Experience Timeline"
@@ -43,14 +43,14 @@ export function ExperienceTimeline() {
         </div>
       </Reveal>
 
-      <ol className="relative mx-auto mt-14 max-w-3xl">
+      <ol className="relative mx-auto mt-14 flex max-w-3xl flex-col gap-10 sm:gap-12">
         <div
           aria-hidden
           className="absolute top-2 bottom-2 left-2.75 w-px bg-linear-to-b from-electric-blue via-deep-purple to-soft-cyan opacity-50"
         />
         {timeline.map((item, index) => (
           <Reveal key={item.id} delay={index * 0.05}>
-            <li className="relative mb-10 pl-12 last:mb-0">
+            <li className="relative pl-12">
               <span
                 className={cn(
                   'absolute top-1.5 left-0 size-5.5 rounded-full border-2 border-background',

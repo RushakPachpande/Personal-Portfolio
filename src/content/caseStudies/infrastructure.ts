@@ -1,7 +1,8 @@
 import n8nLogo from '@/assets/logos/n8n.webp'
 import navdrishtiLogo from '@/assets/logos/navdrishti.png'
 import brainpulsesLogo from '@/assets/logos/brainpulses.png'
-import ngiLogo from '@/assets/logos/NGI Small Logo with Black BG.png'
+// import ngiLogo from '@/assets/logos/NGI Small Logo with Black BG.png'
+import ngiLogo from '@/assets/logos/NGI Logo.png'
 import type { CaseStudy } from './types'
 
 export const infrastructureCaseStudies: CaseStudy[] = [

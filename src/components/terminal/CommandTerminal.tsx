@@ -1,43 +1,51 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { TerminalSquare, X } from 'lucide-react'
-import { profile } from '@/content/profile'
-import { getCaseStudiesByCategory } from '@/content/caseStudies'
-import { resolveTerminalInput, terminalCommands } from '@/content/terminal'
+import { SITE_VERSION } from '@/content/profile'
+import {
+  completeTerminalInput,
+  executeTerminalCommand,
+  terminalQuickCommands,
+  terminalWelcome,
+  type TerminalLine,
+} from '@/content/terminal'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-
-type Line = { type: 'input' | 'output' | 'system'; text: string }
 
 type CommandTerminalProps = {
   open: boolean
   onClose: () => void
 }
 
+const lineStyles: Record<TerminalLine['type'], string> = {
+  input: 'text-electric-blue',
+  system: 'text-muted-foreground',
+  output: 'text-foreground/90',
+  success: 'text-soft-cyan',
+  error: 'text-destructive',
+}
+
 export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
   const inputRef = useRef<HTMLInputElement>(null)
-  const [history, setHistory] = useState<Line[]>([
-    {
-      type: 'system',
-      text: 'Interactive command terminal ready. Type `help` to begin.',
-    },
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const commandHistory = useRef<string[]>([])
+  const historyIndex = useRef<number | null>(null)
+  const [history, setHistory] = useState<TerminalLine[]>([
+    { type: 'system', text: terminalWelcome },
   ])
   const [value, setValue] = useState('')
-
-  const commandHelp = useMemo(
-    () =>
-      terminalCommands
-        .map((command) => `  ${command.name.padEnd(18)} ${command.description}`)
-        .join('\n'),
-    [],
-  )
 
   useEffect(() => {
     if (open) {
       window.setTimeout(() => inputRef.current?.focus(), 50)
     }
   }, [open])
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' })
+  }, [history, open])
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -51,125 +59,69 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose, open])
 
-  const push = (lines: Line[]) => setHistory((prev) => [...prev, ...lines])
+  const push = (lines: TerminalLine[]) => setHistory((prev) => [...prev, ...lines])
 
   const run = (raw: string) => {
-    const input = resolveTerminalInput(raw)
-    if (!input) return
+    const trimmed = raw.trim()
+    if (!trimmed) return
 
     push([{ type: 'input', text: `> ${raw}` }])
 
-    if (input === 'clear') {
+    const result = executeTerminalCommand(raw, { pathname })
+    if (!result) return
+
+    if (result.clear) {
       setHistory([])
       setValue('')
+      historyIndex.current = null
       return
     }
 
-    if (input === 'help') {
-      push([{ type: 'output', text: `Available commands:\n${commandHelp}` }])
-    } else if (input === 'about') {
-      push([
-        {
-          type: 'output',
-          text: `${profile.name}\n${profile.role}\n${profile.location}\n\n${profile.about.whoIAm}`,
-        },
-      ])
-      navigate('/about')
-    } else if (input === 'platforms' || input === 'work' || input === 'projects') {
-      push([
-        {
-          type: 'output',
-          text: getCaseStudiesByCategory('platform')
-            .map((study) => `• ${study.name} — ${study.status}`)
-            .join('\n'),
-        },
-      ])
-      navigate('/platforms')
-    } else if (input === 'infrastructure') {
-      push([
-        {
-          type: 'output',
-          text: getCaseStudiesByCategory('infrastructure')
-            .map((study) => `• ${study.name}`)
-            .join('\n'),
-        },
-      ])
-      navigate('/infrastructure')
-    } else if (input === 'automation') {
-      push([
-        {
-          type: 'output',
-          text: getCaseStudiesByCategory('automation')
-            .map((study) => `• ${study.name}`)
-            .join('\n'),
-        },
-      ])
-      navigate('/automation')
-    } else if (input === 'technologies' || input === 'technology-library') {
-      push([{ type: 'output', text: 'Opening Technology Library…' }])
-      navigate('/technology-library')
-    } else if (input === 'experience') {
-      push([{ type: 'output', text: 'Opening experience timeline…' }])
-      navigate('/experience')
-    } else if (input === 'philosophy') {
-      push([{ type: 'output', text: 'Opening engineering philosophy…' }])
-      navigate('/philosophy')
-    } else if (input === 'resume') {
-      push([{ type: 'output', text: `Resume page + download: ${profile.resumeUrl}` }])
-      navigate('/resume')
-    } else if (input === 'contact') {
-      push([
-        {
-          type: 'output',
-          text: `Email: ${profile.email}\nLinkedIn: ${profile.socials.linkedin}\nGitHub: ${profile.socials.github}`,
-        },
-      ])
-      navigate('/contact')
-    } else if (input === 'whoami') {
-      push([
-        {
-          type: 'output',
-          text: 'rushak — platform engineer. Owns business problems through architecture, delivery, and production.',
-        },
-      ])
-    } else if (input === 'deploy') {
-      push([
-        {
-          type: 'output',
-          text: [
-            'deploy@platform:~$ checking health...',
-            'services: healthy',
-            'migrations: verified',
-            'rollout: progressive',
-            'status: deployed with calm confidence.',
-          ].join('\n'),
-        },
-      ])
-    } else if (input === 'coffee') {
-      push([
-        {
-          type: 'output',
-          text: 'Brewing... productivity +1. Platform ownership remains caffeinated.',
-        },
-      ])
-    } else if (input === 'sudo hire rushak') {
-      push([
-        {
-          type: 'output',
-          text: 'Permission granted.\nRecommendation: schedule a conversation.\nExpected outcome: someone who owns engineering outcomes end-to-end.',
-        },
-      ])
-      navigate('/contact')
-    } else {
-      push([
-        {
-          type: 'output',
-          text: `Command not found: ${raw}\nType \`help\` for available commands.`,
-        },
-      ])
+    if (result.lines.length > 0) {
+      push(result.lines)
     }
 
+    if (result.navigate) {
+      navigate(result.navigate)
+    }
+
+    commandHistory.current = [...commandHistory.current, trimmed]
+    historyIndex.current = null
     setValue('')
+  }
+
+  const onInputKeyDown = (event: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      if (commandHistory.current.length === 0) return
+      const nextIndex =
+        historyIndex.current === null
+          ? commandHistory.current.length - 1
+          : Math.max(0, historyIndex.current - 1)
+      historyIndex.current = nextIndex
+      setValue(commandHistory.current[nextIndex] ?? '')
+      return
+    }
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      if (historyIndex.current === null) return
+      const nextIndex = historyIndex.current + 1
+      if (nextIndex >= commandHistory.current.length) {
+        historyIndex.current = null
+        setValue('')
+        return
+      }
+      historyIndex.current = nextIndex
+      setValue(commandHistory.current[nextIndex] ?? '')
+      return
+    }
+
+    if (event.key === 'Tab') {
+      event.preventDefault()
+      const completed = completeTerminalInput(value)
+      if (completed) setValue(completed)
+    }
   }
 
   if (!open) return null
@@ -186,53 +138,72 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
         role="dialog"
         aria-modal="true"
         aria-label="Command terminal"
-        className="relative z-10 flex max-h-[80vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-border bg-[#070b16] shadow-2xl"
+        className="relative z-10 flex min-h-[min(520px,80vh)] max-h-[80vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-border bg-[#070b16] shadow-2xl"
       >
         <div className="flex items-center justify-between border-b border-border px-4 py-3">
-          <div className="flex items-center gap-2 font-mono text-sm text-soft-cyan">
-            <TerminalSquare className="size-4" />
-            rushak@platform:~
+          <div className="flex min-w-0 flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-3">
+            <div className="flex items-center gap-2 font-mono text-sm text-soft-cyan">
+              <TerminalSquare className="size-4 shrink-0" />
+              <span className="truncate">rushak@platform:~</span>
+            </div>
+            <span className="font-mono text-[11px] text-muted-foreground">
+              v{SITE_VERSION} · Ctrl+K close · ↑↓ history · Tab complete
+            </span>
           </div>
           <Button variant="ghost" size="icon-sm" onClick={onClose} aria-label="Close terminal">
             <X />
           </Button>
         </div>
 
-        <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4 font-mono text-sm">
+        <div
+          ref={scrollRef}
+          className="flex-1 space-y-3 overflow-y-auto px-4 py-4 font-mono text-sm"
+        >
           {history.map((line, index) => (
             <pre
               key={`${line.type}-${index}-${line.text.slice(0, 12)}`}
-              className={cn(
-                'whitespace-pre-wrap text-pretty',
-                line.type === 'input' && 'text-electric-blue',
-                line.type === 'system' && 'text-muted-foreground',
-                line.type === 'output' && 'text-foreground/90',
-              )}
+              className={cn('whitespace-pre-wrap text-pretty', lineStyles[line.type])}
             >
               {line.text}
             </pre>
           ))}
         </div>
 
-        <form
-          className="flex items-center gap-2 border-t border-border px-4 py-3"
-          onSubmit={(event) => {
-            event.preventDefault()
-            run(value)
-          }}
-        >
-          <span className="text-electric-blue">{'>'}</span>
-          <input
-            ref={inputRef}
-            value={value}
-            onChange={(event) => setValue(event.target.value)}
-            className="w-full bg-transparent font-mono text-sm outline-none placeholder:text-muted-foreground"
-            placeholder="Type a command..."
-            aria-label="Terminal command"
-            autoComplete="off"
-            spellCheck={false}
-          />
-        </form>
+        <div className="border-t border-border px-4 py-3">
+          <div className="mb-3 flex flex-wrap gap-2">
+            {terminalQuickCommands.map((command) => (
+              <button
+                key={command}
+                type="button"
+                onClick={() => run(command)}
+                className="rounded-md border border-border/80 bg-secondary/30 px-2.5 py-1 font-mono text-[11px] text-muted-foreground transition-colors hover:border-electric-blue/40 hover:text-foreground"
+              >
+                {command}
+              </button>
+            ))}
+          </div>
+
+          <form
+            className="flex items-center gap-2"
+            onSubmit={(event) => {
+              event.preventDefault()
+              run(value)
+            }}
+          >
+            <span className="text-electric-blue">{'>'}</span>
+            <input
+              ref={inputRef}
+              value={value}
+              onChange={(event) => setValue(event.target.value)}
+              onKeyDown={onInputKeyDown}
+              className="w-full bg-transparent font-mono text-sm outline-none placeholder:text-muted-foreground"
+              placeholder="Try help, resume, certs, open navdrishti…"
+              aria-label="Terminal command"
+              autoComplete="off"
+              spellCheck={false}
+            />
+          </form>
+        </div>
       </div>
     </div>
   )

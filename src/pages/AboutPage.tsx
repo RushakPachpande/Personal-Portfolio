@@ -2,6 +2,7 @@ import { profile } from '@/content/profile'
 import { Seo } from '@/components/layout/Seo'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { cn, responsiveCardGridCompactClassName } from '@/lib/utils'
 
 const sections = [
   { title: 'Who I am', body: profile.about.whoIAm },
@@ -27,10 +28,10 @@ export function AboutPage() {
           />
         </Reveal>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2">
+        <div className={cn('mt-12', responsiveCardGridCompactClassName)}>
           {sections.map((section, index) => (
-            <Reveal key={section.title} delay={index * 0.05}>
-              <Card className="glass h-full border-border/80">
+            <Reveal key={section.title} delay={index * 0.05} className="min-w-0">
+              <Card className="glass h-full min-w-0 border-border/80">
                 <CardHeader>
                   <CardTitle className="font-display text-xl">{section.title}</CardTitle>
                 </CardHeader>

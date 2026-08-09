@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
-import { useMagnetic } from '@/hooks/useMagnetic'
 import { cn } from '@/lib/utils'
 
 type MagneticButtonProps = {
@@ -15,6 +14,20 @@ type MagneticButtonProps = {
   type?: 'button' | 'submit'
 }
 
+const hoverClasses =
+  'relative overflow-hidden transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-10px_color-mix(in_oklch,var(--electric-blue)_45%,transparent)] active:translate-y-0 active:shadow-none motion-reduce:transform-none motion-reduce:transition-none'
+
+const variantHoverClasses: Partial<
+  Record<NonNullable<ComponentPropsWithoutRef<typeof Button>['variant']>, string>
+> = {
+  default:
+    'hover:bg-[color-mix(in_oklch,var(--primary)_92%,white)] hover:shadow-[0_14px_32px_-12px_color-mix(in_oklch,var(--electric-blue)_55%,transparent)]',
+  outline:
+    'hover:border-electric-blue/45 hover:bg-electric-blue/8 hover:text-foreground hover:shadow-[0_10px_24px_-12px_color-mix(in_oklch,var(--electric-blue)_35%,transparent)]',
+  secondary:
+    'hover:border-border hover:shadow-[0_10px_24px_-12px_color-mix(in_oklch,var(--soft-cyan)_30%,transparent)]',
+}
+
 export function MagneticButton({
   children,
   className,
@@ -25,39 +38,29 @@ export function MagneticButton({
   onClick,
   type = 'button',
 }: MagneticButtonProps) {
-  const { ref, handlers } = useMagnetic<HTMLDivElement>(0.22)
-  const classes = cn(
-    'transition-transform duration-200 will-change-transform hover:scale-[1.02]',
-    className,
-  )
-
-  let control: ReactNode
+  const classes = cn(hoverClasses, variantHoverClasses[variant ?? 'default'], className)
 
   if (to) {
-    control = (
+    return (
       <Button variant={variant} size={size} className={classes} asChild>
         <Link to={to}>{children}</Link>
       </Button>
     )
-  } else if (href) {
-    control = (
+  }
+
+  if (href) {
+    return (
       <Button variant={variant} size={size} className={classes} asChild>
         <a href={href} target="_blank" rel="noreferrer">
           {children}
         </a>
       </Button>
     )
-  } else {
-    control = (
-      <Button type={type} variant={variant} size={size} className={classes} onClick={onClick}>
-        {children}
-      </Button>
-    )
   }
 
   return (
-    <div ref={ref} className="inline-flex transition-transform duration-200" {...handlers}>
-      {control}
-    </div>
+    <Button type={type} variant={variant} size={size} className={classes} onClick={onClick}>
+      {children}
+    </Button>
   )
 }

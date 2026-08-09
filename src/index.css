@@ -111,11 +111,11 @@
   }
 
   html {
-    @apply scroll-smooth;
+    @apply scroll-smooth overflow-x-clip;
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply overflow-x-clip bg-background text-foreground font-sans antialiased;
     background-image:
       radial-gradient(ellipse 80% 50% at 20% -10%, rgba(59, 130, 246, 0.18), transparent 55%),
       radial-gradient(ellipse 70% 40% at 90% 10%, rgba(124, 58, 237, 0.14), transparent 50%),

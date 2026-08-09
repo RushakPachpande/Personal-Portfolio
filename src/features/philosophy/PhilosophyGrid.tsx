@@ -1,6 +1,7 @@
 import { philosophyPillars } from '@/content/philosophy'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { cn, responsiveCardGridCompactClassName } from '@/lib/utils'
 
 export function PhilosophyGrid() {
   return (
@@ -13,15 +14,15 @@ export function PhilosophyGrid() {
         />
       </Reveal>
 
-      <div className="mt-12 grid gap-4 md:grid-cols-2">
+      <div className={cn('mt-12', responsiveCardGridCompactClassName)}>
         {philosophyPillars.map((pillar, index) => (
-          <Reveal key={pillar.id} delay={index * 0.04}>
-            <Card className="glass h-full border-border/80 transition-transform duration-300 hover:-translate-y-1">
+          <Reveal key={pillar.id} delay={index * 0.04} className="min-w-0">
+            <Card className="glass h-full min-w-0 border-border/80 transition-transform duration-300 hover:-translate-y-1 motion-reduce:transform-none">
               <CardHeader>
                 <p className="font-mono text-xs tracking-[0.18em] text-soft-cyan uppercase">
                   0{index + 1}
                 </p>
-                <CardTitle className="font-display text-2xl">{pillar.title}</CardTitle>
+                <CardTitle className="font-display text-xl break-words sm:text-2xl">{pillar.title}</CardTitle>
               </CardHeader>
               <CardContent className="flex flex-col gap-3 text-muted-foreground">
                 <p className="text-foreground">{pillar.summary}</p>

@@ -4,6 +4,7 @@ import { technologies, technologyCategories, type TechnologyCategory } from '@/c
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
 import { TechBadge } from '@/components/tech/TechBadge'
 import { Badge } from '@/components/ui/badge'
+import { cn, responsiveCardGridCompactClassName } from '@/lib/utils'
 
 const categoryOrder: TechnologyCategory[] = [
   'frontend',
@@ -36,12 +37,12 @@ export function TechnologyLibraryGrid() {
           return (
             <div key={category}>
               <h2 className="font-display text-2xl font-semibold">{technologyCategories[category]}</h2>
-              <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <div className={cn('mt-4', responsiveCardGridCompactClassName, 'lg:grid-cols-3')}>
                 {items.map((technology, index) => {
                   const slugs = technology.usedInSlugs
                   return (
-                    <Reveal key={technology.id} delay={index * 0.02}>
-                      <article className="glass rounded-2xl border-border/80 p-4">
+                    <Reveal key={technology.id} delay={index * 0.02} className="min-w-0">
+                      <article className="glass min-w-0 rounded-2xl border-border/80 p-4">
                         <div className="flex flex-wrap items-center gap-2">
                           <TechBadge technology={technology} />
                           <Badge variant="outline" className="font-mono text-[10px] uppercase">

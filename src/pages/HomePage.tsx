@@ -7,6 +7,7 @@ import { EngineeringStats } from '@/features/home/EngineeringStats'
 import { CaseStudyCard } from '@/features/case-studies/CaseStudyCard'
 import { MagneticButton } from '@/components/shared/MagneticButton'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
+import { cn, responsiveCardGridClassName } from '@/lib/utils'
 
 export function HomePage() {
   const featured = getFeaturedCaseStudies().slice(0, 4)
@@ -23,7 +24,7 @@ export function HomePage() {
       <EngineeringAreas />
       <EngineeringStats />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <section className="mx-auto max-w-6xl min-w-0 px-4 py-12 sm:px-6">
         <div className="mb-10 h-px w-full bg-linear-to-r from-transparent via-border to-transparent" />
         <Reveal>
           <SectionHeader
@@ -32,7 +33,7 @@ export function HomePage() {
             description="Not project cards—engineering narratives covering context, decisions, challenges, and outcomes."
           />
         </Reveal>
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
+        <div className={cn('mt-12', responsiveCardGridClassName)}>
           {featured.map((study, index) => (
             <CaseStudyCard key={study.slug} study={study} index={index} />
           ))}

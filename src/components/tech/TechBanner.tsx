@@ -13,8 +13,8 @@ export function TechBanner({ technologyIds }: TechBannerProps) {
   if (items.length === 0) return null
 
   return (
-    <div className="w-full overflow-x-auto">
-      <div className="flex min-w-max items-center gap-2 rounded-xl border border-border/70 bg-card/40 p-2">
+    <div className="w-full min-w-0">
+      <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border/70 bg-card/40 p-2">
         {items.map((technology) =>
           technology ? <TechBadge key={technology.id} technology={technology} compact /> : null,
         )}

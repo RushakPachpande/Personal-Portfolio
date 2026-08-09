@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Cloud, Cpu, Workflow } from 'lucide-react'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { cn, responsiveCardGridThreeClassName } from '@/lib/utils'
 
 const areas = [
   {
@@ -29,7 +30,7 @@ const areas = [
 
 export function EngineeringAreas() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <section className="mx-auto max-w-6xl min-w-0 px-4 py-16 sm:px-6">
       <Reveal>
         <SectionHeader
           eyebrow="Engineering Areas"
@@ -38,11 +39,11 @@ export function EngineeringAreas() {
         />
       </Reveal>
 
-      <div className="mt-12 grid gap-4 md:grid-cols-3">
+      <div className={cn('mt-12', responsiveCardGridThreeClassName)}>
         {areas.map((area, index) => (
-          <Reveal key={area.to} delay={index * 0.05}>
-            <Link to={area.to} className="group block h-full">
-              <Card className="glass h-full border-border/80 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40">
+          <Reveal key={area.to} delay={index * 0.05} className="min-w-0">
+            <Link to={area.to} className="group block h-full min-w-0">
+              <Card className="glass h-full min-w-0 border-border/80 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 motion-reduce:transform-none">
                 <CardHeader>
                   <area.icon className="mb-2 size-5 text-soft-cyan" />
                   <CardTitle className="flex items-center justify-between gap-2 font-display text-xl">
