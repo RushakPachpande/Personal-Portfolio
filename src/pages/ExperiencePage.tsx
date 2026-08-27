@@ -1,5 +1,5 @@
-import { Seo } from '@/components/layout/Seo'
-import { ExperienceTimeline } from '@/features/timeline/ExperienceTimeline'
+import { Seo } from '@/components/layout/Seo';
+import { ExperienceTimeline } from '@/features/timeline/ExperienceTimeline';
 
 export function ExperiencePage() {
   return (
@@ -13,5 +13,5 @@ export function ExperiencePage() {
         <ExperienceTimeline />
       </div>
     </>
-  )
+  );
 }

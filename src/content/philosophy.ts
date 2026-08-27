@@ -1,9 +1,9 @@
 export type PhilosophyPillar = {
-  id: string
-  title: string
-  summary: string
-  detail: string
-}
+  id: string;
+  title: string;
+  summary: string;
+  detail: string;
+};
 
 export const philosophyPillars: PhilosophyPillar[] = [
   {
@@ -62,4 +62,4 @@ export const philosophyPillars: PhilosophyPillar[] = [
     detail:
       'Choose approaches that reduce risk, cost, and friction for the organization. Tools are means, not trophies.',
   },
-]
+];

@@ -1,15 +1,15 @@
-import { AspectRatio } from '@/components/ui/aspect-ratio'
-import { cn } from '@/lib/utils'
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { cn } from '@/lib/utils';
 
-type LogoFrameVariant = 'header' | 'gallery' | 'lightbox'
+type LogoFrameVariant = 'header' | 'gallery' | 'lightbox';
 
 type LogoFrameProps = {
-  src: string
-  alt: string
-  variant: LogoFrameVariant
-  className?: string
-  loading?: 'lazy' | 'eager'
-}
+  src: string;
+  alt: string;
+  variant: LogoFrameVariant;
+  className?: string;
+  loading?: 'lazy' | 'eager';
+};
 
 const variantStyles: Record<
   LogoFrameVariant,
@@ -27,30 +27,37 @@ const variantStyles: Record<
     ratio: 16 / 9,
   },
   lightbox: {
-    container: 'flex max-h-[75vh] items-center justify-center bg-surface/70 p-4 sm:p-6',
+    container:
+      'flex max-h-[75vh] items-center justify-center bg-surface/70 p-4 sm:p-6',
     image: 'max-h-[70vh] max-w-full object-contain',
   },
-}
+};
 
-export function LogoFrame({ src, alt, variant, className, loading }: LogoFrameProps) {
-  const styles = variantStyles[variant]
+export function LogoFrame({
+  src,
+  alt,
+  variant,
+  className,
+  loading,
+}: LogoFrameProps) {
+  const styles = variantStyles[variant];
 
   const image = (
-    <img
-      src={src}
-      alt={alt}
-      className={styles.image}
-      loading={loading}
-    />
-  )
+    <img src={src} alt={alt} className={styles.image} loading={loading} />
+  );
 
   if (styles.useAspectRatio && styles.ratio) {
     return (
-      <AspectRatio ratio={styles.ratio} className={cn(styles.container, className)}>
-        <div className="flex size-full items-center justify-center p-3 sm:p-4">{image}</div>
+      <AspectRatio
+        ratio={styles.ratio}
+        className={cn(styles.container, className)}
+      >
+        <div className="flex size-full items-center justify-center p-3 sm:p-4">
+          {image}
+        </div>
       </AspectRatio>
-    )
+    );
   }
 
-  return <div className={cn(styles.container, className)}>{image}</div>
+  return <div className={cn(styles.container, className)}>{image}</div>;
 }

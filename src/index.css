@@ -1,22 +1,24 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "@fontsource-variable/space-grotesk";
-@import "@fontsource-variable/inter";
-@import "@fontsource/jetbrains-mono/400.css";
-@import "@fontsource/jetbrains-mono/500.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource-variable/inter';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
 
 @font-face {
-  font-family: "JetBrainsMono Nerd Font";
-  src: url("./assets/fonts/jetbrains-mono-nerd/JetBrainsMonoNerdFont-Regular.ttf") format("truetype");
+  font-family: 'JetBrainsMono Nerd Font';
+  src: url('./assets/fonts/jetbrains-mono-nerd/JetBrainsMonoNerdFont-Regular.ttf')
+    format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "JetBrainsMono Nerd Font";
-  src: url("./assets/fonts/jetbrains-mono-nerd/JetBrainsMonoNerdFont-Medium.ttf") format("truetype");
+  font-family: 'JetBrainsMono Nerd Font';
+  src: url('./assets/fonts/jetbrains-mono-nerd/JetBrainsMonoNerdFont-Medium.ttf')
+    format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -64,10 +66,30 @@
   --sidebar-ring: #3b82f6;
   --scrollbar-size: 10px;
   --scrollbar-track: rgba(11, 18, 36, 0.85);
-  --scrollbar-thumb: linear-gradient(180deg, #3b82f6 0%, #7c3aed 55%, #22d3ee 100%);
-  --scrollbar-thumb-hover: linear-gradient(180deg, #60a5fa 0%, #8b5cf6 55%, #67e8f9 100%);
-  --scrollbar-thumb-horizontal: linear-gradient(90deg, #3b82f6 0%, #7c3aed 55%, #22d3ee 100%);
-  --scrollbar-thumb-horizontal-hover: linear-gradient(90deg, #60a5fa 0%, #8b5cf6 55%, #67e8f9 100%);
+  --scrollbar-thumb: linear-gradient(
+    180deg,
+    #3b82f6 0%,
+    #7c3aed 55%,
+    #22d3ee 100%
+  );
+  --scrollbar-thumb-hover: linear-gradient(
+    180deg,
+    #60a5fa 0%,
+    #8b5cf6 55%,
+    #67e8f9 100%
+  );
+  --scrollbar-thumb-horizontal: linear-gradient(
+    90deg,
+    #3b82f6 0%,
+    #7c3aed 55%,
+    #22d3ee 100%
+  );
+  --scrollbar-thumb-horizontal-hover: linear-gradient(
+    90deg,
+    #60a5fa 0%,
+    #8b5cf6 55%,
+    #67e8f9 100%
+  );
   --scrollbar-corner: #0b1224;
 }
 
@@ -99,9 +121,12 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrainsMono Nerd Font", "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    'Space Grotesk Variable', 'Space Grotesk', ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono:
+    'JetBrainsMono Nerd Font', 'JetBrains Mono', ui-monospace, monospace;
   --font-heading: var(--font-display);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -133,9 +158,21 @@
   body {
     @apply overflow-x-clip bg-background text-foreground font-sans antialiased;
     background-image:
-      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(59, 130, 246, 0.18), transparent 55%),
-      radial-gradient(ellipse 70% 40% at 90% 10%, rgba(124, 58, 237, 0.14), transparent 50%),
-      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(34, 211, 238, 0.08), transparent 55%);
+      radial-gradient(
+        ellipse 80% 50% at 20% -10%,
+        rgba(59, 130, 246, 0.18),
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 70% 40% at 90% 10%,
+        rgba(124, 58, 237, 0.14),
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 50% 100%,
+        rgba(34, 211, 238, 0.08),
+        transparent 55%
+      );
     background-attachment: fixed;
     min-height: 100vh;
   }

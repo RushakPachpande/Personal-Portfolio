@@ -1,5 +1,5 @@
-import { Seo } from '@/components/layout/Seo'
-import { ResumePreview } from '@/features/resume/ResumePreview'
+import { Seo } from '@/components/layout/Seo';
+import { ResumePreview } from '@/features/resume/ResumePreview';
 
 export function ResumePage() {
   return (
@@ -13,5 +13,5 @@ export function ResumePage() {
         <ResumePreview />
       </section>
     </>
-  )
+  );
 }

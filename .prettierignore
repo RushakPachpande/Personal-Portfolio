@@ -1,0 +1,44 @@
+# Dependencies & build output
+node_modules/
+dist/
+dist-ssr/
+build/
+coverage/
+
+# Lockfiles (machine-generated)
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# IDE folders
+.agents/
+.cursor/
+
+# Supabase local
+supabase/.temp/
+supabase/.branches/
+
+# Binary & font assets
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.ico
+*.woff
+*.woff2
+*.ttf
+*.eot
+
+# Vendored / generated
+.agents/
+references/
+skills-lock.json
+.cursor/
+
+# LaTeX
+*.tex
+
+# Environment files
+.env
+.env.*

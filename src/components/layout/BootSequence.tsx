@@ -1,5 +1,5 @@
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const STEPS = [
   'Initializing Platform...',
@@ -7,45 +7,45 @@ const STEPS = [
   'Loading Projects...',
   'Connecting Services...',
   'System Ready.',
-] as const
+] as const;
 
-const STORAGE_KEY = 'boot-complete'
+const STORAGE_KEY = 'boot-complete';
 
 type BootSequenceProps = {
-  onComplete: () => void
-}
+  onComplete: () => void;
+};
 
 export function BootSequence({ onComplete }: BootSequenceProps) {
-  const reduced = useReducedMotion()
-  const [step, setStep] = useState(0)
-  const [visible, setVisible] = useState(true)
+  const reduced = useReducedMotion();
+  const [step, setStep] = useState(0);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     if (sessionStorage.getItem(STORAGE_KEY) === '1' || reduced) {
-      sessionStorage.setItem(STORAGE_KEY, '1')
-      onComplete()
-      return
+      sessionStorage.setItem(STORAGE_KEY, '1');
+      onComplete();
+      return;
     }
 
-    let index = 0
+    let index = 0;
     const interval = window.setInterval(() => {
-      index += 1
+      index += 1;
       if (index >= STEPS.length) {
-        window.clearInterval(interval)
+        window.clearInterval(interval);
         window.setTimeout(() => {
-          setVisible(false)
-          sessionStorage.setItem(STORAGE_KEY, '1')
-          window.setTimeout(onComplete, 350)
-        }, 450)
-        return
+          setVisible(false);
+          sessionStorage.setItem(STORAGE_KEY, '1');
+          window.setTimeout(onComplete, 350);
+        }, 450);
+        return;
       }
-      setStep(index)
-    }, 520)
+      setStep(index);
+    }, 520);
 
-    return () => window.clearInterval(interval)
-  }, [onComplete, reduced])
+    return () => window.clearInterval(interval);
+  }, [onComplete, reduced]);
 
-  if (!visible) return null
+  if (!visible) return null;
 
   return (
     <AnimatePresence>
@@ -83,5 +83,5 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
         </div>
       </motion.div>
     </AnimatePresence>
-  )
+  );
 }

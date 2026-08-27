@@ -1,17 +1,17 @@
-import { getFeaturedCaseStudies } from '@/lib/portfolio'
-import { usePortfolio } from '@/hooks/usePortfolio'
-import { Seo } from '@/components/layout/Seo'
-import { HeroSection } from '@/features/hero/HeroSection'
-import { HomeAbout, ExperienceSnapshot } from '@/features/home/HomeSections'
-import { EngineeringAreas } from '@/features/home/EngineeringAreas'
-import { EngineeringStats } from '@/features/home/EngineeringStats'
-import { CaseStudyCard } from '@/features/case-studies/CaseStudyCard'
-import { MagneticButton } from '@/components/shared/MagneticButton'
-import { Reveal, SectionHeader } from '@/components/shared/Reveal'
+import { getFeaturedCaseStudies } from '@/lib/portfolio';
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { Seo } from '@/components/layout/Seo';
+import { HeroSection } from '@/features/hero/HeroSection';
+import { HomeAbout, ExperienceSnapshot } from '@/features/home/HomeSections';
+import { EngineeringAreas } from '@/features/home/EngineeringAreas';
+import { EngineeringStats } from '@/features/home/EngineeringStats';
+import { CaseStudyCard } from '@/features/case-studies/CaseStudyCard';
+import { MagneticButton } from '@/components/shared/MagneticButton';
+import { Reveal, SectionHeader } from '@/components/shared/Reveal';
 
 export function HomePage() {
-  const { caseStudies } = usePortfolio()
-  const featured = getFeaturedCaseStudies(caseStudies).slice(0, 4)
+  const { caseStudies } = usePortfolio();
+  const featured = getFeaturedCaseStudies(caseStudies).slice(0, 4);
 
   return (
     <>
@@ -51,7 +51,8 @@ export function HomePage() {
                 Need someone who owns engineering outcomes?
               </h2>
               <p className="mt-2 max-w-xl text-muted-foreground">
-                From problem framing and architecture to production operations—let’s talk.
+                From problem framing and architecture to production
+                operations—let’s talk.
               </p>
             </div>
             <MagneticButton to="/contact">Get in touch</MagneticButton>
@@ -59,5 +60,5 @@ export function HomePage() {
         </section>
       </Reveal>
     </>
-  )
+  );
 }

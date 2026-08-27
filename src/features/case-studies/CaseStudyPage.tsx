@@ -1,26 +1,26 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowLeft, Download } from 'lucide-react'
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, Download } from 'lucide-react';
 import {
   categoryLabels,
   categoryPaths,
   getRelatedCaseStudies,
   getTechnologyById,
-} from '@/lib/portfolio'
-import type { CaseStudy } from '@/types/portfolio'
-import { usePortfolio } from '@/hooks/usePortfolio'
-import { Seo } from '@/components/layout/Seo'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { SurfaceCard } from '@/components/cards/SurfaceCard'
-import type { CardGradientKey } from '@/lib/cardGradients'
-import { Reveal } from '@/components/shared/Reveal'
-import { RelatedCaseStudies } from './CaseStudyGrid'
-import { TechBanner } from '@/components/tech/TechBanner'
-import { ArchitectureFlow } from './ArchitectureFlow'
-import { LogoFrame } from '@/components/media/LogoFrame'
-import { MediaCarousel } from '@/components/media/MediaCarousel'
-import { cn } from '@/lib/utils'
+} from '@/lib/portfolio';
+import type { CaseStudy } from '@/types/portfolio';
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { Seo } from '@/components/layout/Seo';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { SurfaceCard } from '@/components/cards/SurfaceCard';
+import type { CardGradientKey } from '@/lib/cardGradients';
+import { Reveal } from '@/components/shared/Reveal';
+import { RelatedCaseStudies } from './CaseStudyGrid';
+import { TechBanner } from '@/components/tech/TechBanner';
+import { ArchitectureFlow } from './ArchitectureFlow';
+import { LogoFrame } from '@/components/media/LogoFrame';
+import { MediaCarousel } from '@/components/media/MediaCarousel';
+import { cn } from '@/lib/utils';
 
 const TOC = [
   { id: 'business-context', label: 'Business Context' },
@@ -36,47 +36,51 @@ const TOC = [
   { id: 'cross-references', label: 'Cross References' },
   { id: 'outcome', label: 'Outcome' },
   { id: 'learnings', label: 'Key Learnings' },
-] as const
+] as const;
 
 type CaseStudyPageProps = {
-  study: CaseStudy
-}
+  study: CaseStudy;
+};
 
 const categoryGradients: Record<CaseStudy['category'], CardGradientKey> = {
   platform: 'platform',
   infrastructure: 'infrastructure',
   automation: 'automation',
-}
+};
 
 export function CaseStudyPage({ study }: CaseStudyPageProps) {
-  const { profile, caseStudies, technologies } = usePortfolio()
-  const [activeId, setActiveId] = useState<string>(TOC[0].id)
-  const related = getRelatedCaseStudies(caseStudies, study).slice(0, 4)
-  const backPath = categoryPaths[study.category]
+  const { profile, caseStudies, technologies } = usePortfolio();
+  const [activeId, setActiveId] = useState<string>(TOC[0].id);
+  const related = getRelatedCaseStudies(caseStudies, study).slice(0, 4);
+  const backPath = categoryPaths[study.category];
 
   useEffect(() => {
     const nodes = TOC.map((item) => document.getElementById(item.id)).filter(
-      (node): node is HTMLElement => Boolean(node),
-    )
-    if (nodes.length === 0) return
+      (node): node is HTMLElement => Boolean(node)
+    );
+    if (nodes.length === 0) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        if (visible[0]?.target.id) setActiveId(visible[0].target.id)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target.id) setActiveId(visible[0].target.id);
       },
-      { rootMargin: '-20% 0px -55% 0px', threshold: [0.1, 0.25, 0.5] },
-    )
+      { rootMargin: '-20% 0px -55% 0px', threshold: [0.1, 0.25, 0.5] }
+    );
 
-    nodes.forEach((node) => observer.observe(node))
-    return () => observer.disconnect()
-  }, [study.slug])
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, [study.slug]);
 
   return (
     <>
-      <Seo title={study.name} description={study.summary} path={`${backPath}/${study.slug}`} />
+      <Seo
+        title={study.name}
+        description={study.summary}
+        path={`${backPath}/${study.slug}`}
+      />
       <article className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
         <Button asChild variant="ghost" className="mb-8">
           <Link to={backPath}>
@@ -103,15 +107,23 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                 <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
                   {study.name}
                 </h1>
-                <p className="mt-3 max-w-3xl text-lg text-muted-foreground">{study.summary}</p>
+                <p className="mt-3 max-w-3xl text-lg text-muted-foreground">
+                  {study.summary}
+                </p>
                 <div className="mt-5 space-y-2">
                   <TechBanner technologyIds={study.technologyIds ?? []} />
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="font-mono text-xs uppercase">
+                    <Badge
+                      variant="outline"
+                      className="font-mono text-xs uppercase"
+                    >
                       {study.difficulty ?? 'Advanced'}
                     </Badge>
                     {study.timeline ? (
-                      <Badge variant="outline" className="font-mono text-xs uppercase">
+                      <Badge
+                        variant="outline"
+                        className="font-mono text-xs uppercase"
+                      >
                         {study.timeline}
                       </Badge>
                     ) : null}
@@ -123,10 +135,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
         </Reveal>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)]">
-          <nav
-            aria-label="Case study sections"
-            className="hidden lg:block"
-          >
+          <nav aria-label="Case study sections" className="hidden lg:block">
             <div className="sticky top-24 space-y-1">
               <p className="mb-3 font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase sm:text-sm">
                 On this page
@@ -139,7 +148,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                     'block rounded-md px-3 py-2 text-sm transition-colors',
                     activeId === item.id
                       ? 'bg-secondary text-foreground'
-                      : 'text-muted-foreground hover:text-foreground',
+                      : 'text-muted-foreground hover:text-foreground'
                   )}
                 >
                   {item.label}
@@ -149,19 +158,39 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
           </nav>
 
           <div className="flex flex-col gap-6">
-            <Section id="business-context" title="Business Context" gradient={categoryGradients[study.category]}>
+            <Section
+              id="business-context"
+              title="Business Context"
+              gradient={categoryGradients[study.category]}
+            >
               {study.businessContext}
             </Section>
-            <Section id="problem" title="Problem Statement" gradient={categoryGradients[study.category]}>
+            <Section
+              id="problem"
+              title="Problem Statement"
+              gradient={categoryGradients[study.category]}
+            >
               {study.problem}
             </Section>
-            <Section id="objective" title="Objective" gradient={categoryGradients[study.category]}>
+            <Section
+              id="objective"
+              title="Objective"
+              gradient={categoryGradients[study.category]}
+            >
               {study.objective}
             </Section>
-            <Section id="solution" title="Solution Overview" gradient={categoryGradients[study.category]}>
+            <Section
+              id="solution"
+              title="Solution Overview"
+              gradient={categoryGradients[study.category]}
+            >
               {study.solution}
             </Section>
-            <Section id="architecture" title="Architecture" gradient={categoryGradients[study.category]}>
+            <Section
+              id="architecture"
+              title="Architecture"
+              gradient={categoryGradients[study.category]}
+            >
               {study.architecture}
             </Section>
             <Reveal>
@@ -172,7 +201,10 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="responsibilities" className="scroll-mt-28">
-                <SurfaceCard title="My Responsibilities" gradient={categoryGradients[study.category]}>
+                <SurfaceCard
+                  title="My Responsibilities"
+                  gradient={categoryGradients[study.category]}
+                >
                   <ul className="flex flex-wrap gap-2">
                     {study.responsibilities.map((item) => (
                       <li
@@ -189,11 +221,19 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="decisions" className="scroll-mt-28">
-                <SurfaceCard title="Engineering Decisions" gradient={categoryGradients[study.category]}>
+                <SurfaceCard
+                  title="Engineering Decisions"
+                  gradient={categoryGradients[study.category]}
+                >
                   <div className="flex flex-col gap-4">
                     {study.decisions.map((item) => (
-                      <div key={item.decision} className="rounded-xl border border-border/80 p-4">
-                        <p className="font-medium text-foreground">{item.decision}</p>
+                      <div
+                        key={item.decision}
+                        className="rounded-xl border border-border/80 p-4"
+                      >
+                        <p className="font-medium text-foreground">
+                          {item.decision}
+                        </p>
                         <p className="mt-2 text-sm text-muted-foreground text-pretty">
                           {item.rationale}
                         </p>
@@ -206,11 +246,19 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="challenges" className="scroll-mt-28">
-                <SurfaceCard title="Challenges" gradient={categoryGradients[study.category]}>
+                <SurfaceCard
+                  title="Challenges"
+                  gradient={categoryGradients[study.category]}
+                >
                   <div className="flex flex-col gap-4">
                     {study.challenges.map((item) => (
-                      <div key={item.challenge} className="rounded-xl border border-border/80 p-4">
-                        <p className="font-medium text-foreground">{item.challenge}</p>
+                      <div
+                        key={item.challenge}
+                        className="rounded-xl border border-border/80 p-4"
+                      >
+                        <p className="font-medium text-foreground">
+                          {item.challenge}
+                        </p>
                         <p className="mt-2 text-sm text-muted-foreground text-pretty">
                           <span className="text-soft-cyan">Resolution: </span>
                           {item.resolution}
@@ -224,7 +272,10 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="stack" className="scroll-mt-28">
-                <SurfaceCard title="Technology Stack" gradient={categoryGradients[study.category]}>
+                <SurfaceCard
+                  title="Technology Stack"
+                  gradient={categoryGradients[study.category]}
+                >
                   <div className="grid gap-4 sm:grid-cols-2">
                     {study.stack.map((group) => (
                       <div key={group.group}>
@@ -250,12 +301,16 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="gallery" className="scroll-mt-28">
-                <SurfaceCard title="Engineering Gallery" gradient={categoryGradients[study.category]}>
+                <SurfaceCard
+                  title="Engineering Gallery"
+                  gradient={categoryGradients[study.category]}
+                >
                   {study.gallery && study.gallery.length > 0 ? (
                     <MediaCarousel items={study.gallery} />
                   ) : (
                     <p className="text-sm text-muted-foreground">
-                      Gallery assets will appear here as screenshots, diagrams, and workflow visuals are added.
+                      Gallery assets will appear here as screenshots, diagrams,
+                      and workflow visuals are added.
                     </p>
                   )}
                 </SurfaceCard>
@@ -264,11 +319,17 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="cross-references" className="scroll-mt-28">
-                <SurfaceCard title="Used Technologies" gradient={categoryGradients[study.category]}>
+                <SurfaceCard
+                  title="Used Technologies"
+                  gradient={categoryGradients[study.category]}
+                >
                   <div className="flex flex-wrap gap-2">
                     {(study.technologyIds ?? []).map((technologyId) => {
-                      const technology = getTechnologyById(technologies, technologyId)
-                      if (!technology) return null
+                      const technology = getTechnologyById(
+                        technologies,
+                        technologyId
+                      );
+                      if (!technology) return null;
                       return (
                         <span
                           key={technology.id}
@@ -281,20 +342,27 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                           />
                           {technology.name}
                         </span>
-                      )
+                      );
                     })}
                   </div>
                 </SurfaceCard>
               </section>
             </Reveal>
 
-            <Section id="outcome" title="Outcome" gradient={categoryGradients[study.category]}>
+            <Section
+              id="outcome"
+              title="Outcome"
+              gradient={categoryGradients[study.category]}
+            >
               {study.outcome}
             </Section>
 
             <Reveal>
               <section id="learnings" className="scroll-mt-28">
-                <SurfaceCard title="Key Learnings" gradient={categoryGradients[study.category]}>
+                <SurfaceCard
+                  title="Key Learnings"
+                  gradient={categoryGradients[study.category]}
+                >
                   <ul className="flex flex-col gap-2 text-muted-foreground">
                     {study.learnings.map((item) => (
                       <li key={item} className="flex gap-2">
@@ -324,7 +392,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
         </div>
       </article>
     </>
-  )
+  );
 }
 
 function Section({
@@ -333,10 +401,10 @@ function Section({
   children,
   gradient = 'default',
 }: {
-  id: string
-  title: string
-  children: string
-  gradient?: CardGradientKey
+  id: string;
+  title: string;
+  children: string;
+  gradient?: CardGradientKey;
 }) {
   return (
     <Reveal>
@@ -346,5 +414,5 @@ function Section({
         </SurfaceCard>
       </section>
     </Reveal>
-  )
+  );
 }

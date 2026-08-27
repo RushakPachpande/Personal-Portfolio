@@ -1,14 +1,15 @@
-import navdrishtiLogo from '@/assets/logos/navdrishti.png'
-import brainpulsesLogo from '@/assets/logos/brainpulses.png'
-import n8nLogo from '@/assets/logos/n8n.webp'
-import type { CaseStudy } from './types'
+import navdrishtiLogo from '@/assets/logos/navdrishti.png';
+import brainpulsesLogo from '@/assets/logos/brainpulses.png';
+import n8nLogo from '@/assets/logos/n8n.webp';
+import type { CaseStudy } from './types';
 
 export const platformCaseStudies: CaseStudy[] = [
   {
     slug: 'navdrishti',
     category: 'platform',
     name: 'Navdrishti',
-    summary: 'Role-based student placement management platform owned end-to-end.',
+    summary:
+      'Role-based student placement management platform owned end-to-end.',
     status: 'Final development, validation, and rollout',
     featured: true,
     difficulty: 'Complex',
@@ -17,7 +18,15 @@ export const platformCaseStudies: CaseStudy[] = [
     logoAlt: 'Navdrishti logo',
     coverImage: navdrishtiLogo,
     coverImageAlt: 'Navdrishti platform branding',
-    technologyIds: ['react', 'typescript', 'supabase', 'postgresql', 'docker', 'github-actions', 'azure'],
+    technologyIds: [
+      'react',
+      'typescript',
+      'supabase',
+      'postgresql',
+      'docker',
+      'github-actions',
+      'azure',
+    ],
     technologies: [
       'React',
       'TypeScript',
@@ -29,8 +38,14 @@ export const platformCaseStudies: CaseStudy[] = [
     ],
     stack: [
       { group: 'Frontend', items: ['React', 'TypeScript'] },
-      { group: 'Backend & Data', items: ['Supabase', 'PostgreSQL', 'RBAC', 'RLS'] },
-      { group: 'Infrastructure', items: ['Docker', 'Azure', 'Multi-environment deploy'] },
+      {
+        group: 'Backend & Data',
+        items: ['Supabase', 'PostgreSQL', 'RBAC', 'RLS'],
+      },
+      {
+        group: 'Infrastructure',
+        items: ['Docker', 'Azure', 'Multi-environment deploy'],
+      },
       { group: 'Delivery', items: ['GitHub Actions', 'CI/CD'] },
     ],
     businessContext:
@@ -98,12 +113,14 @@ export const platformCaseStudies: CaseStudy[] = [
     ],
     challenges: [
       {
-        challenge: 'Balancing delivery speed with production hardening during final validation and rollout.',
+        challenge:
+          'Balancing delivery speed with production hardening during final validation and rollout.',
         resolution:
           'Prioritized RBAC/RLS, audit logging, and environment separation early so feature work landed on a foundation that could be operated safely.',
       },
       {
-        challenge: 'Keeping development, staging, and production coherent as the platform matured.',
+        challenge:
+          'Keeping development, staging, and production coherent as the platform matured.',
         resolution:
           'Established CI/CD and deployment workflows that treat environments as first-class parts of the product, not afterthoughts.',
       },
@@ -118,22 +135,30 @@ export const platformCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: navdrishtiLogo,
-        caption: 'Navdrishti platform branding used across production environments.',
+        caption:
+          'Navdrishti platform branding used across production environments.',
         type: 'screenshot',
       },
       {
         src: n8nLogo,
-        caption: 'Related delivery and ops tooling used alongside platform ownership practices.',
+        caption:
+          'Related delivery and ops tooling used alongside platform ownership practices.',
         type: 'deployment',
       },
     ],
-    relatedSlugs: ['brainpulses', 'self-hosted-supabase', 'azure-infrastructure', 'docker-deployment'],
+    relatedSlugs: [
+      'brainpulses',
+      'self-hosted-supabase',
+      'azure-infrastructure',
+      'docker-deployment',
+    ],
   },
   {
     slug: 'brainpulses',
     category: 'platform',
     name: 'BrainPulses',
-    summary: 'Production quiz platform maintained through live events and evolution toward 2.0.',
+    summary:
+      'Production quiz platform maintained through live events and evolution toward 2.0.',
     status: 'Production',
     featured: true,
     difficulty: 'Advanced',
@@ -208,12 +233,14 @@ export const platformCaseStudies: CaseStudy[] = [
     ],
     challenges: [
       {
-        challenge: 'Supporting large-scale live quiz events while continuing feature and UI work.',
+        challenge:
+          'Supporting large-scale live quiz events while continuing feature and UI work.',
         resolution:
           'Treated production reliability as the primary constraint—fixes and customizations were validated against real event pressure.',
       },
       {
-        challenge: 'Improving maintainability without disrupting an active production platform.',
+        challenge:
+          'Improving maintainability without disrupting an active production platform.',
         resolution:
           'Separated near-term production care from BrainPulses 2.0 architecture planning so evolution could proceed without reckless rewrites.',
       },
@@ -228,15 +255,17 @@ export const platformCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: brainpulsesLogo,
-        caption: 'BrainPulses production platform identity from live event deployments.',
+        caption:
+          'BrainPulses production platform identity from live event deployments.',
         type: 'screenshot',
       },
       {
         src: n8nLogo,
-        caption: 'n8n operational automation supporting live quiz platform operations.',
+        caption:
+          'n8n operational automation supporting live quiz platform operations.',
         type: 'workflow',
       },
     ],
     relatedSlugs: ['navdrishti', 'self-hosted-n8n', 'azure-infrastructure'],
   },
-]
+];

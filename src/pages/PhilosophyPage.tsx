@@ -1,5 +1,5 @@
-import { Seo } from '@/components/layout/Seo'
-import { PhilosophyGrid } from '@/features/philosophy/PhilosophyGrid'
+import { Seo } from '@/components/layout/Seo';
+import { PhilosophyGrid } from '@/features/philosophy/PhilosophyGrid';
 
 export function PhilosophyPage() {
   return (
@@ -13,5 +13,5 @@ export function PhilosophyPage() {
         <PhilosophyGrid />
       </div>
     </>
-  )
+  );
 }

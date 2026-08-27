@@ -1,39 +1,41 @@
-import { useState, type FormEvent } from 'react'
-import { Download, ExternalLink, Mail, Send } from 'lucide-react'
-import { usePortfolio } from '@/hooks/usePortfolio'
-import { submitContact } from '@/services/portfolio'
-import { OverlayCard } from '@/components/cards/OverlayCard'
-import { SurfaceCard } from '@/components/cards/SurfaceCard'
-import { MagneticButton } from '@/components/shared/MagneticButton'
-import { Reveal, SectionHeader } from '@/components/shared/Reveal'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+import { useState, type FormEvent } from 'react';
+import { Download, ExternalLink, Mail, Send } from 'lucide-react';
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { submitContact } from '@/services/portfolio';
+import { OverlayCard } from '@/components/cards/OverlayCard';
+import { SurfaceCard } from '@/components/cards/SurfaceCard';
+import { MagneticButton } from '@/components/shared/MagneticButton';
+import { Reveal, SectionHeader } from '@/components/shared/Reveal';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 export function ContactPanel() {
-  const { profile } = usePortfolio()
-  const [status, setStatus] = useState<'idle' | 'sent' | 'error'>('idle')
-  const [errorMessage, setErrorMessage] = useState('')
+  const { profile } = usePortfolio();
+  const [status, setStatus] = useState<'idle' | 'sent' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const form = event.currentTarget
-    const formData = new FormData(form)
-    const name = String(formData.get('name') ?? '')
-    const email = String(formData.get('email') ?? '')
-    const message = String(formData.get('message') ?? '')
-    setStatus('idle')
-    setErrorMessage('')
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const name = String(formData.get('name') ?? '');
+    const email = String(formData.get('email') ?? '');
+    const message = String(formData.get('message') ?? '');
+    setStatus('idle');
+    setErrorMessage('');
     try {
-      await submitContact({ name, email, message })
-      setStatus('sent')
-      form.reset()
+      await submitContact({ name, email, message });
+      setStatus('sent');
+      form.reset();
     } catch (error) {
-      setStatus('error')
-      setErrorMessage(error instanceof Error ? error.message : 'Unable to send message.')
+      setStatus('error');
+      setErrorMessage(
+        error instanceof Error ? error.message : 'Unable to send message.'
+      );
     }
-  }
+  };
 
   return (
     <section className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
@@ -51,7 +53,12 @@ export function ContactPanel() {
             gradient="contact"
             eyebrow="Contact"
             title="Channels"
-            hero={<Mail className="size-14 text-soft-cyan/90 sm:size-16" strokeWidth={1.25} />}
+            hero={
+              <Mail
+                className="size-14 text-soft-cyan/90 sm:size-16"
+                strokeWidth={1.25}
+              />
+            }
             body={
               <div className="flex flex-col gap-4 text-sm">
                 <a
@@ -80,7 +87,11 @@ export function ContactPanel() {
                   github.com/RushakPachpande
                 </a>
                 <div className="pt-2">
-                  <MagneticButton href={profile.resumeUrl} variant="outline" size="default">
+                  <MagneticButton
+                    href={profile.resumeUrl}
+                    variant="outline"
+                    size="default"
+                  >
                     Download Resume
                     <Download data-icon="inline-end" />
                   </MagneticButton>
@@ -100,7 +111,13 @@ export function ContactPanel() {
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" name="email" type="email" required placeholder="you@company.com" />
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="you@company.com"
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="message">Message</Label>
@@ -117,15 +134,19 @@ export function ContactPanel() {
                 <Send data-icon="inline-end" />
               </Button>
               {status === 'sent' ? (
-                <p className="font-mono text-xs text-soft-cyan">Message received. I’ll get back to you soon.</p>
+                <p className="font-mono text-xs text-soft-cyan">
+                  Message received. I’ll get back to you soon.
+                </p>
               ) : null}
               {status === 'error' ? (
-                <p className="font-mono text-xs text-destructive">{errorMessage}</p>
+                <p className="font-mono text-xs text-destructive">
+                  {errorMessage}
+                </p>
               ) : null}
             </form>
           </SurfaceCard>
         </Reveal>
       </div>
     </section>
-  )
+  );
 }

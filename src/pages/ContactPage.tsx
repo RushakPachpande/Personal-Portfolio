@@ -1,5 +1,5 @@
-import { Seo } from '@/components/layout/Seo'
-import { ContactPanel } from '@/features/contact/ContactPanel'
+import { Seo } from '@/components/layout/Seo';
+import { ContactPanel } from '@/features/contact/ContactPanel';
 
 export function ContactPage() {
   return (
@@ -13,5 +13,5 @@ export function ContactPage() {
         <ContactPanel />
       </div>
     </>
-  )
+  );
 }

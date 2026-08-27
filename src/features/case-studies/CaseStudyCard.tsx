@@ -2,41 +2,51 @@ import {
   categoryLabels,
   getCaseStudyPath,
   getTechnologyById,
-} from '@/lib/portfolio'
-import type { CaseStudy } from '@/types/portfolio'
-import { usePortfolio } from '@/hooks/usePortfolio'
-import { OverlayCard } from '@/components/cards/OverlayCard'
-import { Reveal } from '@/components/shared/Reveal'
-import { Badge } from '@/components/ui/badge'
-import type { CardGradientKey } from '@/lib/cardGradients'
-import { cn } from '@/lib/utils'
+} from '@/lib/portfolio';
+import type { CaseStudy } from '@/types/portfolio';
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { OverlayCard } from '@/components/cards/OverlayCard';
+import { Reveal } from '@/components/shared/Reveal';
+import { Badge } from '@/components/ui/badge';
+import type { CardGradientKey } from '@/lib/cardGradients';
+import { cn } from '@/lib/utils';
 
 type CaseStudyCardProps = {
-  study: CaseStudy
-  index?: number
-  className?: string
-}
+  study: CaseStudy;
+  index?: number;
+  className?: string;
+};
 
 const categoryGradients: Record<CaseStudy['category'], CardGradientKey> = {
   platform: 'platform',
   infrastructure: 'infrastructure',
   automation: 'automation',
-}
+};
 
-export function CaseStudyCard({ study, index = 0, className }: CaseStudyCardProps) {
-  const { technologies } = usePortfolio()
-  const href = getCaseStudyPath(study)
-  const imageSrc = study.logo ?? study.coverImage
-  const imageAlt = study.logoAlt ?? study.coverImageAlt ?? `${study.name} logo`
+export function CaseStudyCard({
+  study,
+  index = 0,
+  className,
+}: CaseStudyCardProps) {
+  const { technologies } = usePortfolio();
+  const href = getCaseStudyPath(study);
+  const imageSrc = study.logo ?? study.coverImage;
+  const imageAlt = study.logoAlt ?? study.coverImageAlt ?? `${study.name} logo`;
   const techItems = (study.technologyIds ?? [])
     .slice(0, 6)
     .map((id) => getTechnologyById(technologies, id))
-    .filter((technology): technology is NonNullable<typeof technology> => Boolean(technology))
+    .filter((technology): technology is NonNullable<typeof technology> =>
+      Boolean(technology)
+    );
 
   return (
     <Reveal
       delay={index * 0.05}
-      className={cn('min-w-0 max-w-full', study.featured && 'featured', className)}
+      className={cn(
+        'min-w-0 max-w-full',
+        study.featured && 'featured',
+        className
+      )}
     >
       <OverlayCard
         href={href}
@@ -47,14 +57,22 @@ export function CaseStudyCard({ study, index = 0, className }: CaseStudyCardProp
         heroImage={imageSrc ? { src: imageSrc, alt: imageAlt } : undefined}
         body={
           <>
-            <p className="line-clamp-2 text-sm text-muted-foreground text-pretty">{study.summary}</p>
+            <p className="line-clamp-2 text-sm text-muted-foreground text-pretty">
+              {study.summary}
+            </p>
             <div className="flex flex-wrap items-center gap-2">
               {study.timeline ? (
-                <Badge variant="outline" className="font-mono text-xs uppercase">
+                <Badge
+                  variant="outline"
+                  className="font-mono text-xs uppercase"
+                >
                   {study.timeline}
                 </Badge>
               ) : null}
-              <Badge variant="secondary" className="font-mono text-xs uppercase">
+              <Badge
+                variant="secondary"
+                className="font-mono text-xs uppercase"
+              >
                 {study.status}
               </Badge>
             </div>
@@ -76,5 +94,5 @@ export function CaseStudyCard({ study, index = 0, className }: CaseStudyCardProp
         }
       />
     </Reveal>
-  )
+  );
 }

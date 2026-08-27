@@ -1,12 +1,12 @@
 export type TimelineItem = {
-  id: string
-  type: 'education' | 'career' | 'achievement' | 'deployment'
-  title: string
-  organization: string
-  period: string
-  description: string
-  highlights?: string[]
-}
+  id: string;
+  type: 'education' | 'career' | 'achievement' | 'deployment';
+  title: string;
+  organization: string;
+  period: string;
+  description: string;
+  highlights?: string[];
+};
 
 export const timeline: TimelineItem[] = [
   {
@@ -77,4 +77,4 @@ export const timeline: TimelineItem[] = [
     description:
       'Introduced and operated the organization’s first n8n automation platform, migrating the production architecture from SQLite to PostgreSQL.',
   },
-]
+];

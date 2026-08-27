@@ -1,59 +1,63 @@
 export type ResumeHighlight = {
-  id: string
-  label: string
-  detail?: string
-}
+  id: string;
+  label: string;
+  detail?: string;
+};
 
 export type ResumeExpertiseGroup = {
-  id: string
-  title: string
-  items: string[]
-}
+  id: string;
+  title: string;
+  items: string[];
+};
 
 export type ResumeExperience = {
-  id: string
-  organization: string
-  period: string
-  role: string
-  bullets: string[]
-}
+  id: string;
+  organization: string;
+  period: string;
+  role: string;
+  bullets: string[];
+};
 
 export type ResumeProject = {
-  id: string
-  name: string
-  role: string
-  bullets: string[]
-  stack: string[]
+  id: string;
+  name: string;
+  role: string;
+  bullets: string[];
+  stack: string[];
   caseStudy?: {
-    slug: string
-    category: 'platform' | 'infrastructure' | 'automation'
-  }
-}
+    slug: string;
+    category: 'platform' | 'infrastructure' | 'automation';
+  };
+};
 
 export type ResumeEducation = {
-  id: string
-  degree: string
-  institution: string
-  period: string
-  detail: string
-}
+  id: string;
+  degree: string;
+  institution: string;
+  period: string;
+  detail: string;
+};
 
 export type ResumeCertificationGroup = {
-  id: string
-  provider: string
-  items: string[]
-}
+  id: string;
+  provider: string;
+  items: string[];
+};
 
 export const resumeHighlights: ResumeHighlight[] = [
   { id: 'navdrishti', label: 'Primary Technical Owner — Navdrishti' },
   { id: 'azure', label: 'Azure cost optimization', detail: '~50% reduction' },
   { id: 'm365', label: 'Microsoft 365 migration', detail: '50+ users' },
-  { id: 'infra', label: 'Self-hosted production infrastructure', detail: 'Supabase & n8n' },
+  {
+    id: 'infra',
+    label: 'Self-hosted production infrastructure',
+    detail: 'Supabase & n8n',
+  },
   { id: 'cicd', label: 'CI/CD for multi-environment deployments' },
   { id: 'captive', label: 'Secure Wi-Fi captive portal' },
   { id: 'aa', label: 'Automation Anywhere deployment recovery' },
   { id: 'nas', label: 'Secure remote NAS architecture' },
-]
+];
 
 export const coreCompetencies: string[] = [
   'Platform Engineering',
@@ -62,7 +66,7 @@ export const coreCompetencies: string[] = [
   'Production Systems Ownership',
   'Application Engineering & Systems Integration',
   'Process Automation & Workflow Optimization',
-]
+];
 
 export const technicalExpertise: ResumeExpertiseGroup[] = [
   {
@@ -95,7 +99,13 @@ export const technicalExpertise: ResumeExpertiseGroup[] = [
   {
     id: 'enterprise',
     title: 'Enterprise Platforms',
-    items: ['Microsoft 365', 'Google Workspace', 'Zoho People', 'Zoho Bigin', 'WIX'],
+    items: [
+      'Microsoft 365',
+      'Google Workspace',
+      'Zoho People',
+      'Zoho Bigin',
+      'WIX',
+    ],
   },
   {
     id: 'ai',
@@ -117,7 +127,7 @@ export const technicalExpertise: ResumeExpertiseGroup[] = [
     title: 'Programming',
     items: ['Java', 'Python (Basic)'],
   },
-]
+];
 
 export const professionalExperience: ResumeExperience[] = [
   {
@@ -138,7 +148,7 @@ export const professionalExperience: ResumeExperience[] = [
       'Applied structured root-cause analysis and evaluated multiple solution approaches before implementing production changes.',
     ],
   },
-]
+];
 
 export const keyProjects: ResumeProject[] = [
   {
@@ -152,7 +162,15 @@ export const keyProjects: ResumeProject[] = [
       'Built responsive React interfaces, audit logging, CI/CD pipelines, and multi-environment deployment workflows.',
       'Managed local, staging, and production environments supporting future platform scalability.',
     ],
-    stack: ['React', 'TypeScript', 'Supabase', 'PostgreSQL', 'Docker', 'GitHub Actions', 'Azure'],
+    stack: [
+      'React',
+      'TypeScript',
+      'Supabase',
+      'PostgreSQL',
+      'Docker',
+      'GitHub Actions',
+      'Azure',
+    ],
   },
   {
     id: 'brainpulses',
@@ -187,7 +205,7 @@ export const keyProjects: ResumeProject[] = [
     ],
     stack: ['n8n', 'PostgreSQL', 'Docker', 'Linux', 'VPS'],
   },
-]
+];
 
 export const resumeEducation: ResumeEducation[] = [
   {
@@ -204,7 +222,7 @@ export const resumeEducation: ResumeEducation[] = [
     period: '2019 — 2022',
     detail: 'CGPA: 7.58',
   },
-]
+];
 
 export const resumeCertifications: ResumeCertificationGroup[] = [
   {
@@ -257,4 +275,4 @@ export const resumeCertifications: ResumeCertificationGroup[] = [
       'Software Engineering Job Simulation — Wells Fargo (Forage)',
     ],
   },
-]
+];

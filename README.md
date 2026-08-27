@@ -26,12 +26,12 @@ npm run dev
 
 Env files are chosen by mode:
 
-| Command | Mode | Files |
-|---|---|---|
-| `npm run dev` | `dev` | `.env.dev`, then `.env.local` |
-| `npm run build` / `npm run preview` | `prod` | `.env.prod` |
-| `npm run db:seed` | `dev` | `.env.dev`, then `.env.local` |
-| `npm run db:seed:prod` | `prod` | `.env.prod` |
+| Command                             | Mode   | Files                         |
+| ----------------------------------- | ------ | ----------------------------- |
+| `npm run dev`                       | `dev`  | `.env.dev`, then `.env.local` |
+| `npm run build` / `npm run preview` | `prod` | `.env.prod`                   |
+| `npm run db:seed`                   | `dev`  | `.env.dev`, then `.env.local` |
+| `npm run db:seed:prod`              | `prod` | `.env.prod`                   |
 
 Studio (admin) lives at `VITE_ADMIN_BASE_PATH` (default `/_sys/r7k9`). Sign in with the user created by seed (`ADMIN_EMAIL` / `ADMIN_PASSWORD`) or create one in Supabase Studio (`http://127.0.0.1:54323`) with `app_metadata.role = admin`.
 

@@ -1,23 +1,26 @@
-import type { Technology } from '@/types/portfolio'
-import { cn } from '@/lib/utils'
+import type { Technology } from '@/types/portfolio';
+import { cn } from '@/lib/utils';
 
 type TechBadgeProps = {
-  technology: Technology
-  compact?: boolean
-}
+  technology: Technology;
+  compact?: boolean;
+};
 
 export function TechBadge({ technology, compact = false }: TechBadgeProps) {
   return (
     <span
       className={cn(
         'group relative inline-flex items-center gap-2 rounded-lg border border-border bg-secondary/35 px-2.5 py-1.5 text-xs',
-        compact && 'px-2 py-1',
+        compact && 'px-2 py-1'
       )}
     >
       <img
         src={technology.logo}
         alt={`${technology.name} logo`}
-        className={cn('size-4 rounded-sm object-contain', compact && 'size-3.5')}
+        className={cn(
+          'size-4 rounded-sm object-contain',
+          compact && 'size-3.5'
+        )}
         loading="lazy"
       />
       <span className="font-medium text-foreground">{technology.name}</span>
@@ -25,5 +28,5 @@ export function TechBadge({ technology, compact = false }: TechBadgeProps) {
         {technology.description}
       </span>
     </span>
-  )
+  );
 }

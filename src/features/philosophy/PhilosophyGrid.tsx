@@ -1,10 +1,10 @@
-import { usePortfolio } from '@/hooks/usePortfolio'
-import { OverlayCard } from '@/components/cards/OverlayCard'
-import { Reveal, SectionHeader } from '@/components/shared/Reveal'
-import { cn, responsiveCardGridCompactClassName } from '@/lib/utils'
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { OverlayCard } from '@/components/cards/OverlayCard';
+import { Reveal, SectionHeader } from '@/components/shared/Reveal';
+import { cn, responsiveCardGridCompactClassName } from '@/lib/utils';
 
 export function PhilosophyGrid() {
-  const { philosophyPillars } = usePortfolio()
+  const { philosophyPillars } = usePortfolio();
   return (
     <section className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
@@ -29,7 +29,9 @@ export function PhilosophyGrid() {
               }
               body={
                 <>
-                  <p className="font-medium text-foreground">{pillar.summary}</p>
+                  <p className="font-medium text-foreground">
+                    {pillar.summary}
+                  </p>
                   <p className="line-clamp-3 text-sm text-muted-foreground text-pretty sm:line-clamp-none">
                     {pillar.detail}
                   </p>
@@ -40,5 +42,5 @@ export function PhilosophyGrid() {
         ))}
       </div>
     </section>
-  )
+  );
 }

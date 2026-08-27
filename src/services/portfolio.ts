@@ -1,6 +1,13 @@
-import { z } from 'zod'
-import { supabase, publicMediaUrl, publicResumeUrl, MEDIA_BUCKET, RESUME_BUCKET, toMediaPath } from '@/lib/supabase'
-import { usedInSlugsFromCaseStudies } from '@/lib/portfolio'
+import { z } from 'zod';
+import {
+  supabase,
+  publicMediaUrl,
+  publicResumeUrl,
+  MEDIA_BUCKET,
+  RESUME_BUCKET,
+  toMediaPath,
+} from '@/lib/supabase';
+import { usedInSlugsFromCaseStudies } from '@/lib/portfolio';
 import type {
   CaseStudy,
   CaseStudyCategory,
@@ -13,7 +20,7 @@ import type {
   TechnologyCategory,
   TerminalCommand,
   TimelineItem,
-} from '@/types/portfolio'
+} from '@/types/portfolio';
 
 const profileSchema = z.object({
   name: z.string(),
@@ -40,22 +47,20 @@ const profileSchema = z.object({
     approach: z.string(),
   }),
   summaryBullets: z.array(z.string()),
-})
+});
 
 function throwIfError(error: { message: string } | null) {
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(error.message);
 }
 
-function resolveCaseStudy(
-  row: {
-    slug: string
-    category: CaseStudyCategory
-    featured: boolean
-    status: string
-    data: unknown
-  },
-): CaseStudy {
-  const data = row.data as CaseStudy
+function resolveCaseStudy(row: {
+  slug: string;
+  category: CaseStudyCategory;
+  featured: boolean;
+  status: string;
+  data: unknown;
+}): CaseStudy {
+  const data = row.data as CaseStudy;
   return {
     ...data,
     slug: row.slug,
@@ -68,29 +73,44 @@ function resolveCaseStudy(
       ...item,
       src: publicMediaUrl(item.src),
     })),
-  }
+  };
 }
 
-function mapResume(rows: { section: string; item_id: string; sort_order: number; data: unknown }[]): ResumeData {
-  const sorted = [...rows].sort((a, b) => a.sort_order - b.sort_order)
-  const bySection = (section: string) => sorted.filter((row) => row.section === section)
+function mapResume(
+  rows: {
+    section: string;
+    item_id: string;
+    sort_order: number;
+    data: unknown;
+  }[]
+): ResumeData {
+  const sorted = [...rows].sort((a, b) => a.sort_order - b.sort_order);
+  const bySection = (section: string) =>
+    sorted.filter((row) => row.section === section);
 
-  const competenciesRow = bySection('competencies')[0]
+  const competenciesRow = bySection('competencies')[0];
   return {
-    highlights: bySection('highlights').map((row) => row.data as ResumeData['highlights'][number]),
-    coreCompetencies: (competenciesRow?.data as { items?: string[] } | undefined)?.items ?? [],
+    highlights: bySection('highlights').map(
+      (row) => row.data as ResumeData['highlights'][number]
+    ),
+    coreCompetencies:
+      (competenciesRow?.data as { items?: string[] } | undefined)?.items ?? [],
     technicalExpertise: bySection('expertise').map(
-      (row) => row.data as ResumeData['technicalExpertise'][number],
+      (row) => row.data as ResumeData['technicalExpertise'][number]
     ),
     professionalExperience: bySection('experience').map(
-      (row) => row.data as ResumeData['professionalExperience'][number],
+      (row) => row.data as ResumeData['professionalExperience'][number]
     ),
-    keyProjects: bySection('projects').map((row) => row.data as ResumeData['keyProjects'][number]),
-    education: bySection('education').map((row) => row.data as ResumeData['education'][number]),
+    keyProjects: bySection('projects').map(
+      (row) => row.data as ResumeData['keyProjects'][number]
+    ),
+    education: bySection('education').map(
+      (row) => row.data as ResumeData['education'][number]
+    ),
     certifications: bySection('certifications').map(
-      (row) => row.data as ResumeData['certifications'][number],
+      (row) => row.data as ResumeData['certifications'][number]
     ),
-  }
+  };
 }
 
 export async function fetchPublicPortfolio(): Promise<PortfolioData> {
@@ -105,30 +125,39 @@ export async function fetchPublicPortfolio(): Promise<PortfolioData> {
     terminalRes,
   ] = await Promise.all([
     supabase.from('site_profile').select('data').eq('id', 'main').single(),
-    supabase.from('site_settings').select('site_version').eq('id', 'main').single(),
-    supabase.from('case_studies').select('slug, category, featured, status, sort_order, data').order('sort_order'),
+    supabase
+      .from('site_settings')
+      .select('site_version')
+      .eq('id', 'main')
+      .single(),
+    supabase
+      .from('case_studies')
+      .select('slug, category, featured, status, sort_order, data')
+      .order('sort_order'),
     supabase.from('technologies').select('*').order('sort_order'),
     supabase.from('timeline_items').select('*').order('sort_order'),
     supabase.from('philosophy_pillars').select('*').order('sort_order'),
     supabase.from('resume_sections').select('*'),
     supabase.from('terminal_commands').select('*').order('sort_order'),
-  ])
+  ]);
 
-  throwIfError(profileRes.error)
-  throwIfError(settingsRes.error)
-  throwIfError(caseRes.error)
-  throwIfError(techRes.error)
-  throwIfError(timelineRes.error)
-  throwIfError(philosophyRes.error)
-  throwIfError(resumeRes.error)
-  throwIfError(terminalRes.error)
+  throwIfError(profileRes.error);
+  throwIfError(settingsRes.error);
+  throwIfError(caseRes.error);
+  throwIfError(techRes.error);
+  throwIfError(timelineRes.error);
+  throwIfError(philosophyRes.error);
+  throwIfError(resumeRes.error);
+  throwIfError(terminalRes.error);
 
   if (!profileRes.data || !settingsRes.data) {
-    throw new Error('Portfolio profile or settings are missing.')
+    throw new Error('Portfolio profile or settings are missing.');
   }
 
-  const profile = profileSchema.parse(profileRes.data.data)
-  profile.resumeUrl = publicResumeUrl(profile.resumeUrl.replace(/^\/+/, '') || 'resume.pdf')
+  const profile = profileSchema.parse(profileRes.data.data);
+  profile.resumeUrl = publicResumeUrl(
+    profile.resumeUrl.replace(/^\/+/, '') || 'resume.pdf'
+  );
 
   return {
     profile,
@@ -137,7 +166,7 @@ export async function fetchPublicPortfolio(): Promise<PortfolioData> {
       resolveCaseStudy({
         ...row,
         category: row.category as CaseStudyCategory,
-      }),
+      })
     ),
     technologies: (techRes.data ?? []).map((row) => ({
       id: row.id,
@@ -149,12 +178,12 @@ export async function fetchPublicPortfolio(): Promise<PortfolioData> {
       usedInSlugs: row.used_in_slugs ?? [],
     })),
     timeline: (timelineRes.data ?? []).map((row) => {
-      const data = row.data as TimelineItem
-      return { ...data, id: row.id }
+      const data = row.data as TimelineItem;
+      return { ...data, id: row.id };
     }),
     philosophyPillars: (philosophyRes.data ?? []).map((row) => {
-      const data = row.data as PhilosophyPillar
-      return { ...data, id: row.id }
+      const data = row.data as PhilosophyPillar;
+      return { ...data, id: row.id };
     }),
     resume: mapResume(resumeRes.data ?? []),
     terminalCommands: (terminalRes.data ?? []).map((row) => ({
@@ -162,7 +191,7 @@ export async function fetchPublicPortfolio(): Promise<PortfolioData> {
       description: row.description,
       aliases: row.aliases ?? [],
     })),
-  }
+  };
 }
 
 export async function upsertSiteProfile(data: Profile) {
@@ -170,8 +199,8 @@ export async function upsertSiteProfile(data: Profile) {
     id: 'main',
     data,
     updated_at: new Date().toISOString(),
-  })
-  throwIfError(error)
+  });
+  throwIfError(error);
 }
 
 export async function upsertSiteSettings(siteVersion: string) {
@@ -179,12 +208,12 @@ export async function upsertSiteSettings(siteVersion: string) {
     id: 'main',
     site_version: siteVersion,
     updated_at: new Date().toISOString(),
-  })
-  throwIfError(error)
+  });
+  throwIfError(error);
 }
 
 function caseStudyPayload(study: CaseStudy, sortOrder: number) {
-  const { slug, category, featured, status, ...rest } = study
+  const { slug, category, featured, status, ...rest } = study;
   const data = {
     ...rest,
     slug,
@@ -192,12 +221,14 @@ function caseStudyPayload(study: CaseStudy, sortOrder: number) {
     featured,
     status,
     logo: rest.logo ? toMediaPath(rest.logo) : rest.logo,
-    coverImage: rest.coverImage ? toMediaPath(rest.coverImage) : rest.coverImage,
+    coverImage: rest.coverImage
+      ? toMediaPath(rest.coverImage)
+      : rest.coverImage,
     gallery: (rest.gallery ?? []).map((item) => ({
       ...item,
       src: toMediaPath(item.src),
     })),
-  }
+  };
   return {
     slug,
     category,
@@ -206,95 +237,120 @@ function caseStudyPayload(study: CaseStudy, sortOrder: number) {
     sort_order: sortOrder,
     data,
     updated_at: new Date().toISOString(),
-  }
+  };
 }
 
 export async function upsertCaseStudy(study: CaseStudy, sortOrder: number) {
-  const { error } = await supabase.from('case_studies').upsert(caseStudyPayload(study, sortOrder))
-  throwIfError(error)
+  const { error } = await supabase
+    .from('case_studies')
+    .upsert(caseStudyPayload(study, sortOrder));
+  throwIfError(error);
 }
 
 export async function deleteCaseStudy(slug: string) {
-  const { error } = await supabase.from('case_studies').delete().eq('slug', slug)
-  throwIfError(error)
+  const { error } = await supabase
+    .from('case_studies')
+    .delete()
+    .eq('slug', slug);
+  throwIfError(error);
 }
 
-export async function upsertTechnology(technology: Technology, sortOrder: number) {
+export async function upsertTechnology(
+  technology: Technology,
+  sortOrder: number
+) {
   const { error } = await supabase.from('technologies').upsert({
     id: technology.id,
     name: technology.name,
     category: technology.category,
-      logo_path: toMediaPath(technology.logoPath || technology.logo),
+    logo_path: toMediaPath(technology.logoPath || technology.logo),
     description: technology.description,
     used_in_slugs: technology.usedInSlugs,
     sort_order: sortOrder,
     updated_at: new Date().toISOString(),
-  })
-  throwIfError(error)
+  });
+  throwIfError(error);
 }
 
 export async function deleteTechnology(id: string) {
-  const { error } = await supabase.from('technologies').delete().eq('id', id)
-  throwIfError(error)
+  const { error } = await supabase.from('technologies').delete().eq('id', id);
+  throwIfError(error);
 }
 
 export async function refreshTechnologyUsage() {
   const { data, error } = await supabase
     .from('case_studies')
-    .select('slug, category, featured, status, data')
-  throwIfError(error)
+    .select('slug, category, featured, status, data');
+  throwIfError(error);
   const studies = (data ?? []).map((row) =>
-    resolveCaseStudy({ ...row, category: row.category as CaseStudyCategory }),
-  )
-  const usage = usedInSlugsFromCaseStudies(studies)
-  const { data: techs, error: techError } = await supabase.from('technologies').select('id')
-  throwIfError(techError)
+    resolveCaseStudy({ ...row, category: row.category as CaseStudyCategory })
+  );
+  const usage = usedInSlugsFromCaseStudies(studies);
+  const { data: techs, error: techError } = await supabase
+    .from('technologies')
+    .select('id');
+  throwIfError(techError);
   await Promise.all(
     (techs ?? []).map((tech) =>
-      supabase.from('technologies').update({ used_in_slugs: usage[tech.id] ?? [] }).eq('id', tech.id),
-    ),
-  )
+      supabase
+        .from('technologies')
+        .update({ used_in_slugs: usage[tech.id] ?? [] })
+        .eq('id', tech.id)
+    )
+  );
 }
 
-export async function upsertTimelineItem(item: TimelineItem, sortOrder: number) {
+export async function upsertTimelineItem(
+  item: TimelineItem,
+  sortOrder: number
+) {
   const { error } = await supabase.from('timeline_items').upsert({
     id: item.id,
     sort_order: sortOrder,
     data: item,
     updated_at: new Date().toISOString(),
-  })
-  throwIfError(error)
+  });
+  throwIfError(error);
 }
 
 export async function deleteTimelineItem(id: string) {
-  const { error } = await supabase.from('timeline_items').delete().eq('id', id)
-  throwIfError(error)
+  const { error } = await supabase.from('timeline_items').delete().eq('id', id);
+  throwIfError(error);
 }
 
-export async function upsertPhilosophyPillar(pillar: PhilosophyPillar, sortOrder: number) {
+export async function upsertPhilosophyPillar(
+  pillar: PhilosophyPillar,
+  sortOrder: number
+) {
   const { error } = await supabase.from('philosophy_pillars').upsert({
     id: pillar.id,
     sort_order: sortOrder,
     data: pillar,
     updated_at: new Date().toISOString(),
-  })
-  throwIfError(error)
+  });
+  throwIfError(error);
 }
 
 export async function deletePhilosophyPillar(id: string) {
-  const { error } = await supabase.from('philosophy_pillars').delete().eq('id', id)
-  throwIfError(error)
+  const { error } = await supabase
+    .from('philosophy_pillars')
+    .delete()
+    .eq('id', id);
+  throwIfError(error);
 }
 
 export async function replaceResumeData(resume: ResumeData) {
-  const { error: deleteError } = await supabase.from('resume_sections').delete().neq('item_id', '')
-  throwIfError(deleteError)
+  const { error: deleteError } = await supabase
+    .from('resume_sections')
+    .delete()
+    .neq('item_id', '');
+  throwIfError(deleteError);
 
   const rows: {
-    section: string
-    item_id: string
-    sort_order: number
-    data: unknown
+    section: string;
+    item_id: string;
+    sort_order: number;
+    data: unknown;
   }[] = [
     ...resume.highlights.map((item, index) => ({
       section: 'highlights',
@@ -338,15 +394,18 @@ export async function replaceResumeData(resume: ResumeData) {
       sort_order: index,
       data: item,
     })),
-  ]
+  ];
 
-  const { error } = await supabase.from('resume_sections').insert(rows)
-  throwIfError(error)
+  const { error } = await supabase.from('resume_sections').insert(rows);
+  throwIfError(error);
 }
 
 export async function replaceTerminalCommands(commands: TerminalCommand[]) {
-  const { error: deleteError } = await supabase.from('terminal_commands').delete().neq('command', '')
-  throwIfError(deleteError)
+  const { error: deleteError } = await supabase
+    .from('terminal_commands')
+    .delete()
+    .neq('command', '');
+  throwIfError(deleteError);
   const { error } = await supabase.from('terminal_commands').insert(
     commands.map((command, index) => ({
       command: command.name,
@@ -354,58 +413,71 @@ export async function replaceTerminalCommands(commands: TerminalCommand[]) {
       description: command.description,
       sort_order: index,
       data: {},
-    })),
-  )
-  throwIfError(error)
+    }))
+  );
+  throwIfError(error);
 }
 
-export async function submitContact(payload: { name: string; email: string; message: string }) {
-  const { error } = await supabase.from('contact_submissions').insert(payload)
-  throwIfError(error)
+export async function submitContact(payload: {
+  name: string;
+  email: string;
+  message: string;
+}) {
+  const { error } = await supabase.from('contact_submissions').insert(payload);
+  throwIfError(error);
 }
 
 export async function fetchContactSubmissions(): Promise<ContactSubmission[]> {
   const { data, error } = await supabase
     .from('contact_submissions')
     .select('*')
-    .order('created_at', { ascending: false })
-  throwIfError(error)
+    .order('created_at', { ascending: false });
+  throwIfError(error);
   return (data ?? []).map((row) => ({
     id: row.id,
     name: row.name,
     email: row.email,
     message: row.message,
     createdAt: row.created_at,
-  }))
+  }));
 }
 
 export async function deleteContactSubmission(id: string) {
-  const { error } = await supabase.from('contact_submissions').delete().eq('id', id)
-  throwIfError(error)
+  const { error } = await supabase
+    .from('contact_submissions')
+    .delete()
+    .eq('id', id);
+  throwIfError(error);
 }
 
-export async function uploadPortfolioFile(bucket: typeof MEDIA_BUCKET | typeof RESUME_BUCKET, path: string, file: File) {
+export async function uploadPortfolioFile(
+  bucket: typeof MEDIA_BUCKET | typeof RESUME_BUCKET,
+  path: string,
+  file: File
+) {
   const { error } = await supabase.storage.from(bucket).upload(path, file, {
     upsert: true,
     contentType: file.type || undefined,
-  })
-  throwIfError(error)
-  if (bucket === RESUME_BUCKET) return publicResumeUrl(path)
-  return publicMediaUrl(path)
+  });
+  throwIfError(error);
+  if (bucket === RESUME_BUCKET) return publicResumeUrl(path);
+  return publicMediaUrl(path);
 }
 
 export async function listMediaFiles(prefix = '') {
-  const { data, error } = await supabase.storage.from(MEDIA_BUCKET).list(prefix, {
-    limit: 100,
-    sortBy: { column: 'name', order: 'asc' },
-  })
-  throwIfError(error)
-  return data ?? []
+  const { data, error } = await supabase.storage
+    .from(MEDIA_BUCKET)
+    .list(prefix, {
+      limit: 100,
+      sortBy: { column: 'name', order: 'asc' },
+    });
+  throwIfError(error);
+  return data ?? [];
 }
 
 export async function deleteMediaFile(path: string) {
-  const { error } = await supabase.storage.from(MEDIA_BUCKET).remove([path])
-  throwIfError(error)
+  const { error } = await supabase.storage.from(MEDIA_BUCKET).remove([path]);
+  throwIfError(error);
 }
 
-export { MEDIA_BUCKET, RESUME_BUCKET }
+export { MEDIA_BUCKET, RESUME_BUCKET };

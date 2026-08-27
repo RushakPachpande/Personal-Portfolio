@@ -1,18 +1,26 @@
-import { usePortfolio } from '@/hooks/usePortfolio'
-import { Reveal, SectionHeader } from '@/components/shared/Reveal'
-import { Badge } from '@/components/ui/badge'
-import { cn } from '@/lib/utils'
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { Reveal, SectionHeader } from '@/components/shared/Reveal';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 const typeLabel = {
   education: 'Education',
   career: 'Career',
   deployment: 'Deployment',
   achievement: 'Achievement',
-} as const
+} as const;
 
 export function ExperienceTimeline() {
-  const { timeline } = usePortfolio()
-  const initiativePoints = ['Navdrishti', 'BrainPulses', 'Azure', 'M365', 'TrueNAS', 'Docker', 'n8n']
+  const { timeline } = usePortfolio();
+  const initiativePoints = [
+    'Navdrishti',
+    'BrainPulses',
+    'Azure',
+    'M365',
+    'TrueNAS',
+    'Docker',
+    'n8n',
+  ];
 
   return (
     <section className="mx-auto max-w-6xl min-w-0 px-4 py-12 sm:px-6">
@@ -55,17 +63,25 @@ export function ExperienceTimeline() {
               <span
                 className={cn(
                   'absolute top-1.5 left-0 size-5.5 rounded-full border-2 border-background',
-                  'bg-linear-to-br from-electric-blue to-soft-cyan shadow-[0_0_20px_rgba(59,130,246,0.35)]',
+                  'bg-linear-to-br from-electric-blue to-soft-cyan shadow-[0_0_20px_rgba(59,130,246,0.35)]'
                 )}
               />
               <div className="glass rounded-2xl border-border/80 p-5 transition-transform duration-300 hover:-translate-y-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge variant="secondary">{typeLabel[item.type]}</Badge>
-                  <span className="font-mono text-xs text-muted-foreground">{item.period}</span>
+                  <span className="font-mono text-xs text-muted-foreground">
+                    {item.period}
+                  </span>
                 </div>
-                <h3 className="mt-3 font-display text-xl font-semibold">{item.title}</h3>
-                <p className="mt-1 text-sm text-soft-cyan">{item.organization}</p>
-                <p className="mt-3 text-sm text-muted-foreground text-pretty">{item.description}</p>
+                <h3 className="mt-3 font-display text-xl font-semibold">
+                  {item.title}
+                </h3>
+                <p className="mt-1 text-sm text-soft-cyan">
+                  {item.organization}
+                </p>
+                <p className="mt-3 text-sm text-muted-foreground text-pretty">
+                  {item.description}
+                </p>
                 {item.highlights ? (
                   <ul className="mt-4 flex flex-wrap gap-2">
                     {item.highlights.map((highlight) => (
@@ -84,5 +100,5 @@ export function ExperienceTimeline() {
         ))}
       </ol>
     </section>
-  )
+  );
 }

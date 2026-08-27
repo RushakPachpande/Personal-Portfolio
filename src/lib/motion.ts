@@ -1,6 +1,6 @@
-import type { Variants } from 'framer-motion'
+import type { Variants } from 'framer-motion';
 
-export const easeOut = [0.22, 1, 0.36, 1] as const
+export const easeOut = [0.22, 1, 0.36, 1] as const;
 
 export const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -9,7 +9,7 @@ export const fadeUp: Variants = {
     y: 0,
     transition: { duration: 0.55, ease: easeOut },
   },
-}
+};
 
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
@@ -17,7 +17,7 @@ export const fadeIn: Variants = {
     opacity: 1,
     transition: { duration: 0.4, ease: easeOut },
   },
-}
+};
 
 export const staggerContainer: Variants = {
   hidden: {},
@@ -27,7 +27,7 @@ export const staggerContainer: Variants = {
       delayChildren: 0.05,
     },
   },
-}
+};
 
 export const scaleIn: Variants = {
   hidden: { opacity: 0, scale: 0.96 },
@@ -36,11 +36,11 @@ export const scaleIn: Variants = {
     scale: 1,
     transition: { duration: 0.45, ease: easeOut },
   },
-}
+};
 
 export const pageTransition = {
   initial: { opacity: 0, y: 12 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -8 },
   transition: { duration: 0.35, ease: easeOut },
-}
+};

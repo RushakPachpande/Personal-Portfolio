@@ -1,4 +1,4 @@
-export const SITE_VERSION = '3.0.0'
+export const SITE_VERSION = '3.0.0';
 
 export const profile = {
   name: 'Rushak Pachpande',
@@ -44,6 +44,6 @@ export const profile = {
     'Work across application engineering, cloud infrastructure, platform operations, and workflow automation.',
     'Strong focus on complete systems, root-cause analysis, and practical implementation.',
   ],
-} as const
+} as const;
 
-export type Profile = typeof profile
+export type Profile = typeof profile;

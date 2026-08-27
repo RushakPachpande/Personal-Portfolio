@@ -1,10 +1,10 @@
-import { getCaseStudiesByCategory } from '@/lib/portfolio'
-import { usePortfolio } from '@/hooks/usePortfolio'
-import { Seo } from '@/components/layout/Seo'
-import { CaseStudyGrid } from '@/features/case-studies/CaseStudyGrid'
+import { getCaseStudiesByCategory } from '@/lib/portfolio';
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { Seo } from '@/components/layout/Seo';
+import { CaseStudyGrid } from '@/features/case-studies/CaseStudyGrid';
 
 export function AutomationPage() {
-  const { caseStudies } = usePortfolio()
+  const { caseStudies } = usePortfolio();
   return (
     <>
       <Seo
@@ -21,5 +21,5 @@ export function AutomationPage() {
         />
       </div>
     </>
-  )
+  );
 }
