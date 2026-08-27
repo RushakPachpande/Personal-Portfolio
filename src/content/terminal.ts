@@ -68,9 +68,9 @@ export const terminalCommands: TerminalCommand[] = [
 export const terminalQuickCommands = ['help', 'resume', 'platforms', 'certs', 'stats', 'contact'] as const
 
 export const terminalWelcome = [
-  '╔══════════════════════════════════════════════════════╗',
-  '║  rushak@platform — interactive portfolio terminal    ║',
-  '╚══════════════════════════════════════════════════════╝',
+  '+------------------------------------------+',
+  '|  rushak@platform - portfolio terminal    |',
+  '+------------------------------------------+',
   '',
   `Portfolio v${SITE_VERSION} · ${profile.resumeTitle}`,
   'Type `help` for commands · `nav` for site map · Ctrl+K to close',

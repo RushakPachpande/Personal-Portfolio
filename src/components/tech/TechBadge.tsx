@@ -21,7 +21,7 @@ export function TechBadge({ technology, compact = false }: TechBadgeProps) {
         loading="lazy"
       />
       <span className="font-medium text-foreground">{technology.name}</span>
-      <span className="pointer-events-none absolute -top-2 left-1/2 z-20 hidden w-52 -translate-x-1/2 -translate-y-full rounded-md border border-border bg-background/95 p-2 text-[11px] leading-relaxed text-muted-foreground shadow-lg backdrop-blur group-hover:block">
+      <span className="pointer-events-none absolute -top-2 left-1/2 z-20 hidden w-52 -translate-x-1/2 -translate-y-full rounded-md border border-border bg-background/95 p-2 text-xs leading-relaxed text-muted-foreground shadow-lg backdrop-blur group-hover:block sm:text-sm">
         {technology.description}
       </span>
     </span>

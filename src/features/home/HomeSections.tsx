@@ -8,7 +8,7 @@ export function HomeAbout() {
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
         <div className="mx-auto max-w-3xl text-center">
-          <p className="font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase">About</p>
+          <p className="font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase sm:text-sm">About</p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
             I own platforms end-to-end
           </h2>
@@ -50,7 +50,7 @@ export function ExperienceSnapshot() {
       <Reveal>
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <p className="font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase">
+            <p className="font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase sm:text-sm">
               Experience Snapshot
             </p>
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">

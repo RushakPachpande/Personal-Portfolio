@@ -16,6 +16,7 @@ import { Reveal } from '@/components/shared/Reveal'
 import { RelatedCaseStudies } from './CaseStudyGrid'
 import { TechBanner } from '@/components/tech/TechBanner'
 import { ArchitectureFlow } from './ArchitectureFlow'
+import { LogoFrame } from '@/components/media/LogoFrame'
 import { MediaCarousel } from '@/components/media/MediaCarousel'
 import { getTechnologyById } from '@/content/technologies'
 import { cn } from '@/lib/utils'
@@ -68,7 +69,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
   return (
     <>
       <Seo title={study.name} description={study.summary} path={`${backPath}/${study.slug}`} />
-      <article className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <article className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
         <Button asChild variant="ghost" className="mb-8">
           <Link to={backPath}>
             <ArrowLeft data-icon="inline-start" />
@@ -80,31 +81,29 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
           <header className="glass rounded-2xl border-border/80 p-6 sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
               {study.logo ? (
-                <div className="flex size-24 shrink-0 items-center justify-center rounded-2xl border border-border bg-secondary/40 p-3">
-                  <img
-                    src={study.logo}
-                    alt={study.logoAlt ?? `${study.name} logo`}
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
+                <LogoFrame
+                  src={study.logo}
+                  alt={study.logoAlt ?? `${study.name} logo`}
+                  variant="header"
+                />
               ) : null}
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge>{categoryLabels[study.category]}</Badge>
                   <Badge variant="secondary">{study.status}</Badge>
                 </div>
-                <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+                <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
                   {study.name}
                 </h1>
                 <p className="mt-3 max-w-3xl text-lg text-muted-foreground">{study.summary}</p>
                 <div className="mt-5 space-y-2">
                   <TechBanner technologyIds={study.technologyIds ?? []} />
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="font-mono uppercase text-[10px]">
+                    <Badge variant="outline" className="font-mono text-xs uppercase">
                       {study.difficulty ?? 'Advanced'}
                     </Badge>
                     {study.timeline ? (
-                      <Badge variant="outline" className="font-mono uppercase text-[10px]">
+                      <Badge variant="outline" className="font-mono text-xs uppercase">
                         {study.timeline}
                       </Badge>
                     ) : null}
@@ -121,7 +120,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
             className="hidden lg:block"
           >
             <div className="sticky top-24 space-y-1">
-              <p className="mb-3 font-mono text-[10px] tracking-[0.2em] text-soft-cyan uppercase">
+              <p className="mb-3 font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase sm:text-sm">
                 On this page
               </p>
               {TOC.map((item) => (
@@ -235,14 +234,14 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                   <CardContent className="grid gap-4 sm:grid-cols-2">
                     {study.stack.map((group) => (
                       <div key={group.group}>
-                        <p className="font-mono text-xs tracking-wide text-soft-cyan uppercase">
+                        <p className="font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">
                           {group.group}
                         </p>
                         <ul className="mt-2 flex flex-wrap gap-2">
                           {group.items.map((item) => (
                             <li
                               key={item}
-                              className="rounded-md border border-border px-2 py-1 font-mono text-[11px] text-muted-foreground"
+                              className="rounded-md border border-border px-2 py-1 font-mono text-xs text-muted-foreground sm:text-sm"
                             >
                               {item}
                             </li>

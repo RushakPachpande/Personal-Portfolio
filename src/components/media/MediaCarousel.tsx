@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { ChevronLeft, ChevronRight, Expand } from 'lucide-react'
 import type { CaseStudyMediaItem } from '@/content/caseStudies'
 import { Button } from '@/components/ui/button'
+import { LogoFrame } from './LogoFrame'
 import { LightboxModal } from './LightboxModal'
 
 type MediaCarouselProps = {
@@ -23,11 +24,7 @@ export function MediaCarousel({ items }: MediaCarouselProps) {
     <>
       <div className="overflow-hidden rounded-2xl border border-border bg-card/30">
         <div className="relative">
-          <img
-            src={current.src}
-            alt={current.caption}
-            className="h-72 w-full object-cover sm:h-96"
-          />
+          <LogoFrame src={current.src} alt={current.caption} variant="gallery" />
           <div className="absolute top-3 right-3">
             <Button
               variant="outline"
@@ -43,7 +40,7 @@ export function MediaCarousel({ items }: MediaCarouselProps) {
               <Button
                 variant="outline"
                 size="icon-sm"
-                className="absolute top-1/2 left-3 -translate-y-1/2"
+                className="absolute top-1/2 left-2 -translate-y-1/2 sm:left-3"
                 onClick={prev}
                 aria-label="Previous media"
               >
@@ -52,7 +49,7 @@ export function MediaCarousel({ items }: MediaCarouselProps) {
               <Button
                 variant="outline"
                 size="icon-sm"
-                className="absolute top-1/2 right-3 -translate-y-1/2"
+                className="absolute top-1/2 right-2 -translate-y-1/2 sm:right-3"
                 onClick={next}
                 aria-label="Next media"
               >

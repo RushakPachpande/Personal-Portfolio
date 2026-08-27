@@ -23,3 +23,7 @@ build
 *.njsproj
 *.sln
 *.sw?
+
+.agents
+references
+.cursor/skills

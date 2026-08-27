@@ -58,7 +58,7 @@ export function AppShell() {
 
       {badgeVisible || unlocked ? (
         <div
-          className="pointer-events-none fixed right-4 bottom-4 z-90 rounded-full border border-soft-cyan/40 bg-card/90 px-3 py-1.5 font-mono text-[11px] text-soft-cyan shadow-lg backdrop-blur"
+          className="pointer-events-none fixed right-4 bottom-4 z-90 rounded-full border border-soft-cyan/40 bg-card/90 px-3 py-1.5 font-mono text-xs text-soft-cyan shadow-lg backdrop-blur sm:text-sm"
           aria-live="polite"
         >
           {badgeVisible ? 'Achievement unlocked: Developer Mode' : 'Developer Mode'}

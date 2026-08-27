@@ -144,7 +144,7 @@ export function ResumePreview() {
                 <Download data-icon="inline-end" />
               </MagneticButton>
 
-              <p className="font-mono text-[11px] leading-relaxed text-muted-foreground">
+              <p className="font-mono text-xs leading-relaxed text-muted-foreground sm:text-sm">
                 Last updated from verified portfolio content. Full case studies available across
                 platform, infrastructure, and automation sections.
               </p>

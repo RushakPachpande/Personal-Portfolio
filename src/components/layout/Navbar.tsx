@@ -179,7 +179,7 @@ function MobileNavContent({ onClose, onOpenTerminal }: { onClose: () => void; on
               </NavLink>
             ) : (
               <div key={item.label} className="flex flex-col gap-1">
-                <p className="px-3 py-1 font-mono text-[11px] tracking-wide text-soft-cyan uppercase">
+                <p className="px-3 py-1 font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">
                   {item.label}
                 </p>
                 {item.items.map((route) => (

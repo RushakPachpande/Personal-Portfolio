@@ -41,7 +41,7 @@ export function SectionHeader({ eyebrow, title, description, className }: Sectio
   return (
     <div className={cn('mx-auto max-w-3xl text-center', className)}>
       {eyebrow ? (
-        <p className="mb-3 font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase">
+        <p className="mb-3 font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase sm:text-sm">
           {eyebrow}
         </p>
       ) : null}

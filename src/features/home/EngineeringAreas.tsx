@@ -53,7 +53,7 @@ export function EngineeringAreas() {
                 </CardHeader>
                 <CardContent className="flex flex-col gap-3 text-sm text-muted-foreground">
                   <p className="text-pretty">{area.description}</p>
-                  <p className="font-mono text-[11px] text-soft-cyan">{area.examples}</p>
+                  <p className="font-mono text-xs text-soft-cyan sm:text-sm">{area.examples}</p>
                 </CardContent>
               </Card>
             </Link>

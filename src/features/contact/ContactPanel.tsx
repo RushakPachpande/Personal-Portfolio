@@ -25,7 +25,7 @@ export function ContactPanel() {
   }
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <section className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
         <SectionHeader
           eyebrow="Contact"
@@ -34,7 +34,7 @@ export function ContactPanel() {
         />
       </Reveal>
 
-      <div className="mt-12 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="mt-12 grid min-w-0 gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <Reveal>
           <Card className="glass h-full border-border/80">
             <CardHeader>

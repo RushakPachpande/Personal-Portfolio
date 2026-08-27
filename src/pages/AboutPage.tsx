@@ -19,7 +19,7 @@ export function AboutPage() {
         description="Platform engineer focused on ownership—building complete digital platforms from infrastructure to production."
         path="/about"
       />
-      <section className="mx-auto max-w-6xl px-4 pt-12 pb-20 sm:px-6">
+      <section className="mx-auto min-w-0 max-w-6xl px-4 pt-12 pb-20 sm:px-6">
         <Reveal>
           <SectionHeader
             eyebrow="About"

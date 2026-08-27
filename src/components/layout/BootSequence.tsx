@@ -56,7 +56,7 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
         transition={{ duration: 0.35 }}
       >
         <div className="w-full max-w-md px-6">
-          <p className="mb-6 font-mono text-xs tracking-[0.25em] text-soft-cyan uppercase">
+          <p className="mb-6 font-mono text-xs tracking-[0.25em] text-soft-cyan uppercase sm:text-sm">
             Boot Sequence
           </p>
           <div className="glass rounded-2xl p-6">

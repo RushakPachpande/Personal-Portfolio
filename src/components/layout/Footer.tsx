@@ -25,7 +25,7 @@ export function Footer() {
               Platform engineer owning systems from architecture to production.
             </p>
             <div className="mt-4 space-y-2">
-              <p className="font-mono text-[11px] tracking-wide text-soft-cyan uppercase">Principles</p>
+              <p className="font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">Principles</p>
               <ul className="space-y-1 text-sm text-muted-foreground">
                 {principles.map((item) => (
                   <li key={item}>• {item}</li>
@@ -34,7 +34,7 @@ export function Footer() {
             </div>
           </div>
           <div>
-            <p className="mb-3 font-mono text-[11px] tracking-wide text-soft-cyan uppercase">Navigate</p>
+            <p className="mb-3 font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">Navigate</p>
             <div className="grid grid-cols-2 gap-x-8 gap-y-2">
               {navItems.map((item) => (
                 <Link
@@ -48,7 +48,7 @@ export function Footer() {
             </div>
           </div>
           <div>
-            <p className="mb-3 font-mono text-[11px] tracking-wide text-soft-cyan uppercase">Current focus</p>
+            <p className="mb-3 font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">Current focus</p>
             <p className="text-sm text-muted-foreground text-pretty">
               Platform architecture, cloud optimization, enterprise automations, and production operations.
             </p>

@@ -20,7 +20,7 @@ const categoryOrder: TechnologyCategory[] = [
 
 export function TechnologyLibraryGrid() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <section className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
         <SectionHeader
           eyebrow="Technology Library"
@@ -45,7 +45,7 @@ export function TechnologyLibraryGrid() {
                       <article className="glass min-w-0 rounded-2xl border-border/80 p-4">
                         <div className="flex flex-wrap items-center gap-2">
                           <TechBadge technology={technology} />
-                          <Badge variant="outline" className="font-mono text-[10px] uppercase">
+                          <Badge variant="outline" className="font-mono text-xs uppercase">
                             {technologyCategories[technology.category]}
                           </Badge>
                         </div>
@@ -53,7 +53,7 @@ export function TechnologyLibraryGrid() {
                           {technology.description}
                         </p>
                         <div className="mt-3">
-                          <p className="font-mono text-[11px] tracking-wide text-soft-cyan uppercase">
+                          <p className="font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">
                             Used in
                           </p>
                           {slugs.length === 0 ? (

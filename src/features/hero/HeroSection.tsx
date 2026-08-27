@@ -21,14 +21,14 @@ export function HeroSection() {
       >
         <motion.p
           variants={fadeUp}
-          className="font-mono text-xs tracking-[0.22em] text-soft-cyan uppercase"
+          className="font-mono text-xs tracking-[0.22em] text-soft-cyan uppercase sm:text-sm"
         >
           Platform Engineer · Cloud · Automation · Full Stack Systems
         </motion.p>
 
         <motion.h1
           variants={fadeUp}
-          className="mt-5 font-display text-5xl leading-[1.05] font-semibold tracking-tight sm:text-6xl md:text-7xl"
+          className="mt-5 font-display text-4xl leading-[1.05] font-semibold tracking-tight sm:text-5xl md:text-7xl"
         >
           {profile.name}
         </motion.h1>

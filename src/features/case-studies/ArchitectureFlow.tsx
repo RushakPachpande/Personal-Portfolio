@@ -12,8 +12,8 @@ export function ArchitectureFlow({ nodes }: ArchitectureFlowProps) {
   if (nodes.length === 0) return null
 
   return (
-    <div className="rounded-2xl border border-border/70 bg-card/35 p-4">
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="min-w-0 rounded-2xl border border-border/70 bg-card/35 p-4">
+      <div className="grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {nodes.map((node, index) => {
           const isActive = activeNode === node.id
           return (
@@ -29,7 +29,7 @@ export function ArchitectureFlow({ nodes }: ArchitectureFlowProps) {
                     : 'border-border bg-secondary/30 hover:border-soft-cyan/40',
                 )}
               >
-                <p className="font-display text-sm font-semibold text-foreground">{node.label}</p>
+                <p className="font-display text-sm font-semibold break-words text-foreground">{node.label}</p>
                 <p className="mt-1 text-xs text-muted-foreground text-pretty">{node.detail}</p>
               </button>
               {index < nodes.length - 1 ? (

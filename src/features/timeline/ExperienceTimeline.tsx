@@ -25,7 +25,7 @@ export function ExperienceTimeline() {
 
       <Reveal delay={0.05}>
         <div className="mx-auto mt-8 max-w-3xl">
-          <p className="font-mono text-[11px] tracking-wide text-soft-cyan uppercase">
+          <p className="font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">
             Linked initiatives
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-2">

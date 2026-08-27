@@ -138,7 +138,7 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
         role="dialog"
         aria-modal="true"
         aria-label="Command terminal"
-        className="relative z-10 flex min-h-[min(520px,80vh)] max-h-[80vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-border bg-[#070b16] shadow-2xl"
+        className="relative z-10 flex min-h-[min(520px,85vh)] max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-border bg-[#070b16] shadow-2xl sm:max-h-[80vh]"
       >
         <div className="flex items-center justify-between border-b border-border px-4 py-3">
           <div className="flex min-w-0 flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-3">
@@ -146,9 +146,10 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
               <TerminalSquare className="size-4 shrink-0" />
               <span className="truncate">rushak@platform:~</span>
             </div>
-            <span className="font-mono text-[11px] text-muted-foreground">
+            <span className="hidden font-mono text-xs text-muted-foreground sm:inline sm:text-sm">
               v{SITE_VERSION} · Ctrl+K close · ↑↓ history · Tab complete
             </span>
+            <span className="font-mono text-xs text-muted-foreground sm:hidden">Ctrl+K close</span>
           </div>
           <Button variant="ghost" size="icon-sm" onClick={onClose} aria-label="Close terminal">
             <X />
@@ -157,12 +158,17 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
 
         <div
           ref={scrollRef}
-          className="flex-1 space-y-3 overflow-y-auto px-4 py-4 font-mono text-sm"
+          className="flex-1 space-y-3 overflow-x-auto overflow-y-auto px-4 py-4 font-mono text-sm sm:text-base"
         >
           {history.map((line, index) => (
             <pre
               key={`${line.type}-${index}-${line.text.slice(0, 12)}`}
-              className={cn('whitespace-pre-wrap text-pretty', lineStyles[line.type])}
+              className={cn(
+                line.type === 'system'
+                  ? 'overflow-x-auto whitespace-pre text-sm leading-relaxed'
+                  : 'whitespace-pre-wrap text-pretty',
+                lineStyles[line.type],
+              )}
             >
               {line.text}
             </pre>
@@ -176,7 +182,7 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
                 key={command}
                 type="button"
                 onClick={() => run(command)}
-                className="rounded-md border border-border/80 bg-secondary/30 px-2.5 py-1 font-mono text-[11px] text-muted-foreground transition-colors hover:border-electric-blue/40 hover:text-foreground"
+                className="rounded-md border border-border/80 bg-secondary/30 px-2.5 py-1 font-mono text-xs text-muted-foreground transition-colors hover:border-electric-blue/40 hover:text-foreground sm:text-sm"
               >
                 {command}
               </button>
