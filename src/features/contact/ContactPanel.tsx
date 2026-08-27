@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Download, ExternalLink, Mail, Send } from 'lucide-react'
-import { profile } from '@/content/profile'
+import { usePortfolio } from '@/hooks/usePortfolio'
+import { submitContact } from '@/services/portfolio'
 import { OverlayCard } from '@/components/cards/OverlayCard'
 import { SurfaceCard } from '@/components/cards/SurfaceCard'
 import { MagneticButton } from '@/components/shared/MagneticButton'
@@ -11,18 +12,27 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 
 export function ContactPanel() {
-  const [status, setStatus] = useState<'idle' | 'sent'>('idle')
+  const { profile } = usePortfolio()
+  const [status, setStatus] = useState<'idle' | 'sent' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const form = new FormData(event.currentTarget)
-    const name = String(form.get('name') ?? '')
-    const email = String(form.get('email') ?? '')
-    const message = String(form.get('message') ?? '')
-    const subject = encodeURIComponent(`Portfolio contact from ${name}`)
-    const body = encodeURIComponent(`From: ${name} <${email}>\n\n${message}`)
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`
-    setStatus('sent')
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    const name = String(formData.get('name') ?? '')
+    const email = String(formData.get('email') ?? '')
+    const message = String(formData.get('message') ?? '')
+    setStatus('idle')
+    setErrorMessage('')
+    try {
+      await submitContact({ name, email, message })
+      setStatus('sent')
+      form.reset()
+    } catch (error) {
+      setStatus('error')
+      setErrorMessage(error instanceof Error ? error.message : 'Unable to send message.')
+    }
   }
 
   return (
@@ -107,7 +117,10 @@ export function ContactPanel() {
                 <Send data-icon="inline-end" />
               </Button>
               {status === 'sent' ? (
-                <p className="font-mono text-xs text-soft-cyan">Opening your email client…</p>
+                <p className="font-mono text-xs text-soft-cyan">Message received. I’ll get back to you soon.</p>
+              ) : null}
+              {status === 'error' ? (
+                <p className="font-mono text-xs text-destructive">{errorMessage}</p>
               ) : null}
             </form>
           </SurfaceCard>

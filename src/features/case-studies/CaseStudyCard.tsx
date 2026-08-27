@@ -1,9 +1,10 @@
 import {
   categoryLabels,
   getCaseStudyPath,
-  type CaseStudy,
-} from '@/content/caseStudies'
-import { getTechnologyById } from '@/content/technologies'
+  getTechnologyById,
+} from '@/lib/portfolio'
+import type { CaseStudy } from '@/types/portfolio'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { OverlayCard } from '@/components/cards/OverlayCard'
 import { Reveal } from '@/components/shared/Reveal'
 import { Badge } from '@/components/ui/badge'
@@ -23,15 +24,14 @@ const categoryGradients: Record<CaseStudy['category'], CardGradientKey> = {
 }
 
 export function CaseStudyCard({ study, index = 0, className }: CaseStudyCardProps) {
+  const { technologies } = usePortfolio()
   const href = getCaseStudyPath(study)
   const imageSrc = study.logo ?? study.coverImage
   const imageAlt = study.logoAlt ?? study.coverImageAlt ?? `${study.name} logo`
   const techItems = (study.technologyIds ?? [])
     .slice(0, 6)
-    .map((id) => getTechnologyById(id))
-    .filter((technology): technology is NonNullable<ReturnType<typeof getTechnologyById>> =>
-      Boolean(technology),
-    )
+    .map((id) => getTechnologyById(technologies, id))
+    .filter((technology): technology is NonNullable<typeof technology> => Boolean(technology))
 
   return (
     <Reveal

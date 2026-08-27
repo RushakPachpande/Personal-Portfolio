@@ -1,5 +1,5 @@
 import { X } from 'lucide-react'
-import type { CaseStudyMediaItem } from '@/content/caseStudies'
+import type { CaseStudyMediaItem } from '@/types/portfolio'
 import { LogoFrame } from '@/components/media/LogoFrame'
 import { Button } from '@/components/ui/button'
 

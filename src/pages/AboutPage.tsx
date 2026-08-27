@@ -1,17 +1,17 @@
-import { profile } from '@/content/profile'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { Seo } from '@/components/layout/Seo'
 import { OverlayCard } from '@/components/cards/OverlayCard'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
 import { cn, responsiveCardGridCompactClassName } from '@/lib/utils'
 
-const sections = [
-  { title: 'Who I am', body: profile.about.whoIAm },
-  { title: 'How I think', body: profile.about.howIThink },
-  { title: 'What I enjoy building', body: profile.about.whatIEnjoy },
-  { title: 'My engineering approach', body: profile.about.approach },
-] as const
-
 export function AboutPage() {
+  const { profile } = usePortfolio()
+  const sections = [
+    { title: 'Who I am', body: profile.about.whoIAm },
+    { title: 'How I think', body: profile.about.howIThink },
+    { title: 'What I enjoy building', body: profile.about.whatIEnjoy },
+    { title: 'My engineering approach', body: profile.about.approach },
+  ] as const
   return (
     <>
       <Seo

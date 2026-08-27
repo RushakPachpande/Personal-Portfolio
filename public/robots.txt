@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /_sys/
 
 Sitemap: https://rushak.dev/sitemap.xml

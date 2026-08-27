@@ -1,4 +1,5 @@
-import { getFeaturedCaseStudies } from '@/content/caseStudies'
+import { getFeaturedCaseStudies } from '@/lib/portfolio'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { Seo } from '@/components/layout/Seo'
 import { HeroSection } from '@/features/hero/HeroSection'
 import { HomeAbout, ExperienceSnapshot } from '@/features/home/HomeSections'
@@ -9,7 +10,8 @@ import { MagneticButton } from '@/components/shared/MagneticButton'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
 
 export function HomePage() {
-  const featured = getFeaturedCaseStudies().slice(0, 4)
+  const { caseStudies } = usePortfolio()
+  const featured = getFeaturedCaseStudies(caseStudies).slice(0, 4)
 
   return (
     <>

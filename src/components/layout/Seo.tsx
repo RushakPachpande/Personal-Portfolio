@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import { buildTitle, defaultDescription } from '@/lib/seo'
+import { usePortfolio } from '@/hooks/usePortfolio'
 
 type SeoProps = {
   title?: string
@@ -8,8 +9,9 @@ type SeoProps = {
 }
 
 export function Seo({ title, description, path = '/' }: SeoProps) {
-  const fullTitle = buildTitle(title)
-  const desc = description ?? defaultDescription()
+  const { profile } = usePortfolio()
+  const fullTitle = buildTitle(profile.name, profile.role, title)
+  const desc = description ?? defaultDescription(profile.description)
   const url = `https://rushak.dev${path}`
 
   return (

@@ -5,9 +5,10 @@ import {
   categoryLabels,
   categoryPaths,
   getRelatedCaseStudies,
-  type CaseStudy,
-} from '@/content/caseStudies'
-import { profile } from '@/content/profile'
+  getTechnologyById,
+} from '@/lib/portfolio'
+import type { CaseStudy } from '@/types/portfolio'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { Seo } from '@/components/layout/Seo'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -19,7 +20,6 @@ import { TechBanner } from '@/components/tech/TechBanner'
 import { ArchitectureFlow } from './ArchitectureFlow'
 import { LogoFrame } from '@/components/media/LogoFrame'
 import { MediaCarousel } from '@/components/media/MediaCarousel'
-import { getTechnologyById } from '@/content/technologies'
 import { cn } from '@/lib/utils'
 
 const TOC = [
@@ -49,8 +49,9 @@ const categoryGradients: Record<CaseStudy['category'], CardGradientKey> = {
 }
 
 export function CaseStudyPage({ study }: CaseStudyPageProps) {
+  const { profile, caseStudies, technologies } = usePortfolio()
   const [activeId, setActiveId] = useState<string>(TOC[0].id)
-  const related = getRelatedCaseStudies(study).slice(0, 4)
+  const related = getRelatedCaseStudies(caseStudies, study).slice(0, 4)
   const backPath = categoryPaths[study.category]
 
   useEffect(() => {
@@ -266,7 +267,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                 <SurfaceCard title="Used Technologies" gradient={categoryGradients[study.category]}>
                   <div className="flex flex-wrap gap-2">
                     {(study.technologyIds ?? []).map((technologyId) => {
-                      const technology = getTechnologyById(technologyId)
+                      const technology = getTechnologyById(technologies, technologyId)
                       if (!technology) return null
                       return (
                         <span

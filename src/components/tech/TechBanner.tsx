@@ -1,4 +1,5 @@
-import { getTechnologyById } from '@/content/technologies'
+import { getTechnologyById } from '@/lib/portfolio'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { TechBadge } from './TechBadge'
 
 type TechBannerProps = {
@@ -6,8 +7,9 @@ type TechBannerProps = {
 }
 
 export function TechBanner({ technologyIds }: TechBannerProps) {
+  const { technologies } = usePortfolio()
   const items = technologyIds
-    .map((id) => getTechnologyById(id))
+    .map((id) => getTechnologyById(technologies, id))
     .filter((technology) => Boolean(technology))
 
   if (items.length === 0) return null

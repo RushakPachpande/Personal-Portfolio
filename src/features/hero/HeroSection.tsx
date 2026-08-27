@@ -1,11 +1,12 @@
 import { ArrowDownRight, Download } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { profile } from '@/content/profile'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { AnimatedGrid, GradientBlobs } from '@/components/effects/BackgroundEffects'
 import { MagneticButton } from '@/components/shared/MagneticButton'
 import { fadeUp, staggerContainer } from '@/lib/motion'
 
 export function HeroSection() {
+  const { profile } = usePortfolio()
   const reduced = useReducedMotion()
 
   return (

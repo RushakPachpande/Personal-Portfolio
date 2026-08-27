@@ -1,4 +1,4 @@
-import type { Technology } from '@/content/technologies'
+import type { Technology } from '@/types/portfolio'
 import { cn } from '@/lib/utils'
 
 type TechBadgeProps = {

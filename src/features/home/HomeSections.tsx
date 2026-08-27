@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
-import { profile } from '@/content/profile'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { OverlayCard } from '@/components/cards/OverlayCard'
 import { Reveal } from '@/components/shared/Reveal'
 import { MagneticButton } from '@/components/shared/MagneticButton'
 
 export function HomeAbout() {
+  const { profile } = usePortfolio()
   return (
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>

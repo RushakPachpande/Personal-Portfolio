@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
-import { getCaseStudy } from '@/content/caseStudies'
+import { getCaseStudy } from '@/lib/portfolio'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { CaseStudyPage } from '@/features/case-studies/CaseStudyPage'
 import { Button } from '@/components/ui/button'
 
@@ -15,7 +16,8 @@ export function CaseStudyRoutePage({
   listLabel,
 }: CaseStudyRoutePageProps) {
   const { slug } = useParams()
-  const study = slug ? getCaseStudy(slug) : undefined
+  const { caseStudies } = usePortfolio()
+  const study = slug ? getCaseStudy(caseStudies, slug) : undefined
 
   if (!study || study.category !== category) {
     return (

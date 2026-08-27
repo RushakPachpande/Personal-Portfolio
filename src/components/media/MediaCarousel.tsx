@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ChevronLeft, ChevronRight, Expand } from 'lucide-react'
-import type { CaseStudyMediaItem } from '@/content/caseStudies'
+import type { CaseStudyMediaItem } from '@/types/portfolio'
 import { Button } from '@/components/ui/button'
 import { LogoFrame } from './LogoFrame'
 import { LightboxModal } from './LightboxModal'

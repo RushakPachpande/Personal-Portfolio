@@ -1,7 +1,7 @@
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { ChevronDown, Menu, TerminalSquare, X } from 'lucide-react'
-import { profile } from '@/content/profile'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
@@ -150,6 +150,7 @@ function DesktopNavDropdown({ group }: { group: NavGroupItem }) {
 }
 
 function MobileNavContent({ onClose, onOpenTerminal }: { onClose: () => void; onOpenTerminal: () => void }) {
+  const { profile } = usePortfolio()
   return (
     <SheetContent
       side="right"
@@ -222,6 +223,7 @@ function MobileNavContent({ onClose, onOpenTerminal }: { onClose: () => void; on
 }
 
 export function Navbar({ onOpenTerminal }: { onOpenTerminal: () => void }) {
+  const { profile } = usePortfolio()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 

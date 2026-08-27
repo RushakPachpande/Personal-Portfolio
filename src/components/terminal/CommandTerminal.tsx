@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { TerminalSquare, X } from 'lucide-react'
-import { SITE_VERSION } from '@/content/profile'
 import {
+  buildTerminalWelcome,
   completeTerminalInput,
   executeTerminalCommand,
   terminalQuickCommands,
-  terminalWelcome,
   type TerminalLine,
 } from '@/content/terminal'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -28,12 +28,13 @@ const lineStyles: Record<TerminalLine['type'], string> = {
 export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
   const navigate = useNavigate()
   const { pathname } = useLocation()
+  const portfolio = usePortfolio()
   const inputRef = useRef<HTMLInputElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
   const commandHistory = useRef<string[]>([])
   const historyIndex = useRef<number | null>(null)
   const [history, setHistory] = useState<TerminalLine[]>([
-    { type: 'system', text: terminalWelcome },
+    { type: 'system', text: buildTerminalWelcome(portfolio) },
   ])
   const [value, setValue] = useState('')
 
@@ -67,7 +68,7 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
 
     push([{ type: 'input', text: `> ${raw}` }])
 
-    const result = executeTerminalCommand(raw, { pathname })
+    const result = executeTerminalCommand(raw, { pathname, portfolio })
     if (!result) return
 
     if (result.clear) {
@@ -119,7 +120,7 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
 
     if (event.key === 'Tab') {
       event.preventDefault()
-      const completed = completeTerminalInput(value)
+      const completed = completeTerminalInput(value, portfolio.terminalCommands)
       if (completed) setValue(completed)
     }
   }
@@ -147,7 +148,7 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
               <span className="truncate">rushak@platform:~</span>
             </div>
             <span className="hidden font-mono text-xs text-muted-foreground sm:inline sm:text-sm">
-              v{SITE_VERSION} · Ctrl+K close · ↑↓ history · Tab complete
+              v{portfolio.siteVersion} · Ctrl+K close · ↑↓ history · Tab complete
             </span>
             <span className="font-mono text-xs text-muted-foreground sm:hidden">Ctrl+K close</span>
           </div>

@@ -13,17 +13,8 @@ import {
   Sparkles,
   Wrench,
 } from 'lucide-react'
-import { profile } from '@/content/profile'
-import {
-  coreCompetencies,
-  keyProjects,
-  professionalExperience,
-  resumeCertifications,
-  resumeEducation,
-  resumeHighlights,
-  technicalExpertise,
-} from '@/content/resume'
-import { getCaseStudyPath, getCaseStudy } from '@/content/caseStudies'
+import { usePortfolio } from '@/hooks/usePortfolio'
+import { getCaseStudyPath, getCaseStudy } from '@/lib/portfolio'
 import { OverlayCard } from '@/components/cards/OverlayCard'
 import { SurfaceCard } from '@/components/cards/SurfaceCard'
 import { MagneticButton } from '@/components/shared/MagneticButton'
@@ -57,7 +48,8 @@ function SectionBlock({
 }
 
 function CaseStudyLink({ slug }: { slug: string }) {
-  const study = getCaseStudy(slug)
+  const { caseStudies } = usePortfolio()
+  const study = getCaseStudy(caseStudies, slug)
   if (!study) return null
 
   return (
@@ -72,6 +64,16 @@ function CaseStudyLink({ slug }: { slug: string }) {
 }
 
 export function ResumePreview() {
+  const { profile, resume } = usePortfolio()
+  const {
+    coreCompetencies,
+    keyProjects,
+    professionalExperience,
+    certifications: resumeCertifications,
+    education: resumeEducation,
+    highlights: resumeHighlights,
+    technicalExpertise,
+  } = resume
   return (
     <div className="pb-20">
       <Reveal>

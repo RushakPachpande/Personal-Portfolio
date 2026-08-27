@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { getCaseStudy, getCaseStudyPath } from '@/content/caseStudies'
-import { technologies, technologyCategories, type TechnologyCategory } from '@/content/technologies'
+import { getCaseStudy, getCaseStudyPath, technologyCategories } from '@/lib/portfolio'
+import type { TechnologyCategory } from '@/types/portfolio'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { OverlayCard } from '@/components/cards/OverlayCard'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
 import { cn, responsiveCardGridCompactClassName } from '@/lib/utils'
@@ -18,6 +19,7 @@ const categoryOrder: TechnologyCategory[] = [
 ]
 
 export function TechnologyLibraryGrid() {
+  const { technologies, caseStudies } = usePortfolio()
   return (
     <section className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
@@ -60,7 +62,7 @@ export function TechnologyLibraryGrid() {
                               ) : (
                                 <ul className="mt-2 flex flex-wrap gap-2">
                                   {slugs.slice(0, 4).map((slug) => {
-                                    const study = getCaseStudy(slug)
+                                    const study = getCaseStudy(caseStudies, slug)
                                     if (!study) return null
                                     return (
                                       <li key={`${technology.id}-${slug}`}>

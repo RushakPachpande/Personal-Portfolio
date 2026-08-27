@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
-import { profile, SITE_VERSION } from '@/content/profile'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { useDevMode } from '@/hooks/useDevMode'
 import { navItems } from './navItems'
 
 export function Footer() {
+  const { profile, siteVersion } = usePortfolio()
   const { unlocked } = useDevMode()
   const lastUpdated = new Date().toLocaleDateString('en-IN', {
     year: 'numeric',
@@ -78,7 +79,7 @@ export function Footer() {
         <div className="flex flex-col gap-2 border-t border-border/60 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} {profile.name}. Built with intent.</p>
           <p className="font-mono">
-            v{SITE_VERSION} · Updated {lastUpdated}
+            v{siteVersion} · Updated {lastUpdated}
             {unlocked ? ' · developer mode' : ''}
           </p>
         </div>

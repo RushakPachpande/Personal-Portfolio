@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import type { CaseStudy } from '@/content/caseStudies'
+import type { CaseStudy } from '@/types/portfolio'
 import { CaseStudyCard } from './CaseStudyCard'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
 import { cn, responsiveCardGridClassName } from '@/lib/utils'

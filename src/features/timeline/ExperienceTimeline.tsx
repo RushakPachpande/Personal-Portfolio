@@ -1,4 +1,4 @@
-import { timeline } from '@/content/timeline'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
@@ -11,6 +11,7 @@ const typeLabel = {
 } as const
 
 export function ExperienceTimeline() {
+  const { timeline } = usePortfolio()
   const initiativePoints = ['Navdrishti', 'BrainPulses', 'Azure', 'M365', 'TrueNAS', 'Docker', 'n8n']
 
   return (

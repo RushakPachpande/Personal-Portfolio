@@ -1,10 +1,13 @@
-import { engineeringStats } from '@/content/stats'
+import { computeEngineeringStats } from '@/lib/portfolio'
+import { usePortfolio } from '@/hooks/usePortfolio'
 import { OverlayCard } from '@/components/cards/OverlayCard'
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
 import { cn, responsiveCardGridCompactClassName } from '@/lib/utils'
 
 export function EngineeringStats() {
+  const { caseStudies, technologies } = usePortfolio()
+  const engineeringStats = computeEngineeringStats(caseStudies, technologies)
   return (
     <section className="mx-auto max-w-6xl min-w-0 px-4 py-16 sm:px-6">
       <Reveal>

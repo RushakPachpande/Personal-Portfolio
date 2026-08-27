@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { ArchitectureNode } from '@/content/caseStudies'
+import type { ArchitectureNode } from '@/types/portfolio'
 import { cn } from '@/lib/utils'
 
 type ArchitectureFlowProps = {

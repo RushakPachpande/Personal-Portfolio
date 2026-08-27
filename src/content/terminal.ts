@@ -1,15 +1,11 @@
-import { profile, SITE_VERSION } from '@/content/profile'
-import { getCaseStudiesByCategory, getCaseStudy, getCaseStudyPath } from '@/content/caseStudies'
 import { navStructure } from '@/components/layout/navItems'
 import {
-  coreCompetencies,
-  keyProjects,
-  resumeCertifications,
-  resumeEducation,
-  resumeHighlights,
-} from '@/content/resume'
-import { engineeringStats } from '@/content/stats'
-import { technologies } from '@/content/technologies'
+  computeEngineeringStats,
+  getCaseStudiesByCategory,
+  getCaseStudy,
+  getCaseStudyPath,
+} from '@/lib/portfolio'
+import type { PortfolioData } from '@/types/portfolio'
 
 export type TerminalCommand = {
   name: string
@@ -32,6 +28,7 @@ export type TerminalExecution = {
 
 export type TerminalContext = {
   pathname: string
+  portfolio: PortfolioData
 }
 
 export const terminalCommands: TerminalCommand[] = [
@@ -67,36 +64,40 @@ export const terminalCommands: TerminalCommand[] = [
 
 export const terminalQuickCommands = ['help', 'resume', 'platforms', 'certs', 'stats', 'contact'] as const
 
-export const terminalWelcome = [
-  '+------------------------------------------+',
-  '|  rushak@platform - portfolio terminal    |',
-  '+------------------------------------------+',
-  '',
-  `Portfolio v${SITE_VERSION} · ${profile.resumeTitle}`,
-  'Type `help` for commands · `nav` for site map · Ctrl+K to close',
-].join('\n')
+export function buildTerminalWelcome(portfolio: PortfolioData) {
+  return [
+    '+------------------------------------------+',
+    '|  rushak@platform - portfolio terminal    |',
+    '+------------------------------------------+',
+    '',
+    `Portfolio v${portfolio.siteVersion} · ${portfolio.profile.resumeTitle}`,
+    'Type `help` for commands · `nav` for site map · Ctrl+K to close',
+  ].join('\n')
+}
 
-const commandLookup = new Map<string, string>()
-
-for (const command of terminalCommands) {
-  commandLookup.set(command.name, command.name)
-  command.aliases?.forEach((alias) => commandLookup.set(alias, command.name))
+function commandLookup(commands: TerminalCommand[]) {
+  const map = new Map<string, string>()
+  for (const command of commands) {
+    map.set(command.name, command.name)
+    command.aliases?.forEach((alias) => map.set(alias, command.name))
+  }
+  return map
 }
 
 export function resolveTerminalInput(input: string) {
   return input.trim().toLowerCase().replace(/\s+/g, ' ')
 }
 
-export function getTerminalCommandNames() {
-  return terminalCommands.flatMap((command) => [command.name, ...(command.aliases ?? [])])
+export function getTerminalCommandNames(commands: TerminalCommand[]) {
+  return commands.flatMap((command) => [command.name, ...(command.aliases ?? [])])
 }
 
-export function completeTerminalInput(value: string) {
+export function completeTerminalInput(value: string, commands: TerminalCommand[]) {
   const trimmed = value.trimStart().toLowerCase()
   if (!trimmed) return null
 
   const [command, ...rest] = trimmed.split(' ')
-  const candidates = getTerminalCommandNames().filter((name) => name.startsWith(command))
+  const candidates = getTerminalCommandNames(commands).filter((name) => name.startsWith(command))
   if (candidates.length !== 1) return null
 
   const resolved = candidates[0]!
@@ -108,14 +109,8 @@ function out(text: string, type: TerminalLineType = 'output'): TerminalLine {
   return { type, text }
 }
 
-function listCaseStudies(category: 'platform' | 'infrastructure' | 'automation') {
-  return getCaseStudiesByCategory(category)
-    .map((study) => `  • ${study.name}${study.status ? ` — ${study.status}` : ''}`)
-    .join('\n')
-}
-
-function formatCertifications() {
-  return resumeCertifications
+function formatCertifications(portfolio: PortfolioData) {
+  return portfolio.resume.certifications
     .map((group) => {
       const header = `${group.provider} (${group.items.length})`
       const preview =
@@ -137,25 +132,23 @@ function formatNavStructure() {
     .join('\n')
 }
 
-function resolveCaseStudySlug(input: string) {
-  const study = getCaseStudy(input)
-  if (!study) return null
-  return getCaseStudyPath(study)
-}
-
 export function executeTerminalCommand(raw: string, context: TerminalContext): TerminalExecution | null {
+  const { portfolio } = context
+  const { profile, caseStudies, technologies, resume } = portfolio
+  const commands = portfolio.terminalCommands.length > 0 ? portfolio.terminalCommands : terminalCommands
+  const lookup = commandLookup(commands)
   const input = resolveTerminalInput(raw)
   if (!input) return null
 
   const [commandToken, ...args] = input.split(' ')
-  const command = commandLookup.get(commandToken) ?? commandToken
+  const command = lookup.get(commandToken) ?? commandToken
 
   if (command === 'clear') {
     return { lines: [], clear: true }
   }
 
   if (command === 'help') {
-    const help = terminalCommands
+    const help = commands
       .map((entry) => {
         const aliases = entry.aliases?.length ? ` (${entry.aliases.join(', ')})` : ''
         return `  ${entry.name.padEnd(20)} ${entry.description}${aliases}`
@@ -165,10 +158,7 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
   }
 
   if (command === 'home') {
-    return {
-      lines: [out('Navigating to homepage…')],
-      navigate: '/',
-    }
+    return { lines: [out('Navigating to homepage…')], navigate: '/' }
   }
 
   if (command === 'about') {
@@ -191,24 +181,27 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
   }
 
   if (command === 'platforms') {
-    return {
-      lines: [out(`Platform case studies:\n${listCaseStudies('platform')}`)],
-      navigate: '/platforms',
-    }
+    const list = getCaseStudiesByCategory(caseStudies, 'platform')
+      .map((study) => `  • ${study.name}${study.status ? ` — ${study.status}` : ''}`)
+      .join('\n')
+    return { lines: [out(`Platform case studies:\n${list}`)], navigate: '/platforms' }
   }
 
   if (command === 'infrastructure') {
+    const list = getCaseStudiesByCategory(caseStudies, 'infrastructure')
+      .map((study) => `  • ${study.name}${study.status ? ` — ${study.status}` : ''}`)
+      .join('\n')
     return {
-      lines: [out(`Infrastructure initiatives:\n${listCaseStudies('infrastructure')}`)],
+      lines: [out(`Infrastructure initiatives:\n${list}`)],
       navigate: '/infrastructure',
     }
   }
 
   if (command === 'automation') {
-    return {
-      lines: [out(`Automation workflows:\n${listCaseStudies('automation')}`)],
-      navigate: '/automation',
-    }
+    const list = getCaseStudiesByCategory(caseStudies, 'automation')
+      .map((study) => `  • ${study.name}${study.status ? ` — ${study.status}` : ''}`)
+      .join('\n')
+    return { lines: [out(`Automation workflows:\n${list}`)], navigate: '/automation' }
   }
 
   if (command === 'technologies') {
@@ -250,7 +243,7 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
             '',
             'Sections: summary · highlights · competencies · expertise · experience · projects · education · certifications',
             '',
-            `Key projects: ${keyProjects.map((project) => project.name).join(', ')}`,
+            `Key projects: ${resume.keyProjects.map((project) => project.name).join(', ')}`,
           ].join('\n'),
         ),
       ],
@@ -277,10 +270,10 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
   }
 
   if (command === 'certs') {
-    const total = resumeCertifications.reduce((sum, group) => sum + group.items.length, 0)
+    const total = resume.certifications.reduce((sum, group) => sum + group.items.length, 0)
     return {
       lines: [
-        out(`Certifications & learning paths (${total} total):\n\n${formatCertifications()}\n\nFull list on /resume`),
+        out(`Certifications & learning paths (${total} total):\n\n${formatCertifications(portfolio)}\n\nFull list on /resume`),
       ],
       navigate: '/resume',
     }
@@ -290,7 +283,7 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
     return {
       lines: [
         out(
-          resumeEducation
+          resume.education
             .map((entry) => `${entry.degree}\n  ${entry.institution} · ${entry.period}\n  ${entry.detail}`)
             .join('\n\n'),
         ),
@@ -302,7 +295,7 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
     return {
       lines: [
         out(
-          resumeHighlights
+          resume.highlights
             .map((item) => `  ▹ ${item.label}${item.detail ? ` — ${item.detail}` : ''}`)
             .join('\n'),
         ),
@@ -311,10 +304,11 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
   }
 
   if (command === 'stats') {
+    const stats = computeEngineeringStats(caseStudies, technologies)
     return {
       lines: [
         out(
-          engineeringStats
+          stats
             .map(
               (stat) =>
                 `  ${stat.label.padEnd(24)} ${stat.value}${stat.suffix ?? ''}  — ${stat.description}`,
@@ -334,7 +328,7 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
             ...profile.focusAreas.map((area) => `  • ${area}`),
             '',
             'Core competencies:',
-            ...coreCompetencies.map((skill) => `  • ${skill}`),
+            ...resume.coreCompetencies.map((skill) => `  • ${skill}`),
           ].join('\n'),
         ),
       ],
@@ -342,24 +336,18 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
   }
 
   if (command === 'nav') {
-    return {
-      lines: [out(`Site navigation:\n${formatNavStructure()}`)],
-    }
+    return { lines: [out(`Site navigation:\n${formatNavStructure()}`)] }
   }
 
   if (command === 'ls') {
     const routes = navStructure.flatMap((item) =>
       item.type === 'link' ? [item.to] : item.items.map((route) => route.to),
     )
-    return {
-      lines: [out(`Routes:\n${routes.map((route) => `  ${route}`).join('\n')}`)],
-    }
+    return { lines: [out(`Routes:\n${routes.map((route) => `  ${route}`).join('\n')}`)] }
   }
 
   if (command === 'pwd') {
-    return {
-      lines: [out(context.pathname || '/')],
-    }
+    return { lines: [out(context.pathname || '/')] }
   }
 
   if (command === 'open') {
@@ -374,22 +362,19 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
         ],
       }
     }
-    const path = resolveCaseStudySlug(slug)
-    if (!path) {
+    const study = getCaseStudy(caseStudies, slug)
+    if (!study) {
       return { lines: [out(`Case study not found: ${slug}`, 'error')] }
     }
-    const study = getCaseStudy(slug)!
     return {
       lines: [out(`Opening ${study.name} (${study.category})…`)],
-      navigate: path,
+      navigate: getCaseStudyPath(study),
     }
   }
 
   if (command === 'download') {
     return {
-      lines: [
-        out(`Resume PDF: ${profile.resumeUrl}\nOpening resume page for preview + download.`),
-      ],
+      lines: [out(`Resume PDF: ${profile.resumeUrl}\nOpening resume page for preview + download.`)],
       navigate: '/resume',
     }
   }
@@ -411,7 +396,7 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
   if (command === 'version') {
     return {
       lines: [
-        out(`rushak-portfolio v${SITE_VERSION}\nReact · TypeScript · Vite · Tailwind · Framer Motion`),
+        out(`rushak-portfolio v${portfolio.siteVersion}\nReact · TypeScript · Vite · Tailwind · Framer Motion`),
       ],
     }
   }
@@ -468,8 +453,6 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
   }
 
   return {
-    lines: [
-      out(`Command not found: ${raw}\nType \`help\` for available commands.`, 'error'),
-    ],
+    lines: [out(`Command not found: ${raw}\nType \`help\` for available commands.`, 'error')],
   }
 }
