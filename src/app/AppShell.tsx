@@ -1,13 +1,10 @@
-import { useCallback, useState } from 'react';
+import { lazy, Suspense, useCallback, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { PageTransition } from '@/components/layout/PageTransition';
 import { ScrollToTopButton } from '@/components/layout/ScrollToTopButton';
-import { BootSequence } from '@/components/layout/BootSequence';
-import { CursorGlow } from '@/components/effects/CursorGlow';
-import { CommandTerminal } from '@/components/terminal/CommandTerminal';
 import { DevModeContext } from '@/hooks/useDevMode';
 import { useKonami } from '@/hooks/useKonami';
 import { useScrollRestoration } from '@/hooks/useScrollRestoration';
@@ -15,6 +12,48 @@ import {
   PortfolioContext,
   usePublicPortfolioQuery,
 } from '@/hooks/usePortfolio';
+
+const BootSequence = lazy(() =>
+  import('@/components/layout/BootSequence').then((module) => ({
+    default: module.BootSequence,
+  }))
+);
+const CommandTerminal = lazy(() =>
+  import('@/components/terminal/CommandTerminal').then((module) => ({
+    default: module.CommandTerminal,
+  }))
+);
+const CursorGlow = lazy(() =>
+  import('@/components/effects/CursorGlow').then((module) => ({
+    default: module.CursorGlow,
+  }))
+);
+
+function ShellSkeleton({ message }: { message: string }) {
+  return (
+    <div className="flex min-h-dvh flex-col bg-background text-foreground">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-120 focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground"
+      >
+        Skip to content
+      </a>
+      <header className="sticky top-0 z-50 h-16 border-b border-border/60 bg-background/70 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-6xl items-center px-4 sm:px-6">
+          <span className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
+            Portfolio
+          </span>
+        </div>
+      </header>
+      <main
+        id="main-content"
+        className="flex min-h-[70vh] items-center justify-center px-6 text-center font-mono text-sm text-muted-foreground"
+      >
+        {message}
+      </main>
+    </div>
+  );
+}
 
 export function AppShell() {
   const location = useLocation();
@@ -37,32 +76,22 @@ export function AppShell() {
 
   if (portfolioQuery.isError) {
     return (
-      <div className="flex min-h-screen items-center justify-center px-6 text-center">
-        <div>
-          <h1 className="font-display text-2xl font-semibold">
-            Unable to load portfolio data
-          </h1>
-          <p className="mt-3 max-w-md text-sm text-muted-foreground">
-            The site could not reach Supabase. Confirm local `supabase start` or
-            production project keys, then refresh.
-          </p>
-        </div>
-      </div>
+      <ShellSkeleton message="Unable to load portfolio data. Confirm local supabase start or production project keys, then refresh." />
     );
   }
 
   if (portfolioQuery.isPending || !portfolioQuery.data) {
-    return (
-      <div className="flex min-h-screen items-center justify-center font-mono text-sm text-muted-foreground">
-        Loading systems...
-      </div>
-    );
+    return <ShellSkeleton message="Loading systems..." />;
   }
 
   return (
     <PortfolioContext.Provider value={portfolioQuery.data}>
       <DevModeContext.Provider value={{ unlocked }}>
-        {!booted ? <BootSequence onComplete={completeBoot} /> : null}
+        {!booted ? (
+          <Suspense fallback={null}>
+            <BootSequence onComplete={completeBoot} />
+          </Suspense>
+        ) : null}
 
         <a
           href="#main-content"
@@ -71,7 +100,9 @@ export function AppShell() {
           Skip to content
         </a>
 
-        <CursorGlow />
+        <Suspense fallback={null}>
+          <CursorGlow />
+        </Suspense>
         <Navbar onOpenTerminal={() => setTerminalOpen(true)} />
 
         <main
@@ -87,10 +118,14 @@ export function AppShell() {
 
         <Footer />
         <ScrollToTopButton />
-        <CommandTerminal
-          open={terminalOpen}
-          onClose={() => setTerminalOpen(false)}
-        />
+        {terminalOpen ? (
+          <Suspense fallback={null}>
+            <CommandTerminal
+              open={terminalOpen}
+              onClose={() => setTerminalOpen(false)}
+            />
+          </Suspense>
+        ) : null}
 
         {badgeVisible || unlocked ? (
           <div

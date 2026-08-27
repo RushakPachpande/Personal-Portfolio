@@ -2,6 +2,7 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, Menu, TerminalSquare, X } from 'lucide-react';
 import { usePortfolio } from '@/hooks/usePortfolio';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -230,6 +231,12 @@ function MobileNavContent({
       </nav>
 
       <div className="shrink-0 border-t border-border/80 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <p className="font-mono text-xs tracking-wide text-muted-foreground uppercase">
+            Appearance
+          </p>
+          <ThemeToggle />
+        </div>
         <Button
           variant="outline"
           className="w-full justify-start"
@@ -289,6 +296,7 @@ export function Navbar({ onOpenTerminal }: { onOpenTerminal: () => void }) {
           </nav>
 
           <div className="flex items-center gap-2">
+            <ThemeToggle className="hidden sm:inline-flex" />
             <Button
               variant="ghost"
               size="icon-lg"

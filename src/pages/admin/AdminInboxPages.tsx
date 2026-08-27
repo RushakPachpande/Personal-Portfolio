@@ -7,7 +7,7 @@ import {
   fetchContactSubmissions,
   listMediaFiles,
   uploadPortfolioFile,
-} from '@/services/portfolio';
+} from '@/services/portfolio-admin';
 import { MEDIA_BUCKET, publicMediaUrl } from '@/lib/supabase';
 import { PageHeader } from '@/features/admin/fields';
 import { Button } from '@/components/ui/button';

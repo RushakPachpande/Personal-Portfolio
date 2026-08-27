@@ -9,7 +9,7 @@ import {
   refreshTechnologyUsage,
   upsertCaseStudy,
   uploadPortfolioFile,
-} from '@/services/portfolio';
+} from '@/services/portfolio-admin';
 import { MEDIA_BUCKET, publicMediaUrl } from '@/lib/supabase';
 import {
   AdminSection,

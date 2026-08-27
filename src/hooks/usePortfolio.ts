@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchPublicPortfolio } from '@/services/portfolio';
+import { fetchPublicPortfolio } from '@/services/portfolio-public';
 import type { PortfolioData } from '@/types/portfolio';
 
 export const portfolioQueryKey = ['portfolio'] as const;

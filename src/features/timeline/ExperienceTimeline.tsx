@@ -63,7 +63,7 @@ export function ExperienceTimeline() {
               <span
                 className={cn(
                   'absolute top-1.5 left-0 size-5.5 rounded-full border-2 border-background',
-                  'bg-linear-to-br from-electric-blue to-soft-cyan shadow-[0_0_20px_rgba(59,130,246,0.35)]'
+                  'bg-linear-to-br from-electric-blue to-soft-cyan shadow-[0_0_20px_color-mix(in_srgb,var(--electric-blue)_35%,transparent)]'
                 )}
               />
               <div className="glass rounded-2xl border-border/80 p-5 transition-transform duration-300 hover:-translate-y-1">

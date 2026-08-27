@@ -3,7 +3,10 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { getAdminBasePath } from '@/lib/env';
 import { portfolioQueryKey, usePortfolio } from '@/hooks/usePortfolio';
-import { upsertSiteProfile, upsertSiteSettings } from '@/services/portfolio';
+import {
+  upsertSiteProfile,
+  upsertSiteSettings,
+} from '@/services/portfolio-admin';
 import {
   AdminSection,
   Field,

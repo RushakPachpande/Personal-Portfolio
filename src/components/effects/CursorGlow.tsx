@@ -26,8 +26,7 @@ export function CursorGlow() {
     <div
       aria-hidden
       className={cn(
-        'pointer-events-none fixed top-0 left-0 z-30 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-3xl',
-        'bg-[radial-gradient(circle,rgba(59,130,246,0.45)_0%,rgba(124,58,237,0.18)_45%,transparent_70%)]'
+        'pointer-events-none fixed top-0 left-0 z-30 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-3xl cursor-glow'
       )}
       style={{ left: pos.x, top: pos.y }}
     />

@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { getAdminBasePath } from '@/lib/env';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -65,10 +66,7 @@ function AdminNavLinks({
             end={link.to === ''}
             onClick={onNavigate}
             className={({ isActive }) =>
-              cn(
-                linkClassName,
-                isActive && activeClassName
-              )
+              cn(linkClassName, isActive && activeClassName)
             }
           >
             <Icon className="size-4 shrink-0 text-electric-blue" />
@@ -93,7 +91,7 @@ export function AdminLayout() {
   return (
     <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
       <div className="min-h-screen bg-background text-foreground">
-        <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.12),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.08),transparent_32%)]" />
+        <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top_left,var(--bg-glow-blue),transparent_36%),radial-gradient(circle_at_bottom_right,var(--bg-glow-cyan),transparent_32%)]" />
         <header className="sticky top-0 z-30 border-b border-border/80 bg-background/80 backdrop-blur-xl">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
             <div className="flex min-w-0 items-center gap-2">
@@ -120,15 +118,18 @@ export function AdminLayout() {
                 </p>
               </div>
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => void signOut()}
-              className="hidden shrink-0 sm:inline-flex"
-            >
-              <LogOut data-icon="inline-start" />
-              Sign out
-            </Button>
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => void signOut()}
+                className="hidden shrink-0 sm:inline-flex"
+              >
+                <LogOut data-icon="inline-start" />
+                Sign out
+              </Button>
+            </div>
           </div>
         </header>
 
@@ -140,7 +141,7 @@ export function AdminLayout() {
             <AdminNavLinks
               base={base}
               linkClassName="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary/50 hover:text-foreground"
-              activeClassName="bg-secondary text-foreground shadow-[inset_0_0_0_1px_rgba(59,130,246,0.35)]"
+              activeClassName="bg-secondary text-foreground shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--electric-blue)_35%,transparent)]"
             />
           </nav>
           <main className="min-w-0">
@@ -169,11 +170,17 @@ export function AdminLayout() {
               base={base}
               onNavigate={() => setMobileOpen(false)}
               linkClassName="flex min-h-11 items-center gap-3 rounded-lg px-3 text-base text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              activeClassName="bg-secondary font-medium text-foreground shadow-[inset_0_0_0_1px_rgba(59,130,246,0.35)]"
+              activeClassName="bg-secondary font-medium text-foreground shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--electric-blue)_35%,transparent)]"
             />
           </nav>
 
           <div className="shrink-0 border-t border-border/80 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <p className="font-mono text-xs tracking-wide text-muted-foreground uppercase">
+                Appearance
+              </p>
+              <ThemeToggle />
+            </div>
             <Button
               variant="outline"
               className="w-full justify-start"

@@ -34,7 +34,7 @@ function OverlayCardShell({
   const shellClassName = cn(
     'group/card relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/80 bg-card/70 ring-1 ring-foreground/10 backdrop-blur-xl transition-all duration-300',
     href &&
-      'hover:border-primary/50 hover:shadow-[0_0_24px_rgba(59,130,246,0.12)] focus-within:border-primary/50 motion-safe:hover:scale-[1.01] motion-reduce:transform-none',
+      'hover:border-primary/50 hover:shadow-[0_0_24px_color-mix(in_srgb,var(--electric-blue)_12%,transparent)] focus-within:border-primary/50 motion-safe:hover:scale-[1.01] motion-reduce:transform-none',
     featured && 'featured',
     className
   );

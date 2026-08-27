@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Download, ExternalLink, Mail, Send } from 'lucide-react';
 import { usePortfolio } from '@/hooks/usePortfolio';
-import { submitContact } from '@/services/portfolio';
+import { submitContact } from '@/services/portfolio-public';
 import { OverlayCard } from '@/components/cards/OverlayCard';
 import { SurfaceCard } from '@/components/cards/SurfaceCard';
 import { MagneticButton } from '@/components/shared/MagneticButton';

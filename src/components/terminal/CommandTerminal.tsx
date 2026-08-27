@@ -14,6 +14,7 @@ import {
   type TerminalLine,
 } from '@/content/terminal';
 import { usePortfolio } from '@/hooks/usePortfolio';
+import { ensureNerdFont } from '@/lib/nerdFont';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -45,6 +46,7 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
 
   useEffect(() => {
     if (open) {
+      ensureNerdFont();
       window.setTimeout(() => inputRef.current?.focus(), 50);
     }
   }, [open]);
@@ -144,14 +146,14 @@ export function CommandTerminal({ open, onClose }: CommandTerminalProps) {
       <button
         type="button"
         aria-label="Close terminal overlay"
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-background/60 backdrop-blur-sm"
         onClick={onClose}
       />
       <div
         role="dialog"
         aria-modal="true"
         aria-label="Command terminal"
-        className="relative z-10 flex min-h-[min(520px,85vh)] max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-border bg-[#070b16] shadow-2xl sm:max-h-[80vh]"
+        className="relative z-10 flex min-h-[min(520px,85vh)] max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-border bg-popover shadow-2xl sm:max-h-[80vh]"
       >
         <div className="flex items-center justify-between border-b border-border px-4 py-3">
           <div className="flex min-w-0 flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-3">

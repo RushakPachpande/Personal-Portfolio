@@ -12,7 +12,7 @@ import {
   upsertTechnology,
   upsertTimelineItem,
   uploadPortfolioFile,
-} from '@/services/portfolio';
+} from '@/services/portfolio-admin';
 import { MEDIA_BUCKET } from '@/lib/supabase';
 import { technologyCategories } from '@/lib/portfolio';
 import {

@@ -15,7 +15,7 @@ export function AnimatedGrid({ className }: { className?: string }) {
       <div
         className={cn(
           'absolute inset-0 opacity-[0.18]',
-          '[background-image:linear-gradient(rgba(148,163,184,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.18)_1px,transparent_1px)]',
+          '[background-image:linear-gradient(var(--grid-line)_1px,transparent_1px),linear-gradient(90deg,var(--grid-line)_1px,transparent_1px)]',
           '[background-size:48px_48px]',
           !reduced && 'animate-[grid-drift_40s_linear_infinite]'
         )}

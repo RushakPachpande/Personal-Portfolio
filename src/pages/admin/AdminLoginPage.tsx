@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
 import { getAdminBasePath } from '@/lib/env';
 import { isAdminSession } from '@/features/admin/AdminGuard';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -36,7 +37,7 @@ export function AdminLoginPage() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center px-4">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.16),transparent_42%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,var(--bg-glow-blue),transparent_42%)]" />
       <form
         onSubmit={(event) => void onSubmit(event)}
         className="glass relative w-full max-w-md rounded-2xl p-8"
@@ -44,9 +45,12 @@ export function AdminLoginPage() {
         <p className="font-mono text-xs tracking-[0.22em] text-soft-cyan uppercase">
           rushak@studio
         </p>
-        <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight">
-          Sign in
-        </h1>
+        <div className="mt-2 flex items-start justify-between gap-3">
+          <h1 className="font-display text-3xl font-semibold tracking-tight">
+            Sign in
+          </h1>
+          <ThemeToggle />
+        </div>
         <p className="mt-2 text-sm text-muted-foreground">
           Private control plane for portfolio content, media, and inbox.
         </p>
