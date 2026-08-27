@@ -1,7 +1,7 @@
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { cn } from '@/lib/utils'
 
-type LogoFrameVariant = 'card' | 'header' | 'gallery' | 'lightbox'
+type LogoFrameVariant = 'header' | 'gallery' | 'lightbox'
 
 type LogoFrameProps = {
   src: string
@@ -15,12 +15,6 @@ const variantStyles: Record<
   LogoFrameVariant,
   { container: string; image: string; useAspectRatio?: boolean; ratio?: number }
 > = {
-  card: {
-    container: 'bg-muted/30',
-    image: 'max-h-[85%] max-w-[85%] object-contain',
-    useAspectRatio: true,
-    ratio: 16 / 9,
-  },
   header: {
     container:
       'flex size-28 shrink-0 items-center justify-center rounded-2xl border border-border bg-secondary/40 p-3 sm:size-32',
@@ -46,7 +40,7 @@ export function LogoFrame({ src, alt, variant, className, loading }: LogoFramePr
       src={src}
       alt={alt}
       className={styles.image}
-      loading={loading ?? (variant === 'card' ? 'lazy' : undefined)}
+      loading={loading}
     />
   )
 

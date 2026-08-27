@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
 import { getCaseStudy, getCaseStudyPath } from '@/content/caseStudies'
 import { technologies, technologyCategories, type TechnologyCategory } from '@/content/technologies'
+import { OverlayCard } from '@/components/cards/OverlayCard'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
-import { TechBadge } from '@/components/tech/TechBadge'
-import { Badge } from '@/components/ui/badge'
 import { cn, responsiveCardGridCompactClassName } from '@/lib/utils'
 
 const categoryOrder: TechnologyCategory[] = [
@@ -42,42 +41,45 @@ export function TechnologyLibraryGrid() {
                   const slugs = technology.usedInSlugs
                   return (
                     <Reveal key={technology.id} delay={index * 0.02} className="min-w-0">
-                      <article className="glass min-w-0 rounded-2xl border-border/80 p-4">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <TechBadge technology={technology} />
-                          <Badge variant="outline" className="font-mono text-xs uppercase">
-                            {technologyCategories[technology.category]}
-                          </Badge>
-                        </div>
-                        <p className="mt-3 text-sm text-muted-foreground text-pretty">
-                          {technology.description}
-                        </p>
-                        <div className="mt-3">
-                          <p className="font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">
-                            Used in
-                          </p>
-                          {slugs.length === 0 ? (
-                            <p className="mt-2 text-xs text-muted-foreground">No linked case studies yet.</p>
-                          ) : (
-                            <ul className="mt-2 flex flex-wrap gap-2">
-                              {slugs.slice(0, 4).map((slug) => {
-                                const study = getCaseStudy(slug)
-                                if (!study) return null
-                                return (
-                                  <li key={`${technology.id}-${slug}`}>
-                                    <Link
-                                      to={getCaseStudyPath(study)}
-                                      className="rounded-md border border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
-                                    >
-                                      {study.name}
-                                    </Link>
-                                  </li>
-                                )
-                              })}
-                            </ul>
-                          )}
-                        </div>
-                      </article>
+                      <OverlayCard
+                        gradient="technology"
+                        eyebrow={technologyCategories[technology.category]}
+                        title={technology.name}
+                        heroImage={{ src: technology.logo, alt: `${technology.name} logo` }}
+                        body={
+                          <>
+                            <p className="line-clamp-2 text-sm text-muted-foreground text-pretty">
+                              {technology.description}
+                            </p>
+                            <div>
+                              <p className="font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">
+                                Used in
+                              </p>
+                              {slugs.length === 0 ? (
+                                <p className="mt-2 text-xs text-muted-foreground">No linked case studies yet.</p>
+                              ) : (
+                                <ul className="mt-2 flex flex-wrap gap-2">
+                                  {slugs.slice(0, 4).map((slug) => {
+                                    const study = getCaseStudy(slug)
+                                    if (!study) return null
+                                    return (
+                                      <li key={`${technology.id}-${slug}`}>
+                                        <Link
+                                          to={getCaseStudyPath(study)}
+                                          className="rounded-md border border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
+                                          onClick={(event) => event.stopPropagation()}
+                                        >
+                                          {study.name}
+                                        </Link>
+                                      </li>
+                                    )
+                                  })}
+                                </ul>
+                              )}
+                            </div>
+                          </>
+                        }
+                      />
                     </Reveal>
                   )
                 })}

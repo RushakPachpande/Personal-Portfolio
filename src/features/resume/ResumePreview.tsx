@@ -24,10 +24,11 @@ import {
   technicalExpertise,
 } from '@/content/resume'
 import { getCaseStudyPath, getCaseStudy } from '@/content/caseStudies'
+import { OverlayCard } from '@/components/cards/OverlayCard'
+import { SurfaceCard } from '@/components/cards/SurfaceCard'
 import { MagneticButton } from '@/components/shared/MagneticButton'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { cn, responsiveCardGridCompactClassName } from '@/lib/utils'
 
@@ -83,21 +84,25 @@ export function ResumePreview() {
 
       <div className="mt-12 grid min-w-0 grid-cols-1 gap-8 xl:grid-cols-[minmax(0,320px)_minmax(0,1fr)] xl:items-start">
         <Reveal className="xl:sticky xl:top-24">
-          <Card className="glass border-border/80">
-            <CardHeader className="gap-4">
-              <div>
-                <CardTitle className="font-display text-3xl tracking-tight">{profile.name}</CardTitle>
-                <p className="mt-2 text-muted-foreground">{profile.resumeTitle}</p>
+          <SurfaceCard
+            gradient="platform"
+            header={
+              <div className="space-y-4 px-5 py-5 sm:px-6">
+                <div>
+                  <h2 className="font-display text-3xl tracking-tight">{profile.name}</h2>
+                  <p className="mt-2 text-muted-foreground">{profile.resumeTitle}</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {profile.roles.map((role) => (
+                    <Badge key={role} variant="secondary">
+                      {role}
+                    </Badge>
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {profile.roles.map((role) => (
-                  <Badge key={role} variant="secondary">
-                    {role}
-                  </Badge>
-                ))}
-              </div>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-4 text-sm">
+            }
+          >
+            <div className="flex flex-col gap-4 text-sm">
               <div className="flex flex-col gap-3 text-muted-foreground">
                 <p className="inline-flex items-center gap-2">
                   <MapPin className="size-4 shrink-0 text-electric-blue" />
@@ -148,17 +153,14 @@ export function ResumePreview() {
                 Last updated from verified portfolio content. Full case studies available across
                 platform, infrastructure, and automation sections.
               </p>
-            </CardContent>
-          </Card>
+            </div>
+          </SurfaceCard>
         </Reveal>
 
         <div className="flex flex-col gap-10">
           <Reveal>
-            <Card className="glass border-border/80">
-              <CardHeader>
-                <CardTitle className="font-display text-xl">Professional Summary</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-4">
+            <SurfaceCard title="Professional Summary" gradient="platform">
+              <div className="flex flex-col gap-4">
                 <p className="text-muted-foreground text-pretty">
                   Platform &amp; Solutions Engineer with hands-on experience designing, building,
                   and operating production platforms, cloud infrastructure, and enterprise systems.
@@ -175,23 +177,25 @@ export function ResumePreview() {
                     <span>Driven to build robust, scalable, and reliable technical solutions.</span>
                   </li>
                 </ul>
-              </CardContent>
-            </Card>
+              </div>
+            </SurfaceCard>
           </Reveal>
 
           <Reveal delay={0.04}>
             <SectionBlock icon={Sparkles} title="Professional Highlights">
               <div className="grid gap-3 sm:grid-cols-2">
                 {resumeHighlights.map((highlight) => (
-                  <article
+                  <OverlayCard
                     key={highlight.id}
-                    className="glass rounded-xl border-border/80 p-4 transition-transform duration-300 hover:-translate-y-0.5"
-                  >
-                    <p className="text-sm font-medium text-foreground">{highlight.label}</p>
-                    {highlight.detail ? (
-                      <p className="mt-1 font-mono text-xs text-soft-cyan">{highlight.detail}</p>
-                    ) : null}
-                  </article>
+                    gradient="stat"
+                    eyebrow="Highlight"
+                    title={highlight.label}
+                    body={
+                      highlight.detail ? (
+                        <p className="font-mono text-xs text-soft-cyan sm:text-sm">{highlight.detail}</p>
+                      ) : null
+                    }
+                  />
                 ))}
               </div>
             </SectionBlock>
@@ -216,18 +220,15 @@ export function ResumePreview() {
             <SectionBlock icon={Wrench} title="Technical Expertise">
               <div className="grid gap-4 md:grid-cols-2">
                 {technicalExpertise.map((group) => (
-                  <article key={group.id} className="glass rounded-xl border-border/80 p-4">
-                    <h4 className="font-display text-sm font-semibold text-foreground">
-                      {group.title}
-                    </h4>
-                    <div className="mt-3 flex flex-wrap gap-1.5">
+                  <SurfaceCard key={group.id} title={group.title} gradient="technology">
+                    <div className="flex flex-wrap gap-1.5">
                       {group.items.map((item) => (
                         <Badge key={item} variant="outline" className="font-normal">
                           {item}
                         </Badge>
                       ))}
                     </div>
-                  </article>
+                  </SurfaceCard>
                 ))}
               </div>
             </SectionBlock>
@@ -236,7 +237,7 @@ export function ResumePreview() {
           <Reveal delay={0.1}>
             <SectionBlock icon={Briefcase} title="Professional Experience">
               {professionalExperience.map((entry) => (
-                <article key={entry.id} className="glass rounded-2xl border-border/80 p-5 sm:p-6">
+                <SurfaceCard key={entry.id} gradient="experience">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <h4 className="font-display text-lg font-semibold">{entry.organization}</h4>
@@ -252,7 +253,7 @@ export function ResumePreview() {
                       </li>
                     ))}
                   </ul>
-                </article>
+                </SurfaceCard>
               ))}
             </SectionBlock>
           </Reveal>
@@ -261,7 +262,7 @@ export function ResumePreview() {
             <SectionBlock icon={Award} title="Key Projects">
               <div className="grid gap-4">
                 {keyProjects.map((project) => (
-                  <article key={project.id} className="glass rounded-2xl border-border/80 p-5 sm:p-6">
+                  <SurfaceCard key={project.id} gradient="platform">
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
                         <h4 className="font-display text-lg font-semibold">{project.name}</h4>
@@ -284,7 +285,7 @@ export function ResumePreview() {
                         </Badge>
                       ))}
                     </div>
-                  </article>
+                  </SurfaceCard>
                 ))}
               </div>
             </SectionBlock>
@@ -294,14 +295,14 @@ export function ResumePreview() {
             <SectionBlock icon={GraduationCap} title="Education">
               <div className={responsiveCardGridCompactClassName}>
                 {resumeEducation.map((entry) => (
-                  <article key={entry.id} className="glass rounded-xl border-border/80 p-4 sm:p-5">
+                  <SurfaceCard key={entry.id} gradient="about">
                     <div className="flex flex-wrap items-start justify-between gap-2">
                       <h4 className="font-display text-base font-semibold">{entry.degree}</h4>
                       <span className="font-mono text-xs text-muted-foreground">{entry.period}</span>
                     </div>
                     <p className="mt-1 text-sm text-soft-cyan">{entry.institution}</p>
                     <p className="mt-2 text-sm text-muted-foreground">{entry.detail}</p>
-                  </article>
+                  </SurfaceCard>
                 ))}
               </div>
             </SectionBlock>
@@ -311,17 +312,15 @@ export function ResumePreview() {
             <SectionBlock icon={Award} title="Certifications">
               <div className={responsiveCardGridCompactClassName}>
                 {resumeCertifications.map((group) => (
-                  <article
+                  <SurfaceCard
                     key={group.id}
-                    className={cn(
-                      'glass rounded-xl border-border/80 p-4 sm:p-5',
-                      group.id === 'microsoft-learn' && 'md:col-span-2',
-                    )}
+                    title={group.provider}
+                    gradient="stat"
+                    className={cn(group.id === 'microsoft-learn' && 'md:col-span-2')}
                   >
-                    <h4 className="font-display text-base font-semibold">{group.provider}</h4>
                     <ul
                       className={cn(
-                        'mt-3 gap-2 text-sm text-muted-foreground',
+                        'gap-2 text-sm text-muted-foreground',
                         group.items.length > 6
                           ? 'grid min-w-0 grid-cols-1 sm:grid-cols-2'
                           : 'flex flex-col',
@@ -334,7 +333,7 @@ export function ResumePreview() {
                         </li>
                       ))}
                     </ul>
-                  </article>
+                  </SurfaceCard>
                 ))}
               </div>
             </SectionBlock>

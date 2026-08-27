@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { profile } from '@/content/profile'
+import { OverlayCard } from '@/components/cards/OverlayCard'
 import { Reveal } from '@/components/shared/Reveal'
 import { MagneticButton } from '@/components/shared/MagneticButton'
 
@@ -63,13 +64,15 @@ export function ExperienceSnapshot() {
         </div>
       </Reveal>
 
-      <div className="mt-8 grid gap-4 md:grid-cols-3">
+      <div className="mt-8 grid min-w-0 grid-cols-1 gap-4 md:grid-cols-3">
         {highlights.map((item, index) => (
-          <Reveal key={item.title} delay={index * 0.04}>
-            <div className="glass rounded-2xl border-border/80 p-5">
-              <h3 className="font-display text-lg font-semibold">{item.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{item.detail}</p>
-            </div>
+          <Reveal key={item.title} delay={index * 0.04} className="min-w-0">
+            <OverlayCard
+              gradient="experience"
+              eyebrow="Experience"
+              title={item.title}
+              body={<p className="text-sm text-muted-foreground">{item.detail}</p>}
+            />
           </Reveal>
         ))}
       </div>

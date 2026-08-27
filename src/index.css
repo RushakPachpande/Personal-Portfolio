@@ -224,6 +224,15 @@
     @apply border border-border bg-card/70 backdrop-blur-xl;
   }
 
+  .overlay-hero-scrim {
+    background: linear-gradient(
+      to top,
+      rgb(5 8 22 / 0.95) 0%,
+      rgb(5 8 22 / 0.55) 45%,
+      transparent 100%
+    );
+  }
+
   .text-gradient {
     @apply bg-linear-to-r from-electric-blue via-soft-cyan to-deep-purple bg-clip-text text-transparent;
   }

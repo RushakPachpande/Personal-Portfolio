@@ -1,7 +1,7 @@
 import { profile } from '@/content/profile'
 import { Seo } from '@/components/layout/Seo'
+import { OverlayCard } from '@/components/cards/OverlayCard'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn, responsiveCardGridCompactClassName } from '@/lib/utils'
 
 const sections = [
@@ -31,12 +31,19 @@ export function AboutPage() {
         <div className={cn('mt-12', responsiveCardGridCompactClassName)}>
           {sections.map((section, index) => (
             <Reveal key={section.title} delay={index * 0.05} className="min-w-0">
-              <Card className="glass h-full min-w-0 border-border/80">
-                <CardHeader>
-                  <CardTitle className="font-display text-xl">{section.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground text-pretty">{section.body}</CardContent>
-              </Card>
+              <OverlayCard
+                gradient="about"
+                eyebrow="About"
+                title={section.title}
+                hero={
+                  <span className="font-display text-4xl font-semibold text-foreground/20 sm:text-5xl">
+                    0{index + 1}
+                  </span>
+                }
+                body={
+                  <p className="text-sm text-muted-foreground text-pretty sm:text-base">{section.body}</p>
+                }
+              />
             </Reveal>
           ))}
         </div>
