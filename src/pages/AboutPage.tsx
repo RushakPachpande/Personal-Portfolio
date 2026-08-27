@@ -1,7 +1,8 @@
 import { profile } from '@/content/profile'
 import { Seo } from '@/components/layout/Seo'
+import { OverlayCard } from '@/components/cards/OverlayCard'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { cn, responsiveCardGridCompactClassName } from '@/lib/utils'
 
 const sections = [
   { title: 'Who I am', body: profile.about.whoIAm },
@@ -18,7 +19,7 @@ export function AboutPage() {
         description="Platform engineer focused on ownership—building complete digital platforms from infrastructure to production."
         path="/about"
       />
-      <section className="mx-auto max-w-6xl px-4 pt-12 pb-20 sm:px-6">
+      <section className="mx-auto min-w-0 max-w-6xl px-4 pt-12 pb-20 sm:px-6">
         <Reveal>
           <SectionHeader
             eyebrow="About"
@@ -27,15 +28,22 @@ export function AboutPage() {
           />
         </Reveal>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2">
+        <div className={cn('mt-12', responsiveCardGridCompactClassName)}>
           {sections.map((section, index) => (
-            <Reveal key={section.title} delay={index * 0.05}>
-              <Card className="glass h-full border-border/80">
-                <CardHeader>
-                  <CardTitle className="font-display text-xl">{section.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground text-pretty">{section.body}</CardContent>
-              </Card>
+            <Reveal key={section.title} delay={index * 0.05} className="min-w-0">
+              <OverlayCard
+                gradient="about"
+                eyebrow="About"
+                title={section.title}
+                hero={
+                  <span className="font-display text-4xl font-semibold text-foreground/20 sm:text-5xl">
+                    0{index + 1}
+                  </span>
+                }
+                body={
+                  <p className="text-sm text-muted-foreground text-pretty sm:text-base">{section.body}</p>
+                }
+              />
             </Reveal>
           ))}
         </div>

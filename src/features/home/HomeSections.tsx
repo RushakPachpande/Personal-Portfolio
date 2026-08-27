@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { profile } from '@/content/profile'
+import { OverlayCard } from '@/components/cards/OverlayCard'
 import { Reveal } from '@/components/shared/Reveal'
 import { MagneticButton } from '@/components/shared/MagneticButton'
 
@@ -8,7 +9,7 @@ export function HomeAbout() {
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
         <div className="mx-auto max-w-3xl text-center">
-          <p className="font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase">About</p>
+          <p className="font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase sm:text-sm">About</p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
             I own platforms end-to-end
           </h2>
@@ -50,7 +51,7 @@ export function ExperienceSnapshot() {
       <Reveal>
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <p className="font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase">
+            <p className="font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase sm:text-sm">
               Experience Snapshot
             </p>
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">
@@ -63,13 +64,15 @@ export function ExperienceSnapshot() {
         </div>
       </Reveal>
 
-      <div className="mt-8 grid gap-4 md:grid-cols-3">
+      <div className="mt-8 grid min-w-0 grid-cols-1 gap-4 md:grid-cols-3">
         {highlights.map((item, index) => (
-          <Reveal key={item.title} delay={index * 0.04}>
-            <div className="glass rounded-2xl border-border/80 p-5">
-              <h3 className="font-display text-lg font-semibold">{item.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{item.detail}</p>
-            </div>
+          <Reveal key={item.title} delay={index * 0.04} className="min-w-0">
+            <OverlayCard
+              gradient="experience"
+              eyebrow="Experience"
+              title={item.title}
+              body={<p className="text-sm text-muted-foreground">{item.detail}</p>}
+            />
           </Reveal>
         ))}
       </div>

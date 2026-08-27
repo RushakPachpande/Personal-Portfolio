@@ -9,8 +9,13 @@ export const automationCaseStudies: CaseStudy[] = [
     summary: 'Organization’s first production n8n platform—SQLite to PostgreSQL evolution.',
     status: 'Production',
     featured: true,
+    difficulty: 'Complex',
+    timeline: '2025 — Present',
     logo: n8nLogo,
     logoAlt: 'n8n logo',
+    coverImage: n8nLogo,
+    coverImageAlt: 'n8n automation platform branding',
+    technologyIds: ['n8n', 'postgresql', 'docker', 'linux'],
     technologies: ['n8n', 'PostgreSQL', 'Docker', 'Linux', 'VPS'],
     stack: [
       { group: 'Automation', items: ['n8n'] },
@@ -27,6 +32,28 @@ export const automationCaseStudies: CaseStudy[] = [
       'Designed, self-hosted, migrated, and maintained the production n8n platform—initially on SQLite, then redesigned with PostgreSQL. Deployed a secure Docker-based production environment with monitoring, backups, upgrades, and workflow troubleshooting.',
     architecture:
       'Dockerized n8n on Linux VPS. Initial SQLite-backed deployment was migrated to PostgreSQL for production durability, with backups, upgrades, monitoring, and operational troubleshooting as standing practices.',
+    architectureNodes: [
+      {
+        id: 'n8n-triggers',
+        label: 'Workflow Triggers',
+        detail: 'Event and schedule-driven automation entry points.',
+      },
+      {
+        id: 'n8n-engine',
+        label: 'Automation Engine',
+        detail: 'n8n runtime orchestrating business workflows.',
+      },
+      {
+        id: 'n8n-data',
+        label: 'State & Data',
+        detail: 'PostgreSQL-backed durable execution metadata.',
+      },
+      {
+        id: 'n8n-infra',
+        label: 'Infrastructure',
+        detail: 'Dockerized Linux VPS with backups and monitoring.',
+      },
+    ],
     responsibilities: [
       'Platform introduction',
       'Architecture evolution',
@@ -65,6 +92,13 @@ export const automationCaseStudies: CaseStudy[] = [
       'Automation platforms deserve the same production discipline as product backends.',
       'Starting simple is fine—shipping the migration plan is what makes it production.',
     ],
+    gallery: [
+      {
+        src: n8nLogo,
+        caption: 'n8n production platform used for enterprise workflow automation.',
+        type: 'workflow',
+      },
+    ],
     relatedSlugs: [
       'it-support-ticket-automation',
       'sharepoint-automations',
@@ -78,6 +112,13 @@ export const automationCaseStudies: CaseStudy[] = [
     name: 'Microsoft 365 & SharePoint Workflow Automation',
     summary: 'Outlook–SharePoint workflows that standardize internal IT processes.',
     status: 'Implemented',
+    difficulty: 'Advanced',
+    timeline: '2025',
+    logo: n8nLogo,
+    logoAlt: 'n8n logo',
+    coverImage: n8nLogo,
+    coverImageAlt: 'SharePoint workflow automation branding',
+    technologyIds: ['microsoft-365', 'sharepoint', 'outlook', 'rest-apis', 'n8n'],
     technologies: [
       'Microsoft 365',
       'SharePoint',
@@ -100,6 +141,23 @@ export const automationCaseStudies: CaseStudy[] = [
       'Designed workflow architecture integrating Outlook with SharePoint for automated data collection and ticket logging; standardized processes and centralized tracking; documented flows for future enhancements.',
     architecture:
       'Outlook as an intake surface, SharePoint as structured storage/tracking, with automation orchestration (including n8n and Microsoft platform concepts) connecting collection, logging, and operational visibility.',
+    architectureNodes: [
+      {
+        id: 'sp-intake',
+        label: 'Outlook Intake',
+        detail: 'Email-first operational requests enter standardized flows.',
+      },
+      {
+        id: 'sp-orchestration',
+        label: 'Automation Layer',
+        detail: 'n8n and Microsoft workflow concepts connect collection to tracking.',
+      },
+      {
+        id: 'sp-record',
+        label: 'SharePoint Record',
+        detail: 'Structured storage for tickets, logs, and operational visibility.',
+      },
+    ],
     responsibilities: [
       'Workflow architecture',
       'Integration design',
@@ -131,6 +189,13 @@ export const automationCaseStudies: CaseStudy[] = [
       'Business automation wins when it respects existing channels and still creates structure.',
       'Documentation is what turns a working flow into an owned platform capability.',
     ],
+    gallery: [
+      {
+        src: n8nLogo,
+        caption: 'Automation orchestration connecting Outlook intake to SharePoint tracking.',
+        type: 'workflow',
+      },
+    ],
     relatedSlugs: [
       'it-support-ticket-automation',
       'self-hosted-n8n',
@@ -144,8 +209,13 @@ export const automationCaseStudies: CaseStudy[] = [
     name: 'IT Support Ticket Automation',
     summary: 'Outlook-triggered tickets logged in SharePoint with acknowledgements via n8n.',
     status: 'Implemented',
+    difficulty: 'Advanced',
+    timeline: '2025',
     logo: n8nLogo,
     logoAlt: 'n8n logo',
+    coverImage: n8nLogo,
+    coverImageAlt: 'IT ticket automation workflow branding',
+    technologyIds: ['n8n', 'outlook', 'sharepoint', 'rest-apis', 'javascript', 'webhooks'],
     technologies: ['n8n', 'Microsoft Outlook', 'SharePoint', 'REST APIs', 'JavaScript', 'Webhooks'],
     stack: [
       { group: 'Automation', items: ['n8n', 'Webhooks', 'JavaScript'] },
@@ -162,6 +232,28 @@ export const automationCaseStudies: CaseStudy[] = [
       'Designed the end-to-end workflow with Outlook email triggers, SharePoint ticket storage, automatic ticket generation, and acknowledgement emails; structured lifecycle logging and planned extensibility for approvals and notifications.',
     architecture:
       'Outlook triggers feed an n8n workflow that creates/updates SharePoint-backed tickets and sends acknowledgement emails, with REST/webhook integration points for extensibility.',
+    architectureNodes: [
+      {
+        id: 'ticket-intake',
+        label: 'Intake',
+        detail: 'Outlook emails capture incoming support requests.',
+      },
+      {
+        id: 'ticket-orchestration',
+        label: 'Workflow Orchestration',
+        detail: 'n8n transforms intake into structured ticket lifecycle actions.',
+      },
+      {
+        id: 'ticket-system',
+        label: 'System of Record',
+        detail: 'SharePoint stores request state and tracking metadata.',
+      },
+      {
+        id: 'ticket-notifications',
+        label: 'Requester Feedback',
+        detail: 'Automated acknowledgements close the loop with requesters.',
+      },
+    ],
     responsibilities: [
       'Workflow design',
       'Integration',
@@ -199,6 +291,13 @@ export const automationCaseStudies: CaseStudy[] = [
       'Service desk automation is lifecycle design, not only message parsing.',
       'Extensibility should be planned when the first reliable path works—not bolted on after chaos returns.',
     ],
+    gallery: [
+      {
+        src: n8nLogo,
+        caption: 'Workflow orchestration layer for Outlook-to-SharePoint ticket lifecycle automation.',
+        type: 'workflow',
+      },
+    ],
     relatedSlugs: ['sharepoint-automations', 'self-hosted-n8n', 'microsoft-integrations'],
   },
   {
@@ -207,6 +306,13 @@ export const automationCaseStudies: CaseStudy[] = [
     name: 'Microsoft & Enterprise SaaS Operations',
     summary: 'Day-to-day ownership of Microsoft 365 and related SaaS platforms.',
     status: 'Ongoing',
+    difficulty: 'Intermediate',
+    timeline: '2025 — Present',
+    logo: n8nLogo,
+    logoAlt: 'n8n logo',
+    coverImage: n8nLogo,
+    coverImageAlt: 'Enterprise SaaS operations context',
+    technologyIds: ['microsoft-365'],
     technologies: ['Microsoft 365', 'Google Workspace', 'Zoho People', 'Zoho Bigin', 'DNS'],
     stack: [
       { group: 'Collaboration', items: ['Microsoft 365', 'Google Workspace'] },
@@ -223,6 +329,23 @@ export const automationCaseStudies: CaseStudy[] = [
       'Administered Microsoft 365, Google Workspace, Zoho, DNS, domains, and SaaS platforms supporting organizational operations—connecting identity, collaboration, and operational tooling.',
     architecture:
       'Operational layer spanning Microsoft 365 and adjacent SaaS (Google Workspace, Zoho), with DNS/domain administration as the routing and identity-adjacent foundation those services rely on.',
+    architectureNodes: [
+      {
+        id: 'saas-collab',
+        label: 'Collaboration Suites',
+        detail: 'Microsoft 365 and Google Workspace administration.',
+      },
+      {
+        id: 'saas-apps',
+        label: 'Business Apps',
+        detail: 'Zoho People and Zoho Bigin operational tooling.',
+      },
+      {
+        id: 'saas-dns',
+        label: 'DNS & Domains',
+        detail: 'Routing and identity-adjacent foundations for SaaS platforms.',
+      },
+    ],
     responsibilities: [
       'Platform administration',
       'SaaS operations',
@@ -249,6 +372,13 @@ export const automationCaseStudies: CaseStudy[] = [
       'Enterprise SaaS is infrastructure by another name.',
       'Automation quality is capped by how well the surrounding platforms are administered.',
     ],
+    gallery: [
+      {
+        src: n8nLogo,
+        caption: 'Enterprise SaaS operations that keep automation and infrastructure work grounded.',
+        type: 'infrastructure',
+      },
+    ],
     relatedSlugs: [
       'microsoft-365-migration',
       'sharepoint-automations',
@@ -262,6 +392,13 @@ export const automationCaseStudies: CaseStudy[] = [
     name: 'Operational Improvements',
     summary: 'Research-driven automation and platform changes that improve reliability and efficiency.',
     status: 'Ongoing',
+    difficulty: 'Advanced',
+    timeline: '2025 — Present',
+    logo: n8nLogo,
+    logoAlt: 'n8n logo',
+    coverImage: n8nLogo,
+    coverImageAlt: 'Operational improvement initiatives',
+    technologyIds: ['n8n', 'azure', 'github-actions'],
     technologies: ['n8n', 'Zapier', 'CI/CD', 'Azure'],
     stack: [
       { group: 'Automation', items: ['n8n', 'Zapier'] },
@@ -278,6 +415,23 @@ export const automationCaseStudies: CaseStudy[] = [
       'Researched and implemented technical solutions improving platform reliability, automation, operational efficiency, and infrastructure scalability—using structured root-cause analysis before production changes.',
     architecture:
       'Cross-cutting improvement work spanning automation tooling (n8n/Zapier), delivery discipline (CI/CD), and Azure-hosted platforms—applied where analysis showed durable leverage.',
+    architectureNodes: [
+      {
+        id: 'ops-analysis',
+        label: 'Root-Cause Analysis',
+        detail: 'Structured evaluation before production changes.',
+      },
+      {
+        id: 'ops-automation',
+        label: 'Automation Changes',
+        detail: 'n8n and workflow improvements that remove recurrence.',
+      },
+      {
+        id: 'ops-platform',
+        label: 'Platform & Cloud',
+        detail: 'CI/CD and Azure changes that improve reliability at scale.',
+      },
+    ],
     responsibilities: [
       'Root-cause analysis',
       'Solution evaluation',
@@ -303,6 +457,13 @@ export const automationCaseStudies: CaseStudy[] = [
     learnings: [
       'Root-cause analysis is an engineering acceleration tool, not bureaucracy.',
       'The best automation removes recurrence, not only symptoms.',
+    ],
+    gallery: [
+      {
+        src: n8nLogo,
+        caption: 'Automation-led operational improvements grounded in root-cause analysis.',
+        type: 'workflow',
+      },
     ],
     relatedSlugs: ['self-hosted-n8n', 'azure-infrastructure', 'docker-deployment'],
   },

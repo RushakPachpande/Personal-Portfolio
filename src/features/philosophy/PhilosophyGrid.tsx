@@ -1,10 +1,11 @@
 import { philosophyPillars } from '@/content/philosophy'
+import { OverlayCard } from '@/components/cards/OverlayCard'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { cn, responsiveCardGridCompactClassName } from '@/lib/utils'
 
 export function PhilosophyGrid() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <section className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
         <SectionHeader
           eyebrow="Engineering Philosophy"
@@ -13,21 +14,27 @@ export function PhilosophyGrid() {
         />
       </Reveal>
 
-      <div className="mt-12 grid gap-4 md:grid-cols-2">
+      <div className={cn('mt-12', responsiveCardGridCompactClassName)}>
         {philosophyPillars.map((pillar, index) => (
-          <Reveal key={pillar.id} delay={index * 0.04}>
-            <Card className="glass h-full border-border/80 transition-transform duration-300 hover:-translate-y-1">
-              <CardHeader>
-                <p className="font-mono text-xs tracking-[0.18em] text-soft-cyan uppercase">
+          <Reveal key={pillar.id} delay={index * 0.04} className="min-w-0">
+            <OverlayCard
+              gradient="philosophy"
+              eyebrow={`Principle 0${index + 1}`}
+              title={pillar.title}
+              hero={
+                <span className="font-mono text-5xl font-medium text-soft-cyan/80 sm:text-6xl">
                   0{index + 1}
-                </p>
-                <CardTitle className="font-display text-2xl">{pillar.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-3 text-muted-foreground">
-                <p className="text-foreground">{pillar.summary}</p>
-                <p className="text-sm text-pretty">{pillar.detail}</p>
-              </CardContent>
-            </Card>
+                </span>
+              }
+              body={
+                <>
+                  <p className="font-medium text-foreground">{pillar.summary}</p>
+                  <p className="line-clamp-3 text-sm text-muted-foreground text-pretty sm:line-clamp-none">
+                    {pillar.detail}
+                  </p>
+                </>
+              }
+            />
           </Reveal>
         ))}
       </div>

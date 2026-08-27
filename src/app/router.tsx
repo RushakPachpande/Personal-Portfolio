@@ -17,6 +17,11 @@ const InfrastructurePage = lazy(() =>
 const AutomationPage = lazy(() =>
   import('@/pages/AutomationPage').then((module) => ({ default: module.AutomationPage })),
 )
+const TechnologyLibraryPage = lazy(() =>
+  import('@/pages/TechnologyLibraryPage').then((module) => ({
+    default: module.TechnologyLibraryPage,
+  })),
+)
 const CaseStudyRoutePage = lazy(() =>
   import('@/pages/CaseStudyRoutePage').then((module) => ({ default: module.CaseStudyRoutePage })),
 )
@@ -101,6 +106,7 @@ export const router = createBrowserRouter([
         element: withSuspense(<InfrastructureCaseStudyPage />),
       },
       { path: 'automation', element: withSuspense(<AutomationPage />) },
+      { path: 'technology-library', element: withSuspense(<TechnologyLibraryPage />) },
       {
         path: 'automation/:slug',
         element: withSuspense(<AutomationCaseStudyPage />),

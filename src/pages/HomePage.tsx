@@ -3,6 +3,7 @@ import { Seo } from '@/components/layout/Seo'
 import { HeroSection } from '@/features/hero/HeroSection'
 import { HomeAbout, ExperienceSnapshot } from '@/features/home/HomeSections'
 import { EngineeringAreas } from '@/features/home/EngineeringAreas'
+import { EngineeringStats } from '@/features/home/EngineeringStats'
 import { CaseStudyCard } from '@/features/case-studies/CaseStudyCard'
 import { MagneticButton } from '@/components/shared/MagneticButton'
 import { Reveal, SectionHeader } from '@/components/shared/Reveal'
@@ -20,8 +21,10 @@ export function HomePage() {
       <HeroSection />
       <HomeAbout />
       <EngineeringAreas />
+      <EngineeringStats />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <section className="mx-auto max-w-6xl min-w-0 px-4 py-12 sm:px-6">
+        <div className="mb-10 h-px w-full bg-linear-to-r from-transparent via-border to-transparent" />
         <Reveal>
           <SectionHeader
             eyebrow="Featured Case Studies"
@@ -29,7 +32,7 @@ export function HomePage() {
             description="Not project cards—engineering narratives covering context, decisions, challenges, and outcomes."
           />
         </Reveal>
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
+        <div className="mt-12 grid min-w-0 grid-cols-1 gap-5 md:grid-cols-2 *:min-w-0 [&>.featured]:md:col-span-2">
           {featured.map((study, index) => (
             <CaseStudyCard key={study.slug} study={study} index={index} />
           ))}

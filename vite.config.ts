@@ -11,6 +11,7 @@ export default defineConfig({
     },
   },
   server: {
+    port: 8000,
     host: true, // Equivalent to --host (binds to 0.0.0.0)
   },
 })
