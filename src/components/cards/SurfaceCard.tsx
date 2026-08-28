@@ -20,15 +20,20 @@ export function SurfaceCard({
   return (
     <article
       className={cn(
-        'overflow-hidden rounded-2xl border border-border/80 bg-card/70 ring-1 ring-foreground/10 backdrop-blur-xl',
+        'overlay-card overlay-card--surface ring-1 ring-foreground/10',
         className
       )}
     >
       {gradient ? (
         <div
-          className={cn('h-1 w-full', getCardGradient(gradient))}
+          className={cn(
+            'overlay-card__banner overlay-card__banner--strip',
+            getCardGradient(gradient)
+          )}
           aria-hidden="true"
-        />
+        >
+          <div className="overlay-card__notch" />
+        </div>
       ) : null}
       {header ??
         (title ? (

@@ -9,7 +9,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       defaultTheme="dark"
       enableSystem
       storageKey="portfolio-theme"
-      disableTransitionOnChange={false}
+      disableTransitionOnChange={true}
     >
       <ThemeColorMeta />
       {children}

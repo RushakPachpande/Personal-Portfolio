@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/layout/Navbar';
@@ -13,6 +13,10 @@ import {
   usePublicPortfolioQuery,
 } from '@/hooks/usePortfolio';
 import { PageRouteSkeleton } from '@/components/layout/PageRouteSkeleton';
+import {
+  rememberDocumentLoad,
+  shouldShowBootSequence,
+} from '@/lib/bootGate';
 
 const BootSequence = lazy(() =>
   import('@/components/layout/BootSequence').then((module) => ({
@@ -58,11 +62,13 @@ export function AppShell() {
   const location = useLocation();
   useScrollRestoration();
   const portfolioQuery = usePublicPortfolioQuery();
-  const [booted, setBooted] = useState(
-    () => sessionStorage.getItem('boot-complete') === '1'
-  );
+  const [booted, setBooted] = useState(() => !shouldShowBootSequence());
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [badgeVisible, setBadgeVisible] = useState(false);
+
+  useEffect(() => {
+    rememberDocumentLoad();
+  }, []);
 
   const completeBoot = useCallback(() => setBooted(true), []);
 
