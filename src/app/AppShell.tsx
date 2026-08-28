@@ -78,7 +78,13 @@ export function AppShell() {
 
   if (portfolioQuery.isError) {
     return (
-      <ShellError message="Unable to load portfolio data. Confirm local supabase start or production project keys, then refresh." />
+      <ShellError
+        message={
+          import.meta.env.DEV
+            ? 'Unable to load portfolio data. Confirm local supabase start or production project keys, then refresh.'
+            : 'This section is temporarily unavailable. Please refresh in a moment.'
+        }
+      />
     );
   }
 
