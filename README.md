@@ -88,25 +88,23 @@ The site is a static Vite build published to GitHub Pages. Deploys are **manual 
 
    The build reads these from the environment. Local `.env.*` files are never uploaded and are not used by CI.
 
-4. **Settings → Secrets and variables → Actions → Variables**: add `PAGES_SITE_URL` with the public origin of the site, e.g. `https://<username>.github.io` or `https://rushak.dev`.
+### Site URL and base path
 
-### Site URL and the `base` path
+Any repository name works. The workflow asks GitHub for the repo's live Pages URL and derives two values from it:
 
-The build sets no Vite `base`, so assets resolve from the domain root. That is correct for a user site (`https://<username>.github.io/`) or a custom domain, but **not** for a project page like `https://<username>.github.io/repo-name/`, which would serve a blank page. Name the repo `<username>.github.io`, or use a custom domain.
+- `PAGES_BASE_PATH` → Vite's `base`, so assets resolve at `/` (user site or custom domain) or `/<repo>/` (project site)
+- `PAGES_SITE_URL` → canonical URLs in `dist/sitemap.xml` and `dist/robots.txt`, plus a conditional `dist/CNAME`
 
-`PAGES_SITE_URL` drives two things in `postbuild` ([scripts/finalize-pages-build.mjs](scripts/finalize-pages-build.mjs)):
+[src/app/router.tsx](src/app/router.tsx) reads the same base through `import.meta.env.BASE_URL` and passes it to `createBrowserRouter` as `basename`, so routing and link generation follow the subpath too.
 
-- canonical URLs in `dist/sitemap.xml` and `dist/robots.txt`
-- `dist/CNAME`, written **only** when the host is not a `github.io` domain
-
-That conditional matters: GitHub Pages applies any `CNAME` in the artifact as the repo's custom domain, so shipping one before DNS exists would redirect the live site to an unreachable domain.
+`dist/CNAME` is written **only** when the site URL host is not a `github.io` domain. GitHub Pages applies any `CNAME` in the artifact as the repo's custom domain, so emitting one before DNS exists would redirect the live site somewhere unreachable.
 
 ### Moving to a custom domain later
 
 1. Point DNS at GitHub: four `A` records for the apex at `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
-2. Change the `PAGES_SITE_URL` variable to `https://rushak.dev`.
-3. Run the deploy workflow — the build now emits `dist/CNAME`.
-4. **Settings → Pages → Custom domain**: enter `rushak.dev`, then enable **Enforce HTTPS** once the certificate is issued.
+2. Add a `PAGES_SITE_URL` repository **variable** (Settings → Secrets and variables → Actions → Variables) set to `https://your-domain`. This overrides auto-detection.
+3. Run the deploy workflow — the build emits `dist/CNAME` and resets the base path to `/`.
+4. **Settings → Pages → Custom domain**: enter the domain, then enable **Enforce HTTPS** once the certificate is issued.
 
 No code changes are needed.
 
@@ -133,7 +131,7 @@ The workflow checks out the ref, runs lint and `npm run build`, writes `dist/404
 - **Pages permission errors** — Settings → Pages → Source must be **GitHub Actions**.
 - **Build fails on missing Supabase config** — the environment secrets above are not set on the `github-pages` environment.
 - **Routes 404 on refresh** — confirm the SPA fallback step ran, then redeploy.
-- **Blank page** — the site is being served from a subpath (`/repo-name/`). See [Site URL and the `base` path](#site-url-and-the-base-path).
+- **Blank page** — the build's base path does not match the live URL. Check the **Resolve site URL and base path** step in the run log, and clear any stale `PAGES_SITE_URL` variable.
 - **Site redirects to an unreachable domain** — a stale custom domain is set under Settings → Pages. Clear it, and check `PAGES_SITE_URL`.
 - **Stale content** — hard-refresh (`Ctrl+Shift+R`).
 

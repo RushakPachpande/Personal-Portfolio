@@ -74,51 +74,57 @@ function AdminCaseStudyRoute() {
 
 const adminBase = getAdminBasePath().replace(/^\//, '');
 
-export const router = createBrowserRouter([
-  {
-    path: adminBase,
-    children: [
-      { path: 'login', element: withSuspense(<AdminLoginPage />) },
-      {
-        element: (
-          <AdminGuard>
-            <AdminDataLayout />
-          </AdminGuard>
-        ),
-        children: [
-          { index: true, element: withSuspense(<AdminDashboardPage />) },
-          { path: 'profile', element: withSuspense(<AdminProfilePage />) },
-          {
-            path: 'case-studies',
-            element: withSuspense(<AdminCaseStudiesPage />),
-          },
-          {
-            path: 'case-studies/:slug',
-            element: withSuspense(<AdminCaseStudyRoute />),
-          },
-          {
-            path: 'technologies',
-            element: withSuspense(<AdminTechnologiesPage />),
-          },
-          { path: 'timeline', element: withSuspense(<AdminTimelinePage />) },
-          {
-            path: 'philosophy',
-            element: withSuspense(<AdminPhilosophyPage />),
-          },
-          { path: 'resume', element: withSuspense(<AdminResumePage />) },
-          { path: 'terminal', element: withSuspense(<AdminTerminalPage />) },
-          {
-            path: 'submissions',
-            element: withSuspense(<AdminSubmissionsPage />),
-          },
-          { path: 'media', element: withSuspense(<AdminMediaPage />) },
-        ],
-      },
-    ],
-  },
-  {
-    path: '/',
-    element: <AppShell />,
-    children: publicChildRoutes,
-  },
-]);
+// Matches Vite's `base`, so the app works at "/" and at "/<repo>/" alike.
+const routerBasename = import.meta.env.BASE_URL.replace(/\/+$/, '') || '/';
+
+export const router = createBrowserRouter(
+  [
+    {
+      path: adminBase,
+      children: [
+        { path: 'login', element: withSuspense(<AdminLoginPage />) },
+        {
+          element: (
+            <AdminGuard>
+              <AdminDataLayout />
+            </AdminGuard>
+          ),
+          children: [
+            { index: true, element: withSuspense(<AdminDashboardPage />) },
+            { path: 'profile', element: withSuspense(<AdminProfilePage />) },
+            {
+              path: 'case-studies',
+              element: withSuspense(<AdminCaseStudiesPage />),
+            },
+            {
+              path: 'case-studies/:slug',
+              element: withSuspense(<AdminCaseStudyRoute />),
+            },
+            {
+              path: 'technologies',
+              element: withSuspense(<AdminTechnologiesPage />),
+            },
+            { path: 'timeline', element: withSuspense(<AdminTimelinePage />) },
+            {
+              path: 'philosophy',
+              element: withSuspense(<AdminPhilosophyPage />),
+            },
+            { path: 'resume', element: withSuspense(<AdminResumePage />) },
+            { path: 'terminal', element: withSuspense(<AdminTerminalPage />) },
+            {
+              path: 'submissions',
+              element: withSuspense(<AdminSubmissionsPage />),
+            },
+            { path: 'media', element: withSuspense(<AdminMediaPage />) },
+          ],
+        },
+      ],
+    },
+    {
+      path: '/',
+      element: <AppShell />,
+      children: publicChildRoutes,
+    },
+  ],
+  { basename: routerBasename }
+);

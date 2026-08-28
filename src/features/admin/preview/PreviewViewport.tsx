@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import { siteOrigin } from '@/lib/seo';
 import { PREVIEW_DEVICES, type PreviewDeviceId } from './types';
 
 type PreviewViewportProps = {
@@ -39,7 +40,9 @@ export function PreviewViewport({ device, children }: PreviewViewportProps) {
       : 1;
   const outerWidth = deviceWidth * scale;
   const innerHeight = scale > 0 ? availableHeight / scale : availableHeight;
-  const displayPath = `rushak.dev${pathname === '/' ? '' : pathname}`;
+  const displayPath = `${siteOrigin().replace(/^https?:\/\//, '')}${
+    pathname === '/' ? '' : pathname
+  }`;
 
   return (
     <div className="flex h-full min-h-0 flex-col">

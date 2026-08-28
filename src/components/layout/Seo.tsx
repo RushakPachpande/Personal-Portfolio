@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { buildTitle, defaultDescription } from '@/lib/seo';
+import { absoluteUrl, buildTitle, defaultDescription } from '@/lib/seo';
 import { usePortfolio } from '@/hooks/usePortfolio';
 import { usePreviewMode } from '@/hooks/usePreviewMode';
 
@@ -15,7 +15,7 @@ export function Seo({ title, description, path = '/' }: SeoProps) {
   if (isPreview) return null;
   const fullTitle = buildTitle(profile.name, profile.role, title);
   const desc = description ?? defaultDescription(profile.description);
-  const url = `https://rushak.dev${path}`;
+  const url = absoluteUrl(path);
 
   return (
     <Helmet>

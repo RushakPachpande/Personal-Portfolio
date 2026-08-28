@@ -53,6 +53,27 @@ jobs:
           fi
           echo "All required build secrets are present."
 
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Resolve site URL and base path
+        id: site
+        env:
+          CONFIGURED_URL: ${{ steps.pages.outputs.base_url }}
+          OVERRIDE_URL: ${{ vars.PAGES_SITE_URL }}
+        run: |
+          url="${OVERRIDE_URL:-$CONFIGURED_URL}"
+          url="${url%/}"
+          # Path component of the URL: "" for a user site or custom domain,
+          # "/<repo>" for a project site.
+          base="/$(echo "$url" | sed -E 's#^https?://[^/]+/?##')"
+          base="${base%/}/"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "base=$base" >> "$GITHUB_OUTPUT"
+          echo "Site URL: $url"
+          echo "Base path: $base"
+
       - name: Lint
         run: npm run lint
 
@@ -61,7 +82,8 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_ADMIN_BASE_PATH: ${{ secrets.VITE_ADMIN_BASE_PATH }}
-          PAGES_SITE_URL: ${{ vars.PAGES_SITE_URL }}
+          PAGES_SITE_URL: ${{ steps.site.outputs.url }}
+          PAGES_BASE_PATH: ${{ steps.site.outputs.base }}
         run: npm run build
 
       - name: Verify SPA fallback

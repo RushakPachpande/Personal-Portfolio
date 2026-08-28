@@ -8,6 +8,14 @@ function isProdMode(mode: string) {
   return mode === 'prod' || mode === 'production';
 }
 
+// GitHub Pages serves user sites at "/" and project sites at "/<repo>/".
+// The deploy workflow passes the correct value; local builds default to root.
+function resolveBasePath() {
+  const raw = process.env.PAGES_BASE_PATH?.trim();
+  if (!raw || raw === '/') return '/';
+  return `/${raw.replace(/^\/+|\/+$/g, '')}/`;
+}
+
 function vendorChunk(id: string) {
   if (!id.includes('node_modules')) return;
   if (
@@ -47,6 +55,7 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
+    base: resolveBasePath(),
     envDir: process.cwd(),
     plugins,
     resolve: {

@@ -31,17 +31,38 @@ function writeCname(siteUrl) {
   console.log(`custom domain: wrote dist/CNAME (${siteUrl.hostname})`);
 }
 
+// Keeps any subpath, so a project site gets https://user.github.io/repo/about
+function siteRoot(siteUrl) {
+  return siteUrl.href.replace(/\/+$/, '');
+}
+
 function rewriteOrigin(file, siteUrl) {
   const filePath = path.join(DIST, file);
   if (!existsSync(filePath)) return;
 
-  const origin = siteUrl.origin;
+  const root = siteRoot(siteUrl);
   const current = readFileSync(filePath, 'utf8');
-  const updated = current.replaceAll(PLACEHOLDER_ORIGIN, origin);
+  const updated = current.replaceAll(PLACEHOLDER_ORIGIN, root);
   if (updated === current) return;
 
   writeFileSync(filePath, updated, 'utf8');
-  console.log(`rewrote ${file} origin to ${origin}`);
+  console.log(`rewrote ${file} canonical URLs to ${root}`);
+}
+
+// On a project site the crawl rules live under /<repo>/, not the domain root.
+function rewriteRobotsPaths(siteUrl) {
+  const base = `${siteUrl.pathname.replace(/\/+$/, '')}/`;
+  if (base === '/') return;
+
+  const filePath = path.join(DIST, 'robots.txt');
+  if (!existsSync(filePath)) return;
+
+  const updated = readFileSync(filePath, 'utf8')
+    .replace(/^Allow: \/$/m, `Allow: ${base}`)
+    .replace(/^Disallow: \/(.*)$/m, `Disallow: ${base}$1`);
+
+  writeFileSync(filePath, updated, 'utf8');
+  console.log(`scoped robots.txt rules to ${base}`);
 }
 
 spaFallback();
@@ -51,6 +72,7 @@ if (siteUrl) {
   writeCname(siteUrl);
   rewriteOrigin('sitemap.xml', siteUrl);
   rewriteOrigin('robots.txt', siteUrl);
+  rewriteRobotsPaths(siteUrl);
 } else {
   console.log(
     'PAGES_SITE_URL not set: no CNAME written, canonical URLs left as-is'
