@@ -67,19 +67,29 @@ The site is a static Vite build published to GitHub Pages. Deploys are **manual 
 
 ### One-time setup
 
-1. **Settings → Pages → Source**: select **GitHub Actions** (not "Deploy from a branch").
-2. **Settings → Pages → Custom domain**: `rushak.dev`, then enable **Enforce HTTPS** once the certificate is issued. `public/CNAME` is copied into `dist/` on build.
-3. **Settings → Environments → `github-pages` → Environment secrets**: add
+1. Add the remote and push every branch:
 
-   | Secret                   | Value                                       |
-   | ------------------------ | ------------------------------------------- |
-   | `VITE_SUPABASE_URL`      | Cloud project URL                           |
-   | `VITE_SUPABASE_ANON_KEY` | Cloud anon (publishable) key                |
-   | `VITE_ADMIN_BASE_PATH`   | Studio path, e.g. `/_sys/r7k9` (optional)   |
+   ```bash
+   git remote add origin https://github.com/<owner>/<repo>.git
+   git push -u origin --all
+   git push origin --tags
+   ```
+
+   `push --all` sends every local branch and keeps new branches easy to publish later with `git push -u origin <branch>`.
+
+2. **Settings → Pages → Source**: select **GitHub Actions** (not "Deploy from a branch").
+3. **Settings → Pages → Custom domain**: `rushak.dev`, then enable **Enforce HTTPS** once the certificate is issued. `public/CNAME` is copied into `dist/` on build.
+4. **Settings → Environments → `github-pages` → Environment secrets**: add
+
+   | Secret                   | Value                                     |
+   | ------------------------ | ----------------------------------------- |
+   | `VITE_SUPABASE_URL`      | Cloud project URL                         |
+   | `VITE_SUPABASE_ANON_KEY` | Cloud anon (publishable) key              |
+   | `VITE_ADMIN_BASE_PATH`   | Studio path, e.g. `/_sys/r7k9` (optional) |
 
    The build reads these from the environment. Local `.env.*` files are never uploaded and are not used by CI.
 
-4. DNS for the apex domain: four `A` records pointing at `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
+5. DNS for the apex domain: four `A` records pointing at `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
 
 ### Running a deploy
 
@@ -87,12 +97,12 @@ The site is a static Vite build published to GitHub Pages. Deploys are **manual 
 2. Repo → **Actions** → **Deploy to GitHub Pages** → **Run workflow**
 3. Set **ref** to what you want live, then run it:
 
-   | ref              | Deploys                      |
-   | ---------------- | ---------------------------- |
-   | `main`           | Latest commit on `main`      |
-   | `feature/xyz`    | Latest commit on that branch |
-   | `v1.0.0`         | The commit tagged `v1.0.0`   |
-   | full commit SHA  | That exact commit            |
+   | ref             | Deploys                      |
+   | --------------- | ---------------------------- |
+   | `main`          | Latest commit on `main`      |
+   | `feature/xyz`   | Latest commit on that branch |
+   | `v1.0.0`        | The commit tagged `v1.0.0`   |
+   | full commit SHA | That exact commit            |
 
 Inspect a candidate commit first with `git show <SHA> --stat`.
 
