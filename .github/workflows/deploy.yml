@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy Personal Portfolio to GitHub Pages
 
 on:
   workflow_dispatch:
@@ -16,7 +16,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -39,6 +39,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify deployment secrets
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: |
+          missing=""
+          [ -z "$VITE_SUPABASE_URL" ] && missing="$missing VITE_SUPABASE_URL"
+          [ -z "$VITE_SUPABASE_ANON_KEY" ] && missing="$missing VITE_SUPABASE_ANON_KEY"
+          if [ -n "$missing" ]; then
+            echo "::error::Missing required secret(s):$missing. Add them under Settings > Environments > github-pages > Environment secrets."
+            exit 1
+          fi
+          echo "All required build secrets are present."
+
+      - name: Lint
+        run: npm run lint
+
       - name: Build
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
@@ -46,8 +63,8 @@ jobs:
           VITE_ADMIN_BASE_PATH: ${{ secrets.VITE_ADMIN_BASE_PATH }}
         run: npm run build
 
-      - name: Configure SPA fallback for GitHub Pages
-        run: cp dist/index.html dist/404.html
+      - name: Verify SPA fallback
+        run: test -f dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

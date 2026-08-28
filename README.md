@@ -53,14 +53,58 @@ npm run db:push
 
 Canonical runtime data is in Supabase. `src/content/` remains the seed source for the original static dataset.
 
-Factual source: `docs/resume/`. Do not invent metrics.
+## Supabase cloud project
 
-## Production
-
-1. Link a Supabase cloud project: `npx supabase link --project-ref <ref>`
+1. Link the cloud project: `npx supabase link --project-ref <ref>`
 2. Push schema: `npm run db:push`
-3. Put cloud keys in `.env.prod`, then seed with `npm run db:seed:prod` (service role never in the browser)
-4. Set GitHub Actions secrets: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_ADMIN_BASE_PATH`
+3. Put cloud keys in `.env.prod`, then seed with `npm run db:seed:prod`
+
+The service role key is used only by the local seed script. It never reaches the browser bundle and is never set in CI.
+
+## Deployment (GitHub Pages)
+
+The site is a static Vite build published to GitHub Pages. Deploys are **manual only** — nothing ships automatically on push.
+
+### One-time setup
+
+1. **Settings → Pages → Source**: select **GitHub Actions** (not "Deploy from a branch").
+2. **Settings → Pages → Custom domain**: `rushak.dev`, then enable **Enforce HTTPS** once the certificate is issued. `public/CNAME` is copied into `dist/` on build.
+3. **Settings → Environments → `github-pages` → Environment secrets**: add
+
+   | Secret                   | Value                                       |
+   | ------------------------ | ------------------------------------------- |
+   | `VITE_SUPABASE_URL`      | Cloud project URL                           |
+   | `VITE_SUPABASE_ANON_KEY` | Cloud anon (publishable) key                |
+   | `VITE_ADMIN_BASE_PATH`   | Studio path, e.g. `/_sys/r7k9` (optional)   |
+
+   The build reads these from the environment. Local `.env.*` files are never uploaded and are not used by CI.
+
+4. DNS for the apex domain: four `A` records pointing at `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
+
+### Running a deploy
+
+1. Push the commits you want available: `git push origin main`
+2. Repo → **Actions** → **Deploy to GitHub Pages** → **Run workflow**
+3. Set **ref** to what you want live, then run it:
+
+   | ref              | Deploys                      |
+   | ---------------- | ---------------------------- |
+   | `main`           | Latest commit on `main`      |
+   | `feature/xyz`    | Latest commit on that branch |
+   | `v1.0.0`         | The commit tagged `v1.0.0`   |
+   | full commit SHA  | That exact commit            |
+
+Inspect a candidate commit first with `git show <SHA> --stat`.
+
+The workflow checks out the ref, runs lint and `npm run build`, writes `dist/404.html` as an SPA fallback so deep links survive a refresh, and publishes `dist/`.
+
+### Troubleshooting
+
+- **Workflow missing under Actions** — `.github/workflows/deploy.yml` must exist on the default branch on GitHub.
+- **Pages permission errors** — Settings → Pages → Source must be **GitHub Actions**.
+- **Build fails on missing Supabase config** — the environment secrets above are not set on the `github-pages` environment.
+- **Routes 404 on refresh** — confirm the SPA fallback step ran, then redeploy.
+- **Stale content** — hard-refresh (`Ctrl+Shift+R`).
 
 ## Routes
 

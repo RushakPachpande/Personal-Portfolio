@@ -12,20 +12,28 @@ dist
 dist-ssr
 *.local
 build
+coverage
+stats.html
+*.tsbuildinfo
 
 # Editor directories and files
-.cursor/*
-.vscode/*
-!.vscode/extensions.json
+.cursor/
+.vscode/
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-.agents
-references
+
+# Agent / assistant tooling (local only)
+.agents/
+.claude/
+.cursorignore
+skills-lock.json
+references/
 
 # Environment Secrets
 .env
@@ -33,5 +41,9 @@ references
 !.env.example
 !.env.*.example
 
-docs
-skills-lock.json
+# Supabase local artifacts (migrations and config stay tracked)
+supabase/.branches/
+supabase/.temp/
+
+# Internal documentation (local only)
+docs/
