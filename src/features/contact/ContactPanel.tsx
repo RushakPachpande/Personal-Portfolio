@@ -1,29 +1,44 @@
-import { useState, type FormEvent } from 'react'
-import { Download, ExternalLink, Mail, Send } from 'lucide-react'
-import { profile } from '@/content/profile'
-import { OverlayCard } from '@/components/cards/OverlayCard'
-import { SurfaceCard } from '@/components/cards/SurfaceCard'
-import { MagneticButton } from '@/components/shared/MagneticButton'
-import { Reveal, SectionHeader } from '@/components/shared/Reveal'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+import { useState, type FormEvent } from 'react';
+import { Download, ExternalLink, Mail, Send } from 'lucide-react';
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { usePreviewMode } from '@/hooks/usePreviewMode';
+import { submitContact } from '@/services/portfolio-public';
+import { OverlayCard } from '@/components/cards/OverlayCard';
+import { SurfaceCard } from '@/components/cards/SurfaceCard';
+import { MagneticButton } from '@/components/shared/MagneticButton';
+import { Reveal, SectionHeader } from '@/components/shared/Reveal';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 export function ContactPanel() {
-  const [status, setStatus] = useState<'idle' | 'sent'>('idle')
+  const { profile } = usePortfolio();
+  const isPreview = usePreviewMode();
+  const [status, setStatus] = useState<'idle' | 'sent' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const form = new FormData(event.currentTarget)
-    const name = String(form.get('name') ?? '')
-    const email = String(form.get('email') ?? '')
-    const message = String(form.get('message') ?? '')
-    const subject = encodeURIComponent(`Portfolio contact from ${name}`)
-    const body = encodeURIComponent(`From: ${name} <${email}>\n\n${message}`)
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`
-    setStatus('sent')
-  }
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isPreview) return;
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const name = String(formData.get('name') ?? '');
+    const email = String(formData.get('email') ?? '');
+    const message = String(formData.get('message') ?? '');
+    setStatus('idle');
+    setErrorMessage('');
+    try {
+      await submitContact({ name, email, message });
+      setStatus('sent');
+      form.reset();
+    } catch (error) {
+      setStatus('error');
+      setErrorMessage(
+        error instanceof Error ? error.message : 'Unable to send message.'
+      );
+    }
+  };
 
   return (
     <section className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
@@ -41,7 +56,12 @@ export function ContactPanel() {
             gradient="contact"
             eyebrow="Contact"
             title="Channels"
-            hero={<Mail className="size-14 text-soft-cyan/90 sm:size-16" strokeWidth={1.25} />}
+            hero={
+              <Mail
+                className="size-14 text-soft-cyan/90 sm:size-16"
+                strokeWidth={1.25}
+              />
+            }
             body={
               <div className="flex flex-col gap-4 text-sm">
                 <a
@@ -70,7 +90,11 @@ export function ContactPanel() {
                   github.com/RushakPachpande
                 </a>
                 <div className="pt-2">
-                  <MagneticButton href={profile.resumeUrl} variant="outline" size="default">
+                  <MagneticButton
+                    href={profile.resumeUrl}
+                    variant="outline"
+                    size="default"
+                  >
                     Download Resume
                     <Download data-icon="inline-end" />
                   </MagneticButton>
@@ -90,7 +114,13 @@ export function ContactPanel() {
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" name="email" type="email" required placeholder="you@company.com" />
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="you@company.com"
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="message">Message</Label>
@@ -102,17 +132,39 @@ export function ContactPanel() {
                   placeholder="Tell me about the platform you need owned."
                 />
               </div>
-              <Button type="submit" size="lg" className="self-start">
+              <Button
+                type="submit"
+                size="lg"
+                className="self-start"
+                disabled={isPreview}
+                title={
+                  isPreview
+                    ? 'Contact submit is disabled in draft preview.'
+                    : 'Send this message to the studio inbox.'
+                }
+              >
                 Send message
                 <Send data-icon="inline-end" />
               </Button>
+              {isPreview ? (
+                <p className="font-mono text-xs text-muted-foreground">
+                  Preview only — submissions are disabled.
+                </p>
+              ) : null}
               {status === 'sent' ? (
-                <p className="font-mono text-xs text-soft-cyan">Opening your email client…</p>
+                <p className="font-mono text-xs text-soft-cyan">
+                  Message received. I’ll get back to you soon.
+                </p>
+              ) : null}
+              {status === 'error' ? (
+                <p className="font-mono text-xs text-destructive">
+                  {errorMessage}
+                </p>
               ) : null}
             </form>
           </SurfaceCard>
         </Reveal>
       </div>
     </section>
-  )
+  );
 }

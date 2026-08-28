@@ -1,11 +1,13 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext } from 'react';
 
 type DevModeContextValue = {
-  unlocked: boolean
-}
+  unlocked: boolean;
+};
 
-export const DevModeContext = createContext<DevModeContextValue>({ unlocked: false })
+export const DevModeContext = createContext<DevModeContextValue>({
+  unlocked: false,
+});
 
 export function useDevMode() {
-  return useContext(DevModeContext)
+  return useContext(DevModeContext);
 }

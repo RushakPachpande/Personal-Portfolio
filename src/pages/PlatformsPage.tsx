@@ -1,8 +1,10 @@
-import { getCaseStudiesByCategory } from '@/content/caseStudies'
-import { Seo } from '@/components/layout/Seo'
-import { CaseStudyGrid } from '@/features/case-studies/CaseStudyGrid'
+import { getCaseStudiesByCategory } from '@/lib/portfolio';
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { Seo } from '@/components/layout/Seo';
+import { CaseStudyGrid } from '@/features/case-studies/CaseStudyGrid';
 
 export function PlatformsPage() {
+  const { caseStudies } = usePortfolio();
   return (
     <>
       <Seo
@@ -12,12 +14,12 @@ export function PlatformsPage() {
       />
       <div className="pt-8 pb-12">
         <CaseStudyGrid
-          studies={getCaseStudiesByCategory('platform')}
+          studies={getCaseStudiesByCategory(caseStudies, 'platform')}
           eyebrow="Platform Engineering"
           title="Software platforms"
           description="Products owned from architecture and development through deployment and production care."
         />
       </div>
     </>
-  )
+  );
 }

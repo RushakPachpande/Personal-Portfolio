@@ -1,13 +1,14 @@
-import { ArrowRight, Cloud, Cpu, Workflow } from 'lucide-react'
-import { OverlayCard } from '@/components/cards/OverlayCard'
-import { Reveal, SectionHeader } from '@/components/shared/Reveal'
-import { cn, responsiveCardGridThreeClassName } from '@/lib/utils'
+import { ArrowRight, Cloud, Cpu, Workflow } from 'lucide-react';
+import { OverlayCard } from '@/components/cards/OverlayCard';
+import { Reveal, SectionHeader } from '@/components/shared/Reveal';
+import { cn, responsiveCardGridThreeClassName } from '@/lib/utils';
 
 const areas = [
   {
     to: '/platforms',
     title: 'Platform Engineering',
-    description: 'Software products, full-stack delivery, and production deployments.',
+    description:
+      'Software products, full-stack delivery, and production deployments.',
     examples: 'Navdrishti · BrainPulses',
     icon: Cpu,
     gradient: 'platform' as const,
@@ -15,7 +16,8 @@ const areas = [
   {
     to: '/infrastructure',
     title: 'Infrastructure Engineering',
-    description: 'Azure, Microsoft 365, Docker, Linux, networking, storage, and VPN.',
+    description:
+      'Azure, Microsoft 365, Docker, Linux, networking, storage, and VPN.',
     examples: 'Cloud · Tenants · Hosting',
     icon: Cloud,
     gradient: 'infrastructure' as const,
@@ -28,7 +30,7 @@ const areas = [
     icon: Workflow,
     gradient: 'automation' as const,
   },
-] as const
+] as const;
 
 export function EngineeringAreas() {
   return (
@@ -49,11 +51,20 @@ export function EngineeringAreas() {
               gradient={area.gradient}
               eyebrow="Engineering area"
               title={area.title}
-              hero={<area.icon className="size-14 text-soft-cyan/90 sm:size-16" strokeWidth={1.25} />}
+              hero={
+                <area.icon
+                  className="size-14 text-soft-cyan/90 sm:size-16"
+                  strokeWidth={1.25}
+                />
+              }
               body={
                 <>
-                  <p className="line-clamp-2 text-sm text-muted-foreground text-pretty">{area.description}</p>
-                  <p className="font-mono text-xs text-soft-cyan sm:text-sm">{area.examples}</p>
+                  <p className="line-clamp-2 text-sm text-muted-foreground text-pretty">
+                    {area.description}
+                  </p>
+                  <p className="font-mono text-xs text-soft-cyan sm:text-sm">
+                    {area.examples}
+                  </p>
                   <span className="inline-flex items-center gap-1 text-xs text-electric-blue sm:text-sm">
                     Explore
                     <ArrowRight className="size-3.5" />
@@ -65,5 +76,5 @@ export function EngineeringAreas() {
         ))}
       </div>
     </section>
-  )
+  );
 }

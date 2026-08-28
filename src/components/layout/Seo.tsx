@@ -1,16 +1,21 @@
-import { Helmet } from 'react-helmet-async'
-import { buildTitle, defaultDescription } from '@/lib/seo'
+import { Helmet } from 'react-helmet-async';
+import { buildTitle, defaultDescription } from '@/lib/seo';
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { usePreviewMode } from '@/hooks/usePreviewMode';
 
 type SeoProps = {
-  title?: string
-  description?: string
-  path?: string
-}
+  title?: string;
+  description?: string;
+  path?: string;
+};
 
 export function Seo({ title, description, path = '/' }: SeoProps) {
-  const fullTitle = buildTitle(title)
-  const desc = description ?? defaultDescription()
-  const url = `https://rushak.dev${path}`
+  const isPreview = usePreviewMode();
+  const { profile } = usePortfolio();
+  if (isPreview) return null;
+  const fullTitle = buildTitle(profile.name, profile.role, title);
+  const desc = description ?? defaultDescription(profile.description);
+  const url = `https://rushak.dev${path}`;
 
   return (
     <Helmet>
@@ -25,5 +30,5 @@ export function Seo({ title, description, path = '/' }: SeoProps) {
       <meta name="twitter:description" content={desc} />
       <link rel="canonical" href={url} />
     </Helmet>
-  )
+  );
 }

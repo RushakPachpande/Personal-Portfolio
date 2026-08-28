@@ -1,19 +1,20 @@
-import { motion, useReducedMotion } from 'framer-motion'
-import type { ReactNode } from 'react'
-import { fadeUp } from '@/lib/motion'
-import { cn } from '@/lib/utils'
+import { motion, useReducedMotion } from 'framer-motion';
+import type { ReactNode } from 'react';
+import { fadeUp } from '@/lib/motion';
+import { cn } from '@/lib/utils';
 
 type RevealProps = {
-  children: ReactNode
-  className?: string
-  delay?: number
-}
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+};
 
 export function Reveal({ children, className, delay = 0 }: RevealProps) {
-  const reduced = useReducedMotion()
+  const reduced = useReducedMotion();
+  const cappedDelay = Math.min(delay, 0.12);
 
   if (reduced) {
-    return <div className={cn('min-w-0', className)}>{children}</div>
+    return <div className={cn('min-w-0', className)}>{children}</div>;
   }
 
   return (
@@ -22,22 +23,27 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ delay }}
+      viewport={{ once: true, amount: 0.15, margin: '0px 0px -8% 0px' }}
+      transition={{ delay: cappedDelay }}
     >
       {children}
     </motion.div>
-  )
+  );
 }
 
 type SectionHeaderProps = {
-  eyebrow?: string
-  title: string
-  description?: string
-  className?: string
-}
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  className?: string;
+};
 
-export function SectionHeader({ eyebrow, title, description, className }: SectionHeaderProps) {
+export function SectionHeader({
+  eyebrow,
+  title,
+  description,
+  className,
+}: SectionHeaderProps) {
   return (
     <div className={cn('mx-auto max-w-3xl text-center', className)}>
       {eyebrow ? (
@@ -54,5 +60,5 @@ export function SectionHeader({ eyebrow, title, description, className }: Sectio
         </p>
       ) : null}
     </div>
-  )
+  );
 }

@@ -1,24 +1,24 @@
-import reactLogo from '@/assets/tech/react.svg'
-import typescriptLogo from '@/assets/tech/typescript.svg'
-import javascriptLogo from '@/assets/tech/javascript.svg'
-import supabaseLogo from '@/assets/tech/supabase.svg'
-import postgresqlLogo from '@/assets/tech/postgresql.svg'
-import mongodbLogo from '@/assets/tech/mongodb.svg'
-import azureLogo from '@/assets/tech/azure.svg'
-import microsoft365Logo from '@/assets/tech/microsoft365.svg'
-import microsoftLogo from '@/assets/tech/microsoft.svg'
-import dockerLogo from '@/assets/tech/docker.svg'
-import linuxLogo from '@/assets/tech/linux.svg'
-import truenasLogo from '@/assets/tech/truenas.svg'
-import shieldLogo from '@/assets/tech/shield.svg'
-import n8nLogo from '@/assets/tech/n8n.svg'
-import sharepointLogo from '@/assets/tech/sharepoint.svg'
-import outlookLogo from '@/assets/tech/outlook.svg'
-import gitLogo from '@/assets/tech/git.svg'
-import githubLogo from '@/assets/tech/github.svg'
-import githubActionsLogo from '@/assets/tech/githubactions.svg'
-import openapiLogo from '@/assets/tech/openapi.svg'
-import { rawCaseStudies } from '@/content/caseStudies/raw'
+import reactLogo from '@/assets/tech/react.svg';
+import typescriptLogo from '@/assets/tech/typescript.svg';
+import javascriptLogo from '@/assets/tech/javascript.svg';
+import supabaseLogo from '@/assets/tech/supabase.svg';
+import postgresqlLogo from '@/assets/tech/postgresql.svg';
+import mongodbLogo from '@/assets/tech/mongodb.svg';
+import azureLogo from '@/assets/tech/azure.svg';
+import microsoft365Logo from '@/assets/tech/microsoft365.svg';
+import microsoftLogo from '@/assets/tech/microsoft.svg';
+import dockerLogo from '@/assets/tech/docker.svg';
+import linuxLogo from '@/assets/tech/linux.svg';
+import truenasLogo from '@/assets/tech/truenas.svg';
+import shieldLogo from '@/assets/tech/shield.svg';
+import n8nLogo from '@/assets/tech/n8n.svg';
+import sharepointLogo from '@/assets/tech/sharepoint.svg';
+import outlookLogo from '@/assets/tech/outlook.svg';
+import gitLogo from '@/assets/tech/git.svg';
+import githubLogo from '@/assets/tech/github.svg';
+import githubActionsLogo from '@/assets/tech/githubactions.svg';
+import openapiLogo from '@/assets/tech/openapi.svg';
+import { rawCaseStudies } from '@/content/caseStudies/raw';
 
 export type TechnologyCategory =
   | 'frontend'
@@ -29,16 +29,16 @@ export type TechnologyCategory =
   | 'automation'
   | 'version-control'
   | 'security'
-  | 'enterprise'
+  | 'enterprise';
 
 export type Technology = {
-  id: string
-  name: string
-  category: TechnologyCategory
-  logo: string
-  description: string
-  usedInSlugs: string[]
-}
+  id: string;
+  name: string;
+  category: TechnologyCategory;
+  logo: string;
+  description: string;
+  usedInSlugs: string[];
+};
 
 export const technologyCategories: Record<TechnologyCategory, string> = {
   frontend: 'Frontend',
@@ -50,7 +50,7 @@ export const technologyCategories: Record<TechnologyCategory, string> = {
   'version-control': 'Version Control',
   security: 'Security',
   enterprise: 'Enterprise',
-}
+};
 
 const technologyDefinitions: Omit<Technology, 'usedInSlugs'>[] = [
   {
@@ -58,7 +58,8 @@ const technologyDefinitions: Omit<Technology, 'usedInSlugs'>[] = [
     name: 'React',
     category: 'frontend',
     logo: reactLogo,
-    description: 'Component-driven UI layer for interactive product experiences.',
+    description:
+      'Component-driven UI layer for interactive product experiences.',
   },
   {
     id: 'typescript',
@@ -72,7 +73,8 @@ const technologyDefinitions: Omit<Technology, 'usedInSlugs'>[] = [
     name: 'JavaScript',
     category: 'frontend',
     logo: javascriptLogo,
-    description: 'Runtime logic for application behavior and workflow scripting.',
+    description:
+      'Runtime logic for application behavior and workflow scripting.',
   },
   {
     id: 'supabase',
@@ -100,7 +102,8 @@ const technologyDefinitions: Omit<Technology, 'usedInSlugs'>[] = [
     name: 'Microsoft Azure',
     category: 'cloud',
     logo: azureLogo,
-    description: 'Cloud platform for production hosting and infrastructure operations.',
+    description:
+      'Cloud platform for production hosting and infrastructure operations.',
   },
   {
     id: 'microsoft-365',
@@ -135,35 +138,40 @@ const technologyDefinitions: Omit<Technology, 'usedInSlugs'>[] = [
     name: 'TrueNAS',
     category: 'infrastructure',
     logo: truenasLogo,
-    description: 'Storage platform for centralized datasets and secure NAS access.',
+    description:
+      'Storage platform for centralized datasets and secure NAS access.',
   },
   {
     id: 'sophos',
     name: 'Sophos Firewall',
     category: 'security',
     logo: shieldLogo,
-    description: 'Firewall and VPN gateway for secure remote infrastructure access.',
+    description:
+      'Firewall and VPN gateway for secure remote infrastructure access.',
   },
   {
     id: 'n8n',
     name: 'n8n',
     category: 'automation',
     logo: n8nLogo,
-    description: 'Workflow orchestration engine for business process automation.',
+    description:
+      'Workflow orchestration engine for business process automation.',
   },
   {
     id: 'sharepoint',
     name: 'SharePoint',
     category: 'automation',
     logo: sharepointLogo,
-    description: 'Structured storage and process layer for enterprise workflows.',
+    description:
+      'Structured storage and process layer for enterprise workflows.',
   },
   {
     id: 'outlook',
     name: 'Outlook',
     category: 'automation',
     logo: outlookLogo,
-    description: 'Operational intake channel integrated into automation pipelines.',
+    description:
+      'Operational intake channel integrated into automation pipelines.',
   },
   {
     id: 'microsoft-graph',
@@ -177,7 +185,8 @@ const technologyDefinitions: Omit<Technology, 'usedInSlugs'>[] = [
     name: 'Git',
     category: 'version-control',
     logo: gitLogo,
-    description: 'Version control backbone for disciplined engineering changes.',
+    description:
+      'Version control backbone for disciplined engineering changes.',
   },
   {
     id: 'github',
@@ -191,23 +200,26 @@ const technologyDefinitions: Omit<Technology, 'usedInSlugs'>[] = [
     name: 'GitHub Actions',
     category: 'version-control',
     logo: githubActionsLogo,
-    description: 'Pipeline engine for automated build and deployment workflows.',
+    description:
+      'Pipeline engine for automated build and deployment workflows.',
   },
   {
     id: 'rest-apis',
     name: 'REST APIs',
     category: 'backend',
     logo: openapiLogo,
-    description: 'Integration contract between systems, workflows, and services.',
+    description:
+      'Integration contract between systems, workflows, and services.',
   },
   {
     id: 'webhooks',
     name: 'Webhooks',
     category: 'backend',
     logo: openapiLogo,
-    description: 'Event-driven trigger mechanism for automation and orchestration.',
+    description:
+      'Event-driven trigger mechanism for automation and orchestration.',
   },
-]
+];
 
 const technologyAliases: Record<string, string> = {
   typescript: 'typescript',
@@ -241,36 +253,38 @@ const technologyAliases: Record<string, string> = {
   'github actions': 'github-actions',
   'rest apis': 'rest-apis',
   webhooks: 'webhooks',
-}
+};
 
 export function mapTechnologyNameToId(name: string) {
-  const normalized = name.toLowerCase().trim()
-  return technologyAliases[normalized]
+  const normalized = name.toLowerCase().trim();
+  return technologyAliases[normalized];
 }
 
 function buildUsedInMap() {
-  const map: Record<string, string[]> = {}
+  const map: Record<string, string[]> = {};
   for (const study of rawCaseStudies) {
     const ids =
       study.technologyIds ??
       study.technologies
         .map((technology) => mapTechnologyNameToId(technology))
-        .filter((id): id is string => Boolean(id))
+        .filter((id): id is string => Boolean(id));
     for (const id of ids) {
-      if (!map[id]) map[id] = []
-      if (!map[id].includes(study.slug)) map[id].push(study.slug)
+      if (!map[id]) map[id] = [];
+      if (!map[id].includes(study.slug)) map[id].push(study.slug);
     }
   }
-  return map
+  return map;
 }
 
-const usedInMap = buildUsedInMap()
+const usedInMap = buildUsedInMap();
 
-export const technologies: Technology[] = technologyDefinitions.map((technology) => ({
-  ...technology,
-  usedInSlugs: usedInMap[technology.id] ?? [],
-}))
+export const technologies: Technology[] = technologyDefinitions.map(
+  (technology) => ({
+    ...technology,
+    usedInSlugs: usedInMap[technology.id] ?? [],
+  })
+);
 
 export function getTechnologyById(id: string) {
-  return technologies.find((technology) => technology.id === id)
+  return technologies.find((technology) => technology.id === id);
 }

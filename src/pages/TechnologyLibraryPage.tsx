@@ -1,5 +1,5 @@
-import { Seo } from '@/components/layout/Seo'
-import { TechnologyLibraryGrid } from '@/features/technology-library/TechnologyLibraryGrid'
+import { Seo } from '@/components/layout/Seo';
+import { TechnologyLibraryGrid } from '@/features/technology-library/TechnologyLibraryGrid';
 
 export function TechnologyLibraryPage() {
   return (
@@ -13,5 +13,5 @@ export function TechnologyLibraryPage() {
         <TechnologyLibraryGrid />
       </div>
     </>
-  )
+  );
 }

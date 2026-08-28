@@ -1,9 +1,9 @@
-import n8nLogo from '@/assets/logos/n8n.webp'
-import navdrishtiLogo from '@/assets/logos/navdrishti.png'
-import brainpulsesLogo from '@/assets/logos/brainpulses.png'
+import n8nLogo from '@/assets/logos/n8n.webp';
+import navdrishtiLogo from '@/assets/logos/navdrishti.png';
+import brainpulsesLogo from '@/assets/logos/brainpulses.png';
 // import ngiLogo from '@/assets/logos/NGI Small Logo with Black BG.png'
-import ngiLogo from '@/assets/logos/NGI Logo.png'
-import type { CaseStudy } from './types'
+import ngiLogo from '@/assets/logos/NGI Logo.png';
+import type { CaseStudy } from './types';
 
 export const infrastructureCaseStudies: CaseStudy[] = [
   {
@@ -20,11 +20,26 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     coverImage: ngiLogo,
     coverImageAlt: 'Organization Microsoft 365 migration context',
     technologyIds: ['microsoft-365', 'entra-id'],
-    technologies: ['Microsoft 365', 'Entra ID', 'Exchange Online', 'Tenant operations'],
+    technologies: [
+      'Microsoft 365',
+      'Entra ID',
+      'Exchange Online',
+      'Tenant operations',
+    ],
     stack: [
-      { group: 'Enterprise Platforms', items: ['Microsoft 365', 'Exchange Online'] },
+      {
+        group: 'Enterprise Platforms',
+        items: ['Microsoft 365', 'Exchange Online'],
+      },
       { group: 'Identity', items: ['Entra ID / identity alignment'] },
-      { group: 'Operations', items: ['Tenant migration', 'Vendor coordination', 'Post-migration support'] },
+      {
+        group: 'Operations',
+        items: [
+          'Tenant migration',
+          'Vendor coordination',
+          'Post-migration support',
+        ],
+      },
     ],
     businessContext:
       'The organization needed to move collaboration and mail workloads onto a coherent Microsoft 365 tenant without breaking day-to-day operations for a growing user base.',
@@ -40,7 +55,8 @@ export const infrastructureCaseStudies: CaseStudy[] = [
       {
         id: 'm365-planning',
         label: 'Migration Planning',
-        detail: 'Cutover sequencing, stakeholder alignment, and vendor coordination.',
+        detail:
+          'Cutover sequencing, stakeholder alignment, and vendor coordination.',
       },
       {
         id: 'm365-identity',
@@ -67,7 +83,8 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     ],
     decisions: [
       {
-        decision: 'Treat migration as a coordinated program, not a one-click cutover',
+        decision:
+          'Treat migration as a coordinated program, not a one-click cutover',
         rationale:
           'Identity and mailbox continuity fail when planning, vendor work, and validation are improvised under time pressure.',
       },
@@ -79,12 +96,14 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     ],
     challenges: [
       {
-        challenge: 'Coordinating cutover windows and stakeholders across 50+ users.',
+        challenge:
+          'Coordinating cutover windows and stakeholders across 50+ users.',
         resolution:
           'Used structured planning and vendor coordination to keep migration activities sequenced and supportable.',
       },
       {
-        challenge: 'Preserving operational continuity during and after migration.',
+        challenge:
+          'Preserving operational continuity during and after migration.',
         resolution:
           'Paired migration activities with post-migration support rather than treating cutover as the finish line.',
       },
@@ -99,17 +118,23 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: ngiLogo,
-        caption: 'Organization-wide Microsoft 365 tenant migration owned for NextGenInnov8 operations.',
+        caption:
+          'Organization-wide Microsoft 365 tenant migration owned for NextGenInnov8 operations.',
         type: 'infrastructure',
       },
     ],
-    relatedSlugs: ['azure-infrastructure', 'sharepoint-automations', 'microsoft-integrations'],
+    relatedSlugs: [
+      'azure-infrastructure',
+      'sharepoint-automations',
+      'microsoft-integrations',
+    ],
   },
   {
     slug: 'azure-infrastructure',
     category: 'infrastructure',
     name: 'Azure Infrastructure',
-    summary: 'Production Azure hosting with nearly 50% infrastructure cost reduction.',
+    summary:
+      'Production Azure hosting with nearly 50% infrastructure cost reduction.',
     status: 'Production',
     featured: true,
     difficulty: 'Complex',
@@ -154,7 +179,8 @@ export const infrastructureCaseStudies: CaseStudy[] = [
       {
         id: 'azure-ops',
         label: 'Cost & Reliability',
-        detail: 'Ongoing optimization with nearly 50% infrastructure cost reduction.',
+        detail:
+          'Ongoing optimization with nearly 50% infrastructure cost reduction.',
       },
     ],
     responsibilities: [
@@ -165,7 +191,8 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     ],
     decisions: [
       {
-        decision: 'Optimize existing Azure footprint rather than only scaling up',
+        decision:
+          'Optimize existing Azure footprint rather than only scaling up',
         rationale:
           'Reliability and cost are both ownership outcomes—unused or oversized resources quietly tax the business.',
       },
@@ -191,22 +218,30 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: navdrishtiLogo,
-        caption: 'Navdrishti production platform hosted on owned Azure infrastructure.',
+        caption:
+          'Navdrishti production platform hosted on owned Azure infrastructure.',
         type: 'deployment',
       },
       {
         src: brainpulsesLogo,
-        caption: 'BrainPulses live event platform supported by Azure-hosted resources.',
+        caption:
+          'BrainPulses live event platform supported by Azure-hosted resources.',
         type: 'infrastructure',
       },
     ],
-    relatedSlugs: ['navdrishti', 'docker-deployment', 'linux-administration', 'self-hosted-supabase'],
+    relatedSlugs: [
+      'navdrishti',
+      'docker-deployment',
+      'linux-administration',
+      'self-hosted-supabase',
+    ],
   },
   {
     slug: 'self-hosted-supabase',
     category: 'infrastructure',
     name: 'Self-Hosted Supabase',
-    summary: 'Self-hosted Supabase on Linux VPS for development, staging, and future production.',
+    summary:
+      'Self-hosted Supabase on Linux VPS for development, staging, and future production.',
     status: 'Production foundation',
     difficulty: 'Advanced',
     timeline: '2025 — Present',
@@ -217,7 +252,10 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     technologyIds: ['supabase', 'postgresql', 'docker', 'linux'],
     technologies: ['Supabase', 'PostgreSQL', 'Docker', 'Linux', 'VPS'],
     stack: [
-      { group: 'Data Platform', items: ['Supabase', 'PostgreSQL', 'Authentication', 'Storage'] },
+      {
+        group: 'Data Platform',
+        items: ['Supabase', 'PostgreSQL', 'Authentication', 'Storage'],
+      },
       { group: 'Infrastructure', items: ['Docker', 'Linux', 'VPS', 'Backups'] },
     ],
     businessContext:
@@ -273,7 +311,8 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     ],
     challenges: [
       {
-        challenge: 'Operating a full data platform securely with backups and updates.',
+        challenge:
+          'Operating a full data platform securely with backups and updates.',
         resolution:
           'Included backups, updates, and secure infrastructure management in the deployment design—not as deferred chores.',
       },
@@ -287,11 +326,17 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: navdrishtiLogo,
-        caption: 'Navdrishti relies on the self-hosted Supabase + PostgreSQL foundation across environments.',
+        caption:
+          'Navdrishti relies on the self-hosted Supabase + PostgreSQL foundation across environments.',
         type: 'architecture',
       },
     ],
-    relatedSlugs: ['navdrishti', 'docker-deployment', 'self-hosted-n8n', 'linux-administration'],
+    relatedSlugs: [
+      'navdrishti',
+      'docker-deployment',
+      'self-hosted-n8n',
+      'linux-administration',
+    ],
   },
   {
     slug: 'docker-deployment',
@@ -326,12 +371,14 @@ export const infrastructureCaseStudies: CaseStudy[] = [
       {
         id: 'docker-services',
         label: 'Production Services',
-        detail: 'Supabase, n8n, and application releases packaged for delivery.',
+        detail:
+          'Supabase, n8n, and application releases packaged for delivery.',
       },
       {
         id: 'docker-runtime',
         label: 'Docker Runtime',
-        detail: 'Common container packaging model across self-hosted platforms.',
+        detail:
+          'Common container packaging model across self-hosted platforms.',
       },
       {
         id: 'docker-hosts',
@@ -364,7 +411,8 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     ],
     challenges: [
       {
-        challenge: 'Keeping local, staging, and production behavior close enough to trust.',
+        challenge:
+          'Keeping local, staging, and production behavior close enough to trust.',
         resolution:
           'Used Docker packaging and CI-friendly release paths so environments shared a clearer deploy model.',
       },
@@ -378,16 +426,23 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: n8nLogo,
-        caption: 'Self-hosted n8n production platform packaged and operated with Docker.',
+        caption:
+          'Self-hosted n8n production platform packaged and operated with Docker.',
         type: 'deployment',
       },
       {
         src: navdrishtiLogo,
-        caption: 'Application releases aligned through Docker and CI/CD multi-environment delivery.',
+        caption:
+          'Application releases aligned through Docker and CI/CD multi-environment delivery.',
         type: 'infrastructure',
       },
     ],
-    relatedSlugs: ['self-hosted-supabase', 'self-hosted-n8n', 'navdrishti', 'linux-administration'],
+    relatedSlugs: [
+      'self-hosted-supabase',
+      'self-hosted-n8n',
+      'navdrishti',
+      'linux-administration',
+    ],
   },
   {
     slug: 'linux-administration',
@@ -406,7 +461,10 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     stack: [
       { group: 'Systems', items: ['Linux (Ubuntu)', 'VPS'] },
       { group: 'Runtime', items: ['Docker'] },
-      { group: 'Operations', items: ['Backups', 'Updates', 'Secure management'] },
+      {
+        group: 'Operations',
+        items: ['Backups', 'Updates', 'Secure management'],
+      },
     ],
     businessContext:
       'Self-hosted platforms only stay trustworthy if the underlying Linux hosts are owned—patched, backed up, and operated deliberately.',
@@ -451,7 +509,8 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     ],
     challenges: [
       {
-        challenge: 'Keeping multiple self-hosted services healthy on shared operational practices.',
+        challenge:
+          'Keeping multiple self-hosted services healthy on shared operational practices.',
         resolution:
           'Applied consistent host-level ownership—backups, updates, and secure management—across the platforms those hosts run.',
       },
@@ -465,16 +524,22 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: n8nLogo,
-        caption: 'Linux host ownership underpins the self-hosted n8n production platform.',
+        caption:
+          'Linux host ownership underpins the self-hosted n8n production platform.',
         type: 'infrastructure',
       },
       {
         src: navdrishtiLogo,
-        caption: 'Platform services remain dependable when host backups and updates are owned.',
+        caption:
+          'Platform services remain dependable when host backups and updates are owned.',
         type: 'infrastructure',
       },
     ],
-    relatedSlugs: ['docker-deployment', 'self-hosted-supabase', 'self-hosted-n8n'],
+    relatedSlugs: [
+      'docker-deployment',
+      'self-hosted-supabase',
+      'self-hosted-n8n',
+    ],
   },
   {
     slug: 'truenas-migration',
@@ -489,9 +554,19 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     coverImage: ngiLogo,
     coverImageAlt: 'Organizational storage modernization',
     technologyIds: ['truenas', 'linux', 'sophos'],
-    technologies: ['TrueNAS SCALE', 'Linux', 'SMB', 'Networking', 'VPN', 'RBAC'],
+    technologies: [
+      'TrueNAS SCALE',
+      'Linux',
+      'SMB',
+      'Networking',
+      'VPN',
+      'RBAC',
+    ],
     stack: [
-      { group: 'Storage', items: ['TrueNAS SCALE', 'Pools', 'Datasets', 'SMB shares'] },
+      {
+        group: 'Storage',
+        items: ['TrueNAS SCALE', 'Pools', 'Datasets', 'SMB shares'],
+      },
       { group: 'Access', items: ['VPN', 'RBAC', 'Permissions'] },
       { group: 'Operations', items: ['Migration cutover', 'Documentation'] },
     ],
@@ -549,7 +624,8 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     ],
     challenges: [
       {
-        challenge: 'Migrating storage with minimal disruption while rebuilding access cleanly.',
+        challenge:
+          'Migrating storage with minimal disruption while rebuilding access cleanly.',
         resolution:
           'Planned cutover with validation and documentation so performance, scalability, and remote accessibility improved together.',
       },
@@ -563,7 +639,8 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: ngiLogo,
-        caption: 'TrueNAS SCALE migration delivered as an owned organizational storage platform.',
+        caption:
+          'TrueNAS SCALE migration delivered as an owned organizational storage platform.',
         type: 'infrastructure',
       },
     ],
@@ -573,7 +650,8 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     slug: 'sophos-vpn',
     category: 'infrastructure',
     name: 'Sophos VPN & Secure Remote Access',
-    summary: 'Sophos Firewall VPN for protected remote access to internal servers and NAS.',
+    summary:
+      'Sophos Firewall VPN for protected remote access to internal servers and NAS.',
     status: 'Production',
     difficulty: 'Complex',
     timeline: '2025 — Present',
@@ -582,11 +660,23 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     coverImage: ngiLogo,
     coverImageAlt: 'Secure remote access architecture',
     technologyIds: ['sophos'],
-    technologies: ['Sophos Firewall', 'SSL VPN', 'IPSec VPN', 'NAT', 'Firewall Policies'],
+    technologies: [
+      'Sophos Firewall',
+      'SSL VPN',
+      'IPSec VPN',
+      'NAT',
+      'Firewall Policies',
+    ],
     stack: [
-      { group: 'Security Gateway', items: ['Sophos Firewall', 'Firewall policies', 'NAT'] },
+      {
+        group: 'Security Gateway',
+        items: ['Sophos Firewall', 'Firewall policies', 'NAT'],
+      },
       { group: 'Remote Access', items: ['SSL VPN', 'IPSec VPN'] },
-      { group: 'Internal Targets', items: ['Servers', 'NAS', 'Role-based access'] },
+      {
+        group: 'Internal Targets',
+        items: ['Servers', 'NAS', 'Role-based access'],
+      },
     ],
     businessContext:
       'Employees and administrators needed remote reachability to internal servers and NAS without exposing services directly to the internet.',
@@ -636,7 +726,8 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     ],
     challenges: [
       {
-        challenge: 'Balancing usability of remote access with security controls.',
+        challenge:
+          'Balancing usability of remote access with security controls.',
         resolution:
           'Combined policy design, NAT/firewall rules, and connectivity testing with operational documentation for supportable use.',
       },
@@ -650,10 +741,11 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: ngiLogo,
-        caption: 'Sophos VPN architecture protecting remote access to internal servers and NAS.',
+        caption:
+          'Sophos VPN architecture protecting remote access to internal servers and NAS.',
         type: 'network',
       },
     ],
     relatedSlugs: ['truenas-migration', 'linux-administration'],
   },
-]
+];

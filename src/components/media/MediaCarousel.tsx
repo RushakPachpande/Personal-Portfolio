@@ -1,30 +1,37 @@
-import { useState } from 'react'
-import { ChevronLeft, ChevronRight, Expand } from 'lucide-react'
-import type { CaseStudyMediaItem } from '@/content/caseStudies'
-import { Button } from '@/components/ui/button'
-import { LogoFrame } from './LogoFrame'
-import { LightboxModal } from './LightboxModal'
+import { useState } from 'react';
+import { ChevronLeft, ChevronRight, Expand } from 'lucide-react';
+import type { CaseStudyMediaItem } from '@/types/portfolio';
+import { Button } from '@/components/ui/button';
+import { LogoFrame } from './LogoFrame';
+import { LightboxModal } from './LightboxModal';
 
 type MediaCarouselProps = {
-  items: CaseStudyMediaItem[]
-}
+  items: CaseStudyMediaItem[];
+};
 
 export function MediaCarousel({ items }: MediaCarouselProps) {
-  const [index, setIndex] = useState(0)
-  const [lightboxItem, setLightboxItem] = useState<CaseStudyMediaItem | null>(null)
+  const [index, setIndex] = useState(0);
+  const [lightboxItem, setLightboxItem] = useState<CaseStudyMediaItem | null>(
+    null
+  );
 
-  if (items.length === 0) return null
+  if (items.length === 0) return null;
 
-  const current = items[index]
+  const current = items[index];
 
-  const prev = () => setIndex((value) => (value - 1 + items.length) % items.length)
-  const next = () => setIndex((value) => (value + 1) % items.length)
+  const prev = () =>
+    setIndex((value) => (value - 1 + items.length) % items.length);
+  const next = () => setIndex((value) => (value + 1) % items.length);
 
   return (
     <>
       <div className="overflow-hidden rounded-2xl border border-border bg-card/30">
         <div className="relative">
-          <LogoFrame src={current.src} alt={current.caption} variant="gallery" />
+          <LogoFrame
+            src={current.src}
+            alt={current.caption}
+            variant="gallery"
+          />
           <div className="absolute top-3 right-3">
             <Button
               variant="outline"
@@ -59,7 +66,9 @@ export function MediaCarousel({ items }: MediaCarouselProps) {
           ) : null}
         </div>
         <div className="border-t border-border p-4">
-          <p className="text-sm text-muted-foreground text-pretty">{current.caption}</p>
+          <p className="text-sm text-muted-foreground text-pretty">
+            {current.caption}
+          </p>
           {items.length > 1 ? (
             <p className="mt-2 font-mono text-xs text-soft-cyan">
               {index + 1} / {items.length}
@@ -68,7 +77,10 @@ export function MediaCarousel({ items }: MediaCarouselProps) {
         </div>
       </div>
 
-      <LightboxModal item={lightboxItem} onClose={() => setLightboxItem(null)} />
+      <LightboxModal
+        item={lightboxItem}
+        onClose={() => setLightboxItem(null)}
+      />
     </>
-  )
+  );
 }

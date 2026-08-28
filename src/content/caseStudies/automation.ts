@@ -1,12 +1,13 @@
-import n8nLogo from '@/assets/logos/n8n.webp'
-import type { CaseStudy } from './types'
+import n8nLogo from '@/assets/logos/n8n.webp';
+import type { CaseStudy } from './types';
 
 export const automationCaseStudies: CaseStudy[] = [
   {
     slug: 'self-hosted-n8n',
     category: 'automation',
     name: 'Self-hosted n8n Platform',
-    summary: 'Organization’s first production n8n platform—SQLite to PostgreSQL evolution.',
+    summary:
+      'Organization’s first production n8n platform—SQLite to PostgreSQL evolution.',
     status: 'Production',
     featured: true,
     difficulty: 'Complex',
@@ -20,7 +21,10 @@ export const automationCaseStudies: CaseStudy[] = [
     stack: [
       { group: 'Automation', items: ['n8n'] },
       { group: 'Data', items: ['PostgreSQL', 'SQLite (initial)'] },
-      { group: 'Infrastructure', items: ['Docker', 'Linux', 'VPS', 'Backups', 'Monitoring'] },
+      {
+        group: 'Infrastructure',
+        items: ['Docker', 'Linux', 'VPS', 'Backups', 'Monitoring'],
+      },
     ],
     businessContext:
       'The organization needed a durable internal automation platform—not ad-hoc scripts—so operational workflows could be owned, monitored, and improved over time.',
@@ -81,7 +85,8 @@ export const automationCaseStudies: CaseStudy[] = [
     ],
     challenges: [
       {
-        challenge: 'Evolving an early automation deployment into a trustworthy production platform.',
+        challenge:
+          'Evolving an early automation deployment into a trustworthy production platform.',
         resolution:
           'Redesigned the production architecture around PostgreSQL and operational practices (backups, upgrades, monitoring) instead of freezing the first working setup.',
       },
@@ -95,7 +100,8 @@ export const automationCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: n8nLogo,
-        caption: 'n8n production platform used for enterprise workflow automation.',
+        caption:
+          'n8n production platform used for enterprise workflow automation.',
         type: 'workflow',
       },
     ],
@@ -110,7 +116,8 @@ export const automationCaseStudies: CaseStudy[] = [
     slug: 'sharepoint-automations',
     category: 'automation',
     name: 'Microsoft 365 & SharePoint Workflow Automation',
-    summary: 'Outlook–SharePoint workflows that standardize internal IT processes.',
+    summary:
+      'Outlook–SharePoint workflows that standardize internal IT processes.',
     status: 'Implemented',
     difficulty: 'Advanced',
     timeline: '2025',
@@ -118,7 +125,13 @@ export const automationCaseStudies: CaseStudy[] = [
     logoAlt: 'n8n logo',
     coverImage: n8nLogo,
     coverImageAlt: 'SharePoint workflow automation branding',
-    technologyIds: ['microsoft-365', 'sharepoint', 'outlook', 'rest-apis', 'n8n'],
+    technologyIds: [
+      'microsoft-365',
+      'sharepoint',
+      'outlook',
+      'rest-apis',
+      'n8n',
+    ],
     technologies: [
       'Microsoft 365',
       'SharePoint',
@@ -128,8 +141,14 @@ export const automationCaseStudies: CaseStudy[] = [
       'Power Platform Concepts',
     ],
     stack: [
-      { group: 'Microsoft 365', items: ['SharePoint', 'Outlook', 'Microsoft 365'] },
-      { group: 'Integration', items: ['REST APIs', 'n8n', 'Power Platform concepts'] },
+      {
+        group: 'Microsoft 365',
+        items: ['SharePoint', 'Outlook', 'Microsoft 365'],
+      },
+      {
+        group: 'Integration',
+        items: ['REST APIs', 'n8n', 'Power Platform concepts'],
+      },
     ],
     businessContext:
       'Internal IT and admin work depended on repetitive collection and tracking patterns that benefited from standardized, visible workflows inside Microsoft 365.',
@@ -150,12 +169,14 @@ export const automationCaseStudies: CaseStudy[] = [
       {
         id: 'sp-orchestration',
         label: 'Automation Layer',
-        detail: 'n8n and Microsoft workflow concepts connect collection to tracking.',
+        detail:
+          'n8n and Microsoft workflow concepts connect collection to tracking.',
       },
       {
         id: 'sp-record',
         label: 'SharePoint Record',
-        detail: 'Structured storage for tickets, logs, and operational visibility.',
+        detail:
+          'Structured storage for tickets, logs, and operational visibility.',
       },
     ],
     responsibilities: [
@@ -166,7 +187,8 @@ export const automationCaseStudies: CaseStudy[] = [
     ],
     decisions: [
       {
-        decision: 'Use SharePoint as the system of record for tracked operational data',
+        decision:
+          'Use SharePoint as the system of record for tracked operational data',
         rationale:
           'Centralized tracking beats mailbox archaeology for visibility and consistency.',
       },
@@ -178,7 +200,8 @@ export const automationCaseStudies: CaseStudy[] = [
     ],
     challenges: [
       {
-        challenge: 'Encoding tribal process knowledge into reliable, documented flows.',
+        challenge:
+          'Encoding tribal process knowledge into reliable, documented flows.',
         resolution:
           'Standardized processes and documented flows so automation could be extended without depending on one person’s memory.',
       },
@@ -192,7 +215,8 @@ export const automationCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: n8nLogo,
-        caption: 'Automation orchestration connecting Outlook intake to SharePoint tracking.',
+        caption:
+          'Automation orchestration connecting Outlook intake to SharePoint tracking.',
         type: 'workflow',
       },
     ],
@@ -207,7 +231,8 @@ export const automationCaseStudies: CaseStudy[] = [
     slug: 'it-support-ticket-automation',
     category: 'automation',
     name: 'IT Support Ticket Automation',
-    summary: 'Outlook-triggered tickets logged in SharePoint with acknowledgements via n8n.',
+    summary:
+      'Outlook-triggered tickets logged in SharePoint with acknowledgements via n8n.',
     status: 'Implemented',
     difficulty: 'Advanced',
     timeline: '2025',
@@ -215,8 +240,22 @@ export const automationCaseStudies: CaseStudy[] = [
     logoAlt: 'n8n logo',
     coverImage: n8nLogo,
     coverImageAlt: 'IT ticket automation workflow branding',
-    technologyIds: ['n8n', 'outlook', 'sharepoint', 'rest-apis', 'javascript', 'webhooks'],
-    technologies: ['n8n', 'Microsoft Outlook', 'SharePoint', 'REST APIs', 'JavaScript', 'Webhooks'],
+    technologyIds: [
+      'n8n',
+      'outlook',
+      'sharepoint',
+      'rest-apis',
+      'javascript',
+      'webhooks',
+    ],
+    technologies: [
+      'n8n',
+      'Microsoft Outlook',
+      'SharePoint',
+      'REST APIs',
+      'JavaScript',
+      'Webhooks',
+    ],
     stack: [
       { group: 'Automation', items: ['n8n', 'Webhooks', 'JavaScript'] },
       { group: 'Microsoft 365', items: ['Outlook', 'SharePoint'] },
@@ -241,7 +280,8 @@ export const automationCaseStudies: CaseStudy[] = [
       {
         id: 'ticket-orchestration',
         label: 'Workflow Orchestration',
-        detail: 'n8n transforms intake into structured ticket lifecycle actions.',
+        detail:
+          'n8n transforms intake into structured ticket lifecycle actions.',
       },
       {
         id: 'ticket-system',
@@ -280,7 +320,8 @@ export const automationCaseStudies: CaseStudy[] = [
     ],
     challenges: [
       {
-        challenge: 'Turning unstructured email intake into reliable structured tickets.',
+        challenge:
+          'Turning unstructured email intake into reliable structured tickets.',
         resolution:
           'Defined triggers, storage, generation, and acknowledgement as an explicit lifecycle instead of a single brittle script.',
       },
@@ -294,17 +335,23 @@ export const automationCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: n8nLogo,
-        caption: 'Workflow orchestration layer for Outlook-to-SharePoint ticket lifecycle automation.',
+        caption:
+          'Workflow orchestration layer for Outlook-to-SharePoint ticket lifecycle automation.',
         type: 'workflow',
       },
     ],
-    relatedSlugs: ['sharepoint-automations', 'self-hosted-n8n', 'microsoft-integrations'],
+    relatedSlugs: [
+      'sharepoint-automations',
+      'self-hosted-n8n',
+      'microsoft-integrations',
+    ],
   },
   {
     slug: 'microsoft-integrations',
     category: 'automation',
     name: 'Microsoft & Enterprise SaaS Operations',
-    summary: 'Day-to-day ownership of Microsoft 365 and related SaaS platforms.',
+    summary:
+      'Day-to-day ownership of Microsoft 365 and related SaaS platforms.',
     status: 'Ongoing',
     difficulty: 'Intermediate',
     timeline: '2025 — Present',
@@ -313,7 +360,13 @@ export const automationCaseStudies: CaseStudy[] = [
     coverImage: n8nLogo,
     coverImageAlt: 'Enterprise SaaS operations context',
     technologyIds: ['microsoft-365'],
-    technologies: ['Microsoft 365', 'Google Workspace', 'Zoho People', 'Zoho Bigin', 'DNS'],
+    technologies: [
+      'Microsoft 365',
+      'Google Workspace',
+      'Zoho People',
+      'Zoho Bigin',
+      'DNS',
+    ],
     stack: [
       { group: 'Collaboration', items: ['Microsoft 365', 'Google Workspace'] },
       { group: 'Business Apps', items: ['Zoho People', 'Zoho Bigin'] },
@@ -361,7 +414,8 @@ export const automationCaseStudies: CaseStudy[] = [
     ],
     challenges: [
       {
-        challenge: 'Keeping multiple SaaS platforms coherent for real organizational workflows.',
+        challenge:
+          'Keeping multiple SaaS platforms coherent for real organizational workflows.',
         resolution:
           'Owned configuration and day-to-day administration across the tools that production teams actually use.',
       },
@@ -375,7 +429,8 @@ export const automationCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: n8nLogo,
-        caption: 'Enterprise SaaS operations that keep automation and infrastructure work grounded.',
+        caption:
+          'Enterprise SaaS operations that keep automation and infrastructure work grounded.',
         type: 'infrastructure',
       },
     ],
@@ -390,7 +445,8 @@ export const automationCaseStudies: CaseStudy[] = [
     slug: 'operational-improvements',
     category: 'automation',
     name: 'Operational Improvements',
-    summary: 'Research-driven automation and platform changes that improve reliability and efficiency.',
+    summary:
+      'Research-driven automation and platform changes that improve reliability and efficiency.',
     status: 'Ongoing',
     difficulty: 'Advanced',
     timeline: '2025 — Present',
@@ -461,10 +517,15 @@ export const automationCaseStudies: CaseStudy[] = [
     gallery: [
       {
         src: n8nLogo,
-        caption: 'Automation-led operational improvements grounded in root-cause analysis.',
+        caption:
+          'Automation-led operational improvements grounded in root-cause analysis.',
         type: 'workflow',
       },
     ],
-    relatedSlugs: ['self-hosted-n8n', 'azure-infrastructure', 'docker-deployment'],
+    relatedSlugs: [
+      'self-hosted-n8n',
+      'azure-infrastructure',
+      'docker-deployment',
+    ],
   },
-]
+];

@@ -1,12 +1,16 @@
-import { ArrowDownRight, Download } from 'lucide-react'
-import { motion, useReducedMotion } from 'framer-motion'
-import { profile } from '@/content/profile'
-import { AnimatedGrid, GradientBlobs } from '@/components/effects/BackgroundEffects'
-import { MagneticButton } from '@/components/shared/MagneticButton'
-import { fadeUp, staggerContainer } from '@/lib/motion'
+import { ArrowDownRight, Download } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { usePortfolio } from '@/hooks/usePortfolio';
+import {
+  AnimatedGrid,
+  GradientBlobs,
+} from '@/components/effects/BackgroundEffects';
+import { MagneticButton } from '@/components/shared/MagneticButton';
+import { fadeUp, staggerContainer } from '@/lib/motion';
 
 export function HeroSection() {
-  const reduced = useReducedMotion()
+  const { profile } = usePortfolio();
+  const reduced = useReducedMotion();
 
   return (
     <section className="relative isolate overflow-hidden pt-10 pb-20 sm:pt-16 sm:pb-28">
@@ -37,7 +41,8 @@ export function HeroSection() {
           variants={fadeUp}
           className="mt-4 max-w-2xl font-display text-2xl leading-snug text-muted-foreground sm:text-3xl"
         >
-          Building <span className="text-gradient">Systems,</span>
+          Building{' '}
+          <span className="text-gradient text-shimmer">Systems,</span>
           <br />
           Not Just Software.
         </motion.p>
@@ -49,7 +54,10 @@ export function HeroSection() {
           {profile.description}
         </motion.p>
 
-        <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center gap-3">
+        <motion.div
+          variants={fadeUp}
+          className="mt-8 flex flex-wrap items-center gap-3"
+        >
           <MagneticButton to="/platforms">
             Explore My Work
             <ArrowDownRight data-icon="inline-end" />
@@ -76,5 +84,5 @@ export function HeroSection() {
         </motion.ul>
       </motion.div>
     </section>
-  )
+  );
 }

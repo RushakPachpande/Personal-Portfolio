@@ -1,16 +1,14 @@
-import { profile } from '@/content/profile'
-
 export type PageMeta = {
-  title: string
-  description: string
-  path?: string
+  title: string;
+  description: string;
+  path?: string;
+};
+
+export function buildTitle(name: string, role: string, pageTitle?: string) {
+  if (!pageTitle) return `${name} | ${role}`;
+  return `${pageTitle} | ${name}`;
 }
 
-export function buildTitle(pageTitle?: string) {
-  if (!pageTitle) return `${profile.name} | ${profile.role}`
-  return `${pageTitle} | ${profile.name}`
-}
-
-export function defaultDescription() {
-  return profile.description
+export function defaultDescription(description: string) {
+  return description;
 }

@@ -1,8 +1,10 @@
-import { getCaseStudiesByCategory } from '@/content/caseStudies'
-import { Seo } from '@/components/layout/Seo'
-import { CaseStudyGrid } from '@/features/case-studies/CaseStudyGrid'
+import { getCaseStudiesByCategory } from '@/lib/portfolio';
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { Seo } from '@/components/layout/Seo';
+import { CaseStudyGrid } from '@/features/case-studies/CaseStudyGrid';
 
 export function InfrastructurePage() {
+  const { caseStudies } = usePortfolio();
   return (
     <>
       <Seo
@@ -12,12 +14,12 @@ export function InfrastructurePage() {
       />
       <div className="pt-8 pb-12">
         <CaseStudyGrid
-          studies={getCaseStudiesByCategory('infrastructure')}
+          studies={getCaseStudiesByCategory(caseStudies, 'infrastructure')}
           eyebrow="Infrastructure Engineering"
           title="Engineering initiatives"
           description="Cloud, tenants, hosting, storage, and remote access—owned as operable platforms, not one-off tickets."
         />
       </div>
     </>
-  )
+  );
 }

@@ -1,22 +1,22 @@
-import { Link } from 'react-router-dom'
-import type { ReactNode } from 'react'
-import { ArrowUpRight } from 'lucide-react'
-import { getCardGradient, type CardGradientKey } from '@/lib/cardGradients'
-import { cn } from '@/lib/utils'
+import { Link } from 'react-router-dom';
+import type { ReactNode } from 'react';
+import { ArrowUpRight } from 'lucide-react';
+import { getCardGradient, type CardGradientKey } from '@/lib/cardGradients';
+import { cn } from '@/lib/utils';
 
 type OverlayCardProps = {
-  eyebrow?: string
-  title: string
-  href?: string
-  gradient?: CardGradientKey
-  featured?: boolean
-  className?: string
-  ariaLabel?: string
-  hero?: ReactNode
-  heroImage?: { src: string; alt: string }
-  body?: ReactNode
-  footer?: ReactNode
-}
+  eyebrow?: string;
+  title: string;
+  href?: string;
+  gradient?: CardGradientKey;
+  featured?: boolean;
+  className?: string;
+  ariaLabel?: string;
+  hero?: ReactNode;
+  heroImage?: { src: string; alt: string };
+  body?: ReactNode;
+  footer?: ReactNode;
+};
 
 function OverlayCardShell({
   href,
@@ -25,19 +25,19 @@ function OverlayCardShell({
   className,
   children,
 }: {
-  href?: string
-  ariaLabel?: string
-  featured?: boolean
-  className?: string
-  children: ReactNode
+  href?: string;
+  ariaLabel?: string;
+  featured?: boolean;
+  className?: string;
+  children: ReactNode;
 }) {
   const shellClassName = cn(
-    'group/card relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/80 bg-card/70 ring-1 ring-foreground/10 backdrop-blur-xl transition-all duration-300',
+    'group/card relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/80 bg-card/70 ring-1 ring-foreground/10 backdrop-blur-md transition-[transform,box-shadow,border-color] duration-200 ease-out',
     href &&
-      'hover:border-primary/50 hover:shadow-[0_0_24px_rgba(59,130,246,0.12)] focus-within:border-primary/50 motion-safe:hover:scale-[1.01] motion-reduce:transform-none',
+      'hover:border-primary/50 hover:shadow-[0_0_28px_color-mix(in_srgb,var(--electric-blue)_16%,transparent)] focus-within:border-primary/50 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-[1.01] motion-safe:active:scale-[0.99] motion-reduce:transform-none',
     featured && 'featured',
-    className,
-  )
+    className
+  );
 
   if (href) {
     return (
@@ -48,10 +48,10 @@ function OverlayCardShell({
       >
         {children}
       </Link>
-    )
+    );
   }
 
-  return <article className={shellClassName}>{children}</article>
+  return <article className={shellClassName}>{children}</article>;
 }
 
 export function OverlayCard({
@@ -77,8 +77,10 @@ export function OverlayCard({
       <div
         className={cn(
           'relative overflow-hidden',
-          featured ? 'aspect-4/3 sm:aspect-video' : 'aspect-4/3 sm:aspect-16/10',
-          getCardGradient(gradient),
+          featured
+            ? 'aspect-4/3 sm:aspect-video'
+            : 'aspect-4/3 sm:aspect-16/10',
+          getCardGradient(gradient)
         )}
       >
         <div className="absolute inset-0 flex items-center justify-center p-6">
@@ -96,7 +98,9 @@ export function OverlayCard({
 
         <div className="overlay-hero-scrim absolute inset-x-0 bottom-0 px-4 pb-4 pt-16 sm:px-5 sm:pb-5">
           {eyebrow ? (
-            <p className="font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">{eyebrow}</p>
+            <p className="font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">
+              {eyebrow}
+            </p>
           ) : null}
           <h3 className="mt-1 font-display text-lg font-semibold leading-snug text-foreground sm:text-xl">
             {title}
@@ -120,5 +124,5 @@ export function OverlayCard({
         </div>
       ) : null}
     </OverlayCardShell>
-  )
+  );
 }

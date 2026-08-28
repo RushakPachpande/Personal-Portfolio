@@ -1,174 +1,220 @@
-import { profile, SITE_VERSION } from '@/content/profile'
-import { getCaseStudiesByCategory, getCaseStudy, getCaseStudyPath } from '@/content/caseStudies'
-import { navStructure } from '@/components/layout/navItems'
+import { navStructure } from '@/components/layout/navItems';
 import {
-  coreCompetencies,
-  keyProjects,
-  resumeCertifications,
-  resumeEducation,
-  resumeHighlights,
-} from '@/content/resume'
-import { engineeringStats } from '@/content/stats'
-import { technologies } from '@/content/technologies'
+  computeEngineeringStats,
+  getCaseStudiesByCategory,
+  getCaseStudy,
+  getCaseStudyPath,
+} from '@/lib/portfolio';
+import type { PortfolioData } from '@/types/portfolio';
 
 export type TerminalCommand = {
-  name: string
-  description: string
-  aliases?: string[]
-}
+  name: string;
+  description: string;
+  aliases?: string[];
+};
 
-export type TerminalLineType = 'input' | 'output' | 'system' | 'success' | 'error'
+export type TerminalLineType =
+  'input' | 'output' | 'system' | 'success' | 'error';
 
 export type TerminalLine = {
-  type: TerminalLineType
-  text: string
-}
+  type: TerminalLineType;
+  text: string;
+};
 
 export type TerminalExecution = {
-  lines: TerminalLine[]
-  navigate?: string
-  clear?: boolean
-}
+  lines: TerminalLine[];
+  navigate?: string;
+  clear?: boolean;
+};
 
 export type TerminalContext = {
-  pathname: string
-}
+  pathname: string;
+  portfolio: PortfolioData;
+};
 
 export const terminalCommands: TerminalCommand[] = [
   { name: 'help', description: 'List available commands' },
   { name: 'home', description: 'Return to the homepage' },
   { name: 'about', description: 'Who Rushak is and how he works' },
-  { name: 'platforms', description: 'List platform case studies', aliases: ['work', 'projects'] },
+  {
+    name: 'platforms',
+    description: 'List platform case studies',
+    aliases: ['work', 'projects'],
+  },
   { name: 'infrastructure', description: 'List infrastructure case studies' },
   { name: 'automation', description: 'List automation case studies' },
-  { name: 'technologies', description: 'Open technology library', aliases: ['tech', 'stack'] },
+  {
+    name: 'technologies',
+    description: 'Open technology library',
+    aliases: ['tech', 'stack'],
+  },
   { name: 'experience', description: 'Open experience timeline' },
   { name: 'philosophy', description: 'Open engineering philosophy' },
   { name: 'resume', description: 'Open full resume preview + PDF download' },
   { name: 'contact', description: 'Contact details and message form' },
-  { name: 'certs', description: 'List certifications and learning paths', aliases: ['certifications'] },
+  {
+    name: 'certs',
+    description: 'List certifications and learning paths',
+    aliases: ['certifications'],
+  },
   { name: 'education', description: 'Show academic background' },
-  { name: 'highlights', description: 'Professional highlights from shipped work' },
-  { name: 'stats', description: 'Engineering metrics from verified initiatives', aliases: ['metrics'] },
+  {
+    name: 'highlights',
+    description: 'Professional highlights from shipped work',
+  },
+  {
+    name: 'stats',
+    description: 'Engineering metrics from verified initiatives',
+    aliases: ['metrics'],
+  },
   { name: 'skills', description: 'Core competencies and focus areas' },
-  { name: 'nav', description: 'Show site navigation map (Work / Profile groups)' },
+  {
+    name: 'nav',
+    description: 'Show site navigation map (Work / Profile groups)',
+  },
   { name: 'ls', description: 'List navigable routes' },
   { name: 'pwd', description: 'Print current route' },
-  { name: 'open', description: 'Open a case study by slug (e.g. open navdrishti)' },
+  {
+    name: 'open',
+    description: 'Open a case study by slug (e.g. open navdrishti)',
+  },
   { name: 'download', description: 'Get resume PDF path' },
-  { name: 'socials', description: 'GitHub, LinkedIn, and email links', aliases: ['links'] },
+  {
+    name: 'socials',
+    description: 'GitHub, LinkedIn, and email links',
+    aliases: ['links'],
+  },
   { name: 'version', description: 'Portfolio build version' },
   { name: 'whoami', description: 'Identity check' },
   { name: 'deploy', description: 'Simulate a calm production deploy' },
   { name: 'coffee', description: 'Fuel status' },
   { name: 'clear', description: 'Clear the terminal buffer' },
   { name: 'sudo hire rushak', description: 'The correct production decision' },
-]
+];
 
-export const terminalQuickCommands = ['help', 'resume', 'platforms', 'certs', 'stats', 'contact'] as const
+export const terminalQuickCommands = [
+  'help',
+  'resume',
+  'platforms',
+  'certs',
+  'stats',
+  'contact',
+] as const;
 
-export const terminalWelcome = [
-  '+------------------------------------------+',
-  '|  rushak@platform - portfolio terminal    |',
-  '+------------------------------------------+',
-  '',
-  `Portfolio v${SITE_VERSION} · ${profile.resumeTitle}`,
-  'Type `help` for commands · `nav` for site map · Ctrl+K to close',
-].join('\n')
+export function buildTerminalWelcome(portfolio: PortfolioData) {
+  return [
+    '+------------------------------------------+',
+    '|  rushak@platform - portfolio terminal    |',
+    '+------------------------------------------+',
+    '',
+    `Portfolio v${portfolio.siteVersion} · ${portfolio.profile.resumeTitle}`,
+    'Type `help` for commands · `nav` for site map · Ctrl+K to close',
+  ].join('\n');
+}
 
-const commandLookup = new Map<string, string>()
-
-for (const command of terminalCommands) {
-  commandLookup.set(command.name, command.name)
-  command.aliases?.forEach((alias) => commandLookup.set(alias, command.name))
+function commandLookup(commands: TerminalCommand[]) {
+  const map = new Map<string, string>();
+  for (const command of commands) {
+    map.set(command.name, command.name);
+    command.aliases?.forEach((alias) => map.set(alias, command.name));
+  }
+  return map;
 }
 
 export function resolveTerminalInput(input: string) {
-  return input.trim().toLowerCase().replace(/\s+/g, ' ')
+  return input.trim().toLowerCase().replace(/\s+/g, ' ');
 }
 
-export function getTerminalCommandNames() {
-  return terminalCommands.flatMap((command) => [command.name, ...(command.aliases ?? [])])
+export function getTerminalCommandNames(commands: TerminalCommand[]) {
+  return commands.flatMap((command) => [
+    command.name,
+    ...(command.aliases ?? []),
+  ]);
 }
 
-export function completeTerminalInput(value: string) {
-  const trimmed = value.trimStart().toLowerCase()
-  if (!trimmed) return null
+export function completeTerminalInput(
+  value: string,
+  commands: TerminalCommand[]
+) {
+  const trimmed = value.trimStart().toLowerCase();
+  if (!trimmed) return null;
 
-  const [command, ...rest] = trimmed.split(' ')
-  const candidates = getTerminalCommandNames().filter((name) => name.startsWith(command))
-  if (candidates.length !== 1) return null
+  const [command, ...rest] = trimmed.split(' ');
+  const candidates = getTerminalCommandNames(commands).filter((name) =>
+    name.startsWith(command)
+  );
+  if (candidates.length !== 1) return null;
 
-  const resolved = candidates[0]!
-  if (rest.length > 0 && resolved === 'open') return null
-  return rest.length > 0 ? `${resolved} ${rest.join(' ')}` : resolved
+  const resolved = candidates[0]!;
+  if (rest.length > 0 && resolved === 'open') return null;
+  return rest.length > 0 ? `${resolved} ${rest.join(' ')}` : resolved;
 }
 
 function out(text: string, type: TerminalLineType = 'output'): TerminalLine {
-  return { type, text }
+  return { type, text };
 }
 
-function listCaseStudies(category: 'platform' | 'infrastructure' | 'automation') {
-  return getCaseStudiesByCategory(category)
-    .map((study) => `  • ${study.name}${study.status ? ` — ${study.status}` : ''}`)
-    .join('\n')
-}
-
-function formatCertifications() {
-  return resumeCertifications
+function formatCertifications(portfolio: PortfolioData) {
+  return portfolio.resume.certifications
     .map((group) => {
-      const header = `${group.provider} (${group.items.length})`
+      const header = `${group.provider} (${group.items.length})`;
       const preview =
         group.items.length > 6
           ? [...group.items.slice(0, 4), `… +${group.items.length - 4} more`]
-          : group.items
-      return `${header}\n${preview.map((item) => `  ▹ ${item}`).join('\n')}`
+          : group.items;
+      return `${header}\n${preview.map((item) => `  ▹ ${item}`).join('\n')}`;
     })
-    .join('\n\n')
+    .join('\n\n');
 }
 
 function formatNavStructure() {
   return navStructure
     .map((item) => {
-      if (item.type === 'link') return `  ${item.label.padEnd(12)} → ${item.to}`
-      const children = item.items.map((route) => `      ${route.label.padEnd(18)} ${route.to}`).join('\n')
-      return `  ${item.label}\n${children}`
+      if (item.type === 'link')
+        return `  ${item.label.padEnd(12)} → ${item.to}`;
+      const children = item.items
+        .map((route) => `      ${route.label.padEnd(18)} ${route.to}`)
+        .join('\n');
+      return `  ${item.label}\n${children}`;
     })
-    .join('\n')
+    .join('\n');
 }
 
-function resolveCaseStudySlug(input: string) {
-  const study = getCaseStudy(input)
-  if (!study) return null
-  return getCaseStudyPath(study)
-}
+export function executeTerminalCommand(
+  raw: string,
+  context: TerminalContext
+): TerminalExecution | null {
+  const { portfolio } = context;
+  const { profile, caseStudies, technologies, resume } = portfolio;
+  const commands =
+    portfolio.terminalCommands.length > 0
+      ? portfolio.terminalCommands
+      : terminalCommands;
+  const lookup = commandLookup(commands);
+  const input = resolveTerminalInput(raw);
+  if (!input) return null;
 
-export function executeTerminalCommand(raw: string, context: TerminalContext): TerminalExecution | null {
-  const input = resolveTerminalInput(raw)
-  if (!input) return null
-
-  const [commandToken, ...args] = input.split(' ')
-  const command = commandLookup.get(commandToken) ?? commandToken
+  const [commandToken, ...args] = input.split(' ');
+  const command = lookup.get(commandToken) ?? commandToken;
 
   if (command === 'clear') {
-    return { lines: [], clear: true }
+    return { lines: [], clear: true };
   }
 
   if (command === 'help') {
-    const help = terminalCommands
+    const help = commands
       .map((entry) => {
-        const aliases = entry.aliases?.length ? ` (${entry.aliases.join(', ')})` : ''
-        return `  ${entry.name.padEnd(20)} ${entry.description}${aliases}`
+        const aliases = entry.aliases?.length
+          ? ` (${entry.aliases.join(', ')})`
+          : '';
+        return `  ${entry.name.padEnd(20)} ${entry.description}${aliases}`;
       })
-      .join('\n')
-    return { lines: [out(`Available commands:\n${help}`)] }
+      .join('\n');
+    return { lines: [out(`Available commands:\n${help}`)] };
   }
 
   if (command === 'home') {
-    return {
-      lines: [out('Navigating to homepage…')],
-      navigate: '/',
-    }
+    return { lines: [out('Navigating to homepage…')], navigate: '/' };
   }
 
   if (command === 'about') {
@@ -183,61 +229,87 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
             profile.about.whoIAm,
             '',
             profile.about.approach,
-          ].join('\n'),
+          ].join('\n')
         ),
       ],
       navigate: '/about',
-    }
+    };
   }
 
   if (command === 'platforms') {
+    const list = getCaseStudiesByCategory(caseStudies, 'platform')
+      .map(
+        (study) =>
+          `  • ${study.name}${study.status ? ` — ${study.status}` : ''}`
+      )
+      .join('\n');
     return {
-      lines: [out(`Platform case studies:\n${listCaseStudies('platform')}`)],
+      lines: [out(`Platform case studies:\n${list}`)],
       navigate: '/platforms',
-    }
+    };
   }
 
   if (command === 'infrastructure') {
+    const list = getCaseStudiesByCategory(caseStudies, 'infrastructure')
+      .map(
+        (study) =>
+          `  • ${study.name}${study.status ? ` — ${study.status}` : ''}`
+      )
+      .join('\n');
     return {
-      lines: [out(`Infrastructure initiatives:\n${listCaseStudies('infrastructure')}`)],
+      lines: [out(`Infrastructure initiatives:\n${list}`)],
       navigate: '/infrastructure',
-    }
+    };
   }
 
   if (command === 'automation') {
+    const list = getCaseStudiesByCategory(caseStudies, 'automation')
+      .map(
+        (study) =>
+          `  • ${study.name}${study.status ? ` — ${study.status}` : ''}`
+      )
+      .join('\n');
     return {
-      lines: [out(`Automation workflows:\n${listCaseStudies('automation')}`)],
+      lines: [out(`Automation workflows:\n${list}`)],
       navigate: '/automation',
-    }
+    };
   }
 
   if (command === 'technologies') {
     const preview = technologies
       .slice(0, 8)
       .map((tech) => tech.name)
-      .join(', ')
+      .join(', ');
     return {
       lines: [
         out(
-          `Technology library — ${technologies.length} tools across frontend, cloud, automation, and enterprise.\nPreview: ${preview}…`,
+          `Technology library — ${technologies.length} tools across frontend, cloud, automation, and enterprise.\nPreview: ${preview}…`
         ),
       ],
       navigate: '/technology-library',
-    }
+    };
   }
 
   if (command === 'experience') {
     return {
-      lines: [out('Opening experience timeline — career, education, and major deployments.')],
+      lines: [
+        out(
+          'Opening experience timeline — career, education, and major deployments.'
+        ),
+      ],
       navigate: '/experience',
-    }
+    };
   }
 
   if (command === 'philosophy') {
     return {
-      lines: [out('Opening engineering philosophy — ownership, production mindset, and learning.')],
+      lines: [
+        out(
+          'Opening engineering philosophy — ownership, production mindset, and learning.'
+        ),
+      ],
       navigate: '/philosophy',
-    }
+    };
   }
 
   if (command === 'resume') {
@@ -250,12 +322,12 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
             '',
             'Sections: summary · highlights · competencies · expertise · experience · projects · education · certifications',
             '',
-            `Key projects: ${keyProjects.map((project) => project.name).join(', ')}`,
-          ].join('\n'),
+            `Key projects: ${resume.keyProjects.map((project) => project.name).join(', ')}`,
+          ].join('\n')
         ),
       ],
       navigate: '/resume',
-    }
+    };
   }
 
   if (command === 'contact') {
@@ -269,60 +341,72 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
             `GitHub:  ${profile.socials.github}`,
             '',
             'Opening contact page…',
-          ].join('\n'),
+          ].join('\n')
         ),
       ],
       navigate: '/contact',
-    }
+    };
   }
 
   if (command === 'certs') {
-    const total = resumeCertifications.reduce((sum, group) => sum + group.items.length, 0)
+    const total = resume.certifications.reduce(
+      (sum, group) => sum + group.items.length,
+      0
+    );
     return {
       lines: [
-        out(`Certifications & learning paths (${total} total):\n\n${formatCertifications()}\n\nFull list on /resume`),
+        out(
+          `Certifications & learning paths (${total} total):\n\n${formatCertifications(portfolio)}\n\nFull list on /resume`
+        ),
       ],
       navigate: '/resume',
-    }
+    };
   }
 
   if (command === 'education') {
     return {
       lines: [
         out(
-          resumeEducation
-            .map((entry) => `${entry.degree}\n  ${entry.institution} · ${entry.period}\n  ${entry.detail}`)
-            .join('\n\n'),
+          resume.education
+            .map(
+              (entry) =>
+                `${entry.degree}\n  ${entry.institution} · ${entry.period}\n  ${entry.detail}`
+            )
+            .join('\n\n')
         ),
       ],
-    }
+    };
   }
 
   if (command === 'highlights') {
     return {
       lines: [
         out(
-          resumeHighlights
-            .map((item) => `  ▹ ${item.label}${item.detail ? ` — ${item.detail}` : ''}`)
-            .join('\n'),
+          resume.highlights
+            .map(
+              (item) =>
+                `  ▹ ${item.label}${item.detail ? ` — ${item.detail}` : ''}`
+            )
+            .join('\n')
         ),
       ],
-    }
+    };
   }
 
   if (command === 'stats') {
+    const stats = computeEngineeringStats(caseStudies, technologies);
     return {
       lines: [
         out(
-          engineeringStats
+          stats
             .map(
               (stat) =>
-                `  ${stat.label.padEnd(24)} ${stat.value}${stat.suffix ?? ''}  — ${stat.description}`,
+                `  ${stat.label.padEnd(24)} ${stat.value}${stat.suffix ?? ''}  — ${stat.description}`
             )
-            .join('\n'),
+            .join('\n')
         ),
       ],
-    }
+    };
   }
 
   if (command === 'skills') {
@@ -334,64 +418,63 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
             ...profile.focusAreas.map((area) => `  • ${area}`),
             '',
             'Core competencies:',
-            ...coreCompetencies.map((skill) => `  • ${skill}`),
-          ].join('\n'),
+            ...resume.coreCompetencies.map((skill) => `  • ${skill}`),
+          ].join('\n')
         ),
       ],
-    }
+    };
   }
 
   if (command === 'nav') {
-    return {
-      lines: [out(`Site navigation:\n${formatNavStructure()}`)],
-    }
+    return { lines: [out(`Site navigation:\n${formatNavStructure()}`)] };
   }
 
   if (command === 'ls') {
     const routes = navStructure.flatMap((item) =>
-      item.type === 'link' ? [item.to] : item.items.map((route) => route.to),
-    )
+      item.type === 'link' ? [item.to] : item.items.map((route) => route.to)
+    );
     return {
-      lines: [out(`Routes:\n${routes.map((route) => `  ${route}`).join('\n')}`)],
-    }
+      lines: [
+        out(`Routes:\n${routes.map((route) => `  ${route}`).join('\n')}`),
+      ],
+    };
   }
 
   if (command === 'pwd') {
-    return {
-      lines: [out(context.pathname || '/')],
-    }
+    return { lines: [out(context.pathname || '/')] };
   }
 
   if (command === 'open') {
-    const slug = args[0]
+    const slug = args[0];
     if (!slug) {
       return {
         lines: [
           out(
             'Usage: open <slug>\nExamples: open navdrishti · open self-hosted-n8n · open brainpulses',
-            'error',
+            'error'
           ),
         ],
-      }
+      };
     }
-    const path = resolveCaseStudySlug(slug)
-    if (!path) {
-      return { lines: [out(`Case study not found: ${slug}`, 'error')] }
+    const study = getCaseStudy(caseStudies, slug);
+    if (!study) {
+      return { lines: [out(`Case study not found: ${slug}`, 'error')] };
     }
-    const study = getCaseStudy(slug)!
     return {
       lines: [out(`Opening ${study.name} (${study.category})…`)],
-      navigate: path,
-    }
+      navigate: getCaseStudyPath(study),
+    };
   }
 
   if (command === 'download') {
     return {
       lines: [
-        out(`Resume PDF: ${profile.resumeUrl}\nOpening resume page for preview + download.`),
+        out(
+          `Resume PDF: ${profile.resumeUrl}\nOpening resume page for preview + download.`
+        ),
       ],
       navigate: '/resume',
-    }
+    };
   }
 
   if (command === 'socials') {
@@ -402,28 +485,30 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
             `GitHub:   ${profile.socials.github}`,
             `LinkedIn: ${profile.socials.linkedin}`,
             `Email:    ${profile.email}`,
-          ].join('\n'),
+          ].join('\n')
         ),
       ],
-    }
+    };
   }
 
   if (command === 'version') {
     return {
       lines: [
-        out(`rushak-portfolio v${SITE_VERSION}\nReact · TypeScript · Vite · Tailwind · Framer Motion`),
+        out(
+          `rushak-portfolio v${portfolio.siteVersion}\nReact · TypeScript · Vite · Tailwind · Framer Motion`
+        ),
       ],
-    }
+    };
   }
 
   if (command === 'whoami') {
     return {
       lines: [
         out(
-          `${profile.shortName.toLowerCase()} — ${profile.role.toLowerCase()}\nOwns business problems through architecture, delivery, automation, and production.`,
+          `${profile.shortName.toLowerCase()} — ${profile.role.toLowerCase()}\nOwns business problems through architecture, delivery, automation, and production.`
         ),
       ],
-    }
+    };
   }
 
   if (command === 'deploy') {
@@ -439,16 +524,20 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
             '  ✓ monitors green',
             'status: deployed with calm confidence.',
           ].join('\n'),
-          'success',
+          'success'
         ),
       ],
-    }
+    };
   }
 
   if (command === 'coffee') {
     return {
-      lines: [out('Brewing… productivity +1. Platform ownership remains caffeinated. ☕')],
-    }
+      lines: [
+        out(
+          'Brewing… productivity +1. Platform ownership remains caffeinated. ☕'
+        ),
+      ],
+    };
   }
 
   if (input === 'sudo hire rushak') {
@@ -460,16 +549,19 @@ export function executeTerminalCommand(raw: string, context: TerminalContext): T
             'Recommendation: schedule a conversation.',
             'Expected outcome: someone who owns engineering outcomes end-to-end.',
           ].join('\n'),
-          'success',
+          'success'
         ),
       ],
       navigate: '/contact',
-    }
+    };
   }
 
   return {
     lines: [
-      out(`Command not found: ${raw}\nType \`help\` for available commands.`, 'error'),
+      out(
+        `Command not found: ${raw}\nType \`help\` for available commands.`,
+        'error'
+      ),
     ],
-  }
+  };
 }

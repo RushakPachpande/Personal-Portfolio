@@ -1,15 +1,18 @@
-import { Link } from 'react-router-dom'
-import { profile } from '@/content/profile'
-import { OverlayCard } from '@/components/cards/OverlayCard'
-import { Reveal } from '@/components/shared/Reveal'
-import { MagneticButton } from '@/components/shared/MagneticButton'
+import { Link } from 'react-router-dom';
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { OverlayCard } from '@/components/cards/OverlayCard';
+import { Reveal } from '@/components/shared/Reveal';
+import { MagneticButton } from '@/components/shared/MagneticButton';
 
 export function HomeAbout() {
+  const { profile } = usePortfolio();
   return (
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
         <div className="mx-auto max-w-3xl text-center">
-          <p className="font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase sm:text-sm">About</p>
+          <p className="font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase sm:text-sm">
+            About
+          </p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
             I own platforms end-to-end
           </h2>
@@ -27,7 +30,7 @@ export function HomeAbout() {
         </div>
       </Reveal>
     </section>
-  )
+  );
 }
 
 export function ExperienceSnapshot() {
@@ -44,7 +47,7 @@ export function ExperienceSnapshot() {
       title: 'Azure cost optimization',
       detail: 'Nearly 50% infrastructure cost reduction',
     },
-  ]
+  ];
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
@@ -58,7 +61,10 @@ export function ExperienceSnapshot() {
               Recent ownership signals
             </h2>
           </div>
-          <Link to="/experience" className="text-sm text-electric-blue hover:underline">
+          <Link
+            to="/experience"
+            className="text-sm text-electric-blue hover:underline"
+          >
             Full timeline →
           </Link>
         </div>
@@ -71,11 +77,13 @@ export function ExperienceSnapshot() {
               gradient="experience"
               eyebrow="Experience"
               title={item.title}
-              body={<p className="text-sm text-muted-foreground">{item.detail}</p>}
+              body={
+                <p className="text-sm text-muted-foreground">{item.detail}</p>
+              }
             />
           </Reveal>
         ))}
       </div>
     </section>
-  )
+  );
 }

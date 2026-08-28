@@ -1,19 +1,19 @@
 export type NavRoute = {
-  to: string
-  label: string
-}
+  to: string;
+  label: string;
+};
 
 export type NavLinkItem = NavRoute & {
-  type: 'link'
-}
+  type: 'link';
+};
 
 export type NavGroupItem = {
-  type: 'group'
-  label: string
-  items: NavRoute[]
-}
+  type: 'group';
+  label: string;
+  items: NavRoute[];
+};
 
-export type NavItem = NavLinkItem | NavGroupItem
+export type NavItem = NavLinkItem | NavGroupItem;
 
 export const navStructure: NavItem[] = [
   { type: 'link', to: '/', label: 'Home' },
@@ -38,20 +38,22 @@ export const navStructure: NavItem[] = [
     ],
   },
   { type: 'link', to: '/contact', label: 'Contact' },
-]
+];
 
 export const navItems: NavRoute[] = navStructure.flatMap((item) =>
-  item.type === 'link' ? [item] : item.items,
-)
+  item.type === 'link' ? [item] : item.items
+);
 
 function isRouteActive(pathname: string, to: string) {
-  return to === '/' ? pathname === '/' : pathname === to || pathname.startsWith(`${to}/`)
+  return to === '/'
+    ? pathname === '/'
+    : pathname === to || pathname.startsWith(`${to}/`);
 }
 
 export function isNavGroupActive(pathname: string, group: NavGroupItem) {
-  return group.items.some((item) => isRouteActive(pathname, item.to))
+  return group.items.some((item) => isRouteActive(pathname, item.to));
 }
 
 export function isNavLinkActive(pathname: string, to: string) {
-  return isRouteActive(pathname, to)
+  return isRouteActive(pathname, to);
 }
