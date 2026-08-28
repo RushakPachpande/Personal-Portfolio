@@ -237,6 +237,7 @@ export function AdminTechnologiesPage() {
         onClose={() => setPreviewOpen(false)}
         draft={{ kind: 'technologies', technologies: items }}
         initialPath="/technology-library"
+        label="Technologies"
       />
     </div>
   );
@@ -488,6 +489,7 @@ export function AdminTimelinePage() {
         onClose={() => setPreviewOpen(false)}
         draft={{ kind: 'timeline', timeline: items }}
         initialPath="/experience"
+        label="Timeline"
       />
     </div>
   );
@@ -643,6 +645,7 @@ export function AdminPhilosophyPage() {
         onClose={() => setPreviewOpen(false)}
         draft={{ kind: 'philosophy', philosophyPillars: items }}
         initialPath="/philosophy"
+        label="Philosophy"
       />
     </div>
   );
@@ -1184,6 +1187,7 @@ export function AdminResumePage() {
         onClose={() => setPreviewOpen(false)}
         draft={{ kind: 'resume', resume: data }}
         initialPath="/resume"
+        label="Resume"
       />
     </div>
   );
@@ -1313,6 +1317,7 @@ export function AdminTerminalPage() {
         onClose={() => setPreviewOpen(false)}
         draft={{ kind: 'terminal', terminalCommands: commands }}
         initialPath="/"
+        label="Terminal"
       />
     </div>
   );

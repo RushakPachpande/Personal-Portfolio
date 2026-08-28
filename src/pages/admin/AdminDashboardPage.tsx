@@ -372,6 +372,7 @@ export function AdminProfilePage() {
           { label: 'About', path: '/about' },
           { label: 'Contact', path: '/contact' },
         ]}
+        label="Profile"
       />
     </div>
   );

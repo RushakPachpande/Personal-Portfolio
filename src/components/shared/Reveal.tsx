@@ -11,6 +11,7 @@ type RevealProps = {
 
 export function Reveal({ children, className, delay = 0 }: RevealProps) {
   const reduced = useReducedMotion();
+  const cappedDelay = Math.min(delay, 0.12);
 
   if (reduced) {
     return <div className={cn('min-w-0', className)}>{children}</div>;
@@ -22,8 +23,8 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ delay }}
+      viewport={{ once: true, amount: 0.15, margin: '0px 0px -8% 0px' }}
+      transition={{ delay: cappedDelay }}
     >
       {children}
     </motion.div>

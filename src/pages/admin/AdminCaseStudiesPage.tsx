@@ -770,6 +770,7 @@ export function AdminCaseStudyEditPage({ slug }: { slug?: string }) {
             ? getCaseStudyPath(study)
             : `/${study.category === 'platform' ? 'platforms' : study.category}`
         }
+        label="Case study"
       />
     </div>
   );

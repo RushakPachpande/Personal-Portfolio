@@ -66,7 +66,7 @@ export function ExperienceTimeline() {
                   'bg-linear-to-br from-electric-blue to-soft-cyan shadow-[0_0_20px_color-mix(in_srgb,var(--electric-blue)_35%,transparent)]'
                 )}
               />
-              <div className="glass rounded-2xl border-border/80 p-5 transition-transform duration-300 hover:-translate-y-1">
+              <div className="glass rounded-2xl border-border/80 p-5 transition-transform duration-200 ease-out motion-safe:hover:-translate-y-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge variant="secondary">{typeLabel[item.type]}</Badge>
                   <span className="font-mono text-xs text-muted-foreground">

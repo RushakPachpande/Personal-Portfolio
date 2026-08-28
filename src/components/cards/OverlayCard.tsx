@@ -32,9 +32,9 @@ function OverlayCardShell({
   children: ReactNode;
 }) {
   const shellClassName = cn(
-    'group/card relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/80 bg-card/70 ring-1 ring-foreground/10 backdrop-blur-xl transition-all duration-300',
+    'group/card relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/80 bg-card/70 ring-1 ring-foreground/10 backdrop-blur-md transition-[transform,box-shadow,border-color] duration-200 ease-out',
     href &&
-      'hover:border-primary/50 hover:shadow-[0_0_24px_color-mix(in_srgb,var(--electric-blue)_12%,transparent)] focus-within:border-primary/50 motion-safe:hover:scale-[1.01] motion-safe:active:scale-[0.99] motion-reduce:transform-none',
+      'hover:border-primary/50 hover:shadow-[0_0_28px_color-mix(in_srgb,var(--electric-blue)_16%,transparent)] focus-within:border-primary/50 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-[1.01] motion-safe:active:scale-[0.99] motion-reduce:transform-none',
     featured && 'featured',
     className
   );

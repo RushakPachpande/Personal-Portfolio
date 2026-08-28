@@ -50,13 +50,13 @@ export function GradientBlobs({ className }: { className?: string }) {
       />
       <div
         className={cn(
-          'absolute top-1/3 right-0 size-80 rounded-full bg-deep-purple/20 blur-3xl',
+          'absolute top-1/3 right-0 size-80 rounded-full bg-deep-purple/20 blur-3xl max-md:hidden',
           !reduced && 'animate-[float-b_16s_ease-in-out_infinite]'
         )}
       />
       <div
         className={cn(
-          'absolute bottom-0 left-10 size-64 rounded-full bg-soft-cyan/10 blur-3xl',
+          'absolute bottom-0 left-10 size-64 rounded-full bg-soft-cyan/10 blur-3xl max-md:hidden',
           !reduced && 'animate-[float-a_18s_ease-in-out_infinite_reverse]'
         )}
       />

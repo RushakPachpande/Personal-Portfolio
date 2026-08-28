@@ -15,8 +15,12 @@ export function usePublicPortfolioQuery() {
   });
 }
 
+export function useOptionalPortfolio() {
+  return useContext(PortfolioContext);
+}
+
 export function usePortfolio() {
-  const value = useContext(PortfolioContext);
+  const value = useOptionalPortfolio();
   if (!value) {
     throw new Error('usePortfolio must be used within PortfolioContext');
   }

@@ -1,9 +1,10 @@
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, Menu, TerminalSquare, X } from 'lucide-react';
-import { usePortfolio } from '@/hooks/usePortfolio';
+import { useOptionalPortfolio } from '@/hooks/usePortfolio';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { Button } from '@/components/ui/button';
+import { prefetchPublicRoute } from '@/app/prefetchPublicRoutes';
 import {
   Sheet,
   SheetContent,
@@ -32,6 +33,8 @@ function DesktopNavLink({ item }: { item: NavLinkItem }) {
     <NavLink
       to={item.to}
       end={item.to === '/'}
+      onPointerEnter={() => prefetchPublicRoute(item.to)}
+      onFocus={() => prefetchPublicRoute(item.to)}
       className={({ isActive }) =>
         cn(navLinkClassName, isActive && 'text-foreground')
       }
@@ -128,7 +131,7 @@ function DesktopNavDropdown({ group }: { group: NavGroupItem }) {
           <div
             role="menu"
             aria-label={group.label}
-            className="min-w-52 rounded-lg border border-border/80 bg-popover p-1.5 text-popover-foreground shadow-lg ring-1 ring-foreground/10"
+            className="nav-dropdown-menu min-w-52 rounded-lg border border-border/80 bg-popover p-1.5 text-popover-foreground shadow-lg ring-1 ring-foreground/10"
           >
             <div className="flex flex-col gap-0.5">
               {group.items.map((item) => {
@@ -139,6 +142,8 @@ function DesktopNavDropdown({ group }: { group: NavGroupItem }) {
                     key={item.to}
                     to={item.to}
                     role="menuitem"
+                    onPointerEnter={() => prefetchPublicRoute(item.to)}
+                    onFocus={() => prefetchPublicRoute(item.to)}
                     onClick={() => setOpen(false)}
                     className={cn(
                       'rounded-md px-3 py-2.5 text-sm transition-colors outline-none',
@@ -166,7 +171,8 @@ function MobileNavContent({
   onClose: () => void;
   onOpenTerminal: () => void;
 }) {
-  const { profile } = usePortfolio();
+  const portfolio = useOptionalPortfolio();
+  const shortName = portfolio?.profile.shortName ?? 'Portfolio';
   return (
     <SheetContent
       side="right"
@@ -177,8 +183,7 @@ function MobileNavContent({
           Navigate
         </SheetTitle>
         <SheetDescription className="text-left">
-          {profile.shortName}&apos;s portfolio — platforms, profile, and
-          contact.
+          {shortName}&apos;s portfolio — platforms, profile, and contact.
         </SheetDescription>
       </SheetHeader>
 
@@ -193,6 +198,8 @@ function MobileNavContent({
                 key={item.to}
                 to={item.to}
                 end={item.to === '/'}
+                onPointerEnter={() => prefetchPublicRoute(item.to)}
+                onFocus={() => prefetchPublicRoute(item.to)}
                 onClick={onClose}
                 className={({ isActive }) =>
                   cn(
@@ -212,6 +219,8 @@ function MobileNavContent({
                   <NavLink
                     key={route.to}
                     to={route.to}
+                    onPointerEnter={() => prefetchPublicRoute(route.to)}
+                    onFocus={() => prefetchPublicRoute(route.to)}
                     onClick={onClose}
                     className={({ isActive }) =>
                       cn(
@@ -254,7 +263,8 @@ function MobileNavContent({
 }
 
 export function Navbar({ onOpenTerminal }: { onOpenTerminal: () => void }) {
-  const { profile } = usePortfolio();
+  const portfolio = useOptionalPortfolio();
+  const shortName = portfolio?.profile.shortName ?? 'Portfolio';
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -278,7 +288,7 @@ export function Navbar({ onOpenTerminal }: { onOpenTerminal: () => void }) {
             to="/"
             className="font-display text-xl font-semibold tracking-tight sm:text-2xl"
           >
-            {profile.shortName}
+            {shortName}
             <span className="text-soft-cyan">.</span>
           </Link>
 

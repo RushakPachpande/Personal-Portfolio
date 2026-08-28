@@ -41,7 +41,8 @@ export function HeroSection() {
           variants={fadeUp}
           className="mt-4 max-w-2xl font-display text-2xl leading-snug text-muted-foreground sm:text-3xl"
         >
-          Building <span className="text-gradient">Systems,</span>
+          Building{' '}
+          <span className="text-gradient text-shimmer">Systems,</span>
           <br />
           Not Just Software.
         </motion.p>

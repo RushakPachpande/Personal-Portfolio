@@ -12,6 +12,7 @@ import {
   PortfolioContext,
   usePublicPortfolioQuery,
 } from '@/hooks/usePortfolio';
+import { PageRouteSkeleton } from '@/components/layout/PageRouteSkeleton';
 
 const BootSequence = lazy(() =>
   import('@/components/layout/BootSequence').then((module) => ({
@@ -29,22 +30,9 @@ const CursorGlow = lazy(() =>
   }))
 );
 
-function ShellSkeleton({ message }: { message: string }) {
+function ShellError({ message }: { message: string }) {
   return (
     <div className="flex min-h-dvh flex-col bg-background text-foreground">
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-120 focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground"
-      >
-        Skip to content
-      </a>
-      <header className="sticky top-0 z-50 h-16 border-b border-border/60 bg-background/70 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-6xl items-center px-4 sm:px-6">
-          <span className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
-            Portfolio
-          </span>
-        </div>
-      </header>
       <main
         id="main-content"
         className="flex min-h-[70vh] items-center justify-center px-6 text-center font-mono text-sm text-muted-foreground"
@@ -52,6 +40,17 @@ function ShellSkeleton({ message }: { message: string }) {
         {message}
       </main>
     </div>
+  );
+}
+
+function SkipLink() {
+  return (
+    <a
+      href="#main-content"
+      className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-120 focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground"
+    >
+      Skip to content
+    </a>
   );
 }
 
@@ -76,16 +75,14 @@ export function AppShell() {
 
   if (portfolioQuery.isError) {
     return (
-      <ShellSkeleton message="Unable to load portfolio data. Confirm local supabase start or production project keys, then refresh." />
+      <ShellError message="Unable to load portfolio data. Confirm local supabase start or production project keys, then refresh." />
     );
   }
 
-  if (portfolioQuery.isPending || !portfolioQuery.data) {
-    return <ShellSkeleton message="Loading systems..." />;
-  }
+  const portfolio = portfolioQuery.data ?? null;
 
   return (
-    <PortfolioContext.Provider value={portfolioQuery.data}>
+    <PortfolioContext.Provider value={portfolio}>
       <DevModeContext.Provider value={{ unlocked }}>
         {!booted ? (
           <Suspense fallback={null}>
@@ -93,32 +90,37 @@ export function AppShell() {
           </Suspense>
         ) : null}
 
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-120 focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground"
-        >
-          Skip to content
-        </a>
+        <SkipLink />
+
+        <div className="scroll-progress" aria-hidden />
 
         <Suspense fallback={null}>
           <CursorGlow />
         </Suspense>
-        <Navbar onOpenTerminal={() => setTerminalOpen(true)} />
+        <Navbar
+          onOpenTerminal={() => {
+            if (portfolio) setTerminalOpen(true);
+          }}
+        />
 
         <main
           id="main-content"
-          className="min-h-[70vh] min-w-0 overflow-x-clip"
+          className="grid min-h-[70vh] min-w-0 overflow-x-clip"
         >
-          <AnimatePresence mode="wait">
-            <PageTransition key={location.pathname}>
-              <Outlet />
-            </PageTransition>
-          </AnimatePresence>
+          {portfolio ? (
+            <AnimatePresence>
+              <PageTransition key={location.pathname}>
+                <Outlet />
+              </PageTransition>
+            </AnimatePresence>
+          ) : (
+            <PageRouteSkeleton />
+          )}
         </main>
 
         <Footer />
         <ScrollToTopButton />
-        {terminalOpen ? (
+        {terminalOpen && portfolio ? (
           <Suspense fallback={null}>
             <CommandTerminal
               open={terminalOpen}

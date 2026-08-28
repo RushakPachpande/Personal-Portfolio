@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { usePortfolio } from '@/hooks/usePortfolio';
+import { useOptionalPortfolio } from '@/hooks/usePortfolio';
 import { useDevMode } from '@/hooks/useDevMode';
 import { navItems } from './navItems';
 
 export function Footer() {
-  const { profile, siteVersion } = usePortfolio();
+  const portfolio = useOptionalPortfolio();
   const { unlocked } = useDevMode();
   const lastUpdated = new Date().toLocaleDateString('en-IN', {
     year: 'numeric',
@@ -17,13 +17,17 @@ export function Footer() {
     'Automate repetitive work',
   ];
   const stack = ['React', 'TypeScript', 'Tailwind', 'Framer Motion', 'Vite'];
+  const name = portfolio?.profile.name ?? 'Portfolio';
+  const siteVersion = portfolio?.siteVersion ?? '—';
+  const github = portfolio?.profile.socials.github;
+  const linkedin = portfolio?.profile.socials.linkedin;
 
   return (
     <footer className="mt-24 border-t border-border/80 bg-surface/40">
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:px-6">
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="max-w-sm">
-            <p className="font-display text-xl font-semibold">{profile.name}</p>
+            <p className="font-display text-xl font-semibold">{name}</p>
             <p className="mt-2 text-sm text-muted-foreground">
               Platform engineer owning systems from architecture to production.
             </p>
@@ -75,18 +79,22 @@ export function Footer() {
           </div>
         </div>
         <div className="flex flex-wrap gap-3">
-          <a
-            href={profile.socials.github}
-            className="text-sm text-muted-foreground hover:text-foreground"
-          >
-            GitHub
-          </a>
-          <a
-            href={profile.socials.linkedin}
-            className="text-sm text-muted-foreground hover:text-foreground"
-          >
-            LinkedIn
-          </a>
+          {github ? (
+            <a
+              href={github}
+              className="text-sm text-muted-foreground hover:text-foreground"
+            >
+              GitHub
+            </a>
+          ) : null}
+          {linkedin ? (
+            <a
+              href={linkedin}
+              className="text-sm text-muted-foreground hover:text-foreground"
+            >
+              LinkedIn
+            </a>
+          ) : null}
           <Link
             to="/resume"
             className="text-sm text-muted-foreground hover:text-foreground"
@@ -102,7 +110,7 @@ export function Footer() {
         </div>
         <div className="flex flex-col gap-2 border-t border-border/60 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {profile.name}. Built with intent.
+            © {new Date().getFullYear()} {name}. Built with intent.
           </p>
           <p className="font-mono">
             v{siteVersion} · Updated {lastUpdated}

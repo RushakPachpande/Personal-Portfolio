@@ -10,6 +10,7 @@ import { AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { PageTransition } from '@/components/layout/PageTransition';
+import { PageRouteSkeleton } from '@/components/layout/PageRouteSkeleton';
 import { DevModeContext } from '@/hooks/useDevMode';
 
 const HomePage = lazy(() =>
@@ -69,16 +70,8 @@ const NotFoundPage = lazy(() =>
   }))
 );
 
-function RouteFallback() {
-  return (
-    <div className="flex min-h-[40vh] items-center justify-center font-mono text-sm text-muted-foreground">
-      Loading systems...
-    </div>
-  );
-}
-
 export function withSuspense(element: ReactNode) {
-  return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;
+  return <Suspense fallback={<PageRouteSkeleton />}>{element}</Suspense>;
 }
 
 function PlatformCaseStudyPage() {
@@ -160,8 +153,8 @@ export function PreviewPublicChrome() {
   return (
     <DevModeContext.Provider value={{ unlocked: false }}>
       <Navbar onOpenTerminal={() => undefined} />
-      <main className="min-h-[70vh] min-w-0 overflow-x-clip">
-        <AnimatePresence mode="wait">
+      <main className="grid min-h-[70vh] min-w-0 overflow-x-clip">
+        <AnimatePresence>
           <PageTransition key={location.pathname}>
             <Outlet />
           </PageTransition>

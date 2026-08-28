@@ -23,9 +23,9 @@ export function ArchitectureFlow({ nodes }: ArchitectureFlowProps) {
                 onMouseEnter={() => setActiveNode(node.id)}
                 onMouseLeave={() => setActiveNode(null)}
                 className={cn(
-                  'rounded-xl border p-3 text-left transition-all',
+                  'rounded-xl border p-3 text-left transition-[opacity,transform,box-shadow,border-color] duration-150 ease-out',
                   isActive
-                    ? 'border-soft-cyan/60 bg-secondary/70 shadow-[0_0_20px_rgba(34,211,238,0.15)]'
+                    ? 'border-soft-cyan/60 bg-secondary/70 shadow-[0_0_20px_rgba(34,211,238,0.15)] motion-safe:scale-[1.02]'
                     : 'border-border bg-secondary/30 hover:border-soft-cyan/40'
                 )}
               >

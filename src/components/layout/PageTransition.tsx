@@ -9,7 +9,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
 
   return (
     <motion.div
-      className="min-w-0"
+      className="col-start-1 row-start-1 min-w-0"
       initial={pageTransition.initial}
       animate={pageTransition.animate}
       exit={pageTransition.exit}
