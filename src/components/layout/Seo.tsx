@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { buildTitle, defaultDescription } from '@/lib/seo';
 import { usePortfolio } from '@/hooks/usePortfolio';
+import { usePreviewMode } from '@/hooks/usePreviewMode';
 
 type SeoProps = {
   title?: string;
@@ -9,7 +10,9 @@ type SeoProps = {
 };
 
 export function Seo({ title, description, path = '/' }: SeoProps) {
+  const isPreview = usePreviewMode();
   const { profile } = usePortfolio();
+  if (isPreview) return null;
   const fullTitle = buildTitle(profile.name, profile.role, title);
   const desc = description ?? defaultDescription(profile.description);
   const url = `https://rushak.dev${path}`;

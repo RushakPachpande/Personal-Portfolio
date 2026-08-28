@@ -15,7 +15,7 @@ type MagneticButtonProps = {
 };
 
 const hoverClasses =
-  'relative overflow-hidden transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-10px_color-mix(in_oklch,var(--electric-blue)_45%,transparent)] active:translate-y-0 active:shadow-none motion-reduce:transform-none motion-reduce:transition-none';
+  'relative overflow-hidden transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-10px_color-mix(in_oklch,var(--electric-blue)_45%,transparent)] active:scale-[0.97] active:translate-y-0 active:shadow-none motion-reduce:transform-none motion-reduce:transition-none';
 
 const variantHoverClasses: Partial<
   Record<

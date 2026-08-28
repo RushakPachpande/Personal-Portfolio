@@ -9,7 +9,11 @@ import {
   uploadPortfolioFile,
 } from '@/services/portfolio-admin';
 import { MEDIA_BUCKET, publicMediaUrl } from '@/lib/supabase';
-import { PageHeader } from '@/features/admin/fields';
+import {
+  joinMediaPath,
+  isStorageFolder,
+  PageHeader,
+} from '@/features/admin/fields';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -22,7 +26,10 @@ export function AdminSubmissionsPage() {
 
   if (query.isPending) {
     return (
-      <p className="font-mono text-sm text-muted-foreground">Loading inbox…</p>
+      <div className="flex flex-col gap-3">
+        <div className="studio-skeleton h-8 w-40" />
+        <div className="studio-skeleton h-32 w-full" />
+      </div>
     );
   }
   if (query.isError) {
@@ -42,7 +49,7 @@ export function AdminSubmissionsPage() {
       ) : (
         <ul className="flex flex-col gap-4">
           {query.data.map((item) => (
-            <li key={item.id} className="glass rounded-2xl p-5">
+            <li key={item.id} className="studio-enter glass rounded-2xl p-5">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <p className="font-display text-lg font-semibold">
@@ -50,6 +57,7 @@ export function AdminSubmissionsPage() {
                   </p>
                   <a
                     href={`mailto:${item.email}`}
+                    title={`Open a mail client to reply to ${item.email}.`}
                     className="mt-1 inline-flex items-center gap-1.5 text-sm text-electric-blue hover:underline"
                   >
                     <Mail className="size-3.5" />
@@ -62,6 +70,7 @@ export function AdminSubmissionsPage() {
                 <Button
                   variant="outline"
                   size="sm"
+                  title="Permanently delete this submission from the inbox. This cannot be undone."
                   onClick={() => {
                     void deleteContactSubmission(item.id).then(() =>
                       queryClient.invalidateQueries({
@@ -85,17 +94,6 @@ export function AdminSubmissionsPage() {
   );
 }
 
-function joinPath(prefix: string, name: string) {
-  return prefix ? `${prefix.replace(/\/$/, '')}/${name}` : name;
-}
-
-function isFolder(item: {
-  id: string | null;
-  metadata: Record<string, unknown> | null;
-}) {
-  return item.metadata == null;
-}
-
 export function AdminMediaPage() {
   const queryClient = useQueryClient();
   const [prefix, setPrefix] = useState('');
@@ -115,7 +113,10 @@ export function AdminMediaPage() {
   }, [prefix]);
 
   async function onUpload(file: File) {
-    const dest = joinPath(prefix || 'uploads', `${Date.now()}-${file.name}`);
+    const dest = joinMediaPath(
+      prefix || 'uploads',
+      `${Date.now()}-${file.name}`
+    );
     await uploadPortfolioFile(MEDIA_BUCKET, dest, file);
     await queryClient.invalidateQueries({ queryKey: ['media'] });
   }
@@ -128,13 +129,14 @@ export function AdminMediaPage() {
     <div className="flex flex-col gap-8">
       <PageHeader
         title="Media"
-        description="Browse storage folders, preview files, and upload into the current folder."
+        description="Browse storage folders, preview files, and upload into the current folder. Files here can be reused from any image field."
       />
       <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
         <Button
           type="button"
           size="sm"
           variant="outline"
+          title="Show the bucket root. Does not move files."
           onClick={() => setPrefix('')}
         >
           Root
@@ -145,6 +147,7 @@ export function AdminMediaPage() {
             type="button"
             size="sm"
             variant="ghost"
+            title={`Open folder ${crumb.path}.`}
             onClick={() => setPrefix(crumb.path)}
           >
             / {crumb.label}
@@ -152,6 +155,7 @@ export function AdminMediaPage() {
         ))}
       </div>
       <label
+        title="Upload a file into the current folder. Existing files stay; this only adds a new object."
         className={`glass flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed px-6 py-10 text-center ${dragOver ? 'border-electric-blue bg-secondary/40' : 'border-border'}`}
         onDragOver={(event) => {
           event.preventDefault();
@@ -179,23 +183,26 @@ export function AdminMediaPage() {
         />
       </label>
       {query.isPending ? (
-        <p className="font-mono text-sm text-muted-foreground">
-          Loading files…
-        </p>
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="studio-skeleton h-40" />
+          <div className="studio-skeleton h-40" />
+          <div className="studio-skeleton h-40" />
+        </div>
       ) : null}
       <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {items.map((item) => {
-          const folder = isFolder(item);
-          const path = joinPath(prefix, item.name);
+          const folder = isStorageFolder(item);
+          const path = joinMediaPath(prefix, item.name);
           return (
             <li
               key={path}
-              className="glass flex flex-col gap-3 rounded-2xl p-4"
+              className="studio-enter glass flex flex-col gap-3 rounded-2xl p-4"
             >
               {folder ? (
                 <button
                   type="button"
                   className="text-left"
+                  title={`Open folder ${item.name}.`}
                   onClick={() => setPrefix(path)}
                 >
                   <FolderOpen className="size-10 text-electric-blue" />
@@ -219,6 +226,7 @@ export function AdminMediaPage() {
                       type="button"
                       size="sm"
                       variant="outline"
+                      title="Copy the storage path so you can paste it into an image field."
                       onClick={() => void navigator.clipboard.writeText(path)}
                     >
                       Copy path
@@ -227,6 +235,7 @@ export function AdminMediaPage() {
                       type="button"
                       size="sm"
                       variant="outline"
+                      title="Delete this file from storage. Fields still pointing at it will show a broken image."
                       onClick={() => {
                         void deleteMediaFile(path).then(() =>
                           queryClient.invalidateQueries({ queryKey: ['media'] })

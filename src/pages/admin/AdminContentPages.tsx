@@ -25,6 +25,7 @@ import {
   StringListField,
   moveItem,
 } from '@/features/admin/fields';
+import { AdminPreviewOverlay } from '@/features/admin/AdminPreviewOverlay';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -50,6 +51,7 @@ export function AdminTechnologiesPage() {
   const [items, setItems] = useState(technologies);
   const [status, setStatus] = useState('');
   const [saving, setSaving] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   async function save() {
     setSaving(true);
@@ -92,6 +94,7 @@ export function AdminTechnologiesPage() {
           <Button
             type="button"
             variant="outline"
+            title="Append a blank technology card. Fill id, name, and logo, then save to publish."
             onClick={() =>
               setItems([
                 ...items,
@@ -117,12 +120,25 @@ export function AdminTechnologiesPage() {
           <AdminSection key={item.id + index} title={item.name || 'Untitled'}>
             <ImageField
               label="Logo"
+              hint="Mark on the technology library and case study chips. Reuse an existing file when the logo is already in storage."
               value={item.logoPath || item.logo}
               accept="image/*,.svg"
+              onPathChange={(path) =>
+                setItems((current) =>
+                  current.map((entry, entryIndex) =>
+                    entryIndex === index
+                      ? { ...entry, logoPath: path, logo: path }
+                      : entry
+                  )
+                )
+              }
               onFile={(file) => void uploadLogo(item.id, file)}
             />
             <div className="grid gap-3 sm:grid-cols-2">
-              <Field label="Id">
+              <Field
+                label="Id"
+                hint="Stable key used when case studies reference this technology. Changing it breaks existing links until those studies are re-saved."
+              >
                 <Input
                   value={item.id}
                   onChange={(event) =>
@@ -136,7 +152,10 @@ export function AdminTechnologiesPage() {
                   }
                 />
               </Field>
-              <Field label="Name">
+              <Field
+                label="Name"
+                hint="Public label next to the logo in the library and on case studies."
+              >
                 <Input
                   value={item.name}
                   onChange={(event) =>
@@ -153,6 +172,7 @@ export function AdminTechnologiesPage() {
             </div>
             <SelectField
               label="Category"
+              hint="Groups this card in the technology library filters."
               value={item.category}
               options={techCategoryOptions}
               onChange={(value) =>
@@ -165,7 +185,10 @@ export function AdminTechnologiesPage() {
                 )
               }
             />
-            <Field label="Description">
+            <Field
+              label="Description"
+              hint="Short blurb on the technology library card."
+            >
               <Textarea
                 rows={3}
                 value={item.description}
@@ -189,6 +212,7 @@ export function AdminTechnologiesPage() {
               type="button"
               variant="outline"
               size="sm"
+              title="Remove this technology from the form. Save to delete it from the database. Media files stay in storage."
               onClick={() =>
                 setItems((current) =>
                   current.filter((_, entryIndex) => entryIndex !== index)
@@ -203,9 +227,16 @@ export function AdminTechnologiesPage() {
       </div>
       <SaveBar
         onSave={() => void save()}
+        onPreview={() => setPreviewOpen(true)}
         onDiscard={() => setItems(technologies)}
         status={status}
         saving={saving}
+      />
+      <AdminPreviewOverlay
+        open={previewOpen}
+        onClose={() => setPreviewOpen(false)}
+        draft={{ kind: 'technologies', technologies: items }}
+        initialPath="/technology-library"
       />
     </div>
   );
@@ -226,6 +257,7 @@ function ReorderButtons<T>({
         type="button"
         variant="ghost"
         size="icon-sm"
+        title="Move this item one position earlier on the public page."
         aria-label="Move up"
         disabled={index === 0}
         onClick={() => onChange(moveItem(items, index, index - 1))}
@@ -236,6 +268,7 @@ function ReorderButtons<T>({
         type="button"
         variant="ghost"
         size="icon-sm"
+        title="Move this item one position later on the public page."
         aria-label="Move down"
         disabled={index === items.length - 1}
         onClick={() => onChange(moveItem(items, index, index + 1))}
@@ -252,6 +285,7 @@ export function AdminTimelinePage() {
   const [items, setItems] = useState<TimelineItem[]>(timeline);
   const [status, setStatus] = useState('');
   const [saving, setSaving] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   async function save() {
     setSaving(true);
@@ -281,6 +315,7 @@ export function AdminTimelinePage() {
           <Button
             type="button"
             variant="outline"
+            title="Append a blank timeline event. Fill the fields, then save to publish."
             onClick={() =>
               setItems([
                 ...items,
@@ -306,6 +341,7 @@ export function AdminTimelinePage() {
           <div className="flex justify-between">
             <SelectField
               label="Type"
+              hint="Icon and grouping on the Experience page: career, education, achievement, or deployment."
               value={item.type}
               options={[
                 { value: 'career', label: 'Career' },
@@ -326,7 +362,10 @@ export function AdminTimelinePage() {
             <ReorderButtons items={items} index={index} onChange={setItems} />
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
-            <Field label="Title">
+            <Field
+              label="Title"
+              hint="Event heading on the public timeline, for example the role or degree."
+            >
               <Input
                 value={item.title}
                 onChange={(event) =>
@@ -340,7 +379,10 @@ export function AdminTimelinePage() {
                 }
               />
             </Field>
-            <Field label="Organization">
+            <Field
+              label="Organization"
+              hint="Company or school name shown under the title."
+            >
               <Input
                 value={item.organization}
                 onChange={(event) =>
@@ -354,7 +396,10 @@ export function AdminTimelinePage() {
                 }
               />
             </Field>
-            <Field label="Period">
+            <Field
+              label="Period"
+              hint="Date range label, for example 2022 — Present."
+            >
               <Input
                 value={item.period}
                 onChange={(event) =>
@@ -368,7 +413,10 @@ export function AdminTimelinePage() {
                 }
               />
             </Field>
-            <Field label="Id">
+            <Field
+              label="Id"
+              hint="Stable key for this event. Keep it unique; changing it creates a new row on save."
+            >
               <Input
                 value={item.id}
                 onChange={(event) =>
@@ -383,7 +431,10 @@ export function AdminTimelinePage() {
               />
             </Field>
           </div>
-          <Field label="Description">
+          <Field
+            label="Description"
+            hint="Body copy for this timeline card on /experience."
+          >
             <Textarea
               rows={3}
               value={item.description}
@@ -400,6 +451,7 @@ export function AdminTimelinePage() {
           </Field>
           <StringListField
             label="Highlights"
+            hint="Optional bullets under the description. Each item is one public bullet."
             values={item.highlights ?? []}
             onChange={(highlights) =>
               setItems((current) =>
@@ -413,6 +465,7 @@ export function AdminTimelinePage() {
             type="button"
             variant="outline"
             size="sm"
+            title="Remove this event from the form. Save to delete it from the database."
             onClick={() =>
               setItems((current) =>
                 current.filter((_, entryIndex) => entryIndex !== index)
@@ -425,9 +478,16 @@ export function AdminTimelinePage() {
       ))}
       <SaveBar
         onSave={() => void save()}
+        onPreview={() => setPreviewOpen(true)}
         onDiscard={() => setItems(timeline)}
         status={status}
         saving={saving}
+      />
+      <AdminPreviewOverlay
+        open={previewOpen}
+        onClose={() => setPreviewOpen(false)}
+        draft={{ kind: 'timeline', timeline: items }}
+        initialPath="/experience"
       />
     </div>
   );
@@ -439,6 +499,7 @@ export function AdminPhilosophyPage() {
   const [items, setItems] = useState<PhilosophyPillar[]>(philosophyPillars);
   const [status, setStatus] = useState('');
   const [saving, setSaving] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   async function save() {
     setSaving(true);
@@ -468,6 +529,7 @@ export function AdminPhilosophyPage() {
           <Button
             type="button"
             variant="outline"
+            title="Append a blank principle. Fill title and copy, then save to publish."
             onClick={() =>
               setItems([
                 ...items,
@@ -490,7 +552,10 @@ export function AdminPhilosophyPage() {
             <ReorderButtons items={items} index={index} onChange={setItems} />
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
-            <Field label="Id">
+            <Field
+              label="Id"
+              hint="Stable key for this pillar. Keep it unique across the list."
+            >
               <Input
                 value={item.id}
                 onChange={(event) =>
@@ -504,7 +569,7 @@ export function AdminPhilosophyPage() {
                 }
               />
             </Field>
-            <Field label="Title">
+            <Field label="Title" hint="Heading on the public philosophy card.">
               <Input
                 value={item.title}
                 onChange={(event) =>
@@ -519,7 +584,7 @@ export function AdminPhilosophyPage() {
               />
             </Field>
           </div>
-          <Field label="Summary">
+          <Field label="Summary" hint="One-line teaser on the philosophy card.">
             <Input
               value={item.summary}
               onChange={(event) =>
@@ -533,7 +598,10 @@ export function AdminPhilosophyPage() {
               }
             />
           </Field>
-          <Field label="Detail">
+          <Field
+            label="Detail"
+            hint="Expanded copy on the philosophy card body."
+          >
             <Textarea
               rows={4}
               value={item.detail}
@@ -552,6 +620,7 @@ export function AdminPhilosophyPage() {
             type="button"
             variant="outline"
             size="sm"
+            title="Remove this pillar from the form. Save to delete it from the database."
             onClick={() =>
               setItems((current) =>
                 current.filter((_, entryIndex) => entryIndex !== index)
@@ -564,31 +633,63 @@ export function AdminPhilosophyPage() {
       ))}
       <SaveBar
         onSave={() => void save()}
+        onPreview={() => setPreviewOpen(true)}
         onDiscard={() => setItems(philosophyPillars)}
         status={status}
         saving={saving}
+      />
+      <AdminPreviewOverlay
+        open={previewOpen}
+        onClose={() => setPreviewOpen(false)}
+        draft={{ kind: 'philosophy', philosophyPillars: items }}
+        initialPath="/philosophy"
       />
     </div>
   );
 }
 
 const resumeTabs = [
-  'Highlights',
-  'Competencies',
-  'Expertise',
-  'Experience',
-  'Projects',
-  'Education',
-  'Certifications',
+  {
+    id: 'Highlights',
+    description:
+      'Top stats on the resume page. Each row is one highlight chip.',
+  },
+  {
+    id: 'Competencies',
+    description: 'Core competency chips listed near the top of the resume.',
+  },
+  {
+    id: 'Expertise',
+    description: 'Grouped skill lists under Technical expertise.',
+  },
+  {
+    id: 'Experience',
+    description: 'Professional roles and bullets on the resume.',
+  },
+  {
+    id: 'Projects',
+    description: 'Key projects, optional link to a public case study.',
+  },
+  {
+    id: 'Education',
+    description: 'Degrees shown in the education block.',
+  },
+  {
+    id: 'Certifications',
+    description: 'Certification groups by provider.',
+  },
 ] as const;
 
 export function AdminResumePage() {
   const { resume, caseStudies } = usePortfolio();
   const queryClient = useQueryClient();
   const [data, setData] = useState<ResumeData>(resume);
-  const [tab, setTab] = useState<(typeof resumeTabs)[number]>('Highlights');
+  const [tab, setTab] =
+    useState<(typeof resumeTabs)[number]['id']>('Highlights');
   const [status, setStatus] = useState('');
   const [saving, setSaving] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const activeTab = resumeTabs.find((item) => item.id === tab);
 
   async function save() {
     setSaving(true);
@@ -609,18 +710,26 @@ export function AdminResumePage() {
         title="Resume"
         description="Sections that render on the resume preview page."
       />
-      <div className="flex flex-wrap gap-2">
-        {resumeTabs.map((item) => (
-          <Button
-            key={item}
-            type="button"
-            size="sm"
-            variant={tab === item ? 'default' : 'outline'}
-            onClick={() => setTab(item)}
-          >
-            {item}
-          </Button>
-        ))}
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-wrap gap-2">
+          {resumeTabs.map((item) => (
+            <Button
+              key={item.id}
+              type="button"
+              size="sm"
+              variant={tab === item.id ? 'default' : 'outline'}
+              title={item.description}
+              onClick={() => setTab(item.id)}
+            >
+              {item.id}
+            </Button>
+          ))}
+        </div>
+        {activeTab ? (
+          <p className="text-sm text-muted-foreground">
+            {activeTab.description}
+          </p>
+        ) : null}
       </div>
 
       {tab === 'Highlights' ? (
@@ -628,9 +737,12 @@ export function AdminResumePage() {
           {data.highlights.map((item, index) => (
             <div
               key={item.id}
-              className="grid gap-3 rounded-xl border border-border/80 p-4 sm:grid-cols-2"
+              className="studio-enter grid gap-3 rounded-xl border border-border/80 p-4 sm:grid-cols-2"
             >
-              <Field label="Label">
+              <Field
+                label="Label"
+                hint="Short highlight title, for example the metric name on the resume."
+              >
                 <Input
                   value={item.label}
                   onChange={(event) =>
@@ -645,7 +757,10 @@ export function AdminResumePage() {
                   }
                 />
               </Field>
-              <Field label="Detail">
+              <Field
+                label="Detail"
+                hint="Optional supporting value or sentence next to the label."
+              >
                 <Input
                   value={item.detail ?? ''}
                   onChange={(event) =>
@@ -665,6 +780,7 @@ export function AdminResumePage() {
           <Button
             type="button"
             variant="outline"
+            title="Add another highlight row to the resume."
             onClick={() =>
               setData({
                 ...data,
@@ -684,6 +800,7 @@ export function AdminResumePage() {
         <AdminSection title="Core competencies">
           <StringListField
             label="Competencies"
+            hint="Each item becomes a competency chip on the public resume."
             values={data.coreCompetencies}
             onChange={(coreCompetencies) =>
               setData({ ...data, coreCompetencies })
@@ -697,9 +814,12 @@ export function AdminResumePage() {
           {data.technicalExpertise.map((group, index) => (
             <div
               key={group.id}
-              className="flex flex-col gap-3 rounded-xl border border-border/80 p-4"
+              className="studio-enter flex flex-col gap-3 rounded-xl border border-border/80 p-4"
             >
-              <Field label="Group title">
+              <Field
+                label="Group title"
+                hint="Heading for this skill group, for example Cloud or Frontend."
+              >
                 <Input
                   value={group.title}
                   onChange={(event) =>
@@ -717,6 +837,7 @@ export function AdminResumePage() {
               </Field>
               <StringListField
                 label="Items"
+                hint="Skills listed under this group heading."
                 values={group.items}
                 onChange={(items) =>
                   setData({
@@ -738,10 +859,13 @@ export function AdminResumePage() {
           {data.professionalExperience.map((entry, index) => (
             <div
               key={entry.id}
-              className="flex flex-col gap-3 rounded-xl border border-border/80 p-4"
+              className="studio-enter flex flex-col gap-3 rounded-xl border border-border/80 p-4"
             >
               <div className="grid gap-3 sm:grid-cols-2">
-                <Field label="Organization">
+                <Field
+                  label="Organization"
+                  hint="Employer name on this resume role."
+                >
                   <Input
                     value={entry.organization}
                     onChange={(event) =>
@@ -757,7 +881,10 @@ export function AdminResumePage() {
                     }
                   />
                 </Field>
-                <Field label="Role">
+                <Field
+                  label="Role"
+                  hint="Job title shown next to the organization."
+                >
                   <Input
                     value={entry.role}
                     onChange={(event) =>
@@ -773,7 +900,10 @@ export function AdminResumePage() {
                     }
                   />
                 </Field>
-                <Field label="Period">
+                <Field
+                  label="Period"
+                  hint="Date range for this role, for example 2021 — 2024."
+                >
                   <Input
                     value={entry.period}
                     onChange={(event) =>
@@ -792,6 +922,7 @@ export function AdminResumePage() {
               </div>
               <StringListField
                 label="Bullets"
+                hint="Achievement bullets under this role. Each item is one line."
                 values={entry.bullets}
                 onChange={(bullets) =>
                   setData({
@@ -813,10 +944,13 @@ export function AdminResumePage() {
           {data.keyProjects.map((project, index) => (
             <div
               key={project.id}
-              className="flex flex-col gap-3 rounded-xl border border-border/80 p-4"
+              className="studio-enter flex flex-col gap-3 rounded-xl border border-border/80 p-4"
             >
               <div className="grid gap-3 sm:grid-cols-2">
-                <Field label="Name">
+                <Field
+                  label="Name"
+                  hint="Project title on the resume. If linked, it can route to the case study."
+                >
                   <Input
                     value={project.name}
                     onChange={(event) =>
@@ -831,7 +965,10 @@ export function AdminResumePage() {
                     }
                   />
                 </Field>
-                <Field label="Role">
+                <Field
+                  label="Role"
+                  hint="Your role on this project, shown under the title."
+                >
                   <Input
                     value={project.role}
                     onChange={(event) =>
@@ -849,6 +986,7 @@ export function AdminResumePage() {
               </div>
               <StringListField
                 label="Bullets"
+                hint="Project achievement bullets on the resume."
                 values={project.bullets}
                 onChange={(bullets) =>
                   setData({
@@ -861,6 +999,7 @@ export function AdminResumePage() {
               />
               <StringListField
                 label="Stack"
+                hint="Tech names listed on this project. These are text labels, not library logos."
                 values={project.stack}
                 onChange={(stack) =>
                   setData({
@@ -873,6 +1012,7 @@ export function AdminResumePage() {
               />
               <SelectField
                 label="Linked case study"
+                hint="None keeps the project as resume-only. Choosing a study adds a public case study link."
                 value={project.caseStudy?.slug ?? 'none'}
                 options={[
                   { value: 'none', label: 'None' },
@@ -911,9 +1051,12 @@ export function AdminResumePage() {
           {data.education.map((entry, index) => (
             <div
               key={entry.id}
-              className="grid gap-3 rounded-xl border border-border/80 p-4 sm:grid-cols-2"
+              className="studio-enter grid gap-3 rounded-xl border border-border/80 p-4 sm:grid-cols-2"
             >
-              <Field label="Degree">
+              <Field
+                label="Degree"
+                hint="Degree name shown in the education block."
+              >
                 <Input
                   value={entry.degree}
                   onChange={(event) =>
@@ -928,7 +1071,7 @@ export function AdminResumePage() {
                   }
                 />
               </Field>
-              <Field label="Institution">
+              <Field label="Institution" hint="School or university name.">
                 <Input
                   value={entry.institution}
                   onChange={(event) =>
@@ -943,7 +1086,10 @@ export function AdminResumePage() {
                   }
                 />
               </Field>
-              <Field label="Period">
+              <Field
+                label="Period"
+                hint="Years attended, for example 2018 — 2022."
+              >
                 <Input
                   value={entry.period}
                   onChange={(event) =>
@@ -958,7 +1104,10 @@ export function AdminResumePage() {
                   }
                 />
               </Field>
-              <Field label="Detail">
+              <Field
+                label="Detail"
+                hint="Optional extra line such as GPA or honors."
+              >
                 <Input
                   value={entry.detail}
                   onChange={(event) =>
@@ -983,9 +1132,12 @@ export function AdminResumePage() {
           {data.certifications.map((group, index) => (
             <div
               key={group.id}
-              className="flex flex-col gap-3 rounded-xl border border-border/80 p-4"
+              className="studio-enter flex flex-col gap-3 rounded-xl border border-border/80 p-4"
             >
-              <Field label="Provider">
+              <Field
+                label="Provider"
+                hint="Issuer heading, for example AWS or Microsoft."
+              >
                 <Input
                   value={group.provider}
                   onChange={(event) =>
@@ -1003,6 +1155,7 @@ export function AdminResumePage() {
               </Field>
               <StringListField
                 label="Items"
+                hint="Certificate names listed under this provider."
                 values={group.items}
                 onChange={(items) =>
                   setData({
@@ -1021,9 +1174,16 @@ export function AdminResumePage() {
 
       <SaveBar
         onSave={() => void save()}
+        onPreview={() => setPreviewOpen(true)}
         onDiscard={() => setData(resume)}
         status={status}
         saving={saving}
+      />
+      <AdminPreviewOverlay
+        open={previewOpen}
+        onClose={() => setPreviewOpen(false)}
+        draft={{ kind: 'resume', resume: data }}
+        initialPath="/resume"
       />
     </div>
   );
@@ -1035,6 +1195,7 @@ export function AdminTerminalPage() {
   const [commands, setCommands] = useState<TerminalCommand[]>(terminalCommands);
   const [status, setStatus] = useState('');
   const [saving, setSaving] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   async function save() {
     setSaving(true);
@@ -1058,6 +1219,7 @@ export function AdminTerminalPage() {
           <Button
             type="button"
             variant="outline"
+            title="Add a help catalog entry. Runtime behavior still requires matching code."
             onClick={() =>
               setCommands([
                 ...commands,
@@ -1073,10 +1235,13 @@ export function AdminTerminalPage() {
         {commands.map((command, index) => (
           <div
             key={`${command.name}-${index}`}
-            className="glass flex flex-col gap-3 rounded-2xl p-4"
+            className="studio-enter glass flex flex-col gap-3 rounded-2xl p-4"
           >
             <div className="grid gap-3 sm:grid-cols-2">
-              <Field label="Command">
+              <Field
+                label="Command"
+                hint="Typed name in the public terminal help, for example about. Must match a coded command to run."
+              >
                 <Input
                   value={command.name}
                   onChange={(event) =>
@@ -1090,7 +1255,10 @@ export function AdminTerminalPage() {
                   }
                 />
               </Field>
-              <Field label="Description">
+              <Field
+                label="Description"
+                hint="Help-text line shown next to this command in the terminal catalog."
+              >
                 <Input
                   value={command.description}
                   onChange={(event) =>
@@ -1107,6 +1275,7 @@ export function AdminTerminalPage() {
             </div>
             <StringListField
               label="Aliases"
+              hint="Alternate names that should resolve to this command in help text."
               values={command.aliases ?? []}
               onChange={(aliases) =>
                 setCommands((current) =>
@@ -1120,6 +1289,7 @@ export function AdminTerminalPage() {
               type="button"
               variant="outline"
               size="sm"
+              title="Remove this command from the catalog. Save to persist. Coded behavior is unchanged."
               onClick={() =>
                 setCommands((current) =>
                   current.filter((_, entryIndex) => entryIndex !== index)
@@ -1133,9 +1303,16 @@ export function AdminTerminalPage() {
       </div>
       <SaveBar
         onSave={() => void save()}
+        onPreview={() => setPreviewOpen(true)}
         onDiscard={() => setCommands(terminalCommands)}
         status={status}
         saving={saving}
+      />
+      <AdminPreviewOverlay
+        open={previewOpen}
+        onClose={() => setPreviewOpen(false)}
+        draft={{ kind: 'terminal', terminalCommands: commands }}
+        initialPath="/"
       />
     </div>
   );

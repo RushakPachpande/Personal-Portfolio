@@ -64,6 +64,7 @@ function AdminNavLinks({
             key={link.to}
             to={link.to === '' ? base : `${base}/${link.to}`}
             end={link.to === ''}
+            title={`Open ${link.label} in Studio.`}
             onClick={onNavigate}
             className={({ isActive }) =>
               cn(linkClassName, isActive && activeClassName)
@@ -100,6 +101,11 @@ export function AdminLayout() {
                   variant="ghost"
                   size="icon-lg"
                   aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+                  title={
+                    mobileOpen
+                      ? 'Close Studio navigation.'
+                      : 'Open Studio navigation.'
+                  }
                   className="shrink-0 lg:hidden"
                 >
                   {mobileOpen ? (
@@ -123,6 +129,7 @@ export function AdminLayout() {
               <Button
                 variant="outline"
                 size="sm"
+                title="Sign out of Studio and return to the login screen. Public site is unchanged."
                 onClick={() => void signOut()}
                 className="hidden shrink-0 sm:inline-flex"
               >
@@ -184,6 +191,7 @@ export function AdminLayout() {
             <Button
               variant="outline"
               className="w-full justify-start"
+              title="Sign out of Studio and return to the login screen."
               onClick={() => {
                 setMobileOpen(false);
                 void signOut();

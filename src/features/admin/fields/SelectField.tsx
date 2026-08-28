@@ -15,7 +15,7 @@ type SelectOption = {
 
 type SelectFieldProps = {
   label: string;
-  hint?: string;
+  hint: string;
   value: string;
   onChange: (value: string) => void;
   options: SelectOption[];
@@ -33,7 +33,7 @@ export function SelectField({
   return (
     <Field label={label} hint={hint}>
       <Select value={value || undefined} onValueChange={onChange}>
-        <SelectTrigger className="w-full">
+        <SelectTrigger className="w-full" aria-label={label}>
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>

@@ -19,8 +19,12 @@ export function AdminDataLayout() {
 
   if (query.isPending || !query.data) {
     return (
-      <div className="flex min-h-screen items-center justify-center font-mono text-sm text-muted-foreground">
-        Loading studio...
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-6">
+        <div className="studio-skeleton h-4 w-48" />
+        <div className="studio-skeleton h-32 w-full max-w-md" />
+        <p className="font-mono text-sm text-muted-foreground">
+          Loading studio...
+        </p>
       </div>
     );
   }

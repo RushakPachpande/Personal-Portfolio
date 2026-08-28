@@ -64,6 +64,10 @@ export function AdminLoginPage() {
               required
               autoComplete="username"
             />
+            <p className="text-xs text-muted-foreground">
+              The admin account email. Submitting authenticates this browser
+              session.
+            </p>
           </div>
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="password">Password</Label>
@@ -74,9 +78,19 @@ export function AdminLoginPage() {
               required
               autoComplete="current-password"
             />
+            <p className="text-xs text-muted-foreground">
+              Account password. A successful sign-in opens Studio; a non-admin
+              account is signed back out.
+            </p>
           </div>
           {error ? <p className="text-sm text-destructive">{error}</p> : null}
-          <Button type="submit" disabled={pending} className="w-full" size="lg">
+          <Button
+            type="submit"
+            disabled={pending}
+            className="w-full"
+            size="lg"
+            title="Sign in. Only accounts with the admin role can enter Studio."
+          >
             {pending ? 'Authenticating…' : 'Enter studio'}
           </Button>
         </div>

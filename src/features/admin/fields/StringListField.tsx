@@ -7,7 +7,7 @@ import { Field } from './Field';
 
 type StringListFieldProps = {
   label: string;
-  hint?: string;
+  hint: string;
   values: string[];
   onChange: (values: string[]) => void;
   placeholder?: string;
@@ -49,6 +49,7 @@ export function StringListField({
               type="button"
               variant="ghost"
               size="icon-xs"
+              title={`Remove “${value}” from this list. The rest of the items stay.`}
               aria-label={`Remove ${value}`}
               onClick={() => onChange(values.filter((item) => item !== value))}
             >
@@ -63,8 +64,14 @@ export function StringListField({
           onChange={(event) => setDraft(event.target.value)}
           onKeyDown={onKeyDown}
           placeholder={placeholder}
+          aria-label={`Add to ${label}`}
         />
-        <Button type="button" variant="outline" onClick={addValue}>
+        <Button
+          type="button"
+          variant="outline"
+          title="Append the typed value to this list. Duplicate values are ignored."
+          onClick={addValue}
+        >
           Add
         </Button>
       </div>

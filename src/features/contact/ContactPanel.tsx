@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Download, ExternalLink, Mail, Send } from 'lucide-react';
 import { usePortfolio } from '@/hooks/usePortfolio';
+import { usePreviewMode } from '@/hooks/usePreviewMode';
 import { submitContact } from '@/services/portfolio-public';
 import { OverlayCard } from '@/components/cards/OverlayCard';
 import { SurfaceCard } from '@/components/cards/SurfaceCard';
@@ -13,11 +14,13 @@ import { Textarea } from '@/components/ui/textarea';
 
 export function ContactPanel() {
   const { profile } = usePortfolio();
+  const isPreview = usePreviewMode();
   const [status, setStatus] = useState<'idle' | 'sent' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (isPreview) return;
     const form = event.currentTarget;
     const formData = new FormData(form);
     const name = String(formData.get('name') ?? '');
@@ -129,10 +132,25 @@ export function ContactPanel() {
                   placeholder="Tell me about the platform you need owned."
                 />
               </div>
-              <Button type="submit" size="lg" className="self-start">
+              <Button
+                type="submit"
+                size="lg"
+                className="self-start"
+                disabled={isPreview}
+                title={
+                  isPreview
+                    ? 'Contact submit is disabled in draft preview.'
+                    : 'Send this message to the studio inbox.'
+                }
+              >
                 Send message
                 <Send data-icon="inline-end" />
               </Button>
+              {isPreview ? (
+                <p className="font-mono text-xs text-muted-foreground">
+                  Preview only — submissions are disabled.
+                </p>
+              ) : null}
               {status === 'sent' ? (
                 <p className="font-mono text-xs text-soft-cyan">
                   Message received. I’ll get back to you soon.
