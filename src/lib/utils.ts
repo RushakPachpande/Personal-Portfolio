@@ -14,3 +14,7 @@ export const responsiveCardGridCompactClassName =
 
 export const responsiveCardGridThreeClassName =
   'grid min-w-0 grid-cols-1 gap-4 md:grid-cols-3 [&>*]:min-w-0';
+
+/** Fills columns from a min card width so items wrap instead of stretching full-row. */
+export const responsiveCardGridAutoClassName =
+  'grid min-w-0 [grid-template-columns:repeat(auto-fill,minmax(min(100%,18rem),1fr))] gap-5 [&>*]:min-w-0';

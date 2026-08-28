@@ -1,4 +1,4 @@
-import { ArrowRight, Cloud, Cpu, Workflow } from 'lucide-react';
+import { Cloud, Cpu, Workflow } from 'lucide-react';
 import { OverlayCard } from '@/components/cards/OverlayCard';
 import { Reveal, SectionHeader } from '@/components/shared/Reveal';
 import { cn, responsiveCardGridThreeClassName } from '@/lib/utils';
@@ -65,10 +65,6 @@ export function EngineeringAreas() {
                   <p className="font-mono text-xs text-soft-cyan sm:text-sm">
                     {area.examples}
                   </p>
-                  <span className="inline-flex items-center gap-1 text-xs text-electric-blue sm:text-sm">
-                    Explore
-                    <ArrowRight className="size-3.5" />
-                  </span>
                 </>
               }
             />

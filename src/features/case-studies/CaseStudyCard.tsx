@@ -5,9 +5,11 @@ import {
 } from '@/lib/portfolio';
 import type { CaseStudy } from '@/types/portfolio';
 import { usePortfolio } from '@/hooks/usePortfolio';
-import { OverlayCard } from '@/components/cards/OverlayCard';
+import {
+  OverlayCard,
+  type OverlayCardStat,
+} from '@/components/cards/OverlayCard';
 import { Reveal } from '@/components/shared/Reveal';
-import { Badge } from '@/components/ui/badge';
 import type { CardGradientKey } from '@/lib/cardGradients';
 import { cn } from '@/lib/utils';
 
@@ -23,6 +25,24 @@ const categoryGradients: Record<CaseStudy['category'], CardGradientKey> = {
   automation: 'automation',
 };
 
+function getCaseStudyStats(
+  study: CaseStudy,
+  techCount: number
+): OverlayCardStat[] {
+  const stats: OverlayCardStat[] = [];
+  if (study.timeline) {
+    stats.push({ value: study.timeline, label: 'Timeline' });
+  }
+  stats.push({ value: study.status, label: 'Status' });
+  if (techCount > 0) {
+    stats.push({
+      value: String(techCount),
+      label: techCount === 1 ? 'Technology' : 'Technologies',
+    });
+  }
+  return stats;
+}
+
 export function CaseStudyCard({
   study,
   index = 0,
@@ -32,7 +52,8 @@ export function CaseStudyCard({
   const href = getCaseStudyPath(study);
   const imageSrc = study.logo ?? study.coverImage;
   const imageAlt = study.logoAlt ?? study.coverImageAlt ?? `${study.name} logo`;
-  const techItems = (study.technologyIds ?? [])
+  const techIds = study.technologyIds ?? [];
+  const techItems = techIds
     .slice(0, 6)
     .map((id) => getTechnologyById(technologies, id))
     .filter((technology): technology is NonNullable<typeof technology> =>
@@ -40,14 +61,7 @@ export function CaseStudyCard({
     );
 
   return (
-    <Reveal
-      delay={index * 0.05}
-      className={cn(
-        'min-w-0 max-w-full',
-        study.featured && 'featured',
-        className
-      )}
-    >
+    <Reveal delay={index * 0.05} className={cn('min-w-0 max-w-full', className)}>
       <OverlayCard
         href={href}
         gradient={categoryGradients[study.category]}
@@ -55,27 +69,12 @@ export function CaseStudyCard({
         eyebrow={categoryLabels[study.category]}
         title={study.name}
         heroImage={imageSrc ? { src: imageSrc, alt: imageAlt } : undefined}
+        stats={getCaseStudyStats(study, techIds.length)}
         body={
           <>
             <p className="line-clamp-2 text-sm text-muted-foreground text-pretty">
               {study.summary}
             </p>
-            <div className="flex flex-wrap items-center gap-2">
-              {study.timeline ? (
-                <Badge
-                  variant="outline"
-                  className="font-mono text-xs uppercase"
-                >
-                  {study.timeline}
-                </Badge>
-              ) : null}
-              <Badge
-                variant="secondary"
-                className="font-mono text-xs uppercase"
-              >
-                {study.status}
-              </Badge>
-            </div>
             {techItems.length > 0 ? (
               <div className="flex flex-wrap items-center gap-1.5">
                 {techItems.map((technology) => (
