@@ -9,7 +9,7 @@ function isProdMode(mode: string) {
 }
 
 // GitHub Pages serves user sites at "/" and project sites at "/<repo>/".
-// The deploy workflow passes the correct value; local builds default to root.
+// The deploy workflow passes the subpath; local builds default to root.
 function resolveBasePath() {
   const raw = process.env.PAGES_BASE_PATH?.trim();
   if (!raw || raw === '/') return '/';

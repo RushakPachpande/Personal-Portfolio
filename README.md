@@ -90,23 +90,9 @@ The site is a static Vite build published to GitHub Pages. Deploys are **manual 
 
 ### Site URL and base path
 
-Any repository name works. The workflow asks GitHub for the repo's live Pages URL and derives two values from it:
-
-- `PAGES_BASE_PATH` → Vite's `base`, so assets resolve at `/` (user site or custom domain) or `/<repo>/` (project site)
-- `PAGES_SITE_URL` → canonical URLs in `dist/sitemap.xml` and `dist/robots.txt`, plus a conditional `dist/CNAME`
+Any repository name works. `actions/configure-pages` reports the repository's base path and the workflow passes it to the build as `PAGES_BASE_PATH` → Vite's `base`, so assets resolve at `/` for a user site or `/<repo>/` for a project site.
 
 [src/app/router.tsx](src/app/router.tsx) reads the same base through `import.meta.env.BASE_URL` and passes it to `createBrowserRouter` as `basename`, so routing and link generation follow the subpath too.
-
-`dist/CNAME` is written **only** when the site URL host is not a `github.io` domain. GitHub Pages applies any `CNAME` in the artifact as the repo's custom domain, so emitting one before DNS exists would redirect the live site somewhere unreachable.
-
-### Moving to a custom domain later
-
-1. Point DNS at GitHub: four `A` records for the apex at `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
-2. Add a `PAGES_SITE_URL` repository **variable** (Settings → Secrets and variables → Actions → Variables) set to `https://your-domain`. This overrides auto-detection.
-3. Run the deploy workflow — the build emits `dist/CNAME` and resets the base path to `/`.
-4. **Settings → Pages → Custom domain**: enter the domain, then enable **Enforce HTTPS** once the certificate is issued.
-
-No code changes are needed.
 
 ### Running a deploy
 
@@ -131,8 +117,7 @@ The workflow checks out the ref, runs lint and `npm run build`, writes `dist/404
 - **Pages permission errors** — Settings → Pages → Source must be **GitHub Actions**.
 - **Build fails on missing Supabase config** — the environment secrets above are not set on the `github-pages` environment.
 - **Routes 404 on refresh** — confirm the SPA fallback step ran, then redeploy.
-- **Blank page** — the build's base path does not match the live URL. Check the **Resolve site URL and base path** step in the run log, and clear any stale `PAGES_SITE_URL` variable.
-- **Site redirects to an unreachable domain** — a stale custom domain is set under Settings → Pages. Clear it, and check `PAGES_SITE_URL`.
+- **Blank page** — the build's base path does not match the live URL. Check the **Configure Pages** step in the run log, and redeploy after renaming a repository.
 - **Stale content** — hard-refresh (`Ctrl+Shift+R`).
 
 ## Routes
