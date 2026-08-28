@@ -47,3 +47,4 @@ supabase/.temp/
 
 # Internal documentation (local only)
 docs/
+GITHUB_README.md

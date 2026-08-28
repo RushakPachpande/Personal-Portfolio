@@ -61,6 +61,7 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_ADMIN_BASE_PATH: ${{ secrets.VITE_ADMIN_BASE_PATH }}
+          PAGES_SITE_URL: ${{ vars.PAGES_SITE_URL }}
         run: npm run build
 
       - name: Verify SPA fallback
