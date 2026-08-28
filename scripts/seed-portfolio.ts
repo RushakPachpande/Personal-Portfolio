@@ -36,7 +36,6 @@ const supabase = createClient(supabaseUrl, serviceKey, {
 });
 
 const MEDIA_BUCKET = 'portfolio-media';
-const RESUME_BUCKET = 'portfolio-resume';
 const uploaded = new Map<string, string>();
 
 function mimeFor(filePath: string) {
@@ -194,23 +193,6 @@ async function seedResume() {
   if (error) throw error;
 }
 
-async function seedResumePdf() {
-  const candidates = [
-    path.resolve(process.cwd(), 'public/resume.pdf'),
-    path.resolve(process.cwd(), 'docs/resume/resume.pdf'),
-  ];
-  for (const filePath of candidates) {
-    try {
-      await fs.access(filePath);
-      await uploadLocal(RESUME_BUCKET, 'resume.pdf', filePath);
-      return;
-    } catch {
-      // try next
-    }
-  }
-  console.log('resume.pdf not found locally — skipping resume bucket upload');
-}
-
 async function maybeCreateAdmin() {
   const email = process.env.ADMIN_EMAIL;
   const password = process.env.ADMIN_PASSWORD;
@@ -242,14 +224,9 @@ async function maybeCreateAdmin() {
 
 async function main() {
   console.log(`Seeding ${appEnv} environment`);
-  const profilePayload = {
-    ...profile,
-    resumeUrl: 'resume.pdf',
-  };
-
   const { error: profileError } = await supabase.from('site_profile').upsert({
     id: 'main',
-    data: profilePayload,
+    data: profile,
     updated_at: new Date().toISOString(),
   });
   if (profileError) throw profileError;
@@ -302,7 +279,6 @@ async function main() {
     );
   if (terminalError) throw terminalError;
 
-  await seedResumePdf();
   await maybeCreateAdmin();
   console.log('Seed complete.');
 }

@@ -13,10 +13,7 @@ import {
   usePublicPortfolioQuery,
 } from '@/hooks/usePortfolio';
 import { PageRouteSkeleton } from '@/components/layout/PageRouteSkeleton';
-import {
-  rememberDocumentLoad,
-  shouldShowBootSequence,
-} from '@/lib/bootGate';
+import { rememberDocumentLoad, shouldShowBootSequence } from '@/lib/bootGate';
 
 const BootSequence = lazy(() =>
   import('@/components/layout/BootSequence').then((module) => ({

@@ -376,12 +376,14 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
             </Reveal>
 
             <div className="flex flex-wrap gap-3 pt-4">
-              <Button asChild variant="outline">
-                <a href={profile.resumeUrl}>
-                  Download Resume
-                  <Download data-icon="inline-end" />
-                </a>
-              </Button>
+              {profile.resumeUrl ? (
+                <Button asChild variant="outline">
+                  <a href={profile.resumeUrl}>
+                    Download Resume
+                    <Download data-icon="inline-end" />
+                  </a>
+                </Button>
+              ) : null}
               <Button asChild variant="ghost">
                 <Link to="/contact">Discuss this work</Link>
               </Button>

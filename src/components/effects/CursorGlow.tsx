@@ -50,7 +50,9 @@ export function CursorGlow() {
       className={cn(
         'pointer-events-none fixed top-0 left-0 z-30 size-72 rounded-full opacity-30 blur-3xl cursor-glow will-change-transform'
       )}
-      style={{ transform: 'translate3d(-200px, -200px, 0) translate(-50%, -50%)' }}
+      style={{
+        transform: 'translate3d(-200px, -200px, 0) translate(-50%, -50%)',
+      }}
     />
   );
 }

@@ -15,15 +15,17 @@ import type {
   PhilosophyPillar,
   Profile,
   ResumeData,
+  ResumeFile,
   Technology,
   TerminalCommand,
   TimelineItem,
 } from '@/types/portfolio';
 
 export async function upsertSiteProfile(data: Profile) {
+  const { resumeUrl: _resumeUrl, ...stored } = data;
   const { error } = await supabase.from('site_profile').upsert({
     id: 'main',
-    data,
+    data: stored,
     updated_at: new Date().toISOString(),
   });
   throwIfError(error);
@@ -294,6 +296,131 @@ export async function listMediaFiles(prefix = '') {
 
 export async function deleteMediaFile(path: string) {
   const { error } = await supabase.storage.from(MEDIA_BUCKET).remove([path]);
+  throwIfError(error);
+}
+
+type ResumeFileRow = {
+  id: string;
+  label: string;
+  storage_path: string;
+  is_active: boolean;
+  size_bytes: number | null;
+  created_at: string;
+  updated_at: string;
+};
+
+function mapResumeFile(row: ResumeFileRow): ResumeFile {
+  return {
+    id: row.id,
+    label: row.label,
+    storagePath: row.storage_path,
+    isActive: row.is_active,
+    sizeBytes: row.size_bytes,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+function resumeStorageKey(label: string, fileName: string) {
+  const source = label.trim() || fileName.replace(/\.pdf$/i, '');
+  const slug =
+    source
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 48) || 'resume';
+  return `${Date.now()}-${slug}.pdf`;
+}
+
+function assertPdfFile(file: File) {
+  const isPdf =
+    file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+  if (!isPdf) throw new Error('Upload a PDF file.');
+}
+
+export async function listResumeFiles(): Promise<ResumeFile[]> {
+  const { data, error } = await supabase
+    .from('resume_files')
+    .select(
+      'id, label, storage_path, is_active, size_bytes, created_at, updated_at'
+    )
+    .order('created_at', { ascending: false });
+  throwIfError(error);
+  return (data ?? []).map(mapResumeFile);
+}
+
+async function insertResumeFileRow(
+  label: string,
+  storagePath: string,
+  sizeBytes: number,
+  isActive: boolean
+) {
+  const { data, error } = await supabase
+    .from('resume_files')
+    .insert({
+      label,
+      storage_path: storagePath,
+      is_active: isActive,
+      size_bytes: sizeBytes,
+    })
+    .select(
+      'id, label, storage_path, is_active, size_bytes, created_at, updated_at'
+    )
+    .single();
+  if (error) {
+    await supabase.storage.from(RESUME_BUCKET).remove([storagePath]);
+    throwIfError(error);
+  }
+  return mapResumeFile(data as ResumeFileRow);
+}
+
+export async function uploadResumeFile(label: string, file: File) {
+  assertPdfFile(file);
+  const storagePath = resumeStorageKey(label, file.name);
+  const { error: uploadError } = await supabase.storage
+    .from(RESUME_BUCKET)
+    .upload(storagePath, file, {
+      upsert: false,
+      contentType: 'application/pdf',
+    });
+  throwIfError(uploadError);
+  const existing = await listResumeFiles();
+  const trimmed = label.trim() || file.name.replace(/\.pdf$/i, '');
+  return insertResumeFileRow(
+    trimmed,
+    storagePath,
+    file.size,
+    existing.length === 0
+  );
+}
+
+export async function setActiveResumeFile(id: string) {
+  const { error } = await supabase.rpc('set_active_resume', { target: id });
+  throwIfError(error);
+}
+
+export async function renameResumeFile(id: string, label: string) {
+  const trimmed = label.trim();
+  if (!trimmed) throw new Error('Label is required.');
+  const { error } = await supabase
+    .from('resume_files')
+    .update({ label: trimmed, updated_at: new Date().toISOString() })
+    .eq('id', id);
+  throwIfError(error);
+}
+
+export async function deleteResumeFile(id: string) {
+  const files = await listResumeFiles();
+  const target = files.find((file) => file.id === id);
+  if (!target) throw new Error('Resume not found.');
+  if (target.isActive && files.length > 1) {
+    throw new Error('Set another resume as active before deleting this one.');
+  }
+  const { error: storageError } = await supabase.storage
+    .from(RESUME_BUCKET)
+    .remove([target.storagePath]);
+  throwIfError(storageError);
+  const { error } = await supabase.from('resume_files').delete().eq('id', id);
   throwIfError(error);
 }
 

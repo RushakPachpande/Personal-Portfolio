@@ -120,7 +120,8 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
                   exit={{ opacity: 0, y: -8 }}
                   className="font-mono text-sm text-foreground sm:text-base"
                 >
-                  <span className="text-electric-blue">{'>'}</span> {STEPS[step]}
+                  <span className="text-electric-blue">{'>'}</span>{' '}
+                  {STEPS[step]}
                 </motion.p>
               </AnimatePresence>
               <div className="mt-6 h-1 overflow-hidden rounded-full bg-secondary">

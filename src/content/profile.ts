@@ -17,7 +17,6 @@ export const profile = {
   description:
     'I design, build, automate and operate digital platforms that solve real business problems.',
   email: 'rushakgp06@gmail.com',
-  resumeUrl: '/resume.pdf',
   socials: {
     github: 'https://github.com/RushakPachpande',
     linkedin: 'https://www.linkedin.com/in/rushak-pachpande/',

@@ -61,7 +61,10 @@ export function CaseStudyCard({
     );
 
   return (
-    <Reveal delay={index * 0.05} className={cn('min-w-0 max-w-full', className)}>
+    <Reveal
+      delay={index * 0.05}
+      className={cn('min-w-0 max-w-full', className)}
+    >
       <OverlayCard
         href={href}
         gradient={categoryGradients[study.category]}

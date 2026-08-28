@@ -685,7 +685,8 @@
 }
 
 .overlay-card__stat:not(:first-child) {
-  border-left: 1px solid color-mix(in srgb, var(--foreground) 12.6%, transparent);
+  border-left: 1px solid
+    color-mix(in srgb, var(--foreground) 12.6%, transparent);
 }
 
 .overlay-card__stat-value {
@@ -716,7 +717,8 @@
 @media (hover: hover) {
   .overlay-card--link:hover {
     border-color: color-mix(in srgb, var(--primary) 50%, transparent);
-    box-shadow: 0 0 28px color-mix(in srgb, var(--electric-blue) 16%, transparent);
+    box-shadow: 0 0 28px
+      color-mix(in srgb, var(--electric-blue) 16%, transparent);
   }
 
   .overlay-card--link:hover .overlay-card__arrow,

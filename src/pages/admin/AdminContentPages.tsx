@@ -26,6 +26,7 @@ import {
   moveItem,
 } from '@/features/admin/fields';
 import { AdminPreviewOverlay } from '@/features/admin/AdminPreviewOverlay';
+import { ResumeFilesPanel } from '@/features/admin/ResumeFilesPanel';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -653,6 +654,11 @@ export function AdminPhilosophyPage() {
 
 const resumeTabs = [
   {
+    id: 'PDFs',
+    description:
+      'Upload resume PDFs and choose which one public download buttons use.',
+  },
+  {
     id: 'Highlights',
     description:
       'Top stats on the resume page. Each row is one highlight chip.',
@@ -734,6 +740,8 @@ export function AdminResumePage() {
           </p>
         ) : null}
       </div>
+
+      {tab === 'PDFs' ? <ResumeFilesPanel /> : null}
 
       {tab === 'Highlights' ? (
         <AdminSection title="Highlights">
@@ -1175,13 +1183,15 @@ export function AdminResumePage() {
         </AdminSection>
       ) : null}
 
-      <SaveBar
-        onSave={() => void save()}
-        onPreview={() => setPreviewOpen(true)}
-        onDiscard={() => setData(resume)}
-        status={status}
-        saving={saving}
-      />
+      {tab === 'PDFs' ? null : (
+        <SaveBar
+          onSave={() => void save()}
+          onPreview={() => setPreviewOpen(true)}
+          onDiscard={() => setData(resume)}
+          status={status}
+          saving={saving}
+        />
+      )}
       <AdminPreviewOverlay
         open={previewOpen}
         onClose={() => setPreviewOpen(false)}

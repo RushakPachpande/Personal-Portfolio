@@ -77,6 +77,7 @@ export type Profile = {
   headline: string;
   description: string;
   email: string;
+  /** Public Storage URL for the active resume PDF, set at fetch time. */
   resumeUrl: string;
   socials: {
     github: string;
@@ -207,6 +208,16 @@ export type ContactSubmission = {
   email: string;
   message: string;
   createdAt: string;
+};
+
+export type ResumeFile = {
+  id: string;
+  label: string;
+  storagePath: string;
+  isActive: boolean;
+  sizeBytes: number | null;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type PortfolioData = {

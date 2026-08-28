@@ -5,6 +5,7 @@ import type {
   CaseStudyCategory,
   PhilosophyPillar,
   PortfolioData,
+  Profile,
   TechnologyCategory,
   TimelineItem,
 } from '@/types/portfolio';
@@ -20,7 +21,7 @@ const profileSchema = z.object({
   headline: z.string(),
   description: z.string(),
   email: z.string(),
-  resumeUrl: z.string(),
+  resumeUrl: z.string().optional(),
   socials: z.object({
     github: z.string(),
     linkedin: z.string(),
@@ -111,6 +112,7 @@ export async function fetchPublicPortfolio(): Promise<PortfolioData> {
     philosophyRes,
     resumeRes,
     terminalRes,
+    resumeFileRes,
   ] = await Promise.all([
     supabase.from('site_profile').select('data').eq('id', 'main').single(),
     supabase
@@ -127,6 +129,11 @@ export async function fetchPublicPortfolio(): Promise<PortfolioData> {
     supabase.from('philosophy_pillars').select('*').order('sort_order'),
     supabase.from('resume_sections').select('*'),
     supabase.from('terminal_commands').select('*').order('sort_order'),
+    supabase
+      .from('resume_files')
+      .select('storage_path')
+      .eq('is_active', true)
+      .maybeSingle(),
   ]);
 
   throwIfError(profileRes.error);
@@ -137,15 +144,19 @@ export async function fetchPublicPortfolio(): Promise<PortfolioData> {
   throwIfError(philosophyRes.error);
   throwIfError(resumeRes.error);
   throwIfError(terminalRes.error);
+  throwIfError(resumeFileRes.error);
 
   if (!profileRes.data || !settingsRes.data) {
     throw new Error('Portfolio profile or settings are missing.');
   }
 
-  const profile = profileSchema.parse(profileRes.data.data);
-  profile.resumeUrl = publicResumeUrl(
-    profile.resumeUrl.replace(/^\/+/, '') || 'resume.pdf'
-  );
+  const parsed = profileSchema.parse(profileRes.data.data);
+  const profile: Profile = {
+    ...parsed,
+    resumeUrl: resumeFileRes.data
+      ? publicResumeUrl(resumeFileRes.data.storage_path)
+      : '',
+  };
 
   return {
     profile,

@@ -75,7 +75,11 @@ function OverlayCardBanner({
     <div className={cn('overlay-card__banner', getCardGradient(gradient))}>
       <div className="overlay-card__notch" aria-hidden="true" />
       <div className="overlay-card__header">
-        {eyebrow ? <p className="overlay-card__eyebrow">{eyebrow}</p> : <span />}
+        {eyebrow ? (
+          <p className="overlay-card__eyebrow">{eyebrow}</p>
+        ) : (
+          <span />
+        )}
         <div className="overlay-card__actions">
           {headerActions}
           {href ? (

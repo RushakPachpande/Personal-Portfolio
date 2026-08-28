@@ -152,10 +152,12 @@ export function ResumePreview() {
 
               <Separator />
 
-              <MagneticButton href={profile.resumeUrl} className="w-full">
-                Download PDF
-                <Download data-icon="inline-end" />
-              </MagneticButton>
+              {profile.resumeUrl ? (
+                <MagneticButton href={profile.resumeUrl} className="w-full">
+                  Download PDF
+                  <Download data-icon="inline-end" />
+                </MagneticButton>
+              ) : null}
 
               <p className="font-mono text-xs leading-relaxed text-muted-foreground sm:text-sm">
                 Last updated from verified portfolio content. Full case studies
@@ -398,10 +400,12 @@ export function ResumePreview() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <MagneticButton href={profile.resumeUrl} variant="outline">
-                  Download PDF
-                  <Download data-icon="inline-end" />
-                </MagneticButton>
+                {profile.resumeUrl ? (
+                  <MagneticButton href={profile.resumeUrl} variant="outline">
+                    Download PDF
+                    <Download data-icon="inline-end" />
+                  </MagneticButton>
+                ) : null}
                 <MagneticButton to="/experience" variant="outline">
                   View experience
                 </MagneticButton>

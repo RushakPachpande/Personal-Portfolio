@@ -90,14 +90,16 @@ export function ContactPanel() {
                   github.com/RushakPachpande
                 </a>
                 <div className="pt-2">
-                  <MagneticButton
-                    href={profile.resumeUrl}
-                    variant="outline"
-                    size="default"
-                  >
-                    Download Resume
-                    <Download data-icon="inline-end" />
-                  </MagneticButton>
+                  {profile.resumeUrl ? (
+                    <MagneticButton
+                      href={profile.resumeUrl}
+                      variant="outline"
+                      size="default"
+                    >
+                      Download Resume
+                      <Download data-icon="inline-end" />
+                    </MagneticButton>
+                  ) : null}
                 </div>
                 <p className="text-muted-foreground">{profile.location}</p>
               </div>

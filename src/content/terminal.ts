@@ -318,7 +318,9 @@ export function executeTerminalCommand(
         out(
           [
             'Full resume preview available on-site.',
-            `PDF download: ${profile.resumeUrl}`,
+            profile.resumeUrl
+              ? `PDF download: ${profile.resumeUrl}`
+              : 'No resume PDF is published yet.',
             '',
             'Sections: summary · highlights · competencies · expertise · experience · projects · education · certifications',
             '',
@@ -470,7 +472,9 @@ export function executeTerminalCommand(
     return {
       lines: [
         out(
-          `Resume PDF: ${profile.resumeUrl}\nOpening resume page for preview + download.`
+          profile.resumeUrl
+            ? `Resume PDF: ${profile.resumeUrl}\nOpening resume page for preview + download.`
+            : 'No resume PDF is published yet.\nOpening resume page for preview.'
         ),
       ],
       navigate: '/resume',

@@ -41,8 +41,7 @@ export function HeroSection() {
           variants={fadeUp}
           className="mt-4 max-w-2xl font-display text-2xl leading-snug text-muted-foreground sm:text-3xl"
         >
-          Building{' '}
-          <span className="text-gradient text-shimmer">Systems,</span>
+          Building <span className="text-gradient text-shimmer">Systems,</span>
           <br />
           Not Just Software.
         </motion.p>
@@ -62,10 +61,12 @@ export function HeroSection() {
             Explore My Work
             <ArrowDownRight data-icon="inline-end" />
           </MagneticButton>
-          <MagneticButton href={profile.resumeUrl} variant="outline">
-            Download Resume
-            <Download data-icon="inline-end" />
-          </MagneticButton>
+          {profile.resumeUrl ? (
+            <MagneticButton href={profile.resumeUrl} variant="outline">
+              Download Resume
+              <Download data-icon="inline-end" />
+            </MagneticButton>
+          ) : null}
         </motion.div>
 
         <motion.ul

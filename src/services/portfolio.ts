@@ -21,6 +21,11 @@ export {
   uploadPortfolioFile,
   listMediaFiles,
   deleteMediaFile,
+  listResumeFiles,
+  uploadResumeFile,
+  setActiveResumeFile,
+  renameResumeFile,
+  deleteResumeFile,
   MEDIA_BUCKET,
   RESUME_BUCKET,
 } from '@/services/portfolio-admin';
