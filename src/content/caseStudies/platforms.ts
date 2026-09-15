@@ -1,6 +1,6 @@
 import navdrishtiLogo from '@/assets/logos/navdrishti.png';
 import brainpulsesLogo from '@/assets/logos/brainpulses.png';
-import n8nLogo from '@/assets/logos/n8n.webp';
+import n8nLogo from '@/assets/tech/n8n.svg';
 import type { CaseStudy } from './types';
 
 export const platformCaseStudies: CaseStudy[] = [

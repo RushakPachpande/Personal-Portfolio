@@ -191,7 +191,25 @@ export function AdminCaseStudyEditPage({ slug }: { slug?: string }) {
     file: File,
     galleryIndex?: number
   ) {
-    const dest = `uploads/${study.slug || 'draft'}/${kind}-${Date.now()}-${file.name}`;
+    const slug = study.slug || 'draft';
+    const extMatch = /\.[a-z0-9]+$/i.exec(file.name);
+    const ext =
+      extMatch?.[0].toLowerCase() ??
+      (file.type === 'image/svg+xml'
+        ? '.svg'
+        : file.type === 'image/webp'
+          ? '.webp'
+          : file.type === 'image/jpeg'
+            ? '.jpg'
+            : '.png');
+
+    const dest =
+      kind === 'logo'
+        ? `logos/${slug}${ext}`
+        : kind === 'cover'
+          ? `covers/${slug}${ext}`
+          : `gallery/${slug}/${galleryIndex ?? 0}${ext}`;
+
     await uploadPortfolioFile(MEDIA_BUCKET, dest, file);
     if (kind === 'logo') patch({ logo: dest });
     if (kind === 'cover') patch({ coverImage: dest });
@@ -587,7 +605,7 @@ export function AdminCaseStudyEditPage({ slug }: { slug?: string }) {
           <div className="grid gap-6 lg:grid-cols-2">
             <ImageField
               label="Logo"
-              hint="Mark on listing cards and the case study header. Choose an existing file unless you need a new upload."
+              hint="Mark on listing cards and the case study header. Prefer an existing logos/{slug} file; new uploads overwrite that stable path (no duplicates)."
               value={study.logo}
               altValue={study.logoAlt}
               onAltChange={(logoAlt) => patch({ logoAlt })}

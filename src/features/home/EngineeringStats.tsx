@@ -28,10 +28,11 @@ export function EngineeringStats() {
           <Reveal key={stat.id} delay={index * 0.04} className="min-w-0">
             <OverlayCard
               gradient="stat"
+              size="compact"
               eyebrow="Metric"
               title={stat.label}
               hero={
-                <p className="font-display text-5xl font-semibold tracking-tight text-foreground sm:text-6xl">
+                <p className="font-display text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
                   <AnimatedCounter
                     value={stat.value}
                     suffix={stat.suffix ?? ''}

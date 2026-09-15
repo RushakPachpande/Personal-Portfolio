@@ -63,6 +63,7 @@ export function TechnologyLibraryGrid() {
                     >
                       <OverlayCard
                         gradient="technology"
+                        size="compact"
                         eyebrow={technologyCategories[technology.category]}
                         title={technology.name}
                         heroImage={{
@@ -71,20 +72,20 @@ export function TechnologyLibraryGrid() {
                         }}
                         body={
                           <>
-                            <p className="line-clamp-2 text-sm text-muted-foreground text-pretty">
+                            <p className="text-sm text-muted-foreground text-pretty">
                               {technology.description}
                             </p>
-                            <div>
-                              <p className="font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">
+                            <div className="min-h-0 overflow-hidden">
+                              <p className="font-mono text-[0.65rem] tracking-wide text-soft-cyan uppercase">
                                 Used in
                               </p>
                               {slugs.length === 0 ? (
-                                <p className="mt-2 text-xs text-muted-foreground">
+                                <p className="mt-1 text-xs text-muted-foreground">
                                   No linked case studies yet.
                                 </p>
                               ) : (
-                                <ul className="mt-2 flex flex-wrap gap-2">
-                                  {slugs.slice(0, 4).map((slug) => {
+                                <ul className="mt-1 flex flex-wrap gap-1.5 overflow-hidden">
+                                  {slugs.slice(0, 3).map((slug) => {
                                     const study = getCaseStudy(
                                       caseStudies,
                                       slug
@@ -94,7 +95,7 @@ export function TechnologyLibraryGrid() {
                                       <li key={`${technology.id}-${slug}`}>
                                         <Link
                                           to={getCaseStudyPath(study)}
-                                          className="rounded-md border border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
+                                          className="rounded-md border border-border px-1.5 py-0.5 text-[0.65rem] text-muted-foreground hover:text-foreground"
                                           onClick={(event) =>
                                             event.stopPropagation()
                                           }

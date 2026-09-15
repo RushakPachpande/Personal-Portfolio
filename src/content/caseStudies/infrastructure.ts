@@ -1,7 +1,13 @@
-import n8nLogo from '@/assets/logos/n8n.webp';
+import microsoftLogo from '@/assets/tech/microsoft.svg';
+import azureLogo from '@/assets/tech/azure.svg';
+import supabaseLogo from '@/assets/tech/supabase.svg';
+import dockerLogo from '@/assets/tech/docker.svg';
+import linuxLogo from '@/assets/tech/linux.svg';
+import truenasLogo from '@/assets/tech/truenas.svg';
+import shieldLogo from '@/assets/tech/shield.svg';
+import n8nLogo from '@/assets/tech/n8n.svg';
 import navdrishtiLogo from '@/assets/logos/navdrishti.png';
 import brainpulsesLogo from '@/assets/logos/brainpulses.png';
-// import ngiLogo from '@/assets/logos/NGI Small Logo with Black BG.png'
 import ngiLogo from '@/assets/logos/NGI Logo.png';
 import type { CaseStudy } from './types';
 
@@ -15,10 +21,10 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     featured: true,
     difficulty: 'Complex',
     timeline: '2025',
-    logo: ngiLogo,
-    logoAlt: 'NextGenInnov8 logo',
-    coverImage: ngiLogo,
-    coverImageAlt: 'Organization Microsoft 365 migration context',
+    logo: microsoftLogo,
+    logoAlt: 'Microsoft logo',
+    coverImage: microsoftLogo,
+    coverImageAlt: 'Microsoft 365 tenant migration',
     technologyIds: ['microsoft-365', 'entra-id'],
     technologies: [
       'Microsoft 365',
@@ -139,10 +145,10 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     featured: true,
     difficulty: 'Complex',
     timeline: '2025 — Present',
-    logo: ngiLogo,
-    logoAlt: 'NextGenInnov8 logo',
-    coverImage: navdrishtiLogo,
-    coverImageAlt: 'Production platforms hosted on Azure',
+    logo: azureLogo,
+    logoAlt: 'Microsoft Azure logo',
+    coverImage: azureLogo,
+    coverImageAlt: 'Azure infrastructure and cost optimization',
     technologyIds: ['azure', 'linux'],
     technologies: ['Microsoft Azure', 'Virtual Machines', 'DNS', 'Linux'],
     stack: [
@@ -245,10 +251,10 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     status: 'Production foundation',
     difficulty: 'Advanced',
     timeline: '2025 — Present',
-    logo: navdrishtiLogo,
-    logoAlt: 'Navdrishti logo',
-    coverImage: navdrishtiLogo,
-    coverImageAlt: 'Supabase-backed platform foundation',
+    logo: supabaseLogo,
+    logoAlt: 'Supabase logo',
+    coverImage: supabaseLogo,
+    coverImageAlt: 'Self-hosted Supabase platform foundation',
     technologyIds: ['supabase', 'postgresql', 'docker', 'linux'],
     technologies: ['Supabase', 'PostgreSQL', 'Docker', 'Linux', 'VPS'],
     stack: [
@@ -346,9 +352,9 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     status: 'Production',
     difficulty: 'Advanced',
     timeline: '2025 — Present',
-    logo: n8nLogo,
-    logoAlt: 'n8n logo',
-    coverImage: n8nLogo,
+    logo: dockerLogo,
+    logoAlt: 'Docker logo',
+    coverImage: dockerLogo,
     coverImageAlt: 'Containerized production platforms',
     technologyIds: ['docker', 'linux', 'github-actions'],
     technologies: ['Docker', 'Linux', 'VPS', 'CI/CD'],
@@ -452,9 +458,9 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     status: 'Ongoing',
     difficulty: 'Advanced',
     timeline: '2025 — Present',
-    logo: ngiLogo,
-    logoAlt: 'NextGenInnov8 logo',
-    coverImage: n8nLogo,
+    logo: linuxLogo,
+    logoAlt: 'Linux logo',
+    coverImage: linuxLogo,
     coverImageAlt: 'Linux hosts for self-hosted production platforms',
     technologyIds: ['linux', 'docker'],
     technologies: ['Linux (Ubuntu)', 'VPS', 'Docker', 'Backups'],
@@ -549,9 +555,9 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     status: 'Completed',
     difficulty: 'Complex',
     timeline: '2025',
-    logo: ngiLogo,
-    logoAlt: 'NextGenInnov8 logo',
-    coverImage: ngiLogo,
+    logo: truenasLogo,
+    logoAlt: 'TrueNAS logo',
+    coverImage: truenasLogo,
     coverImageAlt: 'Organizational storage modernization',
     technologyIds: ['truenas', 'linux', 'sophos'],
     technologies: [
@@ -655,9 +661,9 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     status: 'Production',
     difficulty: 'Complex',
     timeline: '2025 — Present',
-    logo: ngiLogo,
-    logoAlt: 'NextGenInnov8 logo',
-    coverImage: ngiLogo,
+    logo: shieldLogo,
+    logoAlt: 'Sophos firewall logo',
+    coverImage: shieldLogo,
     coverImageAlt: 'Secure remote access architecture',
     technologyIds: ['sophos'],
     technologies: [

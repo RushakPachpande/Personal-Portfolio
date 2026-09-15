@@ -241,12 +241,23 @@ async function main() {
   await seedCaseStudies();
   await seedTechnologies();
 
-  const timelineRows = timeline.map((item, index) => ({
-    id: item.id,
-    sort_order: index,
-    data: item,
-    updated_at: new Date().toISOString(),
-  }));
+  const timelineRows = [];
+  for (const [index, item] of timeline.entries()) {
+    const logoPath = await resolveMedia(
+      item.logoPath,
+      `timeline/${item.id}${path.extname(item.logoPath ?? '.png')}`
+    );
+    timelineRows.push({
+      id: item.id,
+      sort_order: index,
+      data: {
+        ...item,
+        logoPath: logoPath ?? item.logoPath,
+        logo: undefined,
+      },
+      updated_at: new Date().toISOString(),
+    });
+  }
   const { error: timelineError } = await supabase
     .from('timeline_items')
     .upsert(timelineRows);

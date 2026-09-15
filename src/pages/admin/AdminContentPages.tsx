@@ -23,6 +23,7 @@ import {
   SaveBar,
   SelectField,
   StringListField,
+  SwitchField,
   moveItem,
 } from '@/features/admin/fields';
 import { AdminPreviewOverlay } from '@/features/admin/AdminPreviewOverlay';
@@ -289,6 +290,19 @@ export function AdminTimelinePage() {
   const [saving, setSaving] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
 
+  async function uploadTimelineLogo(id: string, index: number, file: File) {
+    const ext = file.name.includes('.')
+      ? file.name.slice(file.name.lastIndexOf('.'))
+      : '.png';
+    const path = `timeline/${id}${ext}`;
+    await uploadPortfolioFile(MEDIA_BUCKET, path, file);
+    setItems((current) =>
+      current.map((entry, entryIndex) =>
+        entryIndex === index ? { ...entry, logoPath: path, logo: path } : entry
+      )
+    );
+  }
+
   async function save() {
     setSaving(true);
     try {
@@ -312,7 +326,7 @@ export function AdminTimelinePage() {
     <div className="flex flex-col gap-6">
       <PageHeader
         title="Timeline"
-        description="Career, education, deployments, and achievements on the Experience page."
+        description="Career, education, deployments, and achievements. Flag events for the home Experience Snapshot and attach a logo for each snapshot card."
         actions={
           <Button
             type="button"
@@ -329,6 +343,8 @@ export function AdminTimelinePage() {
                   period: '',
                   description: '',
                   highlights: [],
+                  showOnHome: false,
+                  logoPath: '',
                 },
               ])
             }
@@ -340,7 +356,7 @@ export function AdminTimelinePage() {
       />
       {items.map((item, index) => (
         <AdminSection key={item.id} title={item.title || 'Untitled event'}>
-          <div className="flex justify-between">
+          <div className="flex justify-between gap-4">
             <SelectField
               label="Type"
               hint="Icon and grouping on the Experience page: career, education, achievement, or deployment."
@@ -362,6 +378,78 @@ export function AdminTimelinePage() {
               }
             />
             <ReorderButtons items={items} index={index} onChange={setItems} />
+          </div>
+          <SwitchField
+            label="Show on home"
+            hint="When on, this event appears in the home Experience Snapshot. Upload a logo — every snapshot card should have one."
+            checked={Boolean(item.showOnHome)}
+            onChange={(showOnHome) =>
+              setItems((current) =>
+                current.map((entry, entryIndex) =>
+                  entryIndex === index ? { ...entry, showOnHome } : entry
+                )
+              )
+            }
+          />
+          <ImageField
+            label="Logo"
+            hint="Mark on the home Experience Snapshot card. Prefer an existing file; new uploads overwrite timeline/{id}."
+            value={item.logoPath || item.logo}
+            altValue={item.logoAlt}
+            altHint="Accessible label for the logo image."
+            onAltChange={(logoAlt) =>
+              setItems((current) =>
+                current.map((entry, entryIndex) =>
+                  entryIndex === index ? { ...entry, logoAlt } : entry
+                )
+              )
+            }
+            onPathChange={(logoPath) =>
+              setItems((current) =>
+                current.map((entry, entryIndex) =>
+                  entryIndex === index
+                    ? { ...entry, logoPath, logo: logoPath }
+                    : entry
+                )
+              )
+            }
+            onFile={(file) => void uploadTimelineLogo(item.id, index, file)}
+          />
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Field
+              label="Home title"
+              hint="Optional. Overrides the card title on the home snapshot. Leave blank to use the timeline title."
+            >
+              <Input
+                value={item.homeTitle ?? ''}
+                onChange={(event) =>
+                  setItems((current) =>
+                    current.map((entry, entryIndex) =>
+                      entryIndex === index
+                        ? { ...entry, homeTitle: event.target.value }
+                        : entry
+                    )
+                  )
+                }
+              />
+            </Field>
+            <Field
+              label="Home detail"
+              hint="Optional. Short body on the home snapshot. Leave blank to use the description."
+            >
+              <Input
+                value={item.homeDetail ?? ''}
+                onChange={(event) =>
+                  setItems((current) =>
+                    current.map((entry, entryIndex) =>
+                      entryIndex === index
+                        ? { ...entry, homeDetail: event.target.value }
+                        : entry
+                    )
+                  )
+                }
+              />
+            </Field>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             <Field
@@ -489,7 +577,7 @@ export function AdminTimelinePage() {
         open={previewOpen}
         onClose={() => setPreviewOpen(false)}
         draft={{ kind: 'timeline', timeline: items }}
-        initialPath="/experience"
+        initialPath="/"
         label="Timeline"
       />
     </div>

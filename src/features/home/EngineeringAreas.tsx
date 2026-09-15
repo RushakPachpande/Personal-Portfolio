@@ -1,6 +1,7 @@
 import { Cloud, Cpu, Workflow } from 'lucide-react';
 import { OverlayCard } from '@/components/cards/OverlayCard';
 import { Reveal, SectionHeader } from '@/components/shared/Reveal';
+import { ScrollFadeIn } from '@/components/effects/Parallax';
 import { cn, responsiveCardGridThreeClassName } from '@/lib/utils';
 
 const areas = [
@@ -34,14 +35,14 @@ const areas = [
 
 export function EngineeringAreas() {
   return (
-    <section className="mx-auto max-w-6xl min-w-0 px-4 py-16 sm:px-6">
-      <Reveal>
+    <section className="relative mx-auto max-w-6xl min-w-0 overflow-hidden px-4 py-16 sm:px-6">
+      <ScrollFadeIn>
         <SectionHeader
           eyebrow="Engineering Areas"
           title="Three pillars of ownership"
           description="Platform, infrastructure, and automation—connected by the same end-to-end ownership model."
         />
-      </Reveal>
+      </ScrollFadeIn>
 
       <div className={cn('mt-12', responsiveCardGridThreeClassName)}>
         {areas.map((area, index) => (
@@ -49,17 +50,18 @@ export function EngineeringAreas() {
             <OverlayCard
               href={area.to}
               gradient={area.gradient}
+              size="standard"
               eyebrow="Engineering area"
               title={area.title}
               hero={
                 <area.icon
-                  className="size-14 text-soft-cyan/90 sm:size-16"
+                  className="size-12 text-soft-cyan/90 sm:size-14"
                   strokeWidth={1.25}
                 />
               }
               body={
                 <>
-                  <p className="line-clamp-2 text-sm text-muted-foreground text-pretty">
+                  <p className="text-sm text-muted-foreground text-pretty">
                     {area.description}
                   </p>
                   <p className="font-mono text-xs text-soft-cyan sm:text-sm">

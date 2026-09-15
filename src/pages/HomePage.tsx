@@ -8,6 +8,7 @@ import { EngineeringStats } from '@/features/home/EngineeringStats';
 import { CaseStudyCard } from '@/features/case-studies/CaseStudyCard';
 import { MagneticButton } from '@/components/shared/MagneticButton';
 import { Reveal, SectionHeader } from '@/components/shared/Reveal';
+import { ScrollFadeIn } from '@/components/effects/Parallax';
 import { cn, responsiveCardGridAutoClassName } from '@/lib/utils';
 
 export function HomePage() {
@@ -26,15 +27,15 @@ export function HomePage() {
       <EngineeringAreas />
       <EngineeringStats />
 
-      <section className="mx-auto max-w-6xl min-w-0 px-4 py-12 sm:px-6">
+      <section className="relative mx-auto max-w-6xl min-w-0 overflow-hidden px-4 py-12 sm:px-6">
         <div className="mb-10 h-px w-full bg-linear-to-r from-transparent via-border to-transparent" />
-        <Reveal>
+        <ScrollFadeIn>
           <SectionHeader
             eyebrow="Featured Case Studies"
             title="How the work was owned"
             description="Not project cards—engineering narratives covering context, decisions, challenges, and outcomes."
           />
-        </Reveal>
+        </ScrollFadeIn>
         <div className={cn('mt-12', responsiveCardGridAutoClassName)}>
           {featured.map((study, index) => (
             <CaseStudyCard

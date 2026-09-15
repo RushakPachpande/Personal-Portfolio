@@ -37,6 +37,7 @@ export function AboutPage() {
             >
               <OverlayCard
                 gradient="about"
+                size="standard"
                 eyebrow="About"
                 title={section.title}
                 hero={
@@ -45,7 +46,7 @@ export function AboutPage() {
                   </span>
                 }
                 body={
-                  <p className="text-sm text-muted-foreground text-pretty sm:text-base">
+                  <p className="text-sm text-muted-foreground text-pretty">
                     {section.body}
                   </p>
                 }

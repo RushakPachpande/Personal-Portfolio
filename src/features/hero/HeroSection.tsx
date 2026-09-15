@@ -1,5 +1,11 @@
 import { ArrowDownRight, Download } from 'lucide-react';
-import { motion, useReducedMotion } from 'framer-motion';
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
+import { useRef } from 'react';
 import { usePortfolio } from '@/hooks/usePortfolio';
 import {
   AnimatedGrid,
@@ -11,14 +17,33 @@ import { fadeUp, staggerContainer } from '@/lib/motion';
 export function HeroSection() {
   const { profile } = usePortfolio();
   const reduced = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+  const contentY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduced ? [0, 0] : [0, 72]
+  );
+  const contentOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.75],
+    reduced ? [1, 1] : [1, 0.35]
+  );
 
   return (
-    <section className="relative isolate overflow-hidden pt-10 pb-20 sm:pt-16 sm:pb-28">
+    <section
+      ref={sectionRef}
+      className="relative isolate overflow-hidden pt-10 pb-20 sm:pt-16 sm:pb-28"
+    >
       <AnimatedGrid />
       <GradientBlobs />
 
       <motion.div
         className="relative mx-auto max-w-6xl px-4 sm:px-6"
+        style={{ y: contentY, opacity: contentOpacity }}
         variants={staggerContainer}
         initial={reduced ? undefined : 'hidden'}
         animate="visible"

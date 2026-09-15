@@ -203,6 +203,7 @@ export function ResumePreview() {
                   <OverlayCard
                     key={highlight.id}
                     gradient="stat"
+                    size="compact"
                     eyebrow="Highlight"
                     title={highlight.label}
                     body={
@@ -210,7 +211,9 @@ export function ResumePreview() {
                         <p className="font-mono text-xs text-soft-cyan sm:text-sm">
                           {highlight.detail}
                         </p>
-                      ) : null
+                      ) : (
+                        <p className="text-sm text-muted-foreground">—</p>
+                      )
                     }
                   />
                 ))}

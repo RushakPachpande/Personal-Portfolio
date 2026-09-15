@@ -13,7 +13,6 @@ import { Seo } from '@/components/layout/Seo';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { SurfaceCard } from '@/components/cards/SurfaceCard';
-import type { CardGradientKey } from '@/lib/cardGradients';
 import { Reveal } from '@/components/shared/Reveal';
 import { RelatedCaseStudies } from './CaseStudyGrid';
 import { TechBanner } from '@/components/tech/TechBanner';
@@ -40,12 +39,6 @@ const TOC = [
 
 type CaseStudyPageProps = {
   study: CaseStudy;
-};
-
-const categoryGradients: Record<CaseStudy['category'], CardGradientKey> = {
-  platform: 'platform',
-  infrastructure: 'infrastructure',
-  automation: 'automation',
 };
 
 export function CaseStudyPage({ study }: CaseStudyPageProps) {
@@ -158,39 +151,19 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
           </nav>
 
           <div className="flex flex-col gap-6">
-            <Section
-              id="business-context"
-              title="Business Context"
-              gradient={categoryGradients[study.category]}
-            >
+            <Section id="business-context" title="Business Context">
               {study.businessContext}
             </Section>
-            <Section
-              id="problem"
-              title="Problem Statement"
-              gradient={categoryGradients[study.category]}
-            >
+            <Section id="problem" title="Problem Statement">
               {study.problem}
             </Section>
-            <Section
-              id="objective"
-              title="Objective"
-              gradient={categoryGradients[study.category]}
-            >
+            <Section id="objective" title="Objective">
               {study.objective}
             </Section>
-            <Section
-              id="solution"
-              title="Solution Overview"
-              gradient={categoryGradients[study.category]}
-            >
+            <Section id="solution" title="Solution Overview">
               {study.solution}
             </Section>
-            <Section
-              id="architecture"
-              title="Architecture"
-              gradient={categoryGradients[study.category]}
-            >
+            <Section id="architecture" title="Architecture">
               {study.architecture}
             </Section>
             <Reveal>
@@ -201,10 +174,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="responsibilities" className="scroll-mt-28">
-                <SurfaceCard
-                  title="My Responsibilities"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="My Responsibilities">
                   <ul className="flex flex-wrap gap-2">
                     {study.responsibilities.map((item) => (
                       <li
@@ -221,10 +191,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="decisions" className="scroll-mt-28">
-                <SurfaceCard
-                  title="Engineering Decisions"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="Engineering Decisions">
                   <div className="flex flex-col gap-4">
                     {study.decisions.map((item) => (
                       <div
@@ -246,10 +213,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="challenges" className="scroll-mt-28">
-                <SurfaceCard
-                  title="Challenges"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="Challenges">
                   <div className="flex flex-col gap-4">
                     {study.challenges.map((item) => (
                       <div
@@ -272,10 +236,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="stack" className="scroll-mt-28">
-                <SurfaceCard
-                  title="Technology Stack"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="Technology Stack">
                   <div className="grid gap-4 sm:grid-cols-2">
                     {study.stack.map((group) => (
                       <div key={group.group}>
@@ -301,10 +262,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="gallery" className="scroll-mt-28">
-                <SurfaceCard
-                  title="Engineering Gallery"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="Engineering Gallery">
                   {study.gallery && study.gallery.length > 0 ? (
                     <MediaCarousel items={study.gallery} />
                   ) : (
@@ -319,10 +277,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="cross-references" className="scroll-mt-28">
-                <SurfaceCard
-                  title="Used Technologies"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="Used Technologies">
                   <div className="flex flex-wrap gap-2">
                     {(study.technologyIds ?? []).map((technologyId) => {
                       const technology = getTechnologyById(
@@ -349,20 +304,13 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
               </section>
             </Reveal>
 
-            <Section
-              id="outcome"
-              title="Outcome"
-              gradient={categoryGradients[study.category]}
-            >
+            <Section id="outcome" title="Outcome">
               {study.outcome}
             </Section>
 
             <Reveal>
               <section id="learnings" className="scroll-mt-28">
-                <SurfaceCard
-                  title="Key Learnings"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="Key Learnings">
                   <ul className="flex flex-col gap-2 text-muted-foreground">
                     {study.learnings.map((item) => (
                       <li key={item} className="flex gap-2">
@@ -401,17 +349,15 @@ function Section({
   id,
   title,
   children,
-  gradient = 'default',
 }: {
   id: string;
   title: string;
   children: string;
-  gradient?: CardGradientKey;
 }) {
   return (
     <Reveal>
       <section id={id} className="scroll-mt-28">
-        <SurfaceCard title={title} gradient={gradient}>
+        <SurfaceCard title={title}>
           <p className="text-muted-foreground text-pretty">{children}</p>
         </SurfaceCard>
       </section>

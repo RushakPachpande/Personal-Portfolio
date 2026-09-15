@@ -75,17 +75,18 @@ export function CaseStudyCard({
         gradient={categoryGradients[study.category]}
         featured={study.featured}
         wide={wide}
+        size={wide ? 'featured' : 'standard'}
         eyebrow={categoryLabels[study.category]}
         title={study.name}
         heroImage={imageSrc ? { src: imageSrc, alt: imageAlt } : undefined}
         stats={getCaseStudyStats(study, techIds.length)}
         body={
           <>
-            <p className="line-clamp-2 text-sm text-muted-foreground text-pretty">
+            <p className="text-sm text-muted-foreground text-pretty">
               {study.summary}
             </p>
             {techItems.length > 0 ? (
-              <div className="flex flex-wrap items-center gap-1.5">
+              <div className="flex h-7 shrink-0 flex-wrap items-center gap-1.5 overflow-hidden">
                 {techItems.map((technology) => (
                   <img
                     key={technology.id}
@@ -105,7 +106,9 @@ export function CaseStudyCard({
                   </span>
                 ) : null}
               </div>
-            ) : null}
+            ) : (
+              <div className="h-7 shrink-0" aria-hidden="true" />
+            )}
           </>
         }
       />

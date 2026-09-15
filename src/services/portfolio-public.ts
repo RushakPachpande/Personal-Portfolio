@@ -1,5 +1,10 @@
 import { z } from 'zod';
-import { supabase, publicMediaUrl, publicResumeUrl } from '@/lib/supabase';
+import {
+  supabase,
+  publicMediaUrl,
+  publicResumeUrl,
+  toMediaPath,
+} from '@/lib/supabase';
 import type {
   CaseStudy,
   CaseStudyCategory,
@@ -178,7 +183,13 @@ export async function fetchPublicPortfolio(): Promise<PortfolioData> {
     })),
     timeline: (timelineRes.data ?? []).map((row) => {
       const data = row.data as TimelineItem;
-      return { ...data, id: row.id };
+      const logoPath = data.logoPath || data.logo;
+      return {
+        ...data,
+        id: row.id,
+        logoPath: logoPath ? toMediaPath(logoPath) : undefined,
+        logo: logoPath ? publicMediaUrl(logoPath) : undefined,
+      };
     }),
     philosophyPillars: (philosophyRes.data ?? []).map((row) => {
       const data = row.data as PhilosophyPillar;

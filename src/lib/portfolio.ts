@@ -3,6 +3,7 @@ import type {
   CaseStudyCategory,
   EngineeringStat,
   Technology,
+  TimelineItem,
 } from '@/types/portfolio';
 
 export const categoryLabels: Record<CaseStudyCategory, string> = {
@@ -80,6 +81,11 @@ export function getCaseStudiesByCategory(
 
 export function getFeaturedCaseStudies(caseStudies: CaseStudy[]) {
   return caseStudies.filter((study) => study.featured && !study.incomplete);
+}
+
+/** Home Experience Snapshot cards — admin-flagged timeline rows, in sort order. */
+export function getHomeExperienceSnapshot(timeline: TimelineItem[]) {
+  return timeline.filter((item) => item.showOnHome);
 }
 
 export function getRelatedCaseStudies(

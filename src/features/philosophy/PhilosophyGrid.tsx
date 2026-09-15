@@ -20,10 +20,11 @@ export function PhilosophyGrid() {
           <Reveal key={pillar.id} delay={index * 0.04} className="min-w-0">
             <OverlayCard
               gradient="philosophy"
+              size="standard"
               eyebrow={`Principle 0${index + 1}`}
               title={pillar.title}
               hero={
-                <span className="font-mono text-5xl font-medium text-soft-cyan/80 sm:text-6xl">
+                <span className="font-mono text-4xl font-medium text-soft-cyan/80 sm:text-5xl">
                   0{index + 1}
                 </span>
               }
@@ -32,7 +33,7 @@ export function PhilosophyGrid() {
                   <p className="font-medium text-foreground">
                     {pillar.summary}
                   </p>
-                  <p className="line-clamp-3 text-sm text-muted-foreground text-pretty sm:line-clamp-none">
+                  <p className="text-sm text-muted-foreground text-pretty">
                     {pillar.detail}
                   </p>
                 </>

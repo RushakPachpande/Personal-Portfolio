@@ -54,11 +54,13 @@ export function ContactPanel() {
         <Reveal>
           <OverlayCard
             gradient="contact"
+            size="panel"
+            disableTilt
             eyebrow="Contact"
             title="Channels"
             hero={
               <Mail
-                className="size-14 text-soft-cyan/90 sm:size-16"
+                className="size-12 text-soft-cyan/90 sm:size-14"
                 strokeWidth={1.25}
               />
             }

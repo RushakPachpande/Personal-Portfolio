@@ -499,31 +499,80 @@
   }
 }
 
+/* Fixed-height OverlayCard: large square logo plate + reserved content zones. */
 .overlay-card {
+  /*
+   * Banner hosts one large square logo plate (fills band height).
+   * Body zone must fit 2-line summary + tech icon row without clipping.
+   */
+  --card-h: 22.1rem;
+  --card-banner-h: 9.5rem;
+  --card-title-h: 2.5rem;
+  --card-stats-h: 2.75rem;
+  --card-body-h: 5.6rem;
+  --card-logo-max: 8.5rem;
+  --card-hero-pad: 0.35rem;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --tilt-glare-x: 50%;
+  --tilt-glare-y: 50%;
   --overlay-notch-fill: var(--card);
-  --overlay-notch-height: 1.875rem;
-  --overlay-notch-width: clamp(6.5rem, 52%, 11rem);
-  --overlay-notch-join: 0.9375rem;
-  padding: 5px;
+  --overlay-notch-height: 1.5rem;
+  --overlay-notch-width: clamp(5.5rem, 48%, 10rem);
+  height: var(--card-h);
+  max-height: var(--card-h);
+  padding: 4px;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 1.125rem;
   background-color: var(--card);
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  transform-style: preserve-3d;
   transition:
-    transform 0.2s ease-out,
-    box-shadow 0.2s ease-out,
-    border-color 0.2s ease-out;
-  /* Skip offscreen card paint work; estimate reserves space so scroll stays stable. */
+    transform 0.25s ease-out,
+    box-shadow 0.25s ease-out,
+    border-color 0.25s ease-out;
   content-visibility: auto;
-  contain-intrinsic-size: auto 420px;
+  contain-intrinsic-size: auto 354px;
 }
 
+.overlay-card--compact {
+  --card-h: 17rem;
+  --card-banner-h: 7rem;
+  --card-title-h: 2.35rem;
+  --card-stats-h: 0px;
+  --card-body-h: 5.1rem;
+  --card-logo-max: 6rem;
+  --card-hero-pad: 0.3rem;
+}
+
+.overlay-card--standard {
+  --card-h: 22.1rem;
+}
+
+/* Featured is a visual accent only — same outer height as standard so
+   mixed grids (related studies) stay flush. */
 .overlay-card--featured {
-  --overlay-notch-height: 2.125rem;
-  --overlay-notch-width: clamp(8rem, 38%, 14rem);
+  --card-h: 22.1rem;
 }
 
+.overlay-card--panel {
+  --card-h: 28rem;
+  --card-banner-h: 7.5rem;
+  --card-stats-h: 0px;
+  --card-body-h: 14.5rem;
+  --card-logo-max: 6.5rem;
+  --card-hero-pad: 0.3rem;
+}
+
+.overlay-card--compact .overlay-card__stats,
+.overlay-card--panel .overlay-card__stats {
+  display: none;
+}
+
+/* Surface panels stay fluid (forms / detail blocks). */
 .overlay-card--surface {
+  height: auto;
+  max-height: none;
   --overlay-notch-height: 1.375rem;
   --overlay-notch-width: clamp(5rem, 40%, 9rem);
 }
@@ -535,45 +584,68 @@
 
 .overlay-card__banner {
   position: relative;
+  z-index: 0;
   display: flex;
   flex-direction: column;
-  /* Fixed height: rows stay flush even when a card lacks a logo. */
-  height: 9.5rem;
-  border-radius: 15px;
+  flex-shrink: 0;
+  height: var(--card-banner-h);
+  border-radius: 0.875rem;
   overflow: hidden;
+  isolation: isolate;
 }
 
-.overlay-card--featured .overlay-card__banner {
-  height: 12.5rem;
+.overlay-card__banner-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Soft spotlight behind the mark — keeps side wings from reading as empty void. */
+  background:
+    radial-gradient(
+      circle at 50% 55%,
+      color-mix(in srgb, var(--card-foreground) 10%, transparent),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at var(--tilt-glare-x) var(--tilt-glare-y),
+      color-mix(in srgb, var(--card-foreground) 8%, transparent),
+      transparent 42%
+    );
+  opacity: 0.7;
+  transform: translate3d(0, 0, 0);
 }
 
-/* Wide-layout variant: featured cards span two columns and reflow to a
-   horizontal banner-left / content-right composition. */
-.overlay-card--wide {
-  --overlay-notch-height: 1.875rem;
-  --overlay-notch-width: clamp(6.5rem, 52%, 11rem);
+.overlay-card__parallax-layer {
+  will-change: transform;
 }
 
+/* Wide featured: fixed overall height, side-by-side on md+. */
 @media (min-width: 768px) {
   .overlay-card--wide {
+    --card-h: 18rem;
+    --card-banner-h: 100%;
+    --card-title-h: 2.75rem;
+    --card-body-h: 4.5rem;
+    --card-logo-max: 9rem;
     flex-direction: row;
   }
 
   .overlay-card--wide .overlay-card__banner {
-    flex-basis: 42%;
-    flex-shrink: 0;
+    flex-basis: 38%;
+    width: 38%;
     height: auto;
-    min-height: 100%;
+    align-self: stretch;
   }
 
   .overlay-card--wide .overlay-card__bottom {
-    margin-top: 0;
-    padding-block: 1.5rem;
+    flex: 1;
+    min-width: 0;
+    padding: 1rem 1rem 0.85rem;
   }
 
   .overlay-card--wide .overlay-card__title {
-    font-size: 1.25rem;
     text-align: start;
+    font-size: 1.2rem;
   }
 
   .overlay-card--wide .overlay-card__stats {
@@ -581,34 +653,27 @@
   }
 
   .overlay-card--wide .overlay-card__stat {
-    flex-basis: auto;
     text-align: start;
   }
 
   .overlay-card--wide .overlay-card__stat:not(:first-child) {
-    border-left: 1px solid
-      color-mix(in srgb, var(--foreground) 12.6%, transparent);
     padding-left: 0.75rem;
+  }
+
+  .overlay-card--wide .overlay-card__hero {
+    --card-hero-pad: 0.65rem;
+  }
+
+  .overlay-card--wide .overlay-card__hero-stage {
+    /* Side banner is taller — keep a large square plate. */
+    width: min(100%, var(--card-logo-max));
+    height: min(100%, var(--card-logo-max));
   }
 }
 
 .overlay-card__banner--strip {
   min-height: 2.5rem;
   height: 2.5rem;
-}
-
-.overlay-card__banner::before {
-  content: '';
-  position: absolute;
-  top: var(--overlay-notch-height);
-  left: 0;
-  z-index: 1;
-  width: var(--overlay-notch-join);
-  height: var(--overlay-notch-join);
-  pointer-events: none;
-  background: transparent;
-  border-top-left-radius: var(--overlay-notch-join);
-  box-shadow: -0.3125rem -0.3125rem 0 2px var(--overlay-notch-fill);
 }
 
 .overlay-card__notch {
@@ -623,18 +688,6 @@
   transform: skew(-40deg);
 }
 
-.overlay-card__notch::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: calc(var(--overlay-notch-join) * -1);
-  width: var(--overlay-notch-join);
-  height: var(--overlay-notch-join);
-  background: transparent;
-  border-top-left-radius: 0.625rem;
-  box-shadow: -0.3125rem -0.3125rem 0 2px var(--overlay-notch-fill);
-}
-
 .overlay-card__header {
   position: absolute;
   top: 0;
@@ -644,22 +697,33 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: var(--overlay-notch-height);
+  height: 1.85rem;
+  padding: 0.3rem 0.45rem 0;
   pointer-events: none;
 }
 
 .overlay-card__eyebrow {
-  max-width: var(--overlay-notch-width);
+  max-width: 70%;
   overflow: hidden;
-  padding: 0 0.5rem 0 0.9rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--card) 72%, transparent);
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.65rem;
+  font-size: 0.625rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--card-foreground);
   text-overflow: ellipsis;
   text-transform: uppercase;
   white-space: nowrap;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.overlay-card__eyebrow--empty {
+  visibility: hidden;
+  min-width: 4rem;
+  min-height: 1.25rem;
 }
 
 .overlay-card__actions {
@@ -667,113 +731,114 @@
   gap: 0.4rem;
   align-items: center;
   height: 100%;
-  padding: 0 0.75rem 0 0;
 }
 
 .overlay-card__arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--card) 75%, transparent);
   color: var(--card-foreground);
   opacity: 0;
-  transition: opacity 0.2s ease-out;
-}
-
-/* Sheen sweep across the banner on card hover. */
-.overlay-card__banner::after {
-  content: '';
-  position: absolute;
-  inset: -40%;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(
-    105deg,
-    transparent 42%,
-    color-mix(in srgb, var(--card-foreground) 7%, transparent) 50%,
-    transparent 58%
-  );
-  transform: translateX(-70%) rotate(0.001deg);
-  opacity: 0;
   transition:
-    transform 0.55s ease-out,
-    opacity 0.35s ease-out;
+    opacity 0.2s ease-out,
+    transform 0.2s ease-out;
 }
 
-/* Logo stage: fixed geometry that every mark fits inside, on a frosted
-   plate so brand-colored SVGs keep contrast in both themes. */
 .overlay-card__hero {
   display: flex;
-  flex: 1;
+  flex: 1 1 auto;
   align-items: center;
   justify-content: center;
   min-height: 0;
-  padding: 0.75rem 1rem 1rem;
+  height: 100%;
+  padding: var(--card-hero-pad);
 }
 
 .overlay-card__hero-stage {
   display: flex;
-  flex: 1;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  min-height: 0;
-  aspect-ratio: 3 / 2;
-  max-height: 100%;
-  padding: 0.75rem;
-  border-radius: 0.875rem;
-  background-color: color-mix(in srgb, var(--card) 88%, transparent);
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--border) 60%, transparent),
-    0 6px 18px -8px color-mix(in oklch, var(--electric-blue) 22%, transparent);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  box-sizing: border-box;
+  /* Square plate — every mark fills the same dedicated cell. */
+  width: min(100%, var(--card-logo-max));
+  height: min(100%, var(--card-logo-max));
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.overlay-card__hero-placeholder {
+  display: block;
+  width: 55%;
+  height: 55%;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--border) 55%, transparent);
 }
 
 .overlay-card__hero img {
-  width: auto;
-  height: auto;
+  display: block;
+  width: 100%;
+  height: 100%;
   max-width: 100%;
-  max-height: 4.5rem;
+  max-height: 100%;
   object-fit: contain;
+  object-position: center;
   transition: transform 0.3s ease-out;
 }
 
-.overlay-card--featured .overlay-card__hero img {
-  max-height: 6rem;
+.overlay-card__bottom {
+  display: grid;
+  grid-template-rows: var(--card-title-h) var(--card-stats-h) var(--card-body-h);
+  min-width: 0;
+  min-height: 0;
+  margin-top: 0.45rem;
+  padding: 0.35rem 0.55rem 0.45rem;
 }
 
-.overlay-card__bottom {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-width: 0;
-  margin-top: 0.75rem;
-  padding: 0.625rem 0.35rem 0.5rem;
+.overlay-card--compact .overlay-card__bottom,
+.overlay-card--panel .overlay-card__bottom {
+  grid-template-rows: var(--card-title-h) var(--card-body-h);
 }
 
 .overlay-card__title {
-  display: block;
-  padding-inline: 0.25rem;
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  padding-inline: 0.15rem;
   font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
-  font-size: 1.0625rem;
+  font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.3;
   color: var(--card-foreground);
   text-align: center;
-  letter-spacing: 0.08em;
+  letter-spacing: -0.01em;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .overlay-card__stats {
-  display: flex;
-  gap: 0.25rem;
-  justify-content: space-between;
-  margin-top: 1.15rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  min-height: var(--card-stats-h);
+  height: var(--card-stats-h);
+  border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
 }
 
 .overlay-card__stat {
-  flex: 1 1 30%;
-  padding: 0.3rem 0.2rem;
-  color: color-mix(in srgb, var(--soft-cyan) 72%, var(--muted-foreground));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.15rem;
+  min-width: 0;
+  padding: 0.3rem 0.4rem;
   text-align: center;
 }
 
@@ -782,59 +847,101 @@
     color-mix(in srgb, var(--foreground) 12.6%, transparent);
 }
 
+.overlay-card__stat--empty {
+  visibility: hidden;
+}
+
 .overlay-card__stat-value {
   display: block;
+  overflow: hidden;
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.8125rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  color: var(--card-foreground);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .overlay-card__stat-label {
   display: block;
-  margin-top: 0.15rem;
+  overflow: hidden;
   font-size: 0.6875rem;
-  line-height: 1.3;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--soft-cyan) 70%, var(--muted-foreground));
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .overlay-card__body {
   display: flex;
-  flex: 1;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.4rem;
   min-width: 0;
-  margin-top: 0.75rem;
+  min-height: 0;
+  overflow: hidden;
+  padding-top: 0.4rem;
   text-align: start;
+}
+
+.overlay-card__body > p {
+  display: -webkit-box;
+  flex: 0 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  margin: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.overlay-card__body > :last-child {
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+.overlay-card--panel .overlay-card__body {
+  overflow: auto;
+}
+
+.overlay-card--panel .overlay-card__body > p {
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  display: block;
 }
 
 @media (hover: hover) {
   .overlay-card--link:hover {
     border-color: color-mix(in srgb, var(--primary) 50%, transparent);
-    box-shadow: 0 0 28px
-      color-mix(in srgb, var(--electric-blue) 16%, transparent);
-  }
-
-  .overlay-card--link:hover .overlay-card__banner::after {
-    opacity: 1;
-    transform: translateX(70%) rotate(0.001deg);
+    box-shadow: 0 12px 32px -16px
+      color-mix(in srgb, var(--electric-blue) 35%, transparent);
   }
 
   .overlay-card--link:hover .overlay-card__arrow,
   .overlay-card--link:focus-within .overlay-card__arrow {
     opacity: 1;
-  }
-
-  .overlay-card__arrow:hover {
-    color: var(--primary-foreground);
+    transform: translate3d(0, 0, 0) scale(1.05);
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .overlay-card--link:hover {
-      transform: translateY(-0.25rem);
+    .overlay-card--tilt:hover {
+      transform: perspective(900px) rotateX(var(--tilt-x))
+        rotateY(var(--tilt-y)) translateY(-0.2rem);
+    }
+
+    .overlay-card--link:not(.overlay-card--tilt):hover {
+      transform: translateY(-0.2rem);
     }
 
     .overlay-card:hover .overlay-card__hero img {
-      transform: scale(1.05);
+      transform: scale(1.06);
+    }
+
+    .overlay-card--tilt:hover .overlay-card__banner-mesh {
+      opacity: 0.9;
     }
   }
 }
@@ -842,6 +949,12 @@
 @media (hover: none) {
   .overlay-card__arrow {
     opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-card--tilt {
+    transform: none !important;
   }
 }
 

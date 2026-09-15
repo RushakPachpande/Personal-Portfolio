@@ -1,12 +1,9 @@
-export type TimelineItem = {
-  id: string;
-  type: 'education' | 'career' | 'achievement' | 'deployment';
-  title: string;
-  organization: string;
-  period: string;
-  description: string;
-  highlights?: string[];
-};
+import ngiLogo from '@/assets/logos/NGI Logo.png';
+import navdrishtiLogo from '@/assets/logos/navdrishti.png';
+import azureLogo from '@/assets/tech/azure.svg';
+import type { TimelineItem } from '@/types/portfolio';
+
+export type { TimelineItem };
 
 export const timeline: TimelineItem[] = [
   {
@@ -24,6 +21,11 @@ export const timeline: TimelineItem[] = [
       'Self-hosted Supabase and n8n infrastructure',
       'CI/CD for multi-environment deployments',
     ],
+    showOnHome: true,
+    homeTitle: 'NextGenInnov8',
+    homeDetail: 'Platform & Technology Professional · Apr 2025 — Present',
+    logoPath: ngiLogo,
+    logoAlt: 'NextGenInnov8 logo',
   },
   {
     id: 'edu-mca',
@@ -49,6 +51,10 @@ export const timeline: TimelineItem[] = [
     period: 'Achievement',
     description:
       'End-to-end ownership of a role-based student placement management platform through architecture, development, CI/CD, and multi-environment deployment.',
+    showOnHome: true,
+    homeDetail: 'End-to-end platform ownership through rollout',
+    logoPath: navdrishtiLogo,
+    logoAlt: 'Navdrishti logo',
   },
   {
     id: 'deploy-m365',
@@ -67,6 +73,11 @@ export const timeline: TimelineItem[] = [
     period: 'Major deployment',
     description:
       'Managed Azure infrastructure hosting production applications and reduced infrastructure costs by nearly 50%.',
+    showOnHome: true,
+    homeTitle: 'Azure cost optimization',
+    homeDetail: 'Nearly 50% infrastructure cost reduction',
+    logoPath: azureLogo,
+    logoAlt: 'Microsoft Azure logo',
   },
   {
     id: 'deploy-n8n',

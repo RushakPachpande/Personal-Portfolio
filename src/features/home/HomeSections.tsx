@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { getHomeExperienceSnapshot } from '@/lib/portfolio';
+import { publicMediaUrl } from '@/lib/supabase';
 import { usePortfolio } from '@/hooks/usePortfolio';
 import { OverlayCard } from '@/components/cards/OverlayCard';
 import { Reveal } from '@/components/shared/Reveal';
@@ -34,20 +36,10 @@ export function HomeAbout() {
 }
 
 export function ExperienceSnapshot() {
-  const highlights = [
-    {
-      title: 'NextGenInnov8',
-      detail: 'Platform & Technology Professional · Apr 2025 — Present',
-    },
-    {
-      title: 'Primary Technical Owner — Navdrishti',
-      detail: 'End-to-end platform ownership through rollout',
-    },
-    {
-      title: 'Azure cost optimization',
-      detail: 'Nearly 50% infrastructure cost reduction',
-    },
-  ];
+  const { timeline } = usePortfolio();
+  const highlights = getHomeExperienceSnapshot(timeline);
+
+  if (highlights.length === 0) return null;
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
@@ -71,18 +63,34 @@ export function ExperienceSnapshot() {
       </Reveal>
 
       <div className="mt-8 grid min-w-0 grid-cols-1 gap-4 md:grid-cols-3">
-        {highlights.map((item, index) => (
-          <Reveal key={item.title} delay={index * 0.04} className="min-w-0">
-            <OverlayCard
-              gradient="experience"
-              eyebrow="Experience"
-              title={item.title}
-              body={
-                <p className="text-sm text-muted-foreground">{item.detail}</p>
-              }
-            />
-          </Reveal>
-        ))}
+        {highlights.map((item, index) => {
+          const title = item.homeTitle?.trim() || item.title;
+          const detail = item.homeDetail?.trim() || item.description;
+          const logoSrc = item.logo
+            ? item.logo
+            : item.logoPath
+              ? publicMediaUrl(item.logoPath)
+              : undefined;
+          return (
+            <Reveal key={item.id} delay={index * 0.04} className="min-w-0">
+              <OverlayCard
+                gradient="experience"
+                size="compact"
+                eyebrow="Experience"
+                title={title}
+                heroImage={
+                  logoSrc
+                    ? {
+                        src: logoSrc,
+                        alt: item.logoAlt ?? `${title} logo`,
+                      }
+                    : undefined
+                }
+                body={<p className="text-sm text-muted-foreground">{detail}</p>}
+              />
+            </Reveal>
+          );
+        })}
       </div>
     </section>
   );

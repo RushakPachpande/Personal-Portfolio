@@ -1,4 +1,8 @@
-import n8nLogo from '@/assets/logos/n8n.webp';
+import n8nLogo from '@/assets/tech/n8n.svg';
+import sharepointLogo from '@/assets/tech/sharepoint.svg';
+import outlookLogo from '@/assets/tech/outlook.svg';
+import microsoftLogo from '@/assets/tech/microsoft.svg';
+import azureLogo from '@/assets/tech/azure.svg';
 import type { CaseStudy } from './types';
 
 export const automationCaseStudies: CaseStudy[] = [
@@ -121,10 +125,10 @@ export const automationCaseStudies: CaseStudy[] = [
     status: 'Implemented',
     difficulty: 'Advanced',
     timeline: '2025',
-    logo: n8nLogo,
-    logoAlt: 'n8n logo',
-    coverImage: n8nLogo,
-    coverImageAlt: 'SharePoint workflow automation branding',
+    logo: sharepointLogo,
+    logoAlt: 'Microsoft SharePoint logo',
+    coverImage: sharepointLogo,
+    coverImageAlt: 'SharePoint workflow automation',
     technologyIds: [
       'microsoft-365',
       'sharepoint',
@@ -236,10 +240,10 @@ export const automationCaseStudies: CaseStudy[] = [
     status: 'Implemented',
     difficulty: 'Advanced',
     timeline: '2025',
-    logo: n8nLogo,
-    logoAlt: 'n8n logo',
-    coverImage: n8nLogo,
-    coverImageAlt: 'IT ticket automation workflow branding',
+    logo: outlookLogo,
+    logoAlt: 'Microsoft Outlook logo',
+    coverImage: outlookLogo,
+    coverImageAlt: 'IT ticket automation via Outlook intake',
     technologyIds: [
       'n8n',
       'outlook',
@@ -355,9 +359,9 @@ export const automationCaseStudies: CaseStudy[] = [
     status: 'Ongoing',
     difficulty: 'Intermediate',
     timeline: '2025 — Present',
-    logo: n8nLogo,
-    logoAlt: 'n8n logo',
-    coverImage: n8nLogo,
+    logo: microsoftLogo,
+    logoAlt: 'Microsoft logo',
+    coverImage: microsoftLogo,
     coverImageAlt: 'Enterprise SaaS operations context',
     technologyIds: ['microsoft-365'],
     technologies: [
@@ -450,9 +454,9 @@ export const automationCaseStudies: CaseStudy[] = [
     status: 'Ongoing',
     difficulty: 'Advanced',
     timeline: '2025 — Present',
-    logo: n8nLogo,
-    logoAlt: 'n8n logo',
-    coverImage: n8nLogo,
+    logo: azureLogo,
+    logoAlt: 'Microsoft Azure logo',
+    coverImage: azureLogo,
     coverImageAlt: 'Operational improvement initiatives',
     technologyIds: ['n8n', 'azure', 'github-actions'],
     technologies: ['n8n', 'Zapier', 'CI/CD', 'Azure'],

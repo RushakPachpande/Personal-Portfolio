@@ -102,6 +102,17 @@ export type TimelineItem = {
   period: string;
   description: string;
   highlights?: string[];
+  /** When true, appears in the home Experience Snapshot grid. */
+  showOnHome?: boolean;
+  /** Optional home card title. Defaults to `title`. */
+  homeTitle?: string;
+  /** Optional home card body. Defaults to `description`. */
+  homeDetail?: string;
+  /** Storage path for the card logo (set in admin). */
+  logoPath?: string;
+  /** Resolved public media URL at fetch time. */
+  logo?: string;
+  logoAlt?: string;
 };
 
 export type PhilosophyPillar = {

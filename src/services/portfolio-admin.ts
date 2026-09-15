@@ -132,10 +132,16 @@ export async function upsertTimelineItem(
   item: TimelineItem,
   sortOrder: number
 ) {
+  const logoPath = item.logoPath || item.logo;
+  const data: TimelineItem = {
+    ...item,
+    logoPath: logoPath ? toMediaPath(logoPath) : undefined,
+    logo: undefined,
+  };
   const { error } = await supabase.from('timeline_items').upsert({
     id: item.id,
     sort_order: sortOrder,
-    data: item,
+    data,
     updated_at: new Date().toISOString(),
   });
   throwIfError(error);
