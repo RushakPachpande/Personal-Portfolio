@@ -15,6 +15,8 @@ type OverlayCardProps = {
   href?: string;
   gradient?: CardGradientKey;
   featured?: boolean;
+  /** Wide layout: banner sits left of the content at >=768px. */
+  wide?: boolean;
   className?: string;
   ariaLabel?: string;
   hero?: ReactNode;
@@ -29,12 +31,14 @@ function OverlayCardShell({
   href,
   ariaLabel,
   featured,
+  wide,
   className,
   children,
 }: {
   href?: string;
   ariaLabel?: string;
   featured?: boolean;
+  wide?: boolean;
   className?: string;
   children: ReactNode;
 }) {
@@ -42,6 +46,7 @@ function OverlayCardShell({
     'overlay-card group/card relative flex h-full min-w-0 flex-col ring-1 ring-foreground/10',
     href && 'overlay-card--link',
     featured && 'overlay-card--featured featured',
+    wide && 'overlay-card--wide',
     className
   );
 
@@ -94,7 +99,9 @@ function OverlayCardBanner({
           {hero ? (
             hero
           ) : heroImage ? (
-            <img src={heroImage.src} alt={heroImage.alt} loading="lazy" />
+            <span className="overlay-card__hero-stage">
+              <img src={heroImage.src} alt={heroImage.alt} loading="lazy" />
+            </span>
           ) : null}
         </div>
       ) : null}
@@ -121,6 +128,7 @@ export function OverlayCard({
   href,
   gradient = 'default',
   featured = false,
+  wide = false,
   className,
   ariaLabel,
   hero,
@@ -135,6 +143,7 @@ export function OverlayCard({
       href={href}
       ariaLabel={ariaLabel ?? (href ? `View ${title}` : undefined)}
       featured={featured}
+      wide={wide}
       className={className}
     >
       <OverlayCardBanner

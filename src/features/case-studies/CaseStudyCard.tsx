@@ -16,6 +16,8 @@ import { cn } from '@/lib/utils';
 type CaseStudyCardProps = {
   study: CaseStudy;
   index?: number;
+  /** Horizontal banner-left layout; intended for full-row showcase slots. */
+  wide?: boolean;
   className?: string;
 };
 
@@ -46,6 +48,7 @@ function getCaseStudyStats(
 export function CaseStudyCard({
   study,
   index = 0,
+  wide = false,
   className,
 }: CaseStudyCardProps) {
   const { technologies } = usePortfolio();
@@ -53,12 +56,14 @@ export function CaseStudyCard({
   const imageSrc = study.logo ?? study.coverImage;
   const imageAlt = study.logoAlt ?? study.coverImageAlt ?? `${study.name} logo`;
   const techIds = study.technologyIds ?? [];
-  const techItems = techIds
-    .slice(0, 6)
+  const maxTechChips = 6;
+  const resolvableTechItems = techIds
     .map((id) => getTechnologyById(technologies, id))
     .filter((technology): technology is NonNullable<typeof technology> =>
       Boolean(technology)
     );
+  const techItems = resolvableTechItems.slice(0, maxTechChips);
+  const overflowCount = resolvableTechItems.length - techItems.length;
 
   return (
     <Reveal
@@ -69,6 +74,7 @@ export function CaseStudyCard({
         href={href}
         gradient={categoryGradients[study.category]}
         featured={study.featured}
+        wide={wide}
         eyebrow={categoryLabels[study.category]}
         title={study.name}
         heroImage={imageSrc ? { src: imageSrc, alt: imageAlt } : undefined}
@@ -90,6 +96,14 @@ export function CaseStudyCard({
                     loading="lazy"
                   />
                 ))}
+                {overflowCount > 0 ? (
+                  <span
+                    title={`${overflowCount} more`}
+                    className="inline-flex size-6 items-center justify-center rounded-sm border border-border font-mono text-[0.625rem] font-semibold text-muted-foreground sm:size-7"
+                  >
+                    +{overflowCount}
+                  </span>
+                ) : null}
               </div>
             ) : null}
           </>

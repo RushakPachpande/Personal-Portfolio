@@ -513,6 +513,9 @@
     transform 0.2s ease-out,
     box-shadow 0.2s ease-out,
     border-color 0.2s ease-out;
+  /* Skip offscreen card paint work; estimate reserves space so scroll stays stable. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
 }
 
 .overlay-card--featured {
@@ -534,12 +537,59 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 9.5rem;
+  /* Fixed height: rows stay flush even when a card lacks a logo. */
+  height: 9.5rem;
   border-radius: 15px;
+  overflow: hidden;
 }
 
 .overlay-card--featured .overlay-card__banner {
-  min-height: 12.5rem;
+  height: 12.5rem;
+}
+
+/* Wide-layout variant: featured cards span two columns and reflow to a
+   horizontal banner-left / content-right composition. */
+.overlay-card--wide {
+  --overlay-notch-height: 1.875rem;
+  --overlay-notch-width: clamp(6.5rem, 52%, 11rem);
+}
+
+@media (min-width: 768px) {
+  .overlay-card--wide {
+    flex-direction: row;
+  }
+
+  .overlay-card--wide .overlay-card__banner {
+    flex-basis: 42%;
+    flex-shrink: 0;
+    height: auto;
+    min-height: 100%;
+  }
+
+  .overlay-card--wide .overlay-card__bottom {
+    margin-top: 0;
+    padding-block: 1.5rem;
+  }
+
+  .overlay-card--wide .overlay-card__title {
+    font-size: 1.25rem;
+    text-align: start;
+  }
+
+  .overlay-card--wide .overlay-card__stats {
+    justify-content: flex-start;
+  }
+
+  .overlay-card--wide .overlay-card__stat {
+    flex-basis: auto;
+    text-align: start;
+  }
+
+  .overlay-card--wide .overlay-card__stat:not(:first-child) {
+    border-left: 1px solid
+      color-mix(in srgb, var(--foreground) 12.6%, transparent);
+    padding-left: 0.75rem;
+  }
 }
 
 .overlay-card__banner--strip {
@@ -629,17 +679,60 @@
   transition: opacity 0.2s ease-out;
 }
 
+/* Sheen sweep across the banner on card hover. */
+.overlay-card__banner::after {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 42%,
+    color-mix(in srgb, var(--card-foreground) 7%, transparent) 50%,
+    transparent 58%
+  );
+  transform: translateX(-70%) rotate(0.001deg);
+  opacity: 0;
+  transition:
+    transform 0.55s ease-out,
+    opacity 0.35s ease-out;
+}
+
+/* Logo stage: fixed geometry that every mark fits inside, on a frosted
+   plate so brand-colored SVGs keep contrast in both themes. */
 .overlay-card__hero {
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
   min-height: 0;
-  padding: 0.5rem 1rem 1rem;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.overlay-card__hero-stage {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 3 / 2;
+  max-height: 100%;
+  padding: 0.75rem;
+  border-radius: 0.875rem;
+  background-color: color-mix(in srgb, var(--card) 88%, transparent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--border) 60%, transparent),
+    0 6px 18px -8px color-mix(in oklch, var(--electric-blue) 22%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .overlay-card__hero img {
-  max-width: 55%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   max-height: 4.5rem;
   object-fit: contain;
   transition: transform 0.3s ease-out;
@@ -719,6 +812,11 @@
     border-color: color-mix(in srgb, var(--primary) 50%, transparent);
     box-shadow: 0 0 28px
       color-mix(in srgb, var(--electric-blue) 16%, transparent);
+  }
+
+  .overlay-card--link:hover .overlay-card__banner::after {
+    opacity: 1;
+    transform: translateX(70%) rotate(0.001deg);
   }
 
   .overlay-card--link:hover .overlay-card__arrow,
@@ -1155,7 +1253,8 @@ body:has([data-admin-preview-root]) [data-slot='popover-content'] {
   }
 
   .overlay-card,
-  .overlay-card__hero img {
+  .overlay-card__hero img,
+  .overlay-card__banner::after {
     transition: none;
   }
 }

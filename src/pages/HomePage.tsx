@@ -37,7 +37,13 @@ export function HomePage() {
         </Reveal>
         <div className={cn('mt-12', responsiveCardGridAutoClassName)}>
           {featured.map((study, index) => (
-            <CaseStudyCard key={study.slug} study={study} index={index} />
+            <CaseStudyCard
+              key={study.slug}
+              study={study}
+              index={index}
+              wide={index === 0}
+              className={index === 0 ? 'featured-card-span' : undefined}
+            />
           ))}
         </div>
       </section>
