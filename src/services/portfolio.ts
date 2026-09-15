@@ -5,6 +5,7 @@ export {
 export {
   upsertSiteProfile,
   upsertSiteSettings,
+  upsertSiteConfig,
   upsertCaseStudy,
   deleteCaseStudy,
   upsertTechnology,

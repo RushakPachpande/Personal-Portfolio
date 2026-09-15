@@ -15,7 +15,8 @@ import { MagneticButton } from '@/components/shared/MagneticButton';
 import { fadeUp, staggerContainer } from '@/lib/motion';
 
 export function HeroSection() {
-  const { profile } = usePortfolio();
+  const { profile, siteConfig } = usePortfolio();
+  const hero = siteConfig.chrome.hero;
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -52,7 +53,7 @@ export function HeroSection() {
           variants={fadeUp}
           className="font-mono text-xs tracking-[0.22em] text-soft-cyan uppercase sm:text-sm"
         >
-          Platform Engineer · Cloud · Automation · Full Stack Systems
+          {hero.eyebrow}
         </motion.p>
 
         <motion.h1
@@ -64,11 +65,9 @@ export function HeroSection() {
 
         <motion.p
           variants={fadeUp}
-          className="mt-4 max-w-2xl font-display text-2xl leading-snug text-muted-foreground sm:text-3xl"
+          className="mt-4 max-w-2xl font-display text-2xl leading-snug whitespace-pre-line text-muted-foreground sm:text-3xl"
         >
-          Building <span className="text-gradient text-shimmer">Systems,</span>
-          <br />
-          Not Just Software.
+          {profile.headline}
         </motion.p>
 
         <motion.p
@@ -82,8 +81,8 @@ export function HeroSection() {
           variants={fadeUp}
           className="mt-8 flex flex-wrap items-center gap-3"
         >
-          <MagneticButton to="/platforms">
-            Explore My Work
+          <MagneticButton to={hero.ctaTo}>
+            {hero.ctaLabel}
             <ArrowDownRight data-icon="inline-end" />
           </MagneticButton>
           {profile.resumeUrl ? (

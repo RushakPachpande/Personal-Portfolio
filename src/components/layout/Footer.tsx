@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useOptionalPortfolio } from '@/hooks/usePortfolio';
 import { useDevMode } from '@/hooks/useDevMode';
-import { navItems } from './navItems';
+import { flattenNav, navItems as fallbackNavItems } from './navItems';
 
 export function Footer() {
   const portfolio = useOptionalPortfolio();
@@ -11,16 +11,26 @@ export function Footer() {
     month: 'short',
     day: '2-digit',
   });
-  const principles = [
+  const footer = portfolio?.siteConfig.chrome.footer;
+  const principles = footer?.principles ?? [
     'Own outcomes',
     'Build for production',
     'Automate repetitive work',
   ];
-  const stack = ['React', 'TypeScript', 'Tailwind', 'Framer Motion', 'Vite'];
+  const stack = footer?.stack ?? [
+    'React',
+    'TypeScript',
+    'Tailwind',
+    'Framer Motion',
+    'Vite',
+  ];
   const name = portfolio?.profile.name ?? 'Portfolio';
   const siteVersion = portfolio?.siteVersion ?? '—';
   const github = portfolio?.profile.socials.github;
   const linkedin = portfolio?.profile.socials.linkedin;
+  const navItems = portfolio?.siteConfig.nav
+    ? flattenNav(portfolio.siteConfig.nav)
+    : fallbackNavItems;
 
   return (
     <footer className="mt-24 border-t border-border/80 bg-surface/40">
@@ -29,7 +39,8 @@ export function Footer() {
           <div className="max-w-sm">
             <p className="font-display text-xl font-semibold">{name}</p>
             <p className="mt-2 text-sm text-muted-foreground">
-              Platform engineer owning systems from architecture to production.
+              {footer?.tagline ??
+                'Platform engineer owning systems from architecture to production.'}
             </p>
             <div className="mt-4 space-y-2">
               <p className="font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">
@@ -63,8 +74,8 @@ export function Footer() {
               Current focus
             </p>
             <p className="text-sm text-muted-foreground text-pretty">
-              Platform architecture, cloud optimization, enterprise automations,
-              and production operations.
+              {footer?.focus ??
+                'Platform architecture, cloud optimization, enterprise automations, and production operations.'}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {stack.map((item) => (

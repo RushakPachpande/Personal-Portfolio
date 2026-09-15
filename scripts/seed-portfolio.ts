@@ -16,6 +16,7 @@ import {
   technicalExpertise,
 } from '../src/content/resume.ts';
 import { terminalCommands } from '../src/content/terminal.ts';
+import { defaultSiteConfig } from '../src/content/siteConfig.ts';
 import { usedInSlugsFromCaseStudies } from '../src/lib/portfolio.ts';
 import type { CaseStudy } from '../src/types/portfolio.ts';
 import { loadAppEnv } from './load-app-env.ts';
@@ -234,6 +235,7 @@ async function main() {
   const { error: settingsError } = await supabase.from('site_settings').upsert({
     id: 'main',
     site_version: SITE_VERSION,
+    config: defaultSiteConfig,
     updated_at: new Date().toISOString(),
   });
   if (settingsError) throw settingsError;

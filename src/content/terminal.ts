@@ -1,4 +1,4 @@
-import { navStructure } from '@/components/layout/navItems';
+import { defaultNavStructure } from '@/components/layout/navItems';
 import {
   computeEngineeringStats,
   getCaseStudiesByCategory,
@@ -6,6 +6,7 @@ import {
   getCaseStudyPath,
 } from '@/lib/portfolio';
 import type { PortfolioData } from '@/types/portfolio';
+import type { NavItem } from '@/types/site-config';
 
 export type TerminalCommand = {
   name: string;
@@ -102,6 +103,15 @@ export const terminalQuickCommands = [
 ] as const;
 
 export function buildTerminalWelcome(portfolio: PortfolioData) {
+  const configured = portfolio.siteConfig.terminal.welcomeLines;
+  if (configured.length > 0) {
+    return [
+      ...configured,
+      '',
+      `Portfolio v${portfolio.siteVersion} · ${portfolio.profile.resumeTitle}`,
+      'Type `help` for commands · `nav` for site map · Ctrl+K to close',
+    ].join('\n');
+  }
   return [
     '+------------------------------------------+',
     '|  rushak@platform - portfolio terminal    |',
@@ -167,8 +177,8 @@ function formatCertifications(portfolio: PortfolioData) {
     .join('\n\n');
 }
 
-function formatNavStructure() {
-  return navStructure
+function formatNavStructure(nav: NavItem[]) {
+  return nav
     .map((item) => {
       if (item.type === 'link')
         return `  ${item.label.padEnd(12)} → ${item.to}`;
@@ -185,7 +195,8 @@ export function executeTerminalCommand(
   context: TerminalContext
 ): TerminalExecution | null {
   const { portfolio } = context;
-  const { profile, caseStudies, technologies, resume } = portfolio;
+  const { profile, caseStudies, technologies, resume, siteConfig } = portfolio;
+  const nav = siteConfig.nav.length > 0 ? siteConfig.nav : defaultNavStructure;
   const commands =
     portfolio.terminalCommands.length > 0
       ? portfolio.terminalCommands
@@ -396,7 +407,11 @@ export function executeTerminalCommand(
   }
 
   if (command === 'stats') {
-    const stats = computeEngineeringStats(caseStudies, technologies);
+    const stats = computeEngineeringStats(
+      caseStudies,
+      technologies,
+      siteConfig
+    );
     return {
       lines: [
         out(
@@ -428,11 +443,11 @@ export function executeTerminalCommand(
   }
 
   if (command === 'nav') {
-    return { lines: [out(`Site navigation:\n${formatNavStructure()}`)] };
+    return { lines: [out(`Site navigation:\n${formatNavStructure(nav)}`)] };
   }
 
   if (command === 'ls') {
-    const routes = navStructure.flatMap((item) =>
+    const routes = nav.flatMap((item) =>
       item.type === 'link' ? [item.to] : item.items.map((route) => route.to)
     );
     return {

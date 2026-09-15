@@ -7,16 +7,17 @@ import { Reveal } from '@/components/shared/Reveal';
 import { MagneticButton } from '@/components/shared/MagneticButton';
 
 export function HomeAbout() {
-  const { profile } = usePortfolio();
+  const { profile, siteConfig } = usePortfolio();
+  const chrome = siteConfig.chrome.homeAbout;
   return (
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
         <div className="mx-auto max-w-3xl text-center">
           <p className="font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase sm:text-sm">
-            About
+            {chrome.eyebrow}
           </p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-            I own platforms end-to-end
+            {chrome.title}
           </h2>
           <p className="mt-4 text-muted-foreground text-pretty sm:text-lg">
             {profile.about.whoIAm}
@@ -26,7 +27,7 @@ export function HomeAbout() {
           </p>
           <div className="mt-6">
             <MagneticButton to="/about" variant="outline" size="default">
-              More about how I work
+              {chrome.ctaLabel}
             </MagneticButton>
           </div>
         </div>
@@ -36,8 +37,9 @@ export function HomeAbout() {
 }
 
 export function ExperienceSnapshot() {
-  const { timeline } = usePortfolio();
+  const { timeline, siteConfig } = usePortfolio();
   const highlights = getHomeExperienceSnapshot(timeline);
+  const chrome = siteConfig.chrome.experienceSnapshot;
 
   if (highlights.length === 0) return null;
 
@@ -47,17 +49,17 @@ export function ExperienceSnapshot() {
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase sm:text-sm">
-              Experience Snapshot
+              {chrome.eyebrow}
             </p>
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">
-              Recent ownership signals
+              {chrome.title}
             </h2>
           </div>
           <Link
             to="/experience"
             className="text-sm text-electric-blue hover:underline"
           >
-            Full timeline →
+            {chrome.ctaLabel}
           </Link>
         </div>
       </Reveal>

@@ -13,6 +13,7 @@ import {
   usePublicPortfolioQuery,
 } from '@/hooks/usePortfolio';
 import { PageRouteSkeleton } from '@/components/layout/PageRouteSkeleton';
+import { SiteBrandApplier } from '@/components/layout/SiteBrandApplier';
 import { rememberDocumentLoad, shouldShowBootSequence } from '@/lib/bootGate';
 
 const BootSequence = lazy(() =>
@@ -59,13 +60,24 @@ export function AppShell() {
   const location = useLocation();
   useScrollRestoration();
   const portfolioQuery = usePublicPortfolioQuery();
-  const [booted, setBooted] = useState(() => !shouldShowBootSequence());
+  const portfolio = portfolioQuery.data ?? null;
+  const showBootFlag = portfolio?.siteConfig.featureFlags.showBoot ?? true;
+  const showTerminalFlag = portfolio?.siteConfig.featureFlags.showTerminal ?? true;
+  const [booted, setBooted] = useState(
+    () => !shouldShowBootSequence() || !showBootFlag
+  );
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [badgeVisible, setBadgeVisible] = useState(false);
 
   useEffect(() => {
     rememberDocumentLoad();
   }, []);
+
+  useEffect(() => {
+    if (!showBootFlag) {
+      setBooted(true);
+    }
+  }, [showBootFlag]);
 
   const completeBoot = useCallback(() => setBooted(true), []);
 
@@ -88,14 +100,16 @@ export function AppShell() {
     );
   }
 
-  const portfolio = portfolioQuery.data ?? null;
-
   return (
     <PortfolioContext.Provider value={portfolio}>
       <DevModeContext.Provider value={{ unlocked }}>
-        {!booted ? (
+        <SiteBrandApplier />
+        {!booted && showBootFlag ? (
           <Suspense fallback={null}>
-            <BootSequence onComplete={completeBoot} />
+            <BootSequence
+              onComplete={completeBoot}
+              steps={portfolio?.siteConfig.chrome.bootSteps}
+            />
           </Suspense>
         ) : null}
 
@@ -108,7 +122,7 @@ export function AppShell() {
         </Suspense>
         <Navbar
           onOpenTerminal={() => {
-            if (portfolio) setTerminalOpen(true);
+            if (portfolio && showTerminalFlag) setTerminalOpen(true);
           }}
         />
 
@@ -129,7 +143,7 @@ export function AppShell() {
 
         <Footer />
         <ScrollToTopButton />
-        {terminalOpen && portfolio ? (
+        {terminalOpen && portfolio && showTerminalFlag ? (
           <Suspense fallback={null}>
             <CommandTerminal
               open={terminalOpen}

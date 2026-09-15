@@ -6,8 +6,12 @@ import { Reveal, SectionHeader } from '@/components/shared/Reveal';
 import { cn, responsiveCardGridCompactClassName } from '@/lib/utils';
 
 export function EngineeringStats() {
-  const { caseStudies, technologies } = usePortfolio();
-  const engineeringStats = computeEngineeringStats(caseStudies, technologies);
+  const { caseStudies, technologies, siteConfig } = usePortfolio();
+  const engineeringStats = computeEngineeringStats(
+    caseStudies,
+    technologies,
+    siteConfig
+  );
   return (
     <section className="mx-auto max-w-6xl min-w-0 px-4 py-16 sm:px-6">
       <Reveal>

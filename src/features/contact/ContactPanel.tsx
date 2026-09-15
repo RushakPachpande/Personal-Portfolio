@@ -13,7 +13,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
 export function ContactPanel() {
-  const { profile } = usePortfolio();
+  const { profile, siteConfig } = usePortfolio();
+  const chrome = siteConfig.chrome.contact;
   const isPreview = usePreviewMode();
   const [status, setStatus] = useState<'idle' | 'sent' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
@@ -44,9 +45,9 @@ export function ContactPanel() {
     <section className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
         <SectionHeader
-          eyebrow="Contact"
-          title="Let’s talk platforms"
-          description="Simple, professional channels—email, LinkedIn, GitHub, and resume."
+          eyebrow={chrome.eyebrow}
+          title={chrome.title}
+          description={chrome.description}
         />
       </Reveal>
 

@@ -66,6 +66,36 @@ const AdminMediaPage = lazy(() =>
     default: module.AdminMediaPage,
   }))
 );
+const AdminSiteContentPage = lazy(() =>
+  import('@/pages/admin/AdminSitePages').then((module) => ({
+    default: module.AdminSiteContentPage,
+  }))
+);
+const AdminSiteNavigationPage = lazy(() =>
+  import('@/pages/admin/AdminSitePages').then((module) => ({
+    default: module.AdminSiteNavigationPage,
+  }))
+);
+const AdminSiteCategoriesPage = lazy(() =>
+  import('@/pages/admin/AdminSitePages').then((module) => ({
+    default: module.AdminSiteCategoriesPage,
+  }))
+);
+const AdminSiteBrandPage = lazy(() =>
+  import('@/pages/admin/AdminSitePages').then((module) => ({
+    default: module.AdminSiteBrandPage,
+  }))
+);
+const AdminSiteSeoPage = lazy(() =>
+  import('@/pages/admin/AdminSitePages').then((module) => ({
+    default: module.AdminSiteSeoPage,
+  }))
+);
+const AdminSiteFlagsPage = lazy(() =>
+  import('@/pages/admin/AdminSitePages').then((module) => ({
+    default: module.AdminSiteFlagsPage,
+  }))
+);
 
 function AdminCaseStudyRoute() {
   const { slug } = useParams();
@@ -116,6 +146,27 @@ export const router = createBrowserRouter(
               element: withSuspense(<AdminSubmissionsPage />),
             },
             { path: 'media', element: withSuspense(<AdminMediaPage />) },
+            {
+              path: 'site/content',
+              element: withSuspense(<AdminSiteContentPage />),
+            },
+            {
+              path: 'site/navigation',
+              element: withSuspense(<AdminSiteNavigationPage />),
+            },
+            {
+              path: 'site/categories',
+              element: withSuspense(<AdminSiteCategoriesPage />),
+            },
+            {
+              path: 'site/brand',
+              element: withSuspense(<AdminSiteBrandPage />),
+            },
+            { path: 'site/seo', element: withSuspense(<AdminSiteSeoPage />) },
+            {
+              path: 'site/flags',
+              element: withSuspense(<AdminSiteFlagsPage />),
+            },
           ],
         },
       ],

@@ -1,6 +1,6 @@
 import {
-  categoryLabels,
   getCaseStudyPath,
+  getCategoryMeta,
   getTechnologyById,
 } from '@/lib/portfolio';
 import type { CaseStudy } from '@/types/portfolio';
@@ -21,7 +21,7 @@ type CaseStudyCardProps = {
   className?: string;
 };
 
-const categoryGradients: Record<CaseStudy['category'], CardGradientKey> = {
+const categoryGradients: Record<string, CardGradientKey> = {
   platform: 'platform',
   infrastructure: 'infrastructure',
   automation: 'automation',
@@ -51,8 +51,9 @@ export function CaseStudyCard({
   wide = false,
   className,
 }: CaseStudyCardProps) {
-  const { technologies } = usePortfolio();
-  const href = getCaseStudyPath(study);
+  const { technologies, siteConfig } = usePortfolio();
+  const href = getCaseStudyPath(study, siteConfig);
+  const categoryMeta = getCategoryMeta(siteConfig, study.category);
   const imageSrc = study.logo ?? study.coverImage;
   const imageAlt = study.logoAlt ?? study.coverImageAlt ?? `${study.name} logo`;
   const techIds = study.technologyIds ?? [];
@@ -72,11 +73,11 @@ export function CaseStudyCard({
     >
       <OverlayCard
         href={href}
-        gradient={categoryGradients[study.category]}
+        gradient={categoryGradients[study.category] ?? 'platform'}
         featured={study.featured}
         wide={wide}
         size={wide ? 'featured' : 'standard'}
-        eyebrow={categoryLabels[study.category]}
+        eyebrow={categoryMeta?.label ?? study.category}
         title={study.name}
         heroImage={imageSrc ? { src: imageSrc, alt: imageAlt } : undefined}
         stats={getCaseStudyStats(study, techIds.length)}

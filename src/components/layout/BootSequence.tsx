@@ -1,15 +1,8 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { shouldShowBootSequence } from '@/lib/bootGate';
+import { defaultSiteConfig } from '@/content/siteConfig';
 import { Button } from '@/components/ui/button';
-
-const STEPS = [
-  'Initializing Platform...',
-  'Loading Infrastructure...',
-  'Loading Projects...',
-  'Connecting Services...',
-  'System Ready.',
-] as const;
 
 const STEP_MS = 300;
 const HOLD_MS = 400;
@@ -17,9 +10,12 @@ const EXIT_MS = 250;
 
 type BootSequenceProps = {
   onComplete: () => void;
+  steps?: string[];
 };
 
-export function BootSequence({ onComplete }: BootSequenceProps) {
+export function BootSequence({ onComplete, steps }: BootSequenceProps) {
+  const bootSteps =
+    steps && steps.length > 0 ? steps : defaultSiteConfig.chrome.bootSteps;
   const reduced = useReducedMotion();
   const [step, setStep] = useState(0);
   const [visible, setVisible] = useState(true);
@@ -54,7 +50,7 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
     let index = 0;
     intervalRef.current = window.setInterval(() => {
       index += 1;
-      if (index >= STEPS.length) {
+      if (index >= bootSteps.length) {
         if (intervalRef.current !== null) {
           window.clearInterval(intervalRef.current);
         }
@@ -74,7 +70,7 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
         window.clearTimeout(holdRef.current);
       }
     };
-  }, [finish, onComplete, reduced]);
+  }, [bootSteps.length, finish, onComplete, reduced]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -92,7 +88,7 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
     <AnimatePresence onExitComplete={onComplete}>
       {visible ? (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-background"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-background"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: EXIT_MS / 1000 }}
@@ -114,21 +110,21 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
             <div className="glass rounded-2xl p-6">
               <AnimatePresence mode="popLayout">
                 <motion.p
-                  key={STEPS[step]}
+                  key={bootSteps[step]}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   className="font-mono text-sm text-foreground sm:text-base"
                 >
                   <span className="text-electric-blue">{'>'}</span>{' '}
-                  {STEPS[step]}
+                  {bootSteps[step]}
                 </motion.p>
               </AnimatePresence>
               <div className="mt-6 h-1 overflow-hidden rounded-full bg-secondary">
                 <motion.div
-                  className="h-full origin-left bg-gradient-to-r from-electric-blue via-soft-cyan to-deep-purple"
+                  className="h-full origin-left bg-linear-to-r from-electric-blue via-soft-cyan to-deep-purple"
                   initial={{ scaleX: 0 }}
-                  animate={{ scaleX: (step + 1) / STEPS.length }}
+                  animate={{ scaleX: (step + 1) / bootSteps.length }}
                   transition={{
                     duration: STEP_MS / 1000,
                     ease: [0.22, 1, 0.36, 1],

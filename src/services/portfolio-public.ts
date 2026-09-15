@@ -5,6 +5,7 @@ import {
   publicResumeUrl,
   toMediaPath,
 } from '@/lib/supabase';
+import { mergeSiteConfig } from '@/content/siteConfig';
 import type {
   CaseStudy,
   CaseStudyCategory,
@@ -122,7 +123,7 @@ export async function fetchPublicPortfolio(): Promise<PortfolioData> {
     supabase.from('site_profile').select('data').eq('id', 'main').single(),
     supabase
       .from('site_settings')
-      .select('site_version')
+      .select('site_version, config')
       .eq('id', 'main')
       .single(),
     supabase
@@ -166,6 +167,7 @@ export async function fetchPublicPortfolio(): Promise<PortfolioData> {
   return {
     profile,
     siteVersion: settingsRes.data.site_version,
+    siteConfig: mergeSiteConfig(settingsRes.data.config),
     caseStudies: (caseRes.data ?? []).map((row) =>
       resolveCaseStudy({
         ...row,

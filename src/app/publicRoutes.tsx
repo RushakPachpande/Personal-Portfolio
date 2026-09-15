@@ -44,6 +44,11 @@ const CaseStudyRoutePage = lazy(() =>
     default: module.CaseStudyRoutePage,
   }))
 );
+const SiteConfigPathResolver = lazy(() =>
+  import('@/pages/SiteConfigPathResolver').then((module) => ({
+    default: module.SiteConfigPathResolver,
+  }))
+);
 const PhilosophyPage = lazy(() =>
   import('@/pages/PhilosophyPage').then((module) => ({
     default: module.PhilosophyPage,
@@ -144,7 +149,7 @@ export const publicChildRoutes: RouteObject[] = [
   { path: 'projects/:slug', element: <WorkSlugRedirect /> },
   { path: 'skills', element: <Navigate to="/about" replace /> },
   { path: '404', element: withSuspense(<NotFoundPage />) },
-  { path: '*', element: <Navigate to="/404" replace /> },
+  { path: '*', element: withSuspense(<SiteConfigPathResolver />) },
 ];
 
 export function PreviewPublicChrome() {

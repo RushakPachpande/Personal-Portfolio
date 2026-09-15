@@ -1,4 +1,4 @@
-export type CaseStudyCategory = 'platform' | 'infrastructure' | 'automation';
+export type CaseStudyCategory = string;
 
 export type CaseStudyDecision = {
   decision: string;
@@ -33,6 +33,11 @@ export type ArchitectureNode = {
   detail: string;
 };
 
+export type CaseStudyLink = {
+  label: string;
+  url: string;
+};
+
 export type CaseStudy = {
   slug: string;
   category: CaseStudyCategory;
@@ -61,6 +66,7 @@ export type CaseStudy = {
   outcome: string;
   learnings: string[];
   gallery?: CaseStudyMediaItem[];
+  links?: CaseStudyLink[];
   relatedSlugs: string[];
   incomplete?: boolean;
   todoNote?: string;
@@ -231,9 +237,14 @@ export type ResumeFile = {
   updatedAt: string;
 };
 
+import type { SiteConfig } from '@/types/site-config';
+
+export type { SiteConfig } from '@/types/site-config';
+
 export type PortfolioData = {
   profile: Profile;
   siteVersion: string;
+  siteConfig: SiteConfig;
   caseStudies: CaseStudy[];
   technologies: Technology[];
   timeline: TimelineItem[];

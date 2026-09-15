@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { getAdminBasePath } from '@/lib/env';
-import { categoryLabels, getCaseStudyPath } from '@/lib/portfolio';
+import { getCaseStudyPath, getCategoryMeta } from '@/lib/portfolio';
 import { portfolioQueryKey, usePortfolio } from '@/hooks/usePortfolio';
 import {
   deleteCaseStudy,
@@ -31,6 +31,7 @@ import { cn } from '@/lib/utils';
 import type {
   CaseStudy,
   CaseStudyCategory,
+  CaseStudyLink,
   CaseStudyMediaItem,
 } from '@/types/portfolio';
 
@@ -106,14 +107,14 @@ const tabs = [
 type TabId = (typeof tabs)[number]['id'];
 
 export function AdminCaseStudiesPage() {
-  const { caseStudies } = usePortfolio();
+  const { caseStudies, siteConfig } = usePortfolio();
   const base = getAdminBasePath();
 
   return (
     <div className="flex flex-col gap-8">
       <PageHeader
         title="Case studies"
-        description="Each card is a public engineering narrative. Open one to edit with labeled fields."
+        description="Each card is a public engineering narrative. Toggle Featured on a study to control the home spotlight (up to four)."
         actions={
           <Button asChild>
             <Link
@@ -145,7 +146,8 @@ export function AdminCaseStudiesPage() {
             <div className="min-w-0">
               <div className="flex flex-wrap gap-2">
                 <Badge variant="secondary">
-                  {categoryLabels[study.category]}
+                  {getCategoryMeta(siteConfig, study.category)?.label ??
+                    study.category}
                 </Badge>
                 {study.featured ? <Badge>Featured</Badge> : null}
               </div>
@@ -167,7 +169,8 @@ export function AdminCaseStudiesPage() {
 }
 
 export function AdminCaseStudyEditPage({ slug }: { slug?: string }) {
-  const { caseStudies, technologies } = usePortfolio();
+  const { caseStudies, technologies, siteConfig } = usePortfolio();
+  const categories = siteConfig.categories;
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const base = getAdminBasePath();
@@ -306,16 +309,23 @@ export function AdminCaseStudyEditPage({ slug }: { slug?: string }) {
             </Field>
             <SelectField
               label="Category"
-              hint="Chooses the public section: Platforms, Infrastructure, or Automation. The URL prefix follows this choice."
+              hint="Chooses the public section. Options come from Site → Categories."
               value={study.category}
               onChange={(value) =>
                 patch({ category: value as CaseStudyCategory })
               }
-              options={[
-                { value: 'platform', label: 'Platform' },
-                { value: 'infrastructure', label: 'Infrastructure' },
-                { value: 'automation', label: 'Automation' },
-              ]}
+              options={
+                categories.length > 0
+                  ? categories.map((category) => ({
+                      value: category.id,
+                      label: category.label,
+                    }))
+                  : [
+                      { value: 'platform', label: 'Platform' },
+                      { value: 'infrastructure', label: 'Infrastructure' },
+                      { value: 'automation', label: 'Automation' },
+                    ]
+              }
             />
             <Field
               label="Status"
@@ -380,6 +390,25 @@ export function AdminCaseStudyEditPage({ slug }: { slug?: string }) {
               onChange={(event) => patch({ todoNote: event.target.value })}
             />
           </Field>
+          <PairListField<CaseStudyLink>
+            label="Links"
+            hint="Public demo or related URLs shown on the case study page. Leave empty to hide."
+            items={study.links ?? []}
+            fields={[
+              {
+                key: 'label',
+                label: 'Label',
+                hint: 'Button text, for example Student portal.',
+              },
+              {
+                key: 'url',
+                label: 'URL',
+                hint: 'Absolute https URL opened in a new tab.',
+              },
+            ]}
+            createItem={() => ({ label: '', url: '' })}
+            onChange={(links) => patch({ links })}
+          />
         </AdminSection>
       ) : null}
 
@@ -759,7 +788,8 @@ export function AdminCaseStudyEditPage({ slug }: { slug?: string }) {
                       <span>
                         {item.name}{' '}
                         <span className="text-xs text-muted-foreground">
-                          {categoryLabels[item.category]}
+                          {getCategoryMeta(siteConfig, item.category)?.label ??
+                            item.category}
                         </span>
                       </span>
                     </label>

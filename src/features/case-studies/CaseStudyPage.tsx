@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Download } from 'lucide-react';
+import { ArrowLeft, Download, ExternalLink } from 'lucide-react';
 import {
   categoryLabels,
   categoryPaths,
+  getCategoryMeta,
   getRelatedCaseStudies,
   getTechnologyById,
 } from '@/lib/portfolio';
@@ -42,10 +43,13 @@ type CaseStudyPageProps = {
 };
 
 export function CaseStudyPage({ study }: CaseStudyPageProps) {
-  const { profile, caseStudies, technologies } = usePortfolio();
+  const { profile, caseStudies, technologies, siteConfig } = usePortfolio();
   const [activeId, setActiveId] = useState<string>(TOC[0].id);
   const related = getRelatedCaseStudies(caseStudies, study).slice(0, 4);
-  const backPath = categoryPaths[study.category];
+  const categoryMeta = getCategoryMeta(siteConfig, study.category);
+  const backPath = categoryMeta?.path ?? categoryPaths[study.category] ?? '/platforms';
+  const backLabel =
+    categoryMeta?.label ?? categoryLabels[study.category] ?? study.category;
 
   useEffect(() => {
     const nodes = TOC.map((item) => document.getElementById(item.id)).filter(
@@ -78,7 +82,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
         <Button asChild variant="ghost" className="mb-8">
           <Link to={backPath}>
             <ArrowLeft data-icon="inline-start" />
-            Back to {categoryLabels[study.category]}
+            Back to {backLabel}
           </Link>
         </Button>
 
@@ -94,7 +98,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
               ) : null}
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <Badge>{categoryLabels[study.category]}</Badge>
+                  <Badge>{backLabel}</Badge>
                   <Badge variant="secondary">{study.status}</Badge>
                 </div>
                 <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
@@ -103,6 +107,22 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                 <p className="mt-3 max-w-3xl text-lg text-muted-foreground">
                   {study.summary}
                 </p>
+                {study.links && study.links.length > 0 ? (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {study.links.map((link) => (
+                      <Button key={link.url} asChild variant="outline" size="sm">
+                        <a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {link.label}
+                          <ExternalLink data-icon="inline-end" />
+                        </a>
+                      </Button>
+                    ))}
+                  </div>
+                ) : null}
                 <div className="mt-5 space-y-2">
                   <TechBanner technologyIds={study.technologyIds ?? []} />
                   <div className="flex flex-wrap gap-2">

@@ -1,22 +1,29 @@
 import { Link, useParams } from 'react-router-dom';
-import { getCaseStudy } from '@/lib/portfolio';
+import { getCaseStudy, getCategoryMeta } from '@/lib/portfolio';
 import { usePortfolio } from '@/hooks/usePortfolio';
 import { CaseStudyPage } from '@/features/case-studies/CaseStudyPage';
 import { Button } from '@/components/ui/button';
 
 type CaseStudyRoutePageProps = {
-  category: 'platform' | 'infrastructure' | 'automation';
-  listPath: string;
-  listLabel: string;
+  category: string;
+  listPath?: string;
+  listLabel?: string;
+  /** When set, overrides the `:slug` route param (used by CMS path resolver). */
+  slugOverride?: string;
 };
 
 export function CaseStudyRoutePage({
   category,
   listPath,
   listLabel,
+  slugOverride,
 }: CaseStudyRoutePageProps) {
-  const { slug } = useParams();
-  const { caseStudies } = usePortfolio();
+  const { slug: paramSlug } = useParams();
+  const slug = slugOverride ?? paramSlug;
+  const { caseStudies, siteConfig } = usePortfolio();
+  const meta = getCategoryMeta(siteConfig, category);
+  const resolvedListPath = listPath ?? meta?.path ?? '/platforms';
+  const resolvedListLabel = listLabel ?? meta?.label ?? 'Work';
   const study = slug ? getCaseStudy(caseStudies, slug) : undefined;
 
   if (!study || study.category !== category) {
@@ -29,7 +36,7 @@ export function CaseStudyRoutePage({
           That engineering case study does not exist in this category.
         </p>
         <Button asChild className="mt-8">
-          <Link to={listPath}>Back to {listLabel}</Link>
+          <Link to={resolvedListPath}>Back to {resolvedListLabel}</Link>
         </Button>
       </div>
     );
