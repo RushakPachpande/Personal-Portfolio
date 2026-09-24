@@ -44,7 +44,7 @@ export function HomePage() {
             description={chrome.featured.description}
           />
         </ScrollFadeIn>
-        <div className="mt-12 grid min-w-0 auto-rows-auto items-start grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 md:[&>.featured-card-span]:col-span-full [&>*]:min-w-0">
+        <div className="mt-12 grid min-w-0 auto-rows-auto items-start grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 md:[&>.featured-card-span]:col-span-full *:min-w-0">
           {featuredRow.map((study, index) => (
             <CaseStudyCard
               key={study.slug}

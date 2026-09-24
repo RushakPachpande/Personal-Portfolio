@@ -1,106 +1,29 @@
-import { lazy } from 'react';
-import { createBrowserRouter, useParams } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
+import {
+  AdminCaseStudiesPage,
+  AdminCaseStudyRoute,
+  AdminDashboardPage,
+  AdminLoginPage,
+  AdminMediaPage,
+  AdminPhilosophyPage,
+  AdminProfilePage,
+  AdminResumePage,
+  AdminSiteBrandPage,
+  AdminSiteCategoriesPage,
+  AdminSiteContentPage,
+  AdminSiteFlagsPage,
+  AdminSiteNavigationPage,
+  AdminSiteSeoPage,
+  AdminSubmissionsPage,
+  AdminTechnologiesPage,
+  AdminTerminalPage,
+  AdminTimelinePage,
+} from '@/app/adminPages';
 import { AppShell } from '@/app/AppShell';
 import { publicChildRoutes, withSuspense } from '@/app/publicRoutes';
 import { getAdminBasePath } from '@/lib/env';
 import { AdminGuard } from '@/features/admin/AdminGuard';
 import { AdminDataLayout } from '@/features/admin/AdminDataLayout';
-
-const AdminLoginPage = lazy(() =>
-  import('@/pages/admin/AdminLoginPage').then((module) => ({
-    default: module.AdminLoginPage,
-  }))
-);
-const AdminDashboardPage = lazy(() =>
-  import('@/pages/admin/AdminDashboardPage').then((module) => ({
-    default: module.AdminDashboardPage,
-  }))
-);
-const AdminProfilePage = lazy(() =>
-  import('@/pages/admin/AdminDashboardPage').then((module) => ({
-    default: module.AdminProfilePage,
-  }))
-);
-const AdminCaseStudiesPage = lazy(() =>
-  import('@/pages/admin/AdminCaseStudiesPage').then((module) => ({
-    default: module.AdminCaseStudiesPage,
-  }))
-);
-const AdminCaseStudyEditPage = lazy(() =>
-  import('@/pages/admin/AdminCaseStudiesPage').then((module) => ({
-    default: module.AdminCaseStudyEditPage,
-  }))
-);
-const AdminTechnologiesPage = lazy(() =>
-  import('@/pages/admin/AdminContentPages').then((module) => ({
-    default: module.AdminTechnologiesPage,
-  }))
-);
-const AdminTimelinePage = lazy(() =>
-  import('@/pages/admin/AdminContentPages').then((module) => ({
-    default: module.AdminTimelinePage,
-  }))
-);
-const AdminPhilosophyPage = lazy(() =>
-  import('@/pages/admin/AdminContentPages').then((module) => ({
-    default: module.AdminPhilosophyPage,
-  }))
-);
-const AdminResumePage = lazy(() =>
-  import('@/pages/admin/AdminContentPages').then((module) => ({
-    default: module.AdminResumePage,
-  }))
-);
-const AdminTerminalPage = lazy(() =>
-  import('@/pages/admin/AdminContentPages').then((module) => ({
-    default: module.AdminTerminalPage,
-  }))
-);
-const AdminSubmissionsPage = lazy(() =>
-  import('@/pages/admin/AdminInboxPages').then((module) => ({
-    default: module.AdminSubmissionsPage,
-  }))
-);
-const AdminMediaPage = lazy(() =>
-  import('@/pages/admin/AdminInboxPages').then((module) => ({
-    default: module.AdminMediaPage,
-  }))
-);
-const AdminSiteContentPage = lazy(() =>
-  import('@/pages/admin/AdminSitePages').then((module) => ({
-    default: module.AdminSiteContentPage,
-  }))
-);
-const AdminSiteNavigationPage = lazy(() =>
-  import('@/pages/admin/AdminSitePages').then((module) => ({
-    default: module.AdminSiteNavigationPage,
-  }))
-);
-const AdminSiteCategoriesPage = lazy(() =>
-  import('@/pages/admin/AdminSitePages').then((module) => ({
-    default: module.AdminSiteCategoriesPage,
-  }))
-);
-const AdminSiteBrandPage = lazy(() =>
-  import('@/pages/admin/AdminSitePages').then((module) => ({
-    default: module.AdminSiteBrandPage,
-  }))
-);
-const AdminSiteSeoPage = lazy(() =>
-  import('@/pages/admin/AdminSitePages').then((module) => ({
-    default: module.AdminSiteSeoPage,
-  }))
-);
-const AdminSiteFlagsPage = lazy(() =>
-  import('@/pages/admin/AdminSitePages').then((module) => ({
-    default: module.AdminSiteFlagsPage,
-  }))
-);
-
-function AdminCaseStudyRoute() {
-  const { slug } = useParams();
-  return <AdminCaseStudyEditPage slug={slug === 'new' ? undefined : slug} />;
-}
 
 const adminBase = getAdminBasePath().replace(/^\//, '');
 

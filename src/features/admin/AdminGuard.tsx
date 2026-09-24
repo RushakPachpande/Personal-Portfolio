@@ -3,10 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import { getAdminBasePath } from '@/lib/env';
-
-export function isAdminSession(session: Session | null) {
-  return session?.user.app_metadata?.role === 'admin';
-}
+import { isAdminSession } from '@/features/admin/adminSession';
 
 export function AdminGuard({ children }: { children: ReactNode }) {
   const location = useLocation();
