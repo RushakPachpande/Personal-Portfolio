@@ -1,60 +1,60 @@
 # Graph Report - Personal Portfolio  (2026-09-24)
 
 ## Corpus Check
-- 188 files · ~322,373 words
+- 192 files · ~323,190 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 43 file(s) not represented in the graph (top: .mdc 33, (none) 4, .ttf 2)
+- Unclassified: 44 file(s) not represented in the graph (top: .mdc 34, (none) 4, .ttf 2)
 
 ## Summary
-- 1262 nodes · 2868 edges · 79 communities (69 shown, 10 thin omitted)
-- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 159 edges (avg confidence: 0.94)
+- 1273 nodes · 2879 edges · 89 communities (79 shown, 10 thin omitted)
+- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 161 edges (avg confidence: 0.95)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `304dbb92`
+- Built from commit: `b9053e90`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - portfolio-admin.ts
-- technologies.ts
-- terminal.ts
+- infrastructure.ts
+- site-config.ts
 - seed-portfolio.ts
-- PreviewWorkbench.tsx
-- usePortfolio
+- PreviewToolbar.tsx
+- cn
 - publicRoutes.tsx
 - package.json
-- ContactPanel.tsx
-- cn
-- Supabase Backend for Portfolio Monorepo
 - types/portfolio.ts
+- Navbar.tsx
+- Supabase Backend for Portfolio Monorepo
+- Portfolio UX Polish: Images, Typography, Terminal, Mobile
 - compilerOptions
 - components.json
 - dependencies
 - AppShell.tsx
-- lib/portfolio.ts
-- AdminSitePages.tsx
+- usePortfolio
+- technologies.ts
 - OverlayCard.tsx
 - scripts
-- supabase.ts
+- caseStudies/index.ts
 - compilerOptions
 - devDependencies
 - main.tsx
 - OverlayCard
-- AdminCaseStudiesPage.tsx
-- AdminInboxPages.tsx
+- CommandTerminal.tsx
+- react
 - Cut-corner overlay cards
-- AdminContentPages.tsx
+- AdminPhilosophyPage
 - AdminCaseStudyEditPage
 - V3 implementation plan
 - BootSequence.tsx
-- AdminDashboardPage.tsx
+- throwIfError
 - 20260827194842_portfolio_schema.sql
-- HeroSection.tsx
+- motion.ts
 - Rushak Pachpande Portfolio
-- Reveal.tsx
-- Admin media, guidance, preview, and motion
-- resume.ts
+- Reveal
+- terminal.ts
+- HomePage.tsx
 - .oxlintrc.json
 - Phased Full CMS + Platform Projects
 - tsconfig.json
@@ -62,18 +62,18 @@
 - 20260828200004_resume_files.sql
 - Rushak Pachpande Portfolio
 - ref_node_module
-- AppShell
+- Seo.tsx
 - public.case_studies
 - public.site_settings
 - Automation Content Update
 - Multi-Resume via Supabase Storage
 - Performance and public-site motion
 - Vite to Next.js (static export, exact clone)
-- load-app-env.ts
+- dedupe-portfolio-media.ts
 - strip-domain-and-agent-trace_f6c94bac.plan.md
 - Infrastructure & Operations Content Update
 - Overlay Card System Redesign
-- Phase 1 Portfolio Updates
+- CategoryWorkPage.tsx
 - Repo dead-code cleanup
 - vite.config.ts
 - Swap theme switch to the new reference
@@ -81,16 +81,24 @@
 - github-pages-deploy-cleanup_35327ced.plan.md
 - Portfolio V2 — Engineering Case Study Updates
 - Boot on hard refresh or after 30 minutes
-- dedupe-portfolio-media.ts
+- portfolio-public.ts
 - Fix Case Study Card Logos
 - GitHub Profile README Revamp
 - Sync GitHub Profile README to Portfolio Content
 - Smooth circle + knob slide (revised)
 - Sun–moon theme switch
-- Beautiful form-based Studio admin
-- PhilosophyGrid.tsx
+- Phase 1 Portfolio Updates
+- react-router-dom
+- prefetchPublicRoutes.ts
+- Newest-first timeline plus LevelUP and DISHA
+- 3. Draft public preview (exact look, isolated router)
+- Footer.tsx
+- Fixed Cards, Logo Dedupe, Motion
+- AdminTechnologiesPage
+- Chronological experience timeline
+- ScrollToTopButton.tsx
 - Readable boot pace and skip
-- philosophy.ts
+- DesktopNavDropdown
 
 ## God Nodes (most connected - your core abstractions)
 1. `cn()` - 106 edges
@@ -119,55 +127,55 @@
 ## Import Cycles
 - None detected.
 
-## Communities (79 total, 10 thin omitted)
+## Communities (89 total, 10 thin omitted)
 
 ### Community 0 - "portfolio-admin.ts"
+Cohesion: 0.19
+Nodes (20): fileFromDrop(), formatBytes(), ResumeFileRow(), ResumeFilesPanel(), onUpload(), refresh(), run(), resumeFilesQueryKey (+12 more)
+
+### Community 1 - "infrastructure.ts"
 Cohesion: 0.12
-Nodes (35): zod, mergeSiteConfig(), fileFromDrop(), formatBytes(), ResumeFileRow(), ResumeFilesPanel(), onUpload(), refresh() (+27 more)
+Nodes (22): src_assets_logos_brainpulses, src_assets_logos_disha, src_assets_logos_levelup, src_assets_logos_navdrishti, src_assets_logos_ngi_logo, src_assets_logos_personal_portfolio, src_assets_tech_azure, src_assets_tech_docker (+14 more)
 
-### Community 1 - "technologies.ts"
-Cohesion: 0.05
-Nodes (56): src_assets_logos_brainpulses, src_assets_logos_disha, src_assets_logos_levelup, src_assets_logos_navdrishti, src_assets_logos_ngi_logo, src_assets_logos_personal_portfolio, src_assets_tech_azure, src_assets_tech_docker (+48 more)
-
-### Community 2 - "terminal.ts"
-Cohesion: 0.06
-Nodes (49): src_assets_fonts_jetbrains_mono_nerd_jetbrainsmononerdfont_medium, src_assets_fonts_jetbrains_mono_nerd_jetbrainsmononerdfont_regular, Footer(), defaultNavStructure, flattenNav(), navItems, navStructure, ALLOWED_TOKEN_KEYS (+41 more)
+### Community 2 - "site-config.ts"
+Cohesion: 0.14
+Nodes (17): defaultNavStructure, navStructure, EngineeringAreaCard, NavGroupItem, NavItem, NavLinkItem, NavRoute, SiteBrandConfig (+9 more)
 
 ### Community 3 - "seed-portfolio.ts"
-Cohesion: 0.24
-Nodes (14): appEnv, isLocalAsset(), main(), maybeCreateAdmin(), mimeFor(), resolveMedia(), seedCaseStudies(), seedResume() (+6 more)
-
-### Community 4 - "PreviewWorkbench.tsx"
 Cohesion: 0.10
-Nodes (21): Behavior to keep, Design direction, Out of scope (on purpose), Studio Preview workbench, Verification, What feels unstructured today, DeviceChrome(), PreviewViewport() (+13 more)
+Nodes (28): appEnv, isLocalAsset(), main(), maybeCreateAdmin(), mimeFor(), resolveMedia(), seedCaseStudies(), seedResume() (+20 more)
 
-### Community 5 - "usePortfolio"
+### Community 4 - "PreviewToolbar.tsx"
+Cohesion: 0.06
+Nodes (41): Behavior to keep, Design direction, Out of scope (on purpose), Reusable module, Studio Preview workbench, Verification, What feels unstructured today, class-variance-authority (+33 more)
+
+### Community 5 - "cn"
 Cohesion: 0.14
-Nodes (21): 3. Make route changes overlap, not wait, Component-specific checks, ScrollFadeIn(), ScrollFadeProps, MagneticButton(), EngineeringAreas(), gradientIcons, EngineeringStats() (+13 more)
+Nodes (19): AnimatedCounter(), AnimatedCounterProps, RevealProps, SectionHeader(), SectionHeaderProps, TechBadge(), TechBadgeProps, Label() (+11 more)
 
 ### Community 6 - "publicRoutes.tsx"
-Cohesion: 0.08
-Nodes (21): High — navigation waits instead of overlapping, caseStudyLoader(), routeLoaders, AboutPage, AutomationPage, ExperiencePage, HomePage, InfrastructurePage (+13 more)
+Cohesion: 0.12
+Nodes (10): High — navigation waits instead of overlapping, AboutPage, CaseStudyRoutePage, ExperiencePage, HomePage, NotFoundPage, PhilosophyPage, PreviewPublicChrome() (+2 more)
 
 ### Community 7 - "package.json"
+Cohesion: 0.09
+Nodes (21): name, private, type, version, autoskills, clsx, @fontsource/jetbrains-mono, @fontsource-variable/inter (+13 more)
+
+### Community 8 - "types/portfolio.ts"
 Cohesion: 0.10
-Nodes (20): name, private, type, version, autoskills, clsx, @fontsource/jetbrains-mono, @fontsource-variable/inter (+12 more)
+Nodes (24): 5. Admin UI, 6. Remove the local copy, PortfolioDraft, ArchitectureNode, CaseStudyCategory, CaseStudyChallenge, CaseStudyDecision, CaseStudyLink (+16 more)
 
-### Community 8 - "ContactPanel.tsx"
-Cohesion: 0.18
-Nodes (12): ContactPage, ResumePage, Seo(), SeoProps, ContactPanel(), usePreviewMode(), absoluteUrl(), buildTitle() (+4 more)
-
-### Community 9 - "cn"
-Cohesion: 0.06
-Nodes (71): Reusable module, New files, class-variance-authority, lucide-react, radix-ui, react, react-router-dom, prefetchPublicRoute() (+63 more)
+### Community 9 - "Navbar.tsx"
+Cohesion: 0.07
+Nodes (37): 1. Unified Image / Logo Display, Create shared component, Wire up consumers, lucide-react, LightboxModal(), LightboxModalProps, LogoFrame(), LogoFrameProps (+29 more)
 
 ### Community 10 - "Supabase Backend for Portfolio Monorepo"
 Cohesion: 0.09
 Nodes (22): 10. Risks and mitigations, 1. Supabase project scaffolding, 2. Database schema (Postgres), 3. Storage buckets, 4. Seed all current static data, 5. Frontend data layer, 6. Admin panel (obscured CMS), 7. Dev workflow (+14 more)
 
-### Community 11 - "types/portfolio.ts"
-Cohesion: 0.05
-Nodes (42): 1. Unified Image / Logo Display, 2. Typography: Nerd Font + Readable Sizes, 3. Command Terminal Banner Fix, 4. Mobile Responsiveness Audit, Add JetBrains Mono Nerd Font, Create shared component, Files Changed (expected), Fixes (+34 more)
+### Community 11 - "Portfolio UX Polish: Images, Typography, Terminal, Mobile"
+Cohesion: 0.13
+Nodes (14): 2. Typography: Nerd Font + Readable Sizes, 3. Command Terminal Banner Fix, 4. Mobile Responsiveness Audit, Add JetBrains Mono Nerd Font, Files Changed (expected), Fixes, Modals / overlays, Out of Scope (noted for future) (+6 more)
 
 ### Community 12 - "compilerOptions"
 Cohesion: 0.09
@@ -182,28 +190,28 @@ Cohesion: 0.11
 Nodes (19): dependencies, class-variance-authority, clsx, @fontsource/jetbrains-mono, @fontsource-variable/inter, @fontsource-variable/space-grotesk, framer-motion, lucide-react (+11 more)
 
 ### Community 15 - "AppShell.tsx"
-Cohesion: 0.21
-Nodes (7): CommandTerminal, CursorGlow, KONAMI, useKonami(), restoreScroll(), scrollCache, useScrollRestoration()
+Cohesion: 0.19
+Nodes (10): High — first paint is gated, Parity strategy (the important decision), AppShell(), CursorGlow, PageRouteSkeleton(), AdminDataLayout(), KONAMI, useKonami() (+2 more)
 
-### Community 16 - "lib/portfolio.ts"
-Cohesion: 0.12
-Nodes (26): Implementation order, Shared UI, CaseStudyRoutePage, SiteConfigPathResolver, TechBanner(), TechBannerProps, CaseStudyCard(), CaseStudyCardProps (+18 more)
+### Community 16 - "usePortfolio"
+Cohesion: 0.15
+Nodes (25): Trim dead code inside live files, TechBanner(), TechBannerProps, CaseStudyPage(), CaseStudyPageProps, TOC, CaseStudyLink(), categoryOrder (+17 more)
 
-### Community 17 - "AdminSitePages.tsx"
-Cohesion: 0.16
-Nodes (16): AdminSiteBrandPage, AdminSiteCategoriesPage, AdminSiteContentPage, AdminSiteFlagsPage, AdminSiteNavigationPage, AdminSiteSeoPage, AdminSiteBrandPage(), AdminSiteCategoriesPage() (+8 more)
+### Community 17 - "technologies.ts"
+Cohesion: 0.10
+Nodes (20): src_assets_tech_git, src_assets_tech_github, src_assets_tech_githubactions, src_assets_tech_javascript, src_assets_tech_microsoft365, src_assets_tech_mongodb, src_assets_tech_openapi, src_assets_tech_postgresql (+12 more)
 
 ### Community 18 - "OverlayCard.tsx"
-Cohesion: 0.21
-Nodes (10): OverlayCardBanner(), OverlayCardProps, OverlayCardShell(), OverlayCardSize, OverlayCardStat, SurfaceCard(), SurfaceCardProps, CardGradientKey (+2 more)
+Cohesion: 0.19
+Nodes (11): OverlayCardBanner(), OverlayCardProps, OverlayCardShell(), OverlayCardSize, OverlayCardStat, SurfaceCardProps, CaseStudyCardProps, categoryGradients (+3 more)
 
 ### Community 19 - "scripts"
 Cohesion: 0.12
 Nodes (17): scripts, build, build:analyze, db:dedupe-media, db:dedupe-media:prod, db:push, db:reset, db:seed (+9 more)
 
-### Community 20 - "supabase.ts"
-Cohesion: 0.24
-Nodes (12): AdminGuard(), isAdminSession(), getAdminBasePath(), getSupabaseAnonKey(), getSupabaseUrl(), required(), MEDIA_BUCKET, RESUME_BUCKET (+4 more)
+### Community 20 - "caseStudies/index.ts"
+Cohesion: 0.17
+Nodes (13): caseStudies, defaultsByCategory, getCaseStudy(), getRelatedCaseStudies(), ArchitectureNode, CaseStudyCategory, CaseStudyChallenge, CaseStudyDecision (+5 more)
 
 ### Community 21 - "compilerOptions"
 Cohesion: 0.12
@@ -215,67 +223,67 @@ Nodes (16): devDependencies, autoskills, dotenv, oxlint, prettier, rollup-plugin
 
 ### Community 23 - "main.tsx"
 Cohesion: 0.06
-Nodes (38): Behavior, Files, Out of scope, Theme change blur-circle animation, Verify, 5a. Vite build splitting — [`vite.config.ts`](vite.config.ts), 5b. Split portfolio service, 5c. Lazy-load non-critical AppShell weight — [`src/app/AppShell.tsx`](src/app/AppShell.tsx) (+30 more)
+Nodes (38): Behavior, Files, Out of scope, Theme change blur-circle animation, Verify, 5a. Vite build splitting — [`vite.config.ts`](vite.config.ts), 5c. Lazy-load non-critical AppShell weight — [`src/app/AppShell.tsx`](src/app/AppShell.tsx), 5d. Font optimization — [`src/index.css`](src/index.css) (+30 more)
 
 ### Community 24 - "OverlayCard"
-Cohesion: 0.13
-Nodes (16): 3. Draft public preview (exact look, isolated router), Component migrations, Priority 1 — Case study cards (biggest visual win), Priority 2 — Home & category navigation cards, Priority 3 — SurfaceCard for content-heavy panels, Interaction (CSS, existing Tailwind / tw-animate), Medium — continuous work on the main thread, What is actually happening (+8 more)
+Cohesion: 0.12
+Nodes (19): Locked decisions, Lessons from the theme switch (apply here), Component migrations, Priority 1 — Case study cards (biggest visual win), Priority 2 — Home & category navigation cards, Priority 3 — SurfaceCard for content-heavy panels, Interaction (CSS, existing Tailwind / tw-animate), Medium — continuous work on the main thread (+11 more)
 
-### Community 25 - "AdminCaseStudiesPage.tsx"
-Cohesion: 0.11
-Nodes (28): Reusable field kit, 2. In-place control guidance, 5. Admin UI, AdminCaseStudiesPage, AdminCaseStudyEditPage, Textarea(), AdminSection(), AdminSectionProps (+20 more)
+### Community 25 - "CommandTerminal.tsx"
+Cohesion: 0.19
+Nodes (12): CommandTerminal, src_assets_fonts_jetbrains_mono_nerd_jetbrainsmononerdfont_medium, src_assets_fonts_jetbrains_mono_nerd_jetbrainsmononerdfont_regular, CommandTerminal(), CommandTerminalProps, lineStyles, buildTerminalWelcome(), completeTerminalInput() (+4 more)
 
-### Community 26 - "AdminInboxPages.tsx"
-Cohesion: 0.21
-Nodes (17): 1. Reusable media picker, @tanstack/react-query, AdminMediaPage, AdminSubmissionsPage, ImageField(), joinMediaPath(), MediaPicker(), onUpload() (+9 more)
+### Community 26 - "react"
+Cohesion: 0.05
+Nodes (87): Beautiful form-based Studio admin, Design direction, Out of scope, Page-by-page forms, Reusable field kit, 1. Reusable media picker, 2. In-place control guidance, react (+79 more)
 
 ### Community 27 - "Cut-corner overlay cards"
-Cohesion: 0.10
-Nodes (16): 1. OverlayCard redesign (fixed size, no blank-gap feel), 2. Supabase storage dedupe (new migration only), 3. Brand SVGs from svglogos.dev, 4. Animations + parallax, 5. Verification, Fixed Cards, Logo Dedupe, Motion, Locked decisions, Call-site mapping (same files, small prop adds) (+8 more)
+Cohesion: 0.22
+Nodes (8): Call-site mapping (same files, small prop adds), CSS placement, Cut-corner overlay cards, Out of scope, OverlayCard layout, SurfaceCard (chrome only), Verification (this is how the toggle slipped), What we are borrowing
 
-### Community 28 - "AdminContentPages.tsx"
-Cohesion: 0.11
-Nodes (30): adminBase, AdminLoginPage, AdminPhilosophyPage, AdminResumePage, AdminTechnologiesPage, AdminTerminalPage, AdminTimelinePage, AdminPhilosophyPage() (+22 more)
+### Community 28 - "AdminPhilosophyPage"
+Cohesion: 0.29
+Nodes (10): AdminPhilosophyPage(), save(), AdminResumePage(), save(), AdminTerminalPage(), save(), deletePhilosophyPillar(), replaceResumeData() (+2 more)
 
 ### Community 29 - "AdminCaseStudyEditPage"
-Cohesion: 0.47
-Nodes (6): AdminCaseStudyEditPage(), patch(), remove(), upload(), emptyStudy(), deleteCaseStudy()
+Cohesion: 0.24
+Nodes (12): mapTechnologyNameToId(), usedInSlugsFromCaseStudies(), AdminCaseStudyEditPage(), patch(), remove(), save(), upload(), emptyStudy() (+4 more)
 
 ### Community 30 - "V3 implementation plan"
 Cohesion: 0.12
 Nodes (16): 1) Technology branding system, 2) Premium tech badges + technology banner, 3) Interactive architecture visuals, 4) Rich statistics + timeline polish, 5) Rich cards and visual hierarchy upgrades, 6) Gallery + lightbox infrastructure, 7) Cross references + technology library page, 8) Footer upgrade (+8 more)
 
 ### Community 31 - "BootSequence.tsx"
-Cohesion: 0.31
-Nodes (9): BootSequence, BootSequenceProps, defaultSiteConfig, isBackForward(), isHardReload(), lastLoadAt(), navigationEntry(), prefersReducedMotion() (+1 more)
-
-### Community 32 - "AdminDashboardPage.tsx"
 Cohesion: 0.29
-Nodes (8): AdminDashboardPage, AdminProfilePage, src_features_admin_adminpreviewoverlay_adminpreviewoverlay, portfolioQueryKey, AdminProfilePage(), save(), upsertSiteProfile(), upsertSiteSettings()
+Nodes (10): BootSequence, BootSequence(), BootSequenceProps, defaultSiteConfig, isBackForward(), isHardReload(), lastLoadAt(), navigationEntry() (+2 more)
+
+### Community 32 - "throwIfError"
+Cohesion: 0.20
+Nodes (14): AdminTimelinePage(), save(), uploadTimelineLogo(), AdminProfilePage(), save(), AdminSubmissionsPage(), deleteContactSubmission(), deleteMediaFile() (+6 more)
 
 ### Community 33 - "20260827194842_portfolio_schema.sql"
 Cohesion: 0.18
 Nodes (9): public.case_studies, public.contact_submissions, public.philosophy_pillars, public.resume_sections, public.site_profile, public.site_settings, public.technologies, public.terminal_commands (+1 more)
 
-### Community 34 - "HeroSection.tsx"
-Cohesion: 0.19
-Nodes (11): framer-motion, AnimatedGrid(), GradientBlobs(), AnimatedCounter(), AnimatedCounterProps, easeOut, fadeIn, fadeUp (+3 more)
+### Community 34 - "motion.ts"
+Cohesion: 0.25
+Nodes (7): 4. Theme dropdown + CSS-first micro-motion, PageTransition(), easeOut, fadeIn, pageTransition, scaleIn, staggerContainer
 
 ### Community 35 - "Rushak Pachpande Portfolio"
 Cohesion: 0.12
 Nodes (15): Folder structure, Implementation phases, Information architecture, Key UX features, Out of scope for v1 (architecture only), Phase 1 — Foundation, Phase 2 — Content + core pages, Phase 3 — Motion + terminal + eggs (+7 more)
 
-### Community 36 - "Reveal.tsx"
-Cohesion: 0.15
-Nodes (17): Checks, Design, Implementation, Resume page visual revamp, What is wrong, Reveal(), RevealProps, SectionHeader() (+9 more)
+### Community 36 - "Reveal"
+Cohesion: 0.18
+Nodes (14): What is actually happening, Why motion “isn’t there”, Component-specific checks, Minimum readable size pass, Implementation, MediaCarousel(), Reveal(), Badge() (+6 more)
 
-### Community 37 - "Admin media, guidance, preview, and motion"
-Cohesion: 0.40
-Nodes (4): 4. Theme dropdown + CSS-first micro-motion, Admin media, guidance, preview, and motion, Verification, PageTransition()
+### Community 37 - "terminal.ts"
+Cohesion: 0.22
+Nodes (13): commandLookup(), executeTerminalCommand(), formatCertifications(), formatNavStructure(), out(), resolveTerminalInput(), TerminalCommand, terminalCommands (+5 more)
 
-### Community 38 - "resume.ts"
-Cohesion: 0.15
-Nodes (12): coreCompetencies, keyProjects, professionalExperience, ResumeCertificationGroup, resumeCertifications, resumeEducation, ResumeExperience, ResumeExpertiseGroup (+4 more)
+### Community 38 - "HomePage.tsx"
+Cohesion: 0.22
+Nodes (10): 3. Make route changes overlap, not wait, ScrollFadeIn(), ScrollFadeProps, EngineeringAreas(), gradientIcons, getFeaturedCaseStudies(), responsiveCardGridAutoClassName, responsiveCardGridThreeClassName (+2 more)
 
 ### Community 39 - ".oxlintrc.json"
 Cohesion: 0.33
@@ -294,32 +302,32 @@ Cohesion: 0.50
 Nodes (3): ImportMeta, ImportMetaEnv, *.ttf
 
 ### Community 44 - "Rushak Pachpande Portfolio"
-Cohesion: 0.17
-Nodes (11): Content, Deployment (GitHub Pages), Local development, One-time setup, Routes, Running a deploy, Rushak Pachpande Portfolio, Scripts (+3 more)
+Cohesion: 0.15
+Nodes (12): Content, Deployment (GitHub Pages), Local development, One-time setup, Routes, Running a deploy, Rushak Pachpande Portfolio, Scripts (+4 more)
 
-### Community 47 - "AppShell"
-Cohesion: 0.43
-Nodes (6): High — first paint is gated, AppShell(), AdminDataLayout(), AdminLayout(), signOut(), usePublicPortfolioQuery()
+### Community 47 - "Seo.tsx"
+Cohesion: 0.27
+Nodes (9): ResumePage, Seo(), SeoProps, usePreviewMode(), absoluteUrl(), buildTitle(), defaultDescription(), PageMeta (+1 more)
 
 ### Community 53 - "Automation Content Update"
 Cohesion: 0.18
 Nodes (10): 1. Replace `sharepoint-automations`, 2. Add IT Support Ticket Automation, 3. Remove `future-workflow-platform`, Automation Content Update, Concrete content draft, Current state → target, Explicit non-goals, Field mapping (prompt → `AutomationItem`) (+2 more)
 
 ### Community 54 - "Multi-Resume via Supabase Storage"
-Cohesion: 0.18
-Nodes (10): 1. New migration, 2. Public fetch, 3. Empty-state handling, 4. Admin service functions, 6. Remove the local copy, Current state, Data flow after the change, Multi-Resume via Supabase Storage (+2 more)
+Cohesion: 0.20
+Nodes (9): 1. New migration, 2. Public fetch, 3. Empty-state handling, 4. Admin service functions, Current state, Data flow after the change, Multi-Resume via Supabase Storage, Note (+1 more)
 
 ### Community 55 - "Performance and public-site motion"
 Cohesion: 0.18
 Nodes (10): 1. Stop blocking the public shell on the full dataset, 2. Shorten boot so it cannot sit in front of content, 4. Cheap GPU / input wins, Entry and scroll, Files (primary), Part 1 — Make it feel fast, Part 2 — Public motion that you can feel, Performance and public-site motion (+2 more)
 
 ### Community 56 - "Vite to Next.js (static export, exact clone)"
-Cohesion: 0.18
-Nodes (9): Constraints driving the design, Env, base path, SEO, Parity strategy (the important decision), Removing react-router without touching component internals, Routing map (file-based, 1:1 with today), Tooling, Verification before swap, Vite to Next.js (static export, exact clone) (+1 more)
+Cohesion: 0.25
+Nodes (7): Constraints driving the design, Env, base path, SEO, Removing react-router without touching component internals, Routing map (file-based, 1:1 with today), Tooling, Verification before swap, Vite to Next.js (static export, exact clone)
 
-### Community 57 - "load-app-env.ts"
-Cohesion: 0.22
-Nodes (7): dotenv, ref_node_fs, ref_node_path, ref_node_url, resolve(), loadAppEnv(), requestedEnv()
+### Community 57 - "dedupe-portfolio-media.ts"
+Cohesion: 0.15
+Nodes (12): dotenv, ref_node_fs, ref_node_path, ref_node_url, @supabase/supabase-js, resolve(), basename(), listAll() (+4 more)
 
 ### Community 58 - "strip-domain-and-agent-trace_f6c94bac.plan.md"
 Cohesion: 0.20
@@ -333,13 +341,13 @@ Nodes (8): 1. TrueNAS (`truenas-migration`), 2. Sophos VPN (`sophos-vpn`), Concr
 Cohesion: 0.22
 Nodes (8): 1. `OverlayCard` (new), 2. `SurfaceCard` (new), Design system: two card primitives, Files to create / change, Overlay Card System Redesign, Responsive behavior, Verification, Why the current design feels off
 
-### Community 61 - "Phase 1 Portfolio Updates"
-Cohesion: 0.22
-Nodes (8): Content model rewrite, Hardening, Information architecture, Out of scope, Phase 1 Portfolio Updates, Scope of change, Truthfulness rules (enforced in content), UI / feature changes
+### Community 61 - "CategoryWorkPage.tsx"
+Cohesion: 0.24
+Nodes (7): AutomationPage, InfrastructurePage, PlatformsPage, AutomationPage(), CategoryWorkPageProps, InfrastructurePage(), PlatformsPage()
 
 ### Community 62 - "Repo dead-code cleanup"
-Cohesion: 0.22
-Nodes (7): Check after edits, Delete (no importers), Leave in place, Repo dead-code cleanup, Trim dead code inside live files, Profile, SITE_VERSION
+Cohesion: 0.40
+Nodes (4): Check after edits, Delete (no importers), Leave in place, Repo dead-code cleanup
 
 ### Community 63 - "vite.config.ts"
 Cohesion: 0.22
@@ -365,9 +373,9 @@ Nodes (7): Homepage ([HomePage.tsx](src/pages/HomePage.tsx)), Information archit
 Cohesion: 0.29
 Nodes (6): Boot on hard refresh or after 30 minutes, Code, Storage, Verify, When to play, rememberDocumentLoad()
 
-### Community 69 - "dedupe-portfolio-media.ts"
-Cohesion: 0.38
-Nodes (6): Site URL and base path, @supabase/supabase-js, basename(), listAll(), main(), supabase
+### Community 69 - "portfolio-public.ts"
+Cohesion: 0.33
+Nodes (9): 5b. Split portfolio service, mergeSiteConfig(), publicResumeUrl(), toMediaPath(), fetchPublicPortfolio(), mapResume(), profileSchema, resolveCaseStudy() (+1 more)
 
 ### Community 70 - "Fix Case Study Card Logos"
 Cohesion: 0.33
@@ -389,33 +397,73 @@ Nodes (5): Files, Knob drift (left ↔ right), Page reveal, Smooth circle + knob
 Cohesion: 0.33
 Nodes (5): Behavior, Implementation (no styled-components), Sun–moon theme switch, Verify, Why mobile cannot toggle today
 
-### Community 75 - "Beautiful form-based Studio admin"
-Cohesion: 0.40
-Nodes (4): Beautiful form-based Studio admin, Design direction, Out of scope, Page-by-page forms
+### Community 75 - "Phase 1 Portfolio Updates"
+Cohesion: 0.22
+Nodes (8): Content model rewrite, Hardening, Information architecture, Out of scope, Phase 1 Portfolio Updates, Scope of change, Truthfulness rules (enforced in content), UI / feature changes
 
-### Community 77 - "Readable boot pace and skip"
+### Community 76 - "react-router-dom"
+Cohesion: 0.20
+Nodes (10): framer-motion, react-router-dom, AnimatedGrid(), GradientBlobs(), MagneticButton(), MagneticButtonProps, variantHoverClasses, ExperienceSnapshot() (+2 more)
+
+### Community 77 - "prefetchPublicRoutes.ts"
+Cohesion: 0.29
+Nodes (5): caseStudyLoader(), prefetchPublicRoute(), routeLoaders, TechnologyLibraryPage, DesktopNavLink()
+
+### Community 78 - "Newest-first timeline plus LevelUP and DISHA"
+Cohesion: 0.40
+Nodes (4): Database, Display, New cards, Newest-first timeline plus LevelUP and DISHA
+
+### Community 79 - "3. Draft public preview (exact look, isolated router)"
+Cohesion: 0.20
+Nodes (7): 3. Draft public preview (exact look, isolated router), Admin media, guidance, preview, and motion, Verification, ContactPage, Navbar(), ContactPanel(), PortfolioData
+
+### Community 80 - "Footer.tsx"
+Cohesion: 0.21
+Nodes (11): Footer(), MobileNavContent(), flattenNav(), navItems, ALLOWED_TOKEN_KEYS, isSafeCssValue(), SiteBrandApplier(), DevModeContext (+3 more)
+
+### Community 81 - "Fixed Cards, Logo Dedupe, Motion"
+Cohesion: 0.33
+Nodes (5): 1. OverlayCard redesign (fixed size, no blank-gap feel), 2. Supabase storage dedupe (new migration only), 3. Brand SVGs from svglogos.dev, 5. Verification, Fixed Cards, Logo Dedupe, Motion
+
+### Community 82 - "AdminTechnologiesPage"
+Cohesion: 0.60
+Nodes (5): AdminTechnologiesPage(), save(), uploadLogo(), deleteTechnology(), upsertTechnology()
+
+### Community 83 - "Chronological experience timeline"
+Cohesion: 0.50
+Nodes (3): Changes, Chronological experience timeline, New order (oldest at top)
+
+### Community 84 - "ScrollToTopButton.tsx"
+Cohesion: 0.31
+Nodes (7): 4. Animations + parallax, ScrollToTopButton(), usePrefersReducedMotion(), rememberScrollPosition(), restoreScroll(), scrollCache, useScrollRestoration()
+
+### Community 86 - "Readable boot pace and skip"
 Cohesion: 0.50
 Nodes (3): Pace (~2 seconds), Readable boot pace and skip, Skip
 
+### Community 87 - "DesktopNavDropdown"
+Cohesion: 0.67
+Nodes (4): DesktopNavDropdown(), isNavGroupActive(), isNavLinkActive(), isRouteActive()
+
 ## Knowledge Gaps
-- **453 isolated node(s):** `$schema`, `plugins`, `react/rules-of-hooks`, `react/only-export-components`, `$schema` (+448 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 549 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **458 isolated node(s):** `$schema`, `plugins`, `react/rules-of-hooks`, `react/only-export-components`, `$schema` (+453 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 556 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `react` connect `cn` to `portfolio-admin.ts`, `terminal.ts`, `PreviewWorkbench.tsx`, `usePortfolio`, `publicRoutes.tsx`, `package.json`, `ContactPanel.tsx`, `types/portfolio.ts`, `AppShell.tsx`, `lib/portfolio.ts`, `AdminSitePages.tsx`, `OverlayCard.tsx`, `supabase.ts`, `main.tsx`, `AdminCaseStudiesPage.tsx`, `AdminInboxPages.tsx`, `AdminContentPages.tsx`, `BootSequence.tsx`, `AdminDashboardPage.tsx`, `HeroSection.tsx`, `Reveal.tsx`?**
-  _High betweenness centrality (0.105) - this node is a cross-community bridge._
-- **Why does `cn()` connect `cn` to `HeroSection.tsx`, `terminal.ts`, `Reveal.tsx`, `usePortfolio`, `PreviewWorkbench.tsx`, `publicRoutes.tsx`, `types/portfolio.ts`, `PhilosophyGrid.tsx`, `lib/portfolio.ts`, `OverlayCard.tsx`, `OverlayCard`, `AdminCaseStudiesPage.tsx`, `AdminInboxPages.tsx`, `AdminCaseStudyEditPage`?**
+- **Why does `react` connect `react` to `portfolio-admin.ts`, `motion.ts`, `Reveal`, `cn`, `publicRoutes.tsx`, `package.json`, `HomePage.tsx`, `Navbar.tsx`, `PreviewToolbar.tsx`, `react-router-dom`, `AppShell.tsx`, `Footer.tsx`, `usePortfolio`, `OverlayCard.tsx`, `ScrollToTopButton.tsx`, `main.tsx`, `CommandTerminal.tsx`, `BootSequence.tsx`?**
+  _High betweenness centrality (0.107) - this node is a cross-community bridge._
+- **Why does `cn()` connect `cn` to `Reveal`, `PreviewToolbar.tsx`, `HomePage.tsx`, `Navbar.tsx`, `react-router-dom`, `prefetchPublicRoutes.ts`, `AppShell.tsx`, `Footer.tsx`, `3. Draft public preview (exact look, isolated router)`, `OverlayCard.tsx`, `usePortfolio`, `ScrollToTopButton.tsx`, `DesktopNavDropdown`, `OverlayCard`, `CommandTerminal.tsx`, `react`, `AdminCaseStudyEditPage`?**
   _High betweenness centrality (0.082) - this node is a cross-community bridge._
-- **Why does `usePortfolio()` connect `usePortfolio` to `AdminDashboardPage.tsx`, `terminal.ts`, `HeroSection.tsx`, `Reveal.tsx`, `PreviewWorkbench.tsx`, `publicRoutes.tsx`, `ContactPanel.tsx`, `PhilosophyGrid.tsx`, `lib/portfolio.ts`, `AdminSitePages.tsx`, `supabase.ts`, `OverlayCard`, `AdminCaseStudiesPage.tsx`, `AdminContentPages.tsx`, `AdminCaseStudyEditPage`?**
-  _High betweenness centrality (0.050) - this node is a cross-community bridge._
+- **Why does `usePortfolio()` connect `usePortfolio` to `throwIfError`, `Reveal`, `cn`, `HomePage.tsx`, `Navbar.tsx`, `react-router-dom`, `Seo.tsx`, `3. Draft public preview (exact look, isolated router)`, `Footer.tsx`, `OverlayCard.tsx`, `AdminTechnologiesPage`, `CategoryWorkPage.tsx`, `OverlayCard`, `CommandTerminal.tsx`, `react`, `AdminPhilosophyPage`, `AdminCaseStudyEditPage`?**
+  _High betweenness centrality (0.058) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `usePortfolio()` (e.g. with `3. Draft public preview (exact look, isolated router)` and `What is wrong`) actually correct?**
   _`usePortfolio()` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 3 inferred relationships involving `Button()` (e.g. with `Skip` and `Priority 1 — Case study cards (biggest visual win)`) actually correct?**
   _`Button()` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `$schema`, `plugins`, `react/rules-of-hooks` to the rest of the system?**
-  _453 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `portfolio-admin.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.12375533428165007 - nodes in this community are weakly interconnected._
+  _458 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `infrastructure.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.11965811965811966 - nodes in this community are weakly interconnected._

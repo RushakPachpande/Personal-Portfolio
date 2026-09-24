@@ -378,10 +378,10 @@
     "semantic_hash": "b57e53cef73263a21a50a74fd3cb2656"
   },
   "src/content/timeline.ts": {
-    "mtime": 1789494656.0806615,
-    "seen": 1790241574.1137812,
-    "ast_hash": "c644066bcae57ae09b84a41c848cb557",
-    "semantic_hash": "c644066bcae57ae09b84a41c848cb557"
+    "mtime": 1790252169.777934,
+    "seen": 1790252234.3946705,
+    "ast_hash": "e7c0f7c8c25dce18eb926d31cc1050cd",
+    "semantic_hash": ""
   },
   "src/features/admin/AdminDataLayout.tsx": {
     "mtime": 1787945805.1924088,
@@ -588,10 +588,10 @@
     "semantic_hash": "50f39c33314eae43f5068a2706348690"
   },
   "src/features/resume/ResumePreview.tsx": {
-    "mtime": 1789492118.8775196,
-    "seen": 1790241574.1137812,
-    "ast_hash": "47d87334575f071e2d821301a63cb0dd",
-    "semantic_hash": "47d87334575f071e2d821301a63cb0dd"
+    "mtime": 1790251242.8612924,
+    "seen": 1790252234.3946705,
+    "ast_hash": "16bddf5def078cfe81cef30b523586a1",
+    "semantic_hash": ""
   },
   "src/features/technology-library/TechnologyLibraryGrid.tsx": {
     "mtime": 1789492118.3786025,
@@ -780,10 +780,10 @@
     "semantic_hash": "da3c5c720e60a8a0615ea10893c82210"
   },
   "src/pages/ResumePage.tsx": {
-    "mtime": 1787945806.9960732,
-    "seen": 1790241574.1137812,
-    "ast_hash": "b56b3a43782bb2568a384bccf9794f64",
-    "semantic_hash": "b56b3a43782bb2568a384bccf9794f64"
+    "mtime": 1790247103.6164424,
+    "seen": 1790247375.593313,
+    "ast_hash": "f7f76c93b09e5c8f6bea924e1e5bf4c5",
+    "semantic_hash": ""
   },
   "src/pages/SiteConfigPathResolver.tsx": {
     "mtime": 1790238195.2914667,
@@ -922,5 +922,425 @@
     "seen": 1790241574.1137812,
     "ast_hash": "13ce16e3ef52d9f5d63c44fc45aa60c1",
     "semantic_hash": "13ce16e3ef52d9f5d63c44fc45aa60c1"
+  },
+  ".cursor/plans/admin_form_ui_ca2c7aae.plan.md": {
+    "mtime": 1787940435.3828628,
+    "seen": 1790247375.5943117,
+    "ast_hash": "6dd8b2d5cbd0b71cffbdcd0442b8dce7",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/admin_media_preview_motion_6fb1bc55.plan.md": {
+    "mtime": 1787940435.3838656,
+    "seen": 1790247375.5943117,
+    "ast_hash": "39c9c5f45e6ccc9cb7a2cb93d28f64b4",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/automation_content_update_4863ad62.plan.md": {
+    "mtime": 1785392645.647786,
+    "seen": 1790247375.5943117,
+    "ast_hash": "9a67beb1e087185a0593463dc8d9f7c0",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/boot_pace_and_skip_4661483f.plan.md": {
+    "mtime": 1787945621.0089228,
+    "seen": 1790247375.5943117,
+    "ast_hash": "afe3333b49f563f35a4c2b8915304fb5",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/boot_replay_rules_3fc4b890.plan.md": {
+    "mtime": 1787945621.0099258,
+    "seen": 1790247375.5943117,
+    "ast_hash": "593b033be271103f069aae2305afd571",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/cards_logos_motion_ad3a6483.plan.md": {
+    "mtime": 1789492792.6919456,
+    "seen": 1790247375.5943117,
+    "ast_hash": "649f23dfd7675cd9986c83e7ee561d57",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/cut-corner_overlay_cards_b1e61c53.plan.md": {
+    "mtime": 1787945621.0109313,
+    "seen": 1790247375.5943117,
+    "ast_hash": "62a5038983b69d65853dd03a26e2ae7f",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/fix_case_study_logos_d631f548.plan.md": {
+    "mtime": 1789497458.3938425,
+    "seen": 1790247375.5943117,
+    "ast_hash": "992cabab86fba01d935f78d634d20740",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/github-pages-deploy-cleanup_35327ced.plan.md": {
+    "mtime": 1787953111.50717,
+    "seen": 1790247375.5943117,
+    "ast_hash": "1aab7ea1bc8c461e5d728bb44b69b257",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/github-profile-readme-revamp_33f24766.plan.md": {
+    "mtime": 1787955421.2738361,
+    "seen": 1790247375.5943117,
+    "ast_hash": "abd52fffd879476d2ecb45c9163ede55",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/infra_initiatives_content_3aa132c8.plan.md": {
+    "mtime": 1785391623.720907,
+    "seen": 1790247375.5943117,
+    "ast_hash": "0712681d849b1dfc369b308f60b18a24",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/multi-resume_supabase_131aeb5e.plan.md": {
+    "mtime": 1787947544.5758016,
+    "seen": 1790247375.5943117,
+    "ast_hash": "e92a468100062dbdfa165606b8f95a27",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/overlay_card_redesign_11d10c87.plan.md": {
+    "mtime": 1787857422.9372482,
+    "seen": 1790247375.5943117,
+    "ast_hash": "76fc611856b69ab285a7058108304ca6",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/perf_and_motion_7c550267.plan.md": {
+    "mtime": 1787940435.3848648,
+    "seen": 1790247375.5943117,
+    "ast_hash": "647a4deb9e4323381cb48d3d6bd8d2d5",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/phase_1_portfolio_updates_b12c11bb.plan.md": {
+    "mtime": 1785353995.964295,
+    "seen": 1790247375.5943117,
+    "ast_hash": "787ec8987fa2668582f8bada134010c2",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/phased_full_cms_1f848a8e.plan.md": {
+    "mtime": 1789501775.3887954,
+    "seen": 1790247375.5943117,
+    "ast_hash": "b139e0d8c68e1273df0a8665baf5da25",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/portfolio_ux_polish_83636f45.plan.md": {
+    "mtime": 1787857422.9372482,
+    "seen": 1790247375.5943117,
+    "ast_hash": "20006a56ad18997a4402ba1878b7ec05",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/portfolio_v2_case_studies_4d6635f7.plan.md": {
+    "mtime": 1785398305.4052892,
+    "seen": 1790247375.5943117,
+    "ast_hash": "296f3021f95160ddc969553a4e1109dd",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/portfolio_v3_premium_experience_df636298.plan.md": {
+    "mtime": 1787857422.9382424,
+    "seen": 1790247375.5943117,
+    "ast_hash": "c6b4dcc03bca5dfb66a802ca701da0d6",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/readme-content-resync_e7df80b7.plan.md": {
+    "mtime": 1789622220.5214534,
+    "seen": 1790247375.5943117,
+    "ast_hash": "eb162f756c27cdda43b8648de4d67b9a",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/repo_dead-code_cleanup_b35bd399.plan.md": {
+    "mtime": 1790238187.2266235,
+    "seen": 1790247375.5943117,
+    "ast_hash": "dae72ca92e9637739f97ab7774b13ce1",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/resume_page_revamp_098cbf93.plan.md": {
+    "mtime": 1790247392.1226816,
+    "seen": 1790248200.8550496,
+    "ast_hash": "253e536637d96231aae677884617b82d",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/rushak_portfolio_site_e7274e8c.plan.md": {
+    "mtime": 1785350631.4032822,
+    "seen": 1790247375.5943117,
+    "ast_hash": "c8a84fc447cd8cb6b37e4f0183cd8ca8",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/smooth_theme_motion_9460e39b.plan.md": {
+    "mtime": 1787945621.011932,
+    "seen": 1790247375.5943117,
+    "ast_hash": "fa03bb4097dc162f5a3862e4259c3792",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/strip-domain-and-agent-trace_f6c94bac.plan.md": {
+    "mtime": 1787954501.9197626,
+    "seen": 1790247375.5943117,
+    "ast_hash": "f34a5699e5b78f99ee9cdde01e960969",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/studio_preview_workbench_55ffa0bc.plan.md": {
+    "mtime": 1787940435.3858647,
+    "seen": 1790247375.5943117,
+    "ast_hash": "369b85254940eb5a08403418bbe7705d",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/supabase_backend_integration_e0d6e53a.plan.md": {
+    "mtime": 1787940435.3868606,
+    "seen": 1790247375.5943117,
+    "ast_hash": "ac02b2912ab3650d3f3d80745dca1f77",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/switch_toggle_reference_9c111971.plan.md": {
+    "mtime": 1787945621.0129275,
+    "seen": 1790247375.5943117,
+    "ast_hash": "e97ed8f91a21a410fad98b0e7c9f05a4",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/theme_blur_circle_6a6a5b71.plan.md": {
+    "mtime": 1787945621.0139246,
+    "seen": 1790247375.5943117,
+    "ast_hash": "f8210ed1d6b60f409bc98da4b17bbb3e",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/theme_switch_control_7ef581d9.plan.md": {
+    "mtime": 1787940435.3878593,
+    "seen": 1790247375.5943117,
+    "ast_hash": "e7f50470bd0e86d8869d8a4bb2b4fe10",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/theme_toggle_and_optimization_ac122b34.plan.md": {
+    "mtime": 1787940435.3888626,
+    "seen": 1790247375.5943117,
+    "ast_hash": "625e651740ef0584390c265431f14e48",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/vite_to_next_static_88559427.plan.md": {
+    "mtime": 1787960711.758541,
+    "seen": 1790247375.5943117,
+    "ast_hash": "cc9c4e3959243af0efa1e8ee0dcc0eec",
+    "semantic_hash": ""
+  },
+  ".github/workflows/deploy.yml": {
+    "mtime": 1787954286.9806428,
+    "seen": 1790247375.5943117,
+    "ast_hash": "fec262ab484224181db0253a00164331",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1787954325.1079502,
+    "seen": 1790247375.5943117,
+    "ast_hash": "18811c10d6adc03b58a17e3ffed7a4ec",
+    "semantic_hash": ""
+  },
+  "index.html": {
+    "mtime": 1787945803.541075,
+    "seen": 1790247375.5943117,
+    "ast_hash": "bc0a476658d2a2cd3011de23ac0e086e",
+    "semantic_hash": ""
+  },
+  "public/robots.txt": {
+    "mtime": 1787940435.408383,
+    "seen": 1790247375.5943117,
+    "ast_hash": "89ab4fa45d01e114a9b04e1e9df26331",
+    "semantic_hash": ""
+  },
+  "src/assets/fonts/jetbrains-mono-nerd/OFL.txt": {
+    "mtime": 1787857423.0191083,
+    "seen": 1790247375.5943117,
+    "ast_hash": "c41c88a23881d1deb1afd7c2938310c4",
+    "semantic_hash": ""
+  },
+  "src/assets/fonts/jetbrains-mono-nerd/README.md": {
+    "mtime": 1787945804.0369737,
+    "seen": 1790247375.5943117,
+    "ast_hash": "f6d1141fb3b1a821d319766eab2ae4af",
+    "semantic_hash": ""
+  },
+  "public/favicon.svg": {
+    "mtime": 1787959825.20148,
+    "seen": 1790247375.5943117,
+    "ast_hash": "0986432f0c42b74dc90d3928b27f37bb",
+    "semantic_hash": ""
+  },
+  "src/assets/logos/ASM-Logo.png": {
+    "mtime": 1757479936.0,
+    "seen": 1790247375.5943117,
+    "ast_hash": "2530a45f612d0155aca8ce9716816162",
+    "semantic_hash": ""
+  },
+  "src/assets/logos/ASM-WhiteBG.png": {
+    "mtime": 1757479943.0,
+    "seen": 1790247375.5943117,
+    "ast_hash": "8fcac937cbf9877adb37aa118d7dd5e8",
+    "semantic_hash": ""
+  },
+  "src/assets/logos/NGI Logo.png": {
+    "mtime": 1746275439.0,
+    "seen": 1790247375.5943117,
+    "ast_hash": "ead0df944eaf3c343c98d2191d139661",
+    "semantic_hash": ""
+  },
+  "src/assets/logos/NGI Small Logo with Black BG.png": {
+    "mtime": 1749732495.0,
+    "seen": 1790247375.5943117,
+    "ast_hash": "a9d26a538c833d0c05f530cbe2ba96a0",
+    "semantic_hash": ""
+  },
+  "src/assets/logos/brainpulses.png": {
+    "mtime": 1709361010.0,
+    "seen": 1790247375.5943117,
+    "ast_hash": "cf41c98d11f10bd660ce78845588f6c2",
+    "semantic_hash": ""
+  },
+  "src/assets/logos/disha.png": {
+    "mtime": 1757479936.0,
+    "seen": 1790247375.5943117,
+    "ast_hash": "2530a45f612d0155aca8ce9716816162",
+    "semantic_hash": ""
+  },
+  "src/assets/logos/levelup.png": {
+    "mtime": 1785914526.734355,
+    "seen": 1790247375.5943117,
+    "ast_hash": "1aa880bd7aaf4fbd1ec58bcaa16253f2",
+    "semantic_hash": ""
+  },
+  "src/assets/logos/navdrishti.png": {
+    "mtime": 1771668171.0,
+    "seen": 1790247375.5943117,
+    "ast_hash": "659b5d89e33c309fde195f3cee6a68a6",
+    "semantic_hash": ""
+  },
+  "src/assets/logos/personal-portfolio.svg": {
+    "mtime": 1787959825.20148,
+    "seen": 1790247375.5943117,
+    "ast_hash": "0986432f0c42b74dc90d3928b27f37bb",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/azure.svg": {
+    "mtime": 1789492381.3315825,
+    "seen": 1790247375.5943117,
+    "ast_hash": "a518c343c6ad91fbb1f1356679098850",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/docker.svg": {
+    "mtime": 1789492380.926245,
+    "seen": 1790247375.5943117,
+    "ast_hash": "589dd3984c875f03e274f555b3ad6e78",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/git.svg": {
+    "mtime": 1789492381.1080737,
+    "seen": 1790247375.5943117,
+    "ast_hash": "64d5e98f1a220cdcad2b1a70d52ab669",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/github.svg": {
+    "mtime": 1789492379.3416066,
+    "seen": 1790247375.5943117,
+    "ast_hash": "0255bf2cd6e42c2fdbe2e189e418929f",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/githubactions.svg": {
+    "mtime": 1789492379.514709,
+    "seen": 1790247375.5943117,
+    "ast_hash": "08ff51b550d054d64a5c82673161f90a",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/javascript.svg": {
+    "mtime": 1789492380.5471354,
+    "seen": 1790247375.5943117,
+    "ast_hash": "87711407412494d529d45ee76167583c",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/linux.svg": {
+    "mtime": 1789492381.564562,
+    "seen": 1790247375.5943117,
+    "ast_hash": "2e82d079f8bc66df87636c7bb8f8ab7c",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/microsoft.svg": {
+    "mtime": 1789492381.6219141,
+    "seen": 1790247375.5943117,
+    "ast_hash": "f7f1cb2a584098f397ff4ac9eca4a455",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/microsoft365.svg": {
+    "mtime": 1789492378.2336717,
+    "seen": 1790247375.5943117,
+    "ast_hash": "808e1c982988329674397233d9a1b75f",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/mongodb.svg": {
+    "mtime": 1789492382.043901,
+    "seen": 1790247375.5943117,
+    "ast_hash": "d7c284a4de063b68f070e4a907643101",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/n8n.svg": {
+    "mtime": 1789492381.2734368,
+    "seen": 1790247375.5943117,
+    "ast_hash": "6aab1018637616cc6795da337aa81605",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/openapi.svg": {
+    "mtime": 1789492378.9954512,
+    "seen": 1790247375.5943117,
+    "ast_hash": "c7c810ed8d15bf9c38835d0be731d9d6",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/outlook.svg": {
+    "mtime": 1787857423.0266407,
+    "seen": 1790247375.5943117,
+    "ast_hash": "141e2d104605de03c0a59f6eac1bcadd",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/postgresql.svg": {
+    "mtime": 1789492380.2395287,
+    "seen": 1790247375.5943117,
+    "ast_hash": "f16a2cda4a160e5aafbab5f2aa49c526",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/react.svg": {
+    "mtime": 1789492380.050295,
+    "seen": 1790247375.5943117,
+    "ast_hash": "9a28da9f2a3fa419eb399e49f98cda39",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/sharepoint.svg": {
+    "mtime": 1787857423.0286398,
+    "seen": 1790247375.5943117,
+    "ast_hash": "4cd7210c5ec23c1d8cd5a42dd2c02efb",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/shield.svg": {
+    "mtime": 1787857423.0286398,
+    "seen": 1790247375.5943117,
+    "ast_hash": "3b2b87ed8e9ace17698d9bc421301443",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/supabase.svg": {
+    "mtime": 1789498074.8560643,
+    "seen": 1790247375.5943117,
+    "ast_hash": "394d0fcc09331b486539618d5a23d293",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/truenas.svg": {
+    "mtime": 1787857423.0296412,
+    "seen": 1790247375.5943117,
+    "ast_hash": "95a2923539323f4b170a51b0f863e46c",
+    "semantic_hash": ""
+  },
+  "src/assets/tech/typescript.svg": {
+    "mtime": 1789492381.5083685,
+    "seen": 1790247375.5943117,
+    "ast_hash": "e4e764a2c525f353833ba4abc57c61ef",
+    "semantic_hash": ""
+  },
+  "supabase/migrations/20260924121632_reorder_timeline_chronological.sql": {
+    "mtime": 1790252202.5961747,
+    "seen": 1790252234.3946705,
+    "ast_hash": "c734de984e0a32a3362222f9c65500fb",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/chronological_timeline_order_fedb9527.plan.md": {
+    "mtime": 1790252172.9924111,
+    "seen": 1790252234.3946705,
+    "ast_hash": "a85a5f7f9ac4d60aec0aa6b2a0e56caa",
+    "semantic_hash": ""
   }
 }

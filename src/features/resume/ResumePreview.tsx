@@ -165,9 +165,9 @@ export function ResumePreview() {
         </div>
         <div className="flex flex-col gap-3">
           <h3 className="font-display text-base font-semibold">Highlights</h3>
-          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-x-8 gap-y-1.5 marker:text-muted-foreground sm:grid-cols-2">
             {resumeHighlights.map((highlight) => (
-              <li key={highlight.id} className="font-medium">
+              <li key={highlight.id} className="list-disc pl-5 font-medium">
                 {highlight.label}
               </li>
             ))}

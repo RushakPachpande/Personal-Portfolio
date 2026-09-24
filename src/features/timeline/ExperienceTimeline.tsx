@@ -12,6 +12,7 @@ const typeLabel = {
 
 export function ExperienceTimeline() {
   const { timeline } = usePortfolio();
+  const timelineNewestFirst = [...timeline].reverse();
   const initiativePoints = [
     'Navdrishti',
     'BrainPulses',
@@ -57,7 +58,7 @@ export function ExperienceTimeline() {
           aria-hidden
           className="absolute top-2 bottom-2 left-2.75 w-px bg-linear-to-b from-electric-blue via-deep-purple to-soft-cyan opacity-50"
         />
-        {timeline.map((item, index) => (
+        {timelineNewestFirst.map((item, index) => (
           <Reveal key={item.id} delay={index * 0.05}>
             <li className="relative pl-12">
               <span
