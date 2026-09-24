@@ -8,6 +8,7 @@ import type { TechnologyCategory } from '@/types/portfolio';
 import { usePortfolio } from '@/hooks/usePortfolio';
 import { OverlayCard } from '@/components/cards/OverlayCard';
 import { Reveal, SectionHeader } from '@/components/shared/Reveal';
+import { TechLogo } from '@/components/tech/TechLogo';
 import { cn, responsiveCardGridCompactClassName } from '@/lib/utils';
 
 const categoryOrder: TechnologyCategory[] = [
@@ -66,10 +67,15 @@ export function TechnologyLibraryGrid() {
                         size="compact"
                         eyebrow={technologyCategories[technology.category]}
                         title={technology.name}
-                        heroImage={{
-                          src: technology.logo,
-                          alt: `${technology.name} logo`,
-                        }}
+                        hero={
+                          <TechLogo
+                            technologyId={technology.id}
+                            logo={technology.logo}
+                            logoDark={technology.logoDark}
+                            name={technology.name}
+                            className="max-h-[85%] max-w-[85%]"
+                          />
+                        }
                         body={
                           <>
                             <p className="text-sm text-muted-foreground text-pretty">

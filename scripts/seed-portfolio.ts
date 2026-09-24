@@ -124,16 +124,25 @@ async function seedTechnologies() {
   const usage = usedInSlugsFromCaseStudies(caseStudies);
   const rows = [];
   for (const [index, technology] of technologies.entries()) {
-    const ext = path.extname(technology.logo) || '.svg';
-    const logoPath = await resolveMedia(
-      technology.logo,
-      `tech/${technology.id}${ext}`
-    );
+    const ext = path.extname(
+      typeof technology.logo === 'string' ? technology.logo : '.svg'
+    ) || '.svg';
+    const hasThemePair = Boolean(technology.logoDark);
+    const lightDest = hasThemePair
+      ? `tech/${technology.id}-light.svg`
+      : `tech/${technology.id}${ext}`;
+    const logoPath = await resolveMedia(technology.logo, lightDest);
+    if (technology.logoDark) {
+      await resolveMedia(
+        technology.logoDark,
+        `tech/${technology.id}-dark.svg`
+      );
+    }
     rows.push({
       id: technology.id,
       name: technology.name,
       category: technology.category,
-      logo_path: logoPath ?? `tech/${technology.id}${ext}`,
+      logo_path: logoPath ?? lightDest,
       description: technology.description,
       used_in_slugs: usage[technology.id] ?? technology.usedInSlugs,
       sort_order: index,

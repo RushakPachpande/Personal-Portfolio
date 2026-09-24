@@ -174,15 +174,23 @@ export async function fetchPublicPortfolio(): Promise<PortfolioData> {
         category: row.category as CaseStudyCategory,
       })
     ),
-    technologies: (techRes.data ?? []).map((row) => ({
-      id: row.id,
-      name: row.name,
-      category: row.category as TechnologyCategory,
-      logoPath: row.logo_path,
-      logo: publicMediaUrl(row.logo_path),
-      description: row.description,
-      usedInSlugs: row.used_in_slugs ?? [],
-    })),
+    technologies: (techRes.data ?? []).map((row) => {
+      const logoPath = row.logo_path;
+      const logoDarkPath = logoPath.includes('-light.')
+        ? logoPath.replace('-light.', '-dark.')
+        : undefined;
+      return {
+        id: row.id,
+        name: row.name,
+        category: row.category as TechnologyCategory,
+        logoPath,
+        logoDarkPath,
+        logo: publicMediaUrl(logoPath),
+        logoDark: logoDarkPath ? publicMediaUrl(logoDarkPath) : undefined,
+        description: row.description,
+        usedInSlugs: row.used_in_slugs ?? [],
+      };
+    }),
     timeline: (timelineRes.data ?? []).map((row) => {
       const data = row.data as TimelineItem;
       const logoPath = data.logoPath || data.logo;

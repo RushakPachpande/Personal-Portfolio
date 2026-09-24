@@ -17,6 +17,7 @@ import { SurfaceCard } from '@/components/cards/SurfaceCard';
 import { Reveal } from '@/components/shared/Reveal';
 import { RelatedCaseStudies } from './CaseStudyGrid';
 import { TechBanner } from '@/components/tech/TechBanner';
+import { TechLogo } from '@/components/tech/TechLogo';
 import { ArchitectureFlow } from './ArchitectureFlow';
 import { LogoFrame } from '@/components/media/LogoFrame';
 import { MediaCarousel } from '@/components/media/MediaCarousel';
@@ -310,10 +311,12 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                           key={technology.id}
                           className="inline-flex items-center gap-2 rounded-md border border-border px-2 py-1 text-xs text-muted-foreground"
                         >
-                          <img
-                            src={technology.logo}
-                            alt={`${technology.name} logo`}
-                            className="size-3.5 rounded-sm object-contain"
+                          <TechLogo
+                            technologyId={technology.id}
+                            logo={technology.logo}
+                            logoDark={technology.logoDark}
+                            name={technology.name}
+                            className="size-3.5 rounded-sm"
                           />
                           {technology.name}
                         </span>

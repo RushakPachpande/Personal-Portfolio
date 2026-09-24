@@ -144,7 +144,10 @@ export type Technology = {
   name: string;
   category: TechnologyCategory;
   logo: string;
+  /** Dark-theme mark when SVGL (or seed) provides a pair. */
+  logoDark?: string;
   logoPath: string;
+  logoDarkPath?: string;
   description: string;
   usedInSlugs: string[];
 };

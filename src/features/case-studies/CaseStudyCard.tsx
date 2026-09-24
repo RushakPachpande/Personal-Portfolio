@@ -10,6 +10,7 @@ import {
   type OverlayCardStat,
 } from '@/components/cards/OverlayCard';
 import { Reveal } from '@/components/shared/Reveal';
+import { TechLogo } from '@/components/tech/TechLogo';
 import type { CardGradientKey } from '@/lib/cardGradients';
 import { cn } from '@/lib/utils';
 
@@ -89,13 +90,14 @@ export function CaseStudyCard({
             {techItems.length > 0 ? (
               <div className="flex h-7 shrink-0 flex-wrap items-center gap-1.5 overflow-hidden">
                 {techItems.map((technology) => (
-                  <img
+                  <TechLogo
                     key={technology.id}
-                    src={technology.logo}
-                    alt={`${technology.name} logo`}
+                    technologyId={technology.id}
+                    logo={technology.logo}
+                    logoDark={technology.logoDark}
+                    name={technology.name}
                     title={technology.name}
-                    className="size-6 rounded-sm object-contain opacity-90 transition-opacity group-hover/card:opacity-100 sm:size-7"
-                    loading="lazy"
+                    className="size-6 rounded-sm opacity-90 transition-opacity group-hover/card:opacity-100 sm:size-7"
                   />
                 ))}
                 {overflowCount > 0 ? (
