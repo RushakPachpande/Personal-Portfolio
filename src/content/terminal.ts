@@ -251,7 +251,7 @@ export function executeTerminalCommand(
     const list = getCaseStudiesByCategory(caseStudies, 'platform')
       .map(
         (study) =>
-          `  • ${study.name}${study.status ? ` — ${study.status}` : ''}`
+          `  • ${study.name}${study.status ? ` - ${study.status}` : ''}`
       )
       .join('\n');
     return {
@@ -264,7 +264,7 @@ export function executeTerminalCommand(
     const list = getCaseStudiesByCategory(caseStudies, 'infrastructure')
       .map(
         (study) =>
-          `  • ${study.name}${study.status ? ` — ${study.status}` : ''}`
+          `  • ${study.name}${study.status ? ` - ${study.status}` : ''}`
       )
       .join('\n');
     return {
@@ -277,7 +277,7 @@ export function executeTerminalCommand(
     const list = getCaseStudiesByCategory(caseStudies, 'automation')
       .map(
         (study) =>
-          `  • ${study.name}${study.status ? ` — ${study.status}` : ''}`
+          `  • ${study.name}${study.status ? ` - ${study.status}` : ''}`
       )
       .join('\n');
     return {
@@ -294,7 +294,7 @@ export function executeTerminalCommand(
     return {
       lines: [
         out(
-          `Technology library — ${technologies.length} tools across frontend, cloud, automation, and enterprise.\nPreview: ${preview}…`
+          `Technology library - ${technologies.length} tools across frontend, cloud, automation, and enterprise.\nPreview: ${preview}…`
         ),
       ],
       navigate: '/technology-library',
@@ -305,7 +305,7 @@ export function executeTerminalCommand(
     return {
       lines: [
         out(
-          'Opening experience timeline — career, education, and major deployments.'
+          'Opening experience timeline - career, education, and major deployments.'
         ),
       ],
       navigate: '/experience',
@@ -316,7 +316,7 @@ export function executeTerminalCommand(
     return {
       lines: [
         out(
-          'Opening engineering philosophy — ownership, production mindset, and learning.'
+          'Opening engineering philosophy - ownership, production mindset, and learning.'
         ),
       ],
       navigate: '/philosophy',
@@ -398,7 +398,7 @@ export function executeTerminalCommand(
           resume.highlights
             .map(
               (item) =>
-                `  ▹ ${item.label}${item.detail ? ` — ${item.detail}` : ''}`
+                `  ▹ ${item.label}${item.detail ? ` - ${item.detail}` : ''}`
             )
             .join('\n')
         ),
@@ -418,7 +418,7 @@ export function executeTerminalCommand(
           stats
             .map(
               (stat) =>
-                `  ${stat.label.padEnd(24)} ${stat.value}${stat.suffix ?? ''}  — ${stat.description}`
+                `  ${stat.label.padEnd(24)} ${stat.value}${stat.suffix ?? ''}  - ${stat.description}`
             )
             .join('\n')
         ),
@@ -524,7 +524,7 @@ export function executeTerminalCommand(
     return {
       lines: [
         out(
-          `${profile.shortName.toLowerCase()} — ${profile.role.toLowerCase()}\nOwns business problems through architecture, delivery, automation, and production.`
+          `${profile.shortName.toLowerCase()} - ${profile.role.toLowerCase()}\nOwns business problems through architecture, delivery, automation, and production.`
         ),
       ],
     };

@@ -1,6 +1,6 @@
 ---
 name: Admin Form UI
-overview: Replace every JSON textarea in Studio with labeled forms, image previews, and list editors that match the public site’s dark engineering look—so content can be edited without touching JSON.
+overview: Replace every JSON textarea in Studio with labeled forms, image previews, and list editors that match the public site’s dark engineering look-so content can be edited without touching JSON.
 todos:
   - id: admin-field-kit
     content: Build shared Studio field components (lists, image upload, sections, save bar) and add Select/Switch if needed
@@ -51,34 +51,34 @@ Delete [`src/features/admin/JsonEditor.tsx`](src/features/admin/JsonEditor.tsx) 
 
 ## Page-by-page forms
 
-**Dashboard** — count tiles become overlay-style metric cards with links into each section (same energy as homepage stats).
+**Dashboard** - count tiles become overlay-style metric cards with links into each section (same energy as homepage stats).
 
-**Profile** — named inputs: identity (name, short name, role, resume title, location, phone, email), headline/description, social URLs, site version, plus chip lists for roles and focus areas, and four textareas for about copy.
+**Profile** - named inputs: identity (name, short name, role, resume title, location, phone, email), headline/description, social URLs, site version, plus chip lists for roles and focus areas, and four textareas for about copy.
 
-**Case studies list** — cards with logo thumbnail, category badge, status, featured flag; not a raw list.
+**Case studies list** - cards with logo thumbnail, category badge, status, featured flag; not a raw list.
 
-**Case study editor** (the important one) — tabbed form so the 20+ fields are navigable:
-1. Basics — name, slug, category, status, difficulty, timeline, featured/incomplete switches, summary
-2. Story — business context, problem, objective, solution, outcome, todo note
-3. Architecture — architecture prose + repeatable nodes (id/label/detail)
-4. Stack — technology multi-select from the library (writes `technologyIds` + names), stack groups as repeatable group/items
-5. Decisions & challenges — pair lists; responsibilities/learnings as chips
-6. Media — logo/cover ImageFields; gallery items with type select, caption, upload, reorder/remove
-7. Related — checkbox list of other case studies
+**Case study editor** (the important one) - tabbed form so the 20+ fields are navigable:
+1. Basics - name, slug, category, status, difficulty, timeline, featured/incomplete switches, summary
+2. Story - business context, problem, objective, solution, outcome, todo note
+3. Architecture - architecture prose + repeatable nodes (id/label/detail)
+4. Stack - technology multi-select from the library (writes `technologyIds` + names), stack groups as repeatable group/items
+5. Decisions & challenges - pair lists; responsibilities/learnings as chips
+6. Media - logo/cover ImageFields; gallery items with type select, caption, upload, reorder/remove
+7. Related - checkbox list of other case studies
 
 Keep existing `upsertCaseStudy` / upload helpers in [`src/services/portfolio.ts`](src/services/portfolio.ts).
 
-**Technologies** — grid of cards: logo preview, name, id, category select, description, used-in read-only chips. Add / delete from the UI, not JSON.
+**Technologies** - grid of cards: logo preview, name, id, category select, description, used-in read-only chips. Add / delete from the UI, not JSON.
 
-**Timeline / Philosophy** — stacked editable cards with Add item, remove, and up/down reorder.
+**Timeline / Philosophy** - stacked editable cards with Add item, remove, and up/down reorder.
 
-**Resume** — tabs: Highlights, Competencies, Expertise groups, Experience, Projects, Education, Certifications. Each item is a card with the real fields (bullets as a string list, project case-study slug/category as selects).
+**Resume** - tabs: Highlights, Competencies, Expertise groups, Experience, Projects, Education, Certifications. Each item is a card with the real fields (bullets as a string list, project case-study slug/category as selects).
 
-**Terminal** — table: command, aliases (chips), description. Add/remove rows. Execution logic stays in code; this only edits the catalog.
+**Terminal** - table: command, aliases (chips), description. Add/remove rows. Execution logic stays in code; this only edits the catalog.
 
-**Submissions** — readable message cards (name, email as mailto, timestamp, body, delete). Already close; polish only.
+**Submissions** - readable message cards (name, email as mailto, timestamp, body, delete). Already close; polish only.
 
-**Media** — true gallery: folder-aware thumbnails, copy path, delete, drag-drop upload. Fix listing so folders (`logos/`, `tech/`, `gallery/`) can be opened instead of a broken root-only list.
+**Media** - true gallery: folder-aware thumbnails, copy path, delete, drag-drop upload. Fix listing so folders (`logos/`, `tech/`, `gallery/`) can be opened instead of a broken root-only list.
 
 ## Out of scope
 

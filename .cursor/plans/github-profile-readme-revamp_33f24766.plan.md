@@ -25,16 +25,16 @@ Taken from [src/index.css](src/index.css) and [src/features/hero/HeroSection.tsx
 
 ## Structure
 
-1. Header — `capsule-render` banner (`type=waving`, `color=gradient` `0:2563eb,50:0891b2,100:6d28d9`, Space Grotesk-ish heavy weight, `animation=fadeIn`) carrying the name plus the "Building Systems, Not Just Software." subtitle.
-2. Kicker — `readme-typing-svg` in JetBrains Mono, color `2563EB`, cycling the hero's focus areas.
-3. Contact row — flat-square shields for Email, LinkedIn, Portfolio (placeholder Pages link, marked with an HTML comment `<!-- TODO: replace with live Pages URL -->`).
-4. `~/whoami` — a fenced mono block styled like the portfolio terminal (`$ whoami` → role, focus, currently, stack) instead of a stats card. This is the visual replacement for the stat widgets.
-5. Systems I Build — Navdrishti and LCCIA as compact blocks with a one-line problem statement, bulleted engineering detail, and live/staging link badges.
-6. Stack — `skill-icons` (`skillicons.dev`) rows grouped by domain (Languages, Data, Cloud & Infra, Automation, Web, Tooling), which reads far cleaner than the current flat shields wall.
-7. Engineering Practice — merges today's Experience and "How I Use AI" into two tight columns of ownership statements.
-8. Certifications — existing three badges, restyled flat-square to match.
-9. Contribution Snake — `Platane/snk` upgraded to a `<picture>` element with dark/light variants so it renders correctly in both GitHub themes.
-10. Footer — `capsule-render` `type=waving&section=footer` reversed gradient with a short call to action.
+1. Header - `capsule-render` banner (`type=waving`, `color=gradient` `0:2563eb,50:0891b2,100:6d28d9`, Space Grotesk-ish heavy weight, `animation=fadeIn`) carrying the name plus the "Building Systems, Not Just Software." subtitle.
+2. Kicker - `readme-typing-svg` in JetBrains Mono, color `2563EB`, cycling the hero's focus areas.
+3. Contact row - flat-square shields for Email, LinkedIn, Portfolio (placeholder Pages link, marked with an HTML comment `<!-- TODO: replace with live Pages URL -->`).
+4. `~/whoami` - a fenced mono block styled like the portfolio terminal (`$ whoami` → role, focus, currently, stack) instead of a stats card. This is the visual replacement for the stat widgets.
+5. Systems I Build - Navdrishti and LCCIA as compact blocks with a one-line problem statement, bulleted engineering detail, and live/staging link badges.
+6. Stack - `skill-icons` (`skillicons.dev`) rows grouped by domain (Languages, Data, Cloud & Infra, Automation, Web, Tooling), which reads far cleaner than the current flat shields wall.
+7. Engineering Practice - merges today's Experience and "How I Use AI" into two tight columns of ownership statements.
+8. Certifications - existing three badges, restyled flat-square to match.
+9. Contribution Snake - `Platane/snk` upgraded to a `<picture>` element with dark/light variants so it renders correctly in both GitHub themes.
+10. Footer - `capsule-render` `type=waving&section=footer` reversed gradient with a short call to action.
 
 Gradient `capsule-render` `type=rect&height=2` strips act as section dividers to echo the portfolio's separator rules.
 
@@ -42,11 +42,11 @@ Gradient `capsule-render` `type=rect&height=2` strips act as section dividers to
 
 All zero-config image endpoints, no stats/activity data:
 
-- `capsule-render.vercel.app` — header, footer, dividers (already in use)
-- `readme-typing-svg.demolab.com` — animated kicker (migrating off the deprecated `herokuapp.com` host the current file uses)
-- `skillicons.dev` — stack icons
-- `img.shields.io` — contact and certification badges
-- `Platane/snk` — contribution snake
+- `capsule-render.vercel.app` - header, footer, dividers (already in use)
+- `readme-typing-svg.demolab.com` - animated kicker (migrating off the deprecated `herokuapp.com` host the current file uses)
+- `skillicons.dev` - stack icons
+- `img.shields.io` - contact and certification badges
+- `Platane/snk` - contribution snake
 
 Explicitly excluded: `github-readme-stats`, streak stats, trophies, profile-view counters, star/fork counts.
 

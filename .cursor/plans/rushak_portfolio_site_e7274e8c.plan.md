@@ -29,9 +29,9 @@ Build a production-quality portfolio from [Master Prompt.txt](Master%20Prompt.tx
 
 ## Product intent
 
-Within 10 seconds, the site must read as **platform ownership** (infra, automation, Azure, M365, production deploy)—not “another React developer.” Aesthetic: dark premium Mission Control (Linear/Vercel/Stripe-adjacent), intentional motion, no cyberpunk/neon overload.
+Within 10 seconds, the site must read as **platform ownership** (infra, automation, Azure, M365, production deploy)-not “another React developer.” Aesthetic: dark premium Mission Control (Linear/Vercel/Stripe-adjacent), intentional motion, no cyberpunk/neon overload.
 
-**Design note:** Follow the Master Prompt palette/fonts/cards/glow even where they conflict with generic frontend heuristics—the brief is the design system.
+**Design note:** Follow the Master Prompt palette/fonts/cards/glow even where they conflict with generic frontend heuristics-the brief is the design system.
 
 ## Stack and scaffolding
 
@@ -106,10 +106,10 @@ CSS variables on `#050816` base:
 
 1. **Boot sequence** (once per session via `sessionStorage`): Initializing Platform → Infrastructure → Projects → Services → System Ready → fade into Hero.
 2. **Hero**: name, role stack, headline *Building Systems, Not Just Software.*, supporting line from brief, CTAs Explore / Download Resume; alive but quiet background.
-3. **System Overview** (dashboard metaphor): Experience, Projects, Deployments, Cloud Platforms, Automation Workflows, Location, Current Mission, Current Status—with animated counters.
-4. **Featured Systems** cards (not generic “Projects”): Navdrishti, BrainPulses, Office365 Migration, Azure Infrastructure, IT Ticket Automation, Docker Deployment, TrueNAS Migration, Sophos VPN—each field-complete in content types.
+3. **System Overview** (dashboard metaphor): Experience, Projects, Deployments, Cloud Platforms, Automation Workflows, Location, Current Mission, Current Status-with animated counters.
+4. **Featured Systems** cards (not generic “Projects”): Navdrishti, BrainPulses, Office365 Migration, Azure Infrastructure, IT Ticket Automation, Docker Deployment, TrueNAS Migration, Sophos VPN-each field-complete in content types.
 5. **Capability Matrix**, **Philosophy**, **Timeline**, **Resume preview**, **Contact Mission Control**.
-6. **Interactive terminal** (help, about, projects, skills, resume, contact, clear, whoami, deploy, coffee, `sudo hire rushak`)—professional tone, can navigate routes.
+6. **Interactive terminal** (help, about, projects, skills, resume, contact, clear, whoami, deploy, coffee, `sudo hire rushak`)-professional tone, can navigate routes.
 7. **Easter eggs** (sparse): Konami → Developer mode / achievement badge; version string in footer; terminal jokes stay professional.
 8. **Micro-interactions**: magnetic CTAs, card lift, navbar blur/active underline, scroll reveal, soft cursor glow, image zoom on project media.
 
@@ -122,21 +122,21 @@ CSS variables on `#050816` base:
 
 ## Implementation phases
 
-### Phase 1 — Foundation
+### Phase 1 - Foundation
 Scaffold Vite app, Tailwind, shadcn, fonts, design tokens, AppShell, router, boot gate, empty route shells.
 
-### Phase 2 — Content + core pages
+### Phase 2 - Content + core pages
 Author `src/content/*` types and data; ship Home (Hero + Overview + Featured), Projects list/detail, Skills, Philosophy, Experience, About, Resume, Contact, 404.
 
-### Phase 3 — Motion + terminal + eggs
+### Phase 3 - Motion + terminal + eggs
 Framer utilities, magnetic buttons, cursor glow, counters, terminal command map, Konami/dev mode, polish hover states.
 
-### Phase 4 — Hardening
+### Phase 4 - Hardening
 SEO meta, a11y pass, lazy loading, lint clean, README (dev/build), placeholder resume PDF path, responsive QA across breakpoints.
 
 ## Out of scope for v1 (architecture only)
 
-Supabase, CMS, admin, blog, analytics, project/certificate managers, GitHub API, real contact backend—interfaces and content boundaries leave room without implementing them now.
+Supabase, CMS, admin, blog, analytics, project/certificate managers, GitHub API, real contact backend-interfaces and content boundaries leave room without implementing them now.
 
 ## Primary files to create first
 

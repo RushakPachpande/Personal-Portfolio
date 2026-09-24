@@ -381,7 +381,7 @@ export function AdminTimelinePage() {
           </div>
           <SwitchField
             label="Show on home"
-            hint="When on, this event appears in the home Experience Snapshot. Upload a logo — every snapshot card should have one."
+            hint="When on, this event appears in the home Experience Snapshot. Upload a logo - every snapshot card should have one."
             checked={Boolean(item.showOnHome)}
             onChange={(showOnHome) =>
               setItems((current) =>
@@ -488,7 +488,7 @@ export function AdminTimelinePage() {
             </Field>
             <Field
               label="Period"
-              hint="Date range label, for example 2022 — Present."
+              hint="Date range label, for example 2022 - Present."
             >
               <Input
                 value={item.period}
@@ -1001,7 +1001,7 @@ export function AdminResumePage() {
                 </Field>
                 <Field
                   label="Period"
-                  hint="Date range for this role, for example 2021 — 2024."
+                  hint="Date range for this role, for example 2021 - 2024."
                 >
                   <Input
                     value={entry.period}
@@ -1187,7 +1187,7 @@ export function AdminResumePage() {
               </Field>
               <Field
                 label="Period"
-                hint="Years attended, for example 2018 — 2022."
+                hint="Years attended, for example 2018 - 2022."
               >
                 <Input
                   value={entry.period}

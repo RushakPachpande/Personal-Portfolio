@@ -39,9 +39,9 @@ Scaling stays on the inner slider via `zoom`, the same mechanism already in plac
 
 ## Markup rewrite
 
-The reference uses `#input`, `#moon-dot-1`, `#star-1` and friends. Five switches mount at once (public header, public sheet, Studio header, Studio sheet, login), so **every ID selector must become a class or `:nth-of-type`** — duplicate IDs would make all five instances respond to the first checkbox.
+The reference uses `#input`, `#moon-dot-1`, `#star-1` and friends. Five switches mount at once (public header, public sheet, Studio header, Studio sheet, login), so **every ID selector must become a class or `:nth-of-type`** - duplicate IDs would make all five instances respond to the first checkbox.
 
-Also simplifying: the reference renders 12 `<svg><circle r=50/></svg>` elements for dots, rays, and clouds. Those are plain circles, so they become `<span>` with `border-radius: 50%` — that drops 60 SVG nodes across the page. Only the 4-point star keeps a real SVG, since its concave path is the distinctive shape.
+Also simplifying: the reference renders 12 `<svg><circle r=50/></svg>` elements for dots, rays, and clouds. Those are plain circles, so they become `<span>` with `border-radius: 50%` - that drops 60 SVG nodes across the page. Only the 4-point star keeps a real SVG, since its concave path is the distinctive shape.
 
 ```tsx
 <label className={cn('theme-switch', className)} title={nextLabel}>
@@ -75,15 +75,15 @@ Colors stay on the current palette (`#3d7eae` sky, `#1d1f2c` night) rather than 
 
 ## Animations and cost
 
-- `rotate-center` on the sun-moon at 0.6s — one-shot, kept as-is
-- `cloud-move` on 6 clouds — the reference runs this forever in both themes. Gated to `:not(:checked)` so dark mode runs zero cloud animation
-- `star-twinkle` on 4 stars — gated to `:checked` only
+- `rotate-center` on the sun-moon at 0.6s - one-shot, kept as-is
+- `cloud-move` on 6 clouds - the reference runs this forever in both themes. Gated to `:not(:checked)` so dark mode runs zero cloud animation
+- `star-twinkle` on 4 stars - gated to `:checked` only
 
 That means one set animates per theme instead of both, so at most 6 looping transforms per instance. All are transform-only, so they composite without layout work; no `will-change` is added, which would only pin extra layers across five instances.
 
 ## Focus ring
 
-There is currently no visible focus ring — the label sets `outline: none`. The reference's `box-shadow: 0 0 1px` would be clipped away by our `clip-path`. Fix with an **inset** ring on the slider under `.theme-switch:has(.theme-switch__checkbox:focus-visible)` so it survives clipping.
+There is currently no visible focus ring - the label sets `outline: none`. The reference's `box-shadow: 0 0 1px` would be clipped away by our `clip-path`. Fix with an **inset** ring on the slider under `.theme-switch:has(.theme-switch__checkbox:focus-visible)` so it survives clipping.
 
 ## Reduced motion
 

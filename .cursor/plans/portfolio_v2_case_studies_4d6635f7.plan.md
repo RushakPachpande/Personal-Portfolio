@@ -20,7 +20,7 @@ todos:
 isProject: false
 ---
 
-# Portfolio V2 — Engineering Case Study Updates
+# Portfolio V2 - Engineering Case Study Updates
 
 Implement [docs/prompts/Portfolio_V2_Engineering_Case_Study_PRD.md](docs/prompts/Portfolio_V2_Engineering_Case_Study_PRD.md) on the existing Vite/React site. Keep the current visual language (dark Mission Control, Framer Motion, shadcn). Optimize for engineering storytelling, not new gimmicks.
 
@@ -92,7 +92,7 @@ type CaseStudy = {
 
 **Migrate & place items:**
 
-- **Platform:** Navdrishti, BrainPulses (from [products.ts](src/content/products.ts)). Remove IT Ticket Automation from platforms — it already lives in automation with real copy.
+- **Platform:** Navdrishti, BrainPulses (from [products.ts](src/content/products.ts)). Remove IT Ticket Automation from platforms - it already lives in automation with real copy.
 - **Infrastructure:** existing initiatives (M365, Azure, Supabase, Docker, Linux, TrueNAS, Sophos) mapped into full template; expand from resume; keep `incomplete` only where narrative still thin.
 - **Automation:** self-hosted n8n, M365/SharePoint workflows, IT Support Ticket Automation, Microsoft integrations / operational improvements as case studies. No “future workflow” ideas.
 
@@ -102,13 +102,13 @@ Helpers: `getCaseStudy(slug)`, `getCaseStudiesByCategory()`, `getRelatedCaseStud
 
 ## Shared UI
 
-1. **`CaseStudyCard`** — title, one-line summary, tech tags, status, CTA “View Engineering Case Study”. Replaces product/initiative card chrome in list pages and homepage featured strip.
-2. **`CaseStudyPage`** — single detail layout used by all three categories:
+1. **`CaseStudyCard`** - title, one-line summary, tech tags, status, CTA “View Engineering Case Study”. Replaces product/initiative card chrome in list pages and homepage featured strip.
+2. **`CaseStudyPage`** - single detail layout used by all three categories:
    - Hero: name, category, status, technologies, logo
    - Sticky in-page TOC (desktop) + smooth scroll to sections
    - Sections in PRD order: Business Context → Problem → Objective → Solution → Architecture → Responsibilities → Engineering Decisions → Challenges → Technology Stack → Outcome → Key Learnings
    - Footer: Related Case Studies; download resume link where relevant
-3. **Engineering Areas** block — three pillar cards (Platform / Infrastructure / Automation) linking to category routes; replaces generic “skills” framing on Home ([HomeTeasers](src/features/home/HomeTeasers.tsx) evolves into this).
+3. **Engineering Areas** block - three pillar cards (Platform / Infrastructure / Automation) linking to category routes; replaces generic “skills” framing on Home ([HomeTeasers](src/features/home/HomeTeasers.tsx) evolves into this).
 
 Keep design tokens, `Reveal`, magnetic buttons, boot/terminal.
 
@@ -117,10 +117,10 @@ Keep design tokens, `Reveal`, magnetic buttons, boot/terminal.
 Concise sequence only:
 
 1. Hero (existing headline/CTAs; Explore → `/platforms`)
-2. Short About (2–3 sentences from profile)
+2. Short About (2-3 sentences from profile)
 3. Engineering Areas (3 pillars)
-4. Featured Case Studies (hand-picked complete studies via `featured: true` or explicit slug list — e.g. Navdrishti, BrainPulses, M365, n8n)
-5. Experience Snapshot (2–3 timeline highlights, link to `/experience`)
+4. Featured Case Studies (hand-picked complete studies via `featured: true` or explicit slug list - e.g. Navdrishti, BrainPulses, M365, n8n)
+5. Experience Snapshot (2-3 timeline highlights, link to `/experience`)
 6. Contact CTA
 
 Remove stacking full ProductGrid + InitiativeGrid on Home.

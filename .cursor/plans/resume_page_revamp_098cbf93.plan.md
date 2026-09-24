@@ -62,8 +62,8 @@ Section order for scan: summary, experience, projects, skills, education and cer
 
 Edit only:
 
-- [`src/features/resume/ResumePreview.tsx`](src/features/resume/ResumePreview.tsx) — replace layout. Keep `CaseStudyLink`, portfolio fields, and the hardcoded summary paragraph plus `profile.summaryBullets`.
-- [`src/pages/ResumePage.tsx`](src/pages/ResumePage.tsx) — section padding only if the new column needs it. SEO block stays.
+- [`src/features/resume/ResumePreview.tsx`](src/features/resume/ResumePreview.tsx) - replace layout. Keep `CaseStudyLink`, portfolio fields, and the hardcoded summary paragraph plus `profile.summaryBullets`.
+- [`src/pages/ResumePage.tsx`](src/pages/ResumePage.tsx) - section padding only if the new column needs it. SEO block stays.
 
 Structure inside `ResumePreview`:
 

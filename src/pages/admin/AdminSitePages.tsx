@@ -763,7 +763,7 @@ export function AdminSiteFlagsPage() {
           </li>
           <li>
             Schema changes need a migration apply (`db:push` / migration up),
-            which is ops—not a Vite rebuild of content.
+            which is ops-not a Vite rebuild of content.
           </li>
           <li>
             Featured home slots: toggle Featured on each case study in Case

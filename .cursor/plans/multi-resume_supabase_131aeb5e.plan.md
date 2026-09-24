@@ -30,7 +30,7 @@ isProject: false
 
 ## Current state
 
-The download URL is already resolved from Storage at fetch time — the DB stores a bare key and [src/services/portfolio-public.ts](src/services/portfolio-public.ts) converts it:
+The download URL is already resolved from Storage at fetch time - the DB stores a bare key and [src/services/portfolio-public.ts](src/services/portfolio-public.ts) converts it:
 
 ```ts
 profile.resumeUrl = publicResumeUrl(
@@ -77,7 +77,7 @@ alter table public.resume_files enable row level security;
 
 Policies mirror the existing pattern: `Public read resume_files` for `anon, authenticated` using `true`, and `Admin write resume_files` for all using / with check `private.is_admin()`.
 
-Add a `set_active_resume(target uuid)` security-definer function guarded by `private.is_admin()` that clears `is_active` then sets the target in one transaction — the partial unique index otherwise rejects a naive two-step update.
+Add a `set_active_resume(target uuid)` security-definer function guarded by `private.is_admin()` that clears `is_active` then sets the target in one transaction - the partial unique index otherwise rejects a naive two-step update.
 
 ## 2. Public fetch
 
@@ -95,16 +95,16 @@ With no local fallback, `resumeUrl` can legitimately be empty. Guard the CTA in 
 - [src/features/resume/ResumePreview.tsx](src/features/resume/ResumePreview.tsx) lines 155 and 401 (also the surrounding "Want the full PDF?" block)
 - [src/features/contact/ContactPanel.tsx](src/features/contact/ContactPanel.tsx) line 94
 - [src/features/case-studies/CaseStudyPage.tsx](src/features/case-studies/CaseStudyPage.tsx) line 380
-- [src/content/terminal.ts](src/content/terminal.ts) lines 321 and 473 — print a "no resume published" message instead of an empty URL
+- [src/content/terminal.ts](src/content/terminal.ts) lines 321 and 473 - print a "no resume published" message instead of an empty URL
 
 ## 4. Admin service functions
 
 Add to [src/services/portfolio-admin.ts](src/services/portfolio-admin.ts) and re-export from [src/services/portfolio.ts](src/services/portfolio.ts):
-- `listResumeFiles()` — ordered by `created_at desc`
-- `uploadResumeFile(label, file)` — upload to `RESUME_BUCKET` under a unique key (`${Date.now()}-${slug}.pdf`, avoiding CDN staleness from key reuse), then insert the row; mark active automatically if it is the first one
-- `setActiveResumeFile(id)` — RPC to `set_active_resume`
+- `listResumeFiles()` - ordered by `created_at desc`
+- `uploadResumeFile(label, file)` - upload to `RESUME_BUCKET` under a unique key (`${Date.now()}-${slug}.pdf`, avoiding CDN staleness from key reuse), then insert the row; mark active automatically if it is the first one
+- `setActiveResumeFile(id)` - RPC to `set_active_resume`
 - `renameResumeFile(id, label)`
-- `deleteResumeFile(id)` — remove the storage object and the row; block deleting the active file unless another is promoted first
+- `deleteResumeFile(id)` - remove the storage object and the row; block deleting the active file unless another is promoted first
 
 ## 5. Admin UI
 
@@ -115,7 +115,7 @@ The panel: a drag/drop upload label with `accept="application/pdf"` plus a label
 ## 6. Remove the local copy
 
 - Delete `public/resume.pdf`.
-- Drop `resumeUrl` from `src/content/profile.ts` (line 20) — it is seed-only content, not runtime.
+- Drop `resumeUrl` from `src/content/profile.ts` (line 20) - it is seed-only content, not runtime.
 - Delete `seedResumePdf()` and its call from [scripts/seed-portfolio.ts](scripts/seed-portfolio.ts) (lines 197-212), and drop `resumeUrl: 'resume.pdf'` from the profile payload (line 247). Resumes are uploaded through the admin UI, not seeded.
 - Remove `resumeUrl` from the `Profile` type in [src/types/portfolio.ts](src/types/portfolio.ts) only if it is separated from the derived field; otherwise keep it and document that it is populated at fetch time.
 

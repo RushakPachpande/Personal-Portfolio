@@ -40,7 +40,7 @@ On the rule: [.cursor/rules/no-agent-commits.mdc](.cursor/rules/no-agent-commits
 
 ## Order of operations
 
-History rewrite first, while the tree is clean — `git filter-repo` refuses to run with uncommitted changes.
+History rewrite first, while the tree is clean - `git filter-repo` refuses to run with uncommitted changes.
 
 ```mermaid
 flowchart TD
@@ -51,7 +51,7 @@ flowchart TD
   E --> F[Leave uncommitted, hand off commands]
 ```
 
-## Phase 1 — Rewrite the four commit messages
+## Phase 1 - Rewrite the four commit messages
 
 I will ask for one explicit confirmation before running this, since it writes history.
 
@@ -77,7 +77,7 @@ git log -n 5 --format='%h %s'
 git branch                                      # all 5 branches intact
 ```
 
-## Phase 2 — Remove the domain and CNAME machinery
+## Phase 2 - Remove the domain and CNAME machinery
 
 ### [.github/workflows/deploy.yml](.github/workflows/deploy.yml)
 
@@ -121,15 +121,15 @@ Keep `resolveBasePath()` (it consumes `base_path` and normalizes `""` to `/`), r
 - [src/lib/seo.ts](src/lib/seo.ts), [src/components/layout/Seo.tsx](src/components/layout/Seo.tsx), and [src/features/admin/preview/PreviewViewport.tsx](src/features/admin/preview/PreviewViewport.tsx) keep deriving the origin at runtime.
 - `public/CNAME` stays deleted and is not reintroduced.
 
-## Phase 3 — Documentation
+## Phase 3 - Documentation
 
 - [README.md](README.md): drop the "Moving to a custom domain later" section, all `PAGES_SITE_URL` and CNAME references, and the DNS record list. Keep a short deployment section: set Pages source to GitHub Actions, add the three `VITE_*` environment secrets, run the workflow with a `ref`.
 - [docs/deployment.md](docs/deployment.md): delete section 6 (custom domain) entirely, the CNAME explanation in section 2, section 5.3, and the domain-related troubleshooting entries. Renumber the remaining sections and fix the contents list and internal anchors.
 - [.env.example](.env.example): remove the `PAGES_SITE_URL` / `PAGES_BASE_PATH` comment block.
 
-Worth noting for the future: with Pages source set to GitHub Actions, a custom domain is configured in Settings and persists there — no `CNAME` file in the artifact is required. Nothing in the repo needs to change if you add a domain later.
+Worth noting for the future: with Pages source set to GitHub Actions, a custom domain is configured in Settings and persists there - no `CNAME` file in the artifact is required. Nothing in the repo needs to change if you add a domain later.
 
-## Phase 4 — Verify, then hand off
+## Phase 4 - Verify, then hand off
 
 ```powershell
 npx tsc -b

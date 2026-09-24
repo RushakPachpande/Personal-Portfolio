@@ -43,7 +43,7 @@ isProject: false
 ## Constraints driving the design
 
 - Static only: `output: 'export'`, `images.unoptimized`, no middleware, no route handlers, no server components doing data work. Supabase stays the only backend, called from the browser exactly as today.
-- Zero visual/behavioural drift: every page keeps its current client-side render path. Rendering is driven by TanStack Query on the client, so the prerendered HTML is just the shell — same as today's `index.html`.
+- Zero visual/behavioural drift: every page keeps its current client-side render path. Rendering is driven by TanStack Query on the client, so the prerendered HTML is just the shell - same as today's `index.html`.
 - Side-by-side build in a new `next/` folder; the Vite app at the repo root stays runnable for A/B comparison, then we swap at the end.
 
 ## Parity strategy (the important decision)
@@ -58,7 +58,7 @@ export default function Page() {
 }
 ```
 
-`SiteRoute` is `'use client'` and pulls the page via `next/dynamic(..., { ssr: false })`. Result: exported HTML contains the same empty shell the Vite build ships, so there is no hydration mismatch and no chance of a different first paint — while Next still gives per-route file-based splitting, `<Link>` prefetch on viewport/hover, and real static HTML per URL.
+`SiteRoute` is `'use client'` and pulls the page via `next/dynamic(..., { ssr: false })`. Result: exported HTML contains the same empty shell the Vite build ships, so there is no hydration mismatch and no chance of a different first paint - while Next still gives per-route file-based splitting, `<Link>` prefetch on viewport/hover, and real static HTML per URL.
 
 This also neutralises every SSR hazard found in the audit (`shouldShowBootSequence()` in a `useState` initializer, module-scope `createClient`, `next-themes`, `framer-motion` `AnimatePresence`, `document.startViewTransition`) without editing their logic.
 
@@ -105,7 +105,7 @@ Note: with static export the admin path must be fixed at build time, so `VITE_AD
 - `NextNavAdapter` (default): `next/link`, `usePathname`, `useRouter`, `useParams`.
 - `MemoryNavAdapter`: in-memory path state, used by the admin preview workbench so preview links stay inside the viewport exactly as `MemoryRouter` does today.
 
-Then each consumer's import specifier changes from `'react-router-dom'` to `'@/lib/nav'` — no JSX or prop changes. `NavLink`'s `className={({ isActive }) => ...}` render-prop shape is reimplemented in the compat `NavLink`, so [src/components/layout/Navbar.tsx](src/components/layout/Navbar.tsx) and [src/features/admin/AdminLayout.tsx](src/features/admin/AdminLayout.tsx) are untouched apart from the import. `react-router-dom` is dropped from dependencies.
+Then each consumer's import specifier changes from `'react-router-dom'` to `'@/lib/nav'` - no JSX or prop changes. `NavLink`'s `className={({ isActive }) => ...}` render-prop shape is reimplemented in the compat `NavLink`, so [src/components/layout/Navbar.tsx](src/components/layout/Navbar.tsx) and [src/features/admin/AdminLayout.tsx](src/features/admin/AdminLayout.tsx) are untouched apart from the import. `react-router-dom` is dropped from dependencies.
 
 [src/features/admin/preview/previewRoutes.tsx](src/features/admin/preview/previewRoutes.tsx) currently reuses `publicChildRoutes` via `useRoutes`. It is replaced by a small pattern matcher fed from a shared registry (`next/src/app/site/routeRegistry.ts`) that maps each public path pattern to its lazy page component. The Next route files and the preview matcher both read that one registry, so preview and live site can never diverge.
 
@@ -141,4 +141,4 @@ flowchart LR
 3. Run Vite on 8000 and Next on 8001, walk every route in both, and diff DOM structure and computed styles at desktop and mobile widths; confirm boot sequence, theme toggle + view transition, konami dev badge, command terminal, scroll restoration, lightbox, contact submit, admin login/guard, media upload, resume activation, and the preview workbench all behave the same.
 4. Only after that: move `next/*` to the repo root, delete `vite.config.ts`, `index.html`, `src/main.tsx`, `src/app/router.tsx`, `src/app/publicRoutes.tsx`, `scripts/copy-spa-fallback.mjs`, and the Vite deps; update `README.md`.
 
-Nothing is committed — I'll leave the tree dirty with the exact commands for you to run.
+Nothing is committed - I'll leave the tree dirty with the exact commands for you to run.

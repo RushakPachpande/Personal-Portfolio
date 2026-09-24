@@ -45,7 +45,7 @@ export type ResumeCertificationGroup = {
 };
 
 export const resumeHighlights: ResumeHighlight[] = [
-  { id: 'navdrishti', label: 'Primary Technical Owner — Navdrishti' },
+  { id: 'navdrishti', label: 'Primary Technical Owner - Navdrishti' },
   { id: 'azure', label: 'Azure cost optimization', detail: '~50% reduction' },
   { id: 'm365', label: 'Microsoft 365 migration', detail: '50+ users' },
   {
@@ -133,7 +133,7 @@ export const professionalExperience: ResumeExperience[] = [
   {
     id: 'nextgen',
     organization: 'NextGenInnov8, Pune',
-    period: 'Apr 2025 — Present',
+    period: 'Apr 2025 - Present',
     role: 'Platform & Technology Professional',
     bullets: [
       'Took technical ownership of production platforms, cloud infrastructure, and internal technology systems, ensuring reliable operations and continuous improvements.',
@@ -212,14 +212,14 @@ export const resumeEducation: ResumeEducation[] = [
     id: 'mca',
     degree: 'Master of Computer Applications (MCA)',
     institution: "ASM's IBMR, Pune",
-    period: '2023 — 2025',
+    period: '2023 - 2025',
     detail: 'CGPA: 7.57',
   },
   {
     id: 'bba',
     degree: 'Bachelor of Business Administration (Computer Applications)',
     institution: "ASM's CSIT, Pune",
-    period: '2019 — 2022',
+    period: '2019 - 2022',
     detail: 'CGPA: 7.58',
   },
 ];
@@ -263,16 +263,16 @@ export const resumeCertifications: ResumeCertificationGroup[] = [
     id: 'software',
     provider: 'Software Development',
     items: [
-      'Full Stack Developer (Java Plus) — Seed Infotech & NSDC',
-      'Advanced Java & Web Programming — Anudip Foundation',
+      'Full Stack Developer (Java Plus) - Seed Infotech & NSDC',
+      'Advanced Java & Web Programming - Anudip Foundation',
     ],
   },
   {
     id: 'simulations',
     provider: 'Industry Simulations',
     items: [
-      'Software Engineering Job Simulation — Hewlett Packard Enterprise (Forage)',
-      'Software Engineering Job Simulation — Wells Fargo (Forage)',
+      'Software Engineering Job Simulation - Hewlett Packard Enterprise (Forage)',
+      'Software Engineering Job Simulation - Wells Fargo (Forage)',
     ],
   },
 ];

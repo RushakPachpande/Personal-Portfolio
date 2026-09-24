@@ -19,9 +19,9 @@ Today [`AppShell.tsx`](src/app/AppShell.tsx) starts with `booted` if `sessionSto
 
 Show boot when **any** of these is true (and reduced motion is **not** on):
 
-- **First visit** — no stored last-load time
-- **Stale visit** — last document load was **≥ 30 minutes** ago
-- **Hard refresh** — navigation type is `reload` and the document was not served from cache
+- **First visit** - no stored last-load time
+- **Stale visit** - last document load was **≥ 30 minutes** ago
+- **Hard refresh** - navigation type is `reload` and the document was not served from cache
 
 Skip on a **simple reload** (`reload` from cache) within 30 minutes, and on `back_forward`.
 
@@ -40,8 +40,8 @@ Do not keep `boot-complete`; both AppShell and BootSequence must use one helper 
 Add [`src/lib/bootGate.ts`](src/lib/bootGate.ts):
 
 - `STALE_MS = 30 * 60 * 1000`
-- `shouldShowBootSequence()` — reduced-motion check + navigation heuristic + stale/first visit
-- `rememberDocumentLoad()` — set `portfolio-last-load` to `Date.now()`
+- `shouldShowBootSequence()` - reduced-motion check + navigation heuristic + stale/first visit
+- `rememberDocumentLoad()` - set `portfolio-last-load` to `Date.now()`
 
 [`AppShell.tsx`](src/app/AppShell.tsx): `useState(() => !shouldShowBootSequence())`. Call `rememberDocumentLoad()` once on mount (after deciding).
 

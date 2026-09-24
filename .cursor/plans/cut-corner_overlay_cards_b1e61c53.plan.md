@@ -1,6 +1,6 @@
 ---
 name: Cut-corner overlay cards
-overview: Port the reference’s cut-corner gradient banner + title/meta footer into OverlayCard (and matching SurfaceCard chrome) using theme tokens and the existing card API—no styled-components, no 230px clone, and none of the theme-toggle pitfalls (hardcoded navy, zoom, hover-scale overflow, nested links).
+overview: Port the reference’s cut-corner gradient banner + title/meta footer into OverlayCard (and matching SurfaceCard chrome) using theme tokens and the existing card API-no styled-components, no 230px clone, and none of the theme-toggle pitfalls (hardcoded navy, zoom, hover-scale overflow, nested links).
 todos:
   - id: overlay-css
     content: Port cut-corner banner CSS to index.css with --card tokens; drop overlay-hero-scrim from OverlayCard
@@ -51,7 +51,7 @@ flowchart TB
 | Semi-transparent `bg-card/70` + blur | The notch trick is **solid**. OverlayCard shell becomes **opaque** `bg-card` (drop glass on overlay tiles). Mismatch vs page glow is expected; a translucent card with a solid notch looks broken in both themes. |
 | `zoom` for sizing | Theme switch needed `zoom` to shrink a 169px control. Cards stay **fluid**; banner height via `em` / `%` / `min-height`, not `zoom` or a fixed 130px notch on every breakpoint. |
 | Do not change call-site wrappers | Keep [`OverlayCard`](src/components/cards/OverlayCard.tsx) / [`SurfaceCard`](src/components/cards/SurfaceCard.tsx) props. Do not rewrite Navbar-style `className` on every page. Migrate internals; add optional `stats` / `headerActions`. |
-| Nested interactives | If `href` is set, the shell is a `<Link>`. Header icons and stats are **not** separate links. Nested `<a>` already exist in [`ContactPanel.tsx`](src/features/contact/ContactPanel.tsx) (no `href` on the card) and [`TechnologyLibraryGrid.tsx`](src/features/technology-library/TechnologyLibraryGrid.tsx) — keep those cards as `<article>`. |
+| Nested interactives | If `href` is set, the shell is a `<Link>`. Header icons and stats are **not** separate links. Nested `<a>` already exist in [`ContactPanel.tsx`](src/features/contact/ContactPanel.tsx) (no `href` on the card) and [`TechnologyLibraryGrid.tsx`](src/features/technology-library/TechnologyLibraryGrid.tsx) - keep those cards as `<article>`. |
 | Hover `scale(1.05)` | Clips in CSS grids and feels jumpy. Keep current **small lift** (`translateY` + border glow), wrap hover in `@media (hover: hover)`, honor `prefers-reduced-motion`. |
 | Portals / Radix menus | Not used. Do not introduce them on cards. |
 | Title on a dark scrim | Today title sits **on** the hero ([`overlay-hero-scrim`](src/index.css)), which fights logos and numbers. Move title **below** the banner like the reference. Remove or stop using `.overlay-hero-scrim` on OverlayCard. |
@@ -60,12 +60,12 @@ flowchart TB
 
 Replace the 4/3 + bottom-scrim stack with:
 
-1. **Shell** — `rounded-[20px]`, `p-1`, `overflow-hidden`, `bg-card`, `border-border/80`.
-2. **Banner** (`overlay-card__banner`) — existing `getCardGradient(gradient)`; height ~9.5rem default, taller when `featured` (not a huge 16/10 letterbox). `position: relative`.
-3. **Cut-corner** — port the skew + `::before` concave joins. Notch background and box-shadows use `var(--card)` so light/dark both read as one piece. Size with `%` / `em` so featured / 2-col cards do not look like a 130px sticker.
-4. **Header row** — eyebrow (left, like the “logo” slot) + optional `headerActions` (right). Default for `href` cards: keep the existing `ArrowUpRight` affordance (visible on hover/focus, always visible on touch via `@media (hover: none)`).
-5. **Hero** — centered in the remaining banner (logo, icon, big number). No title overlay.
-6. **Bottom** — title (centered, tracking, `font-display`); optional `stats` row (flex, muted cyan-tinted `color-mix` with `--soft-cyan`, dividers on middle items); then existing `body` / `footer`.
+1. **Shell** - `rounded-[20px]`, `p-1`, `overflow-hidden`, `bg-card`, `border-border/80`.
+2. **Banner** (`overlay-card__banner`) - existing `getCardGradient(gradient)`; height ~9.5rem default, taller when `featured` (not a huge 16/10 letterbox). `position: relative`.
+3. **Cut-corner** - port the skew + `::before` concave joins. Notch background and box-shadows use `var(--card)` so light/dark both read as one piece. Size with `%` / `em` so featured / 2-col cards do not look like a 130px sticker.
+4. **Header row** - eyebrow (left, like the “logo” slot) + optional `headerActions` (right). Default for `href` cards: keep the existing `ArrowUpRight` affordance (visible on hover/focus, always visible on touch via `@media (hover: none)`).
+5. **Hero** - centered in the remaining banner (logo, icon, big number). No title overlay.
+6. **Bottom** - title (centered, tracking, `font-display`); optional `stats` row (flex, muted cyan-tinted `color-mix` with `--soft-cyan`, dividers on middle items); then existing `body` / `footer`.
 
 New optional prop:
 

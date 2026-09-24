@@ -1,6 +1,6 @@
 ---
 name: Supabase Backend Integration
-overview: Add a Supabase-backed data layer (Postgres + Auth + Storage) to the existing Vite/React monorepo—no separate Express server. Seed all current static content, refactor the public site to fetch via React Query, and build an obscured admin CMS protected by Supabase Auth. GitHub Pages remains the frontend deploy target.
+overview: Add a Supabase-backed data layer (Postgres + Auth + Storage) to the existing Vite/React monorepo-no separate Express server. Seed all current static content, refactor the public site to fetch via React Query, and build an obscured admin CMS protected by Supabase Auth. GitHub Pages remains the frontend deploy target.
 todos:
   - id: supabase-scaffold
     content: Initialize supabase/ folder, config.toml, schema migration, storage buckets, and RLS policies
@@ -35,7 +35,7 @@ isProject: false
 | Database | **Supabase Postgres** (not MongoDB/Docker Compose) |
 | Dev | `npx supabase start` (local stack) |
 | Prod | Linked Supabase cloud project |
-| API | **Direct Supabase client** from React — no Express/Node server |
+| API | **Direct Supabase client** from React - no Express/Node server |
 | Auth | **Supabase Auth** (email/password admin) |
 | Media | **Supabase Storage** buckets (replaces `src/assets/` imports for portfolio media) |
 | Public site data | **API-only** at runtime via React Query |
@@ -96,7 +96,7 @@ scripts/
 - `db:seed` → `tsx scripts/seed-portfolio.ts`
 - `db:push` → `supabase db push` (prod migrations)
 
-**Env template** — create [`.env.example`](.env.example) (never commit real `.env`):
+**Env template** - create [`.env.example`](.env.example) (never commit real `.env`):
 
 ```env
 VITE_SUPABASE_URL=http://127.0.0.1:54321
@@ -129,9 +129,9 @@ Use a **hybrid model**: scalar columns for query/filter fields + `jsonb` for nes
 **`data jsonb` holds** nested structures already in static files: `stack`, `decisions`, `challenges`, `architectureNodes`, `gallery` (with storage paths), `relatedSlugs`, resume bullets, etc.
 
 **Derived data stays computed client-side** (not stored):
-- [`engineeringStats`](src/content/stats.ts) — computed from fetched case studies + technologies
-- `usedInSlugs` on technologies — recomputed in seed script + admin save hook
-- `categoryLabels` / `categoryPaths` — remain constants in code
+- [`engineeringStats`](src/content/stats.ts) - computed from fetched case studies + technologies
+- `usedInSlugs` on technologies - recomputed in seed script + admin save hook
+- `categoryLabels` / `categoryPaths` - remain constants in code
 
 ### RLS policies (every table)
 
@@ -164,7 +164,7 @@ portfolio-resume/resume.pdf
 
 **Seed step** uploads all files from [`src/assets/logos/`](src/assets/logos/) and gallery references in case study files, then writes storage paths into DB rows. Tech SVGs from [`src/assets/tech/`](src/assets/tech/) also upload so admin can replace them.
 
-**Fonts** ([`src/assets/fonts/`](src/assets/fonts/)) stay bundled — not CMS content.
+**Fonts** ([`src/assets/fonts/`](src/assets/fonts/)) stay bundled - not CMS content.
 
 ---
 
@@ -175,7 +175,7 @@ portfolio-resume/resume.pdf
 1. Import/read existing modules from [`src/content/`](src/content/) (profile, case studies, technologies, timeline, philosophy, resume, terminal)
 2. Upload binary assets to Supabase Storage (local or linked project via env)
 3. Replace Vite import URLs with `getPublicUrl(storagePath)` strings in seeded records
-4. Upsert all rows (idempotent — safe to re-run)
+4. Upsert all rows (idempotent - safe to re-run)
 
 This guarantees the live site matches today's content after first seed.
 
@@ -269,7 +269,7 @@ Add lazy routes in [`src/app/router.tsx`](src/app/router.tsx) under `VITE_ADMIN_
 | Submissions | Read-only inbox for contact form |
 | Media | Browse/upload/delete storage files |
 
-Use existing shadcn components ([`src/components/ui/`](src/components/ui/)) for forms, tables, dialogs. Keep forms practical (textareas for long copy) — no rich-text editor in v1.
+Use existing shadcn components ([`src/components/ui/`](src/components/ui/)) for forms, tables, dialogs. Keep forms practical (textareas for long copy) - no rich-text editor in v1.
 
 ---
 
@@ -303,7 +303,7 @@ Update [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml):
 - Add build-time secrets: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_ADMIN_BASE_PATH`
 - Pass as `env:` to `npm run build`
 
-No server deploy needed — SPA calls Supabase cloud directly.
+No server deploy needed - SPA calls Supabase cloud directly.
 
 ---
 

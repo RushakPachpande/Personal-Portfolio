@@ -17,13 +17,13 @@ export const defaultSiteConfig: SiteConfig = {
       eyebrow: 'Engineering Areas',
       title: 'Three pillars of ownership',
       description:
-        'Platform, infrastructure, and automation—connected by the same end-to-end ownership model.',
+        'Platform, infrastructure, and automation-connected by the same end-to-end ownership model.',
     },
     featured: {
       eyebrow: 'Featured Case Studies',
       title: 'How the work was owned',
       description:
-        'Not project cards—engineering narratives covering context, decisions, challenges, and outcomes.',
+        'Not project cards-engineering narratives covering context, decisions, challenges, and outcomes.',
     },
     experienceSnapshot: {
       eyebrow: 'Experience Snapshot',
@@ -33,7 +33,7 @@ export const defaultSiteConfig: SiteConfig = {
     homeCta: {
       title: 'Need someone who owns engineering outcomes?',
       description:
-        'From problem framing and architecture to production operations—let’s talk.',
+        'From problem framing and architecture to production operations-let’s talk.',
       buttonLabel: 'Get in touch',
       buttonTo: '/contact',
     },
@@ -41,7 +41,7 @@ export const defaultSiteConfig: SiteConfig = {
       eyebrow: 'About',
       title: 'Ownership over tickets',
       description:
-        'Not a biography—how I work across products, infrastructure, and automation.',
+        'Not a biography-how I work across products, infrastructure, and automation.',
       sectionTitles: {
         whoIAm: 'Who I am',
         howIThink: 'How I think',
@@ -53,7 +53,7 @@ export const defaultSiteConfig: SiteConfig = {
       eyebrow: 'Contact',
       title: 'Let’s talk platforms',
       description:
-        'Simple, professional channels—email, LinkedIn, GitHub, and resume.',
+        'Simple, professional channels-email, LinkedIn, GitHub, and resume.',
     },
     footer: {
       tagline:

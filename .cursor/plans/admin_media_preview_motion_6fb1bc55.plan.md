@@ -33,7 +33,7 @@ Today [`ImageField`](src/features/admin/fields/ImageField.tsx) only accepts a ne
 
 **Replace the file-only control with a picker that defaults to reuse:**
 
-- New [`MediaPicker`](src/features/admin/fields/MediaPicker.tsx) (Sheet, since Dialog is not in the UI kit): folder browser matching [`AdminMediaPage`](src/pages/admin/AdminInboxPages.tsx) — `listMediaFiles(prefix)`, breadcrumbs, image thumbnails via `publicMediaUrl`.
+- New [`MediaPicker`](src/features/admin/fields/MediaPicker.tsx) (Sheet, since Dialog is not in the UI kit): folder browser matching [`AdminMediaPage`](src/pages/admin/AdminInboxPages.tsx) - `listMediaFiles(prefix)`, breadcrumbs, image thumbnails via `publicMediaUrl`.
 - Selecting a file writes the **storage path** into the form. No re-upload.
 - Secondary actions: **Upload new** into the current folder (then select it), optional **paste path** for a known storage key.
 - Active selection highlighted on the grid.
@@ -85,7 +85,7 @@ flowchart LR
 
 - Nested `MemoryRouter` so Navbar/card `Link`s stay inside the overlay. The parent `BrowserRouter` never leaves Studio.
 - `PreviewModeContext`: skip `Seo`/Helmet (do not rewrite the admin tab title), skip `BootSequence`/`CursorGlow`/Konami, disable [`ContactPanel`](src/features/contact/ContactPanel.tsx) submit.
-- Preview chrome: public `Navbar` + `Footer` + page body only (no boot). Banner: `Draft preview — not live until you save.`
+- Preview chrome: public `Navbar` + `Footer` + page body only (no boot). Banner: `Draft preview - not live until you save.`
 
 **Device frames** (CSS width + `transform: scale`, not layout animation): 390 / 768 / 1280. Scroll inside the frame so hover states still work.
 
@@ -116,7 +116,7 @@ Keep Framer `Reveal` / `PageTransition` / boot. Do **not** add View Transitions 
 
 Add GPU-only CSS in [`src/index.css`](src/index.css) and targeted classes:
 
-- Buttons: `active:scale-[0.97]` via transform (100–150ms ease-out); already have color transitions.
+- Buttons: `active:scale-[0.97]` via transform (100-150ms ease-out); already have color transitions.
 - Theme menu items: 150ms background/transform; trigger icon swap 200ms.
 - Admin cards, SaveBar, tab underline: existing hover translate + opacity/transform on tab panel change (`@starting-style` for newly added list rows).
 - Media picker / preview overlay: Sheet already animates; add grid-item `@starting-style` opacity+translateY.

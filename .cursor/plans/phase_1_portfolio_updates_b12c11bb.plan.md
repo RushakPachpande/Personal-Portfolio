@@ -22,7 +22,7 @@ isProject: false
 
 # Phase 1 Portfolio Updates
 
-Rework the current Vite/React portfolio to match [docs/prompts/Phase1.txt](docs/prompts/Phase1.txt), using [docs/resume/20260707-050625_Final_Blueprint_Resume_v3.tex](docs/resume/20260707-050625_Final_Blueprint_Resume_v3.tex) as the only factual source. [docs/resume/portfolio-context.md](docs/resume/portfolio-context.md) is incomplete stubs — do not invent missing narratives; mark gaps as `TODO` in content modules.
+Rework the current Vite/React portfolio to match [docs/prompts/Phase1.txt](docs/prompts/Phase1.txt), using [docs/resume/20260707-050625_Final_Blueprint_Resume_v3.tex](docs/resume/20260707-050625_Final_Blueprint_Resume_v3.tex) as the only factual source. [docs/resume/portfolio-context.md](docs/resume/portfolio-context.md) is incomplete stubs - do not invent missing narratives; mark gaps as `TODO` in content modules.
 
 ## Scope of change
 
@@ -50,7 +50,7 @@ Replace current routes/nav (`Projects`, `Skills`, `Resume`, Mission Control Cont
 |-------|---------|
 | `/` | Landing: hero + short teasers into work/infra/automation |
 | `/about` | Ownership-focused narrative (not biography dump) |
-| `/work` | What I Build — software products |
+| `/work` | What I Build - software products |
 | `/work/:slug` | Product deep dive |
 | `/infrastructure` | Infrastructure & Operations initiatives |
 | `/infrastructure/:slug` | Initiative deep dive |
@@ -70,18 +70,18 @@ Update [src/components/layout/navItems.ts](src/components/layout/navItems.ts), [
 
 Replace the single mixed `projects.ts` catalog with three typed modules under `src/content/`:
 
-1. **`products.ts` (What I Build)** — fields: mission, problem, solution, technology, role, outcome  
-   - **Navdrishti** — from resume (Primary Technical Owner; React/TS/Supabase/PostgreSQL/Docker/GitHub Actions/Azure)  
-   - **BrainPulses** — from resume (Production Platform Maintainer; React/JS/MongoDB/Azure Storage/n8n)  
-   - **IT Ticket Automation** — listed in Phase 1 but **not named in resume** → card shell with clear `TODO` copy (no fabricated problem/outcome)
+1. **`products.ts` (What I Build)** - fields: mission, problem, solution, technology, role, outcome  
+   - **Navdrishti** - from resume (Primary Technical Owner; React/TS/Supabase/PostgreSQL/Docker/GitHub Actions/Azure)  
+   - **BrainPulses** - from resume (Production Platform Maintainer; React/JS/MongoDB/Azure Storage/n8n)  
+   - **IT Ticket Automation** - listed in Phase 1 but **not named in resume** → card shell with clear `TODO` copy (no fabricated problem/outcome)
 
-2. **`initiatives.ts` (Infrastructure & Operations)** — fields: objective, role, technologies, outcome  
+2. **`initiatives.ts` (Infrastructure & Operations)** - fields: objective, role, technologies, outcome  
    - Resume-backed: Microsoft 365 Tenant Migration (50+ users), Azure Infrastructure (~50% cost reduction), Self-Hosted Supabase, Docker/self-hosted production patterns, Linux/VPS administration  
-   - Phase 1–listed but thin/missing in resume: TrueNAS / Secure Remote NAS, Sophos VPN → include structure with `TODO` detail, no invented outcomes
+   - Phase 1-listed but thin/missing in resume: TrueNAS / Secure Remote NAS, Sophos VPN → include structure with `TODO` detail, no invented outcomes
 
-3. **`automation.ts`** — n8n self-hosted platform (SQLite→PostgreSQL), Microsoft/enterprise SaaS operational automation (truthful to resume), operational improvements; SharePoint / “future workflow platform” as `TODO` if not evidenced
+3. **`automation.ts`** - n8n self-hosted platform (SQLite→PostgreSQL), Microsoft/enterprise SaaS operational automation (truthful to resume), operational improvements; SharePoint / “future workflow platform” as `TODO` if not evidenced
 
-4. **`profile.ts`** — real contact from resume:
+4. **`profile.ts`** - real contact from resume:
    - Email `rushakgp06@gmail.com`
    - LinkedIn `https://www.linkedin.com/in/rushak-pachpande/`
    - GitHub `https://github.com/RushakPachpande`
@@ -89,13 +89,13 @@ Replace the single mixed `projects.ts` catalog with three typed modules under `s
    - Subtitle: *I design, build, automate and operate digital platforms that solve real business problems.*
    - **Delete invented overview counters** (`deployments: 20`, `automationWorkflows: 12`, etc.)
 
-5. **`timeline.ts`** — only resume facts:
-   - NextGenInnov8, Pune — Apr 2025–Present — Platform & Technology Professional (+ real bullets as highlights)
-   - MCA 2023–2025, ASM's IBMR (CGPA 7.57)
-   - BBA (CA) 2019–2022, ASM's CSIT (CGPA 7.58)
+5. **`timeline.ts`** - only resume facts:
+   - NextGenInnov8, Pune - Apr 2025-Present - Platform & Technology Professional (+ real bullets as highlights)
+   - MCA 2023-2025, ASM's IBMR (CGPA 7.57)
+   - BBA (CA) 2019-2022, ASM's CSIT (CGPA 7.58)
    - Achievements only when stated (Navdrishti ownership, Azure ~50%, M365 50+ users, CI/CD, self-hosted Supabase/n8n)
 
-6. **`philosophy.ts`** — align titles to Phase 1 list (Ownership; Build for maintainability; Automation over repetition; Documentation matters; Infrastructure is part of software; Solve business problems first; Simple systems outperform complicated ones)
+6. **`philosophy.ts`** - align titles to Phase 1 list (Ownership; Build for maintainability; Automation over repetition; Documentation matters; Infrastructure is part of software; Solve business problems first; Simple systems outperform complicated ones)
 
 ## UI / feature changes
 
@@ -103,7 +103,7 @@ Replace the single mixed `projects.ts` catalog with three typed modules under `s
 - **About**: rewrite from resume summary + Phase 1 prompts (who / how I think / what I enjoy / approach). No fake stats.
 - **What I Build**: new feature component (reuse card lift patterns from [`FeaturedSystems`](src/features/systems/FeaturedSystems.tsx)); detail page mirrors Phase 1 fields.
 - **Infrastructure & Operations**: timeline-or-cards layout for initiatives (not “projects”).
-- **Automation**: dedicated page/section — platforms and workflow themes, no fabricated workflow counts.
+- **Automation**: dedicated page/section - platforms and workflow themes, no fabricated workflow counts.
 - **Contact**: strip Mission Control framing from [`ContactMissionControl`](src/features/contact/ContactMissionControl.tsx); simple email + LinkedIn + GitHub + Resume download; keep a minimal form → `mailto:` only.
 - **Resume page**: remove from nav; download remains via hero/contact/`public/resume.pdf` (user replaces PDF when ready; do not invent resume content in-app).
 - **Skills page / capability matrix**: remove from nav/router (Phase 1 omits it). Optionally leave file unused or delete to avoid drift.

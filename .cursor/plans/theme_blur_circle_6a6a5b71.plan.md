@@ -16,7 +16,7 @@ isProject: false
 
 # Theme change blur-circle animation
 
-No new dependency. Port only the **blur-circle** View Transition from [MinhOmega/react-theme-switch-animation](https://github.com/MinhOmega/react-theme-switch-animation) (MIT). Do not vendor QR scan, polygon, GIF, or the library’s own `localStorage` / `html.dark` bookkeeping — [`next-themes`](src/components/theme/ThemeProvider.tsx) already owns `storageKey="portfolio-theme"` and `attribute="class"`.
+No new dependency. Port only the **blur-circle** View Transition from [MinhOmega/react-theme-switch-animation](https://github.com/MinhOmega/react-theme-switch-animation) (MIT). Do not vendor QR scan, polygon, GIF, or the library’s own `localStorage` / `html.dark` bookkeeping - [`next-themes`](src/components/theme/ThemeProvider.tsx) already owns `storageKey="portfolio-theme"` and `attribute="class"`.
 
 ## Behavior
 
@@ -32,17 +32,17 @@ Keep duration **subtle**: 600ms, `ease-in-out`, `blurAmount: 2`.
 
 ## Files
 
-**Add** [`src/lib/theme-view-transition.ts`](src/lib/theme-view-transition.ts) — small helper, not the 18k full hook.
+**Add** [`src/lib/theme-view-transition.ts`](src/lib/theme-view-transition.ts) - small helper, not the 18k full hook.
 
 - File header: MIT attribution (`Copyright (c) 2024 Võ Ngọc Quang Minh`, source repo URL). Required by the license when copying a substantial portion.
 - `injectBaseStyles()` once: disable the default VT crossfade on `::view-transition-old/new(root)` (`animation: none; mix-blend-mode: normal`).
-- `createBlurCircleMask(blur)` — copy the library’s SVG data-URI (circle + `feGaussianBlur`). The GitHub raw fetch strips the URI; copy it from the real `src/index.ts` on GitHub when implementing.
+- `createBlurCircleMask(blur)` - copy the library’s SVG data-URI (circle + `feGaussianBlur`). The GitHub raw fetch strips the URI; copy it from the real `src/index.ts` on GitHub when implementing.
 - `export async function animateThemeTransition(origin: HTMLElement, apply: () => void): Promise<void>`
   - Measure origin center `(x, y)`
   - `maxRadius = hypot` to the four viewport corners
   - Inject a short-lived `<style id="theme-switch-vt">` with the library’s `::view-transition-new(root)` mask + `@keyframes maskScale` (same math as `BLUR_CIRCLE` in the hook)
   - `await document.startViewTransition(() => { flushSync(apply) }).ready`
-  - Do **not** toggle `html.dark` yourself — `apply` is `setTheme`
+  - Do **not** toggle `html.dark` yourself - `apply` is `setTheme`
   - Remove the injected style after `duration`
   - On skip/abort, still call `apply()`
 

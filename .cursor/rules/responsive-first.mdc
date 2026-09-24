@@ -1,5 +1,5 @@
 ---
-description: Responsive-first UI — support all devices, browsers, and screen sizes
+description: Responsive-first UI - support all devices, browsers, and screen sizes
 alwaysApply: true
 ---
 
@@ -13,22 +13,22 @@ Design and implement UI for every viewport from the start. Do not ship desktop-o
 - Prefer mobile-first Tailwind breakpoints (`sm:`, `md:`, `lg:`, `xl:`) over desktop-first overrides.
 - Layouts must reflow: stacks on small screens, multi-column only when space allows.
 - Touch targets stay usable on mobile (adequate tap size and spacing).
-- Avoid horizontal scroll on common viewports unless the content itself requires it (e.g. wide tables — then provide a clear overflow pattern).
+- Avoid horizontal scroll on common viewports unless the content itself requires it (e.g. wide tables - then provide a clear overflow pattern).
 - Test mentally at ~375px, ~768px, and ~1280px before finishing UI work.
 - Prefer fluid units (`%`, `fr`, `minmax`, container queries when already in use) over fixed pixel widths for page chrome.
 
 ## Examples
 
 ```tsx
-// ❌ BAD — desktop-only grid
+// ❌ BAD - desktop-only grid
 <div className="grid grid-cols-4 gap-4">...</div>
 
-// ✅ GOOD — mobile first
+// ✅ GOOD - mobile first
 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">...</div>
 ```
 
 ```tsx
-// ❌ BAD — fixed width breaks small screens
+// ❌ BAD - fixed width breaks small screens
 <aside className="w-[320px]">...</aside>
 
 // ✅ GOOD

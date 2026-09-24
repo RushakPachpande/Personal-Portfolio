@@ -19,7 +19,7 @@ Use a different source only when the user **explicitly** says so, or when:
 
 - The logo is custom/proprietary and not on svglogos.dev (e.g. personal brand, client mark)
 - The user provides a file or URL to use instead
-- A non-SVG format is required (PNG/WebP) and no suitable SVG exists on svglogos.dev — ask before substituting
+- A non-SVG format is required (PNG/WebP) and no suitable SVG exists on svglogos.dev - ask before substituting
 
 ## Examples
 

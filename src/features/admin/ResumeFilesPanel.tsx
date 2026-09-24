@@ -80,7 +80,7 @@ export function ResumeFilesPanel() {
         <Input
           value={label}
           onChange={(event) => setLabel(event.target.value)}
-          placeholder="Platform resume — 2026"
+          placeholder="Platform resume - 2026"
         />
       </Field>
       <label

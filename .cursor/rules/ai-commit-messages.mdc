@@ -56,7 +56,7 @@ If multiple categories exist, choose the type representing the primary purpose o
 The first line should:
 
 - be written in imperative mood
-- be concise (roughly 50–72 characters)
+- be concise (roughly 50-72 characters)
 - summarize the overall purpose, not individual files
 - avoid ending with a period
 

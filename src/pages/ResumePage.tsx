@@ -6,7 +6,7 @@ export function ResumePage() {
     <>
       <Seo
         title="Resume"
-        description="Full resume preview for Rushak Pachpande — platform engineering, cloud infrastructure, automation, and production ownership."
+        description="Full resume preview for Rushak Pachpande - platform engineering, cloud infrastructure, automation, and production ownership."
         path="/resume"
       />
       <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6">

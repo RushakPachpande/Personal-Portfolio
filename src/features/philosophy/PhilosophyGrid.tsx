@@ -11,7 +11,7 @@ export function PhilosophyGrid() {
         <SectionHeader
           eyebrow="Engineering Philosophy"
           title="How platforms stay trustworthy"
-          description="Principles that reinforce engineering ownership—not slogans."
+          description="Principles that reinforce engineering ownership-not slogans."
         />
       </Reveal>
 

@@ -5,9 +5,9 @@ alwaysApply: true
 
 # Reuse Existing Dev Servers (Portfolio)
 
-Vite port is **8000** only (`vite.config.ts`). Never start a second `npm run dev` when one is already up — that creates **8001+**.
+Vite port is **8000** only (`vite.config.ts`). Never start a second `npm run dev` when one is already up - that creates **8001+**.
 
-## Check order (mandatory — do all before starting)
+## Check order (mandatory - do all before starting)
 
 ### 1. Terminals folder first (shell-agnostic)
 

@@ -59,7 +59,7 @@ flowchart TD
 
 ---
 
-## Part 1 — Theme Token Architecture
+## Part 1 - Theme Token Architecture
 
 Refactor [`src/index.css`](src/index.css) to a **three-layer token model** (per design-system skill):
 
@@ -72,8 +72,8 @@ Refactor [`src/index.css`](src/index.css) to a **three-layer token model** (per 
 **Light palette direction** (matching brand, WCAG AA):
 - Background: `#f8fafc` / surface `#ffffff` / card `#f1f5f9`
 - Foreground: `#0f172a` / muted: `#64748b`
-- Borders/inputs: slate with ~12–16% opacity
-- Brand accents: same `#3b82f6`, `#7c3aed`, `#22d3ee` — adjust `--accent-foreground` per theme for contrast
+- Borders/inputs: slate with ~12-16% opacity
+- Brand accents: same `#3b82f6`, `#7c3aed`, `#22d3ee` - adjust `--accent-foreground` per theme for contrast
 - Scrollbar/scrim/glow tokens: theme-specific CSS vars (not hardcoded rgba)
 
 **Theme-aware effect tokens** (new semantic vars):
@@ -100,11 +100,11 @@ html {
   html { transition: none; }
 }
 ```
-Only transition `background-color` / `color` on `html` — not `*` (avoids jank).
+Only transition `background-color` / `color` on `html` - not `*` (avoids jank).
 
 ---
 
-## Part 2 — Theme Provider and Toggle
+## Part 2 - Theme Provider and Toggle
 
 ### Install `next-themes`
 ```bash
@@ -129,15 +129,15 @@ npm audit && npm audit fix
 
 ### Wire up
 
-**[`src/main.tsx`](src/main.tsx)** — wrap `RouterProvider` with `ThemeProvider`.
+**[`src/main.tsx`](src/main.tsx)** - wrap `RouterProvider` with `ThemeProvider`.
 
-**[`index.html`](index.html)** — remove hardcoded `class="dark"`; add inline FOUC-prevention script (before `<body>`) that reads `localStorage['portfolio-theme']` and applies `class="dark"` or removes it before first paint. Default to dark when unset.
+**[`index.html`](index.html)** - remove hardcoded `class="dark"`; add inline FOUC-prevention script (before `<body>`) that reads `localStorage['portfolio-theme']` and applies `class="dark"` or removes it before first paint. Default to dark when unset.
 
-**[`src/components/layout/Navbar.tsx`](src/components/layout/Navbar.tsx)** — add `<ThemeToggle />` in desktop actions row and mobile sheet footer (alongside terminal button).
+**[`src/components/layout/Navbar.tsx`](src/components/layout/Navbar.tsx)** - add `<ThemeToggle />` in desktop actions row and mobile sheet footer (alongside terminal button).
 
 ---
 
-## Part 3 — Theme-Aware Hardcoded Colors
+## Part 3 - Theme-Aware Hardcoded Colors
 
 | File | Change |
 |------|--------|
@@ -146,24 +146,24 @@ npm audit && npm audit fix
 | [`src/components/effects/BackgroundEffects.tsx`](src/components/effects/BackgroundEffects.tsx) | Replace fixed grid rgba with `var(--border)` or new `--grid-line` token |
 | [`src/pages/admin/AdminLoginPage.tsx`](src/pages/admin/AdminLoginPage.tsx) | Replace inline rgba gradient with semantic tokens |
 
-Quick audit pass with ripgrep for `rgba(59,130,246`, `rgb(5 8 22`, `#050816` outside `index.css` — convert remaining hits.
+Quick audit pass with ripgrep for `rgba(59,130,246`, `rgb(5 8 22`, `#050816` outside `index.css` - convert remaining hits.
 
 ---
 
-## Part 4 — Subtle Theme Animations (CSS-only)
+## Part 4 - Subtle Theme Animations (CSS-only)
 
-Per design-animate skill — no new JS animation libraries:
+Per design-animate skill - no new JS animation libraries:
 
 1. **Toggle icon**: rotate ±15° + opacity crossfade on theme change (200ms)
-2. **Navbar glass**: existing `transition-colors` — no change needed
+2. **Navbar glass**: existing `transition-colors` - no change needed
 3. **No** page-wide View Transitions API for theme switch (adds complexity, minimal UX gain)
 4. **Respect** [`usePrefersReducedMotion`](src/hooks/usePrefersReducedMotion.ts) in ThemeToggle
 
 ---
 
-## Part 5 — Production Modularization and Optimization
+## Part 5 - Production Modularization and Optimization
 
-### 5a. Vite build splitting — [`vite.config.ts`](vite.config.ts)
+### 5a. Vite build splitting - [`vite.config.ts`](vite.config.ts)
 
 ```ts
 build: {
@@ -195,7 +195,7 @@ Add devDep `rollup-plugin-visualizer` + script `"build:analyze": "tsc -b && vite
 
 Update [`src/hooks/usePortfolio.ts`](src/hooks/usePortfolio.ts) and [`ContactPanel.tsx`](src/features/contact/ContactPanel.tsx) to import from `portfolio-public.ts` only.
 
-### 5c. Lazy-load non-critical AppShell weight — [`src/app/AppShell.tsx`](src/app/AppShell.tsx)
+### 5c. Lazy-load non-critical AppShell weight - [`src/app/AppShell.tsx`](src/app/AppShell.tsx)
 
 ```ts
 const BootSequence = lazy(() => import('@/components/layout/BootSequence').then(m => ({ default: m.BootSequence })));
@@ -205,7 +205,7 @@ const CursorGlow = lazy(() => import('@/components/effects/CursorGlow').then(m =
 
 Render shell skeleton (navbar + outlet) while portfolio loads instead of full-screen "Loading systems...".
 
-### 5d. Font optimization — [`src/index.css`](src/index.css)
+### 5d. Font optimization - [`src/index.css`](src/index.css)
 
 - Remove duplicate `@fontsource/jetbrains-mono` imports if Nerd Font covers terminal UI
 - Load Nerd Font TTFs via dynamic `@font-face` injection when terminal opens, OR convert to woff2 subset (~90% size reduction)
@@ -217,13 +217,13 @@ Render shell skeleton (navbar + outlet) while portfolio loads instead of full-sc
 
 Split [`AdminContentPages.tsx`](src/pages/admin/AdminContentPages.tsx) (~1143 lines, 5 routes) into one file per route so each admin page gets its own lazy chunk.
 
-### 5f. Fix ESM postbuild — [`package.json`](package.json)
+### 5f. Fix ESM postbuild - [`package.json`](package.json)
 
 Replace `require('fs')` in `postbuild` with a small `scripts/copy-spa-fallback.mjs` (project is `"type": "module"`).
 
 ---
 
-## Part 6 — Verification Checklist
+## Part 6 - Verification Checklist
 
 - [ ] Toggle cycles Light / Dark / System; default is Dark on first visit
 - [ ] Preference persists in `localStorage`; no FOUC flash
@@ -238,7 +238,7 @@ Replace `require('fs')` in `postbuild` with a small `scripts/copy-spa-fallback.m
 
 ## Implementation Order
 
-1. Token refactor (`index.css`) — foundation for everything else
+1. Token refactor (`index.css`) - foundation for everything else
 2. ThemeProvider + FOUC script + ThemeToggle in Navbar
 3. Hardcoded color migration (cardGradients, effects, scrim)
 4. Service split + AppShell lazy loading

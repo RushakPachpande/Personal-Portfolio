@@ -36,7 +36,7 @@ Four separate issues share a common theme: **inconsistent sizing/fit rules** and
 |------|------------|
 | Images/logos | Four inline `<img>` patterns with conflicting `object-cover` vs `object-contain`; gallery crops logos |
 | Typography | Custom `text-[10px]` / `text-[11px]` below Tailwind scale; mono labels hard to read |
-| Terminal banner | `whitespace-pre-wrap` + `text-pretty` wraps fixed-width ASCII; em dash (`—`) breaks monospace cell alignment |
+| Terminal banner | `whitespace-pre-wrap` + `text-pretty` wraps fixed-width ASCII; em dash (`-`) breaks monospace cell alignment |
 | Mobile | Grids have `min-w-0`, but outer sections/articles and some modals lack it; hero/headings may overflow at 320px |
 
 ```mermaid
@@ -62,7 +62,7 @@ flowchart LR
 
 ### Create shared component
 
-Add [`src/components/media/LogoFrame.tsx`](src/components/media/LogoFrame.tsx) — single source of truth for logo/media fit:
+Add [`src/components/media/LogoFrame.tsx`](src/components/media/LogoFrame.tsx) - single source of truth for logo/media fit:
 
 | Variant | Container | Image fit | Notes |
 |---------|-----------|-----------|-------|
@@ -75,10 +75,10 @@ Props: `src`, `alt`, `variant`, optional `className`, `loading`.
 
 ### Wire up consumers
 
-- [`src/features/case-studies/CaseStudyCard.tsx`](src/features/case-studies/CaseStudyCard.tsx) — replace inline `AspectRatio` + `<img>` block
-- [`src/features/case-studies/CaseStudyPage.tsx`](src/features/case-studies/CaseStudyPage.tsx) — header logo uses `variant="header"`
-- [`src/components/media/MediaCarousel.tsx`](src/components/media/MediaCarousel.tsx) — wrap image in `LogoFrame variant="gallery"`; remove `object-cover` and fixed heights
-- [`src/components/media/LightboxModal.tsx`](src/components/media/LightboxModal.tsx) — use `LogoFrame variant="lightbox"`
+- [`src/features/case-studies/CaseStudyCard.tsx`](src/features/case-studies/CaseStudyCard.tsx) - replace inline `AspectRatio` + `<img>` block
+- [`src/features/case-studies/CaseStudyPage.tsx`](src/features/case-studies/CaseStudyPage.tsx) - header logo uses `variant="header"`
+- [`src/components/media/MediaCarousel.tsx`](src/components/media/MediaCarousel.tsx) - wrap image in `LogoFrame variant="gallery"`; remove `object-cover` and fixed heights
+- [`src/components/media/LightboxModal.tsx`](src/components/media/LightboxModal.tsx) - use `LogoFrame variant="lightbox"`
 
 **Key fix:** Gallery currently uses `object-cover` which crops logos; switching to `object-contain` inside a ratio box matches card/header behavior.
 
@@ -90,7 +90,7 @@ Props: `src`, `alt`, `variant`, optional `className`, `loading`.
 
 Fontsource does not ship Nerd Font patches. Self-host a subset:
 
-1. Add woff2 files under [`src/assets/fonts/jetbrains-mono-nerd/`](src/assets/fonts/jetbrains-mono-nerd/) (Regular 400, Medium 500 — download from [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases), JetBrainsMono subset)
+1. Add woff2 files under [`src/assets/fonts/jetbrains-mono-nerd/`](src/assets/fonts/jetbrains-mono-nerd/) (Regular 400, Medium 500 - download from [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases), JetBrainsMono subset)
 2. Register `@font-face` in [`src/index.css`](src/index.css)
 3. Update token:
 
@@ -98,7 +98,7 @@ Fontsource does not ship Nerd Font patches. Self-host a subset:
 --font-mono: "JetBrainsMono Nerd Font", "JetBrains Mono", ui-monospace, monospace;
 ```
 
-Keep Inter (body) and Space Grotesk (display) unchanged — Nerd Font applies only to `--font-mono` (terminal, badges, eyebrows, meta labels).
+Keep Inter (body) and Space Grotesk (display) unchanged - Nerd Font applies only to `--font-mono` (terminal, badges, eyebrows, meta labels).
 
 Also update [`404.html`](404.html) Google Fonts fallback to note mono stack (optional CDN fallback to JetBrains Mono if nerd files unavailable).
 
@@ -129,8 +129,8 @@ Bump [`LightboxModal`](src/components/media/LightboxModal.tsx) type label from `
 
 ### Root cause (confirmed in [`src/content/terminal.ts`](src/content/terminal.ts) + [`CommandTerminal.tsx`](src/components/terminal/CommandTerminal.tsx))
 
-- Banner uses Unicode box-drawing (`╔═╗`) + em dash (`—`)
-- Rendered with `whitespace-pre-wrap text-pretty` — wraps on narrow modal, breaking right border alignment
+- Banner uses Unicode box-drawing (`╔═╗`) + em dash (`-`)
+- Rendered with `whitespace-pre-wrap text-pretty` - wraps on narrow modal, breaking right border alignment
 
 ### Fixes
 
@@ -144,7 +144,7 @@ Replace heavy box chars with plain ASCII and hyphen (equal cell width):
 +------------------------------------------+
 ```
 
-Inner width ~42 chars — fits mobile modal without wrapping.
+Inner width ~42 chars - fits mobile modal without wrapping.
 
 **B. Conditional pre styling** in [`CommandTerminal.tsx`](src/components/terminal/CommandTerminal.tsx):
 
@@ -152,7 +152,7 @@ Inner width ~42 chars — fits mobile modal without wrapping.
 - Command output lines: keep `whitespace-pre-wrap` for long prose
 - Add `overflow-x-auto` on scroll container for `help`/`nav` tabular output
 
-**C. Mobile header hint** — hide secondary hint on xs, show abbreviated version:
+**C. Mobile header hint** - hide secondary hint on xs, show abbreviated version:
 
 ```tsx
 <span className="hidden sm:inline">v{SITE_VERSION} · Ctrl+K close · ↑↓ history · Tab complete</span>
@@ -169,14 +169,14 @@ The project already uses mobile-first Tailwind and [`responsiveCardGridClassName
 
 Add `min-w-0` to outer wrappers missing it:
 
-- [`CaseStudyPage.tsx`](src/features/case-studies/CaseStudyPage.tsx) — `<article>`
-- [`AboutPage.tsx`](src/pages/AboutPage.tsx), [`PhilosophyGrid.tsx`](src/features/philosophy/PhilosophyGrid.tsx), [`TechnologyLibraryGrid.tsx`](src/features/technology-library/TechnologyLibraryGrid.tsx) — section roots
-- [`ContactPanel.tsx`](src/features/contact/ContactPanel.tsx) — section + `lg:grid` wrapper
+- [`CaseStudyPage.tsx`](src/features/case-studies/CaseStudyPage.tsx) - `<article>`
+- [`AboutPage.tsx`](src/pages/AboutPage.tsx), [`PhilosophyGrid.tsx`](src/features/philosophy/PhilosophyGrid.tsx), [`TechnologyLibraryGrid.tsx`](src/features/technology-library/TechnologyLibraryGrid.tsx) - section roots
+- [`ContactPanel.tsx`](src/features/contact/ContactPanel.tsx) - section + `lg:grid` wrapper
 
 ### Typography overflow
 
-- [`HeroSection.tsx`](src/features/hero/HeroSection.tsx) — `text-5xl` → `text-4xl sm:text-5xl md:text-7xl` to prevent horizontal clip at 320px
-- [`CaseStudyPage.tsx`](src/features/case-studies/CaseStudyPage.tsx) — `text-4xl sm:text-5xl` → `text-3xl sm:text-4xl md:text-5xl`
+- [`HeroSection.tsx`](src/features/hero/HeroSection.tsx) - `text-5xl` → `text-4xl sm:text-5xl md:text-7xl` to prevent horizontal clip at 320px
+- [`CaseStudyPage.tsx`](src/features/case-studies/CaseStudyPage.tsx) - `text-4xl sm:text-5xl` → `text-3xl sm:text-4xl md:text-5xl`
 - Ensure long badge rows use `flex-wrap` (already present on cards)
 
 ### Modals / overlays
@@ -193,7 +193,7 @@ Add `min-w-0` to outer wrappers missing it:
 | `ExperienceTimeline` | Confirm timeline line doesn't cause overflow on 375px |
 | `ResumePreview` | Verify `xl:grid` sidebar collapses cleanly; contact line readable after font bump |
 | `MediaCarousel` | Nav buttons don't overlap caption on narrow screens (reduce button size or stack caption below on xs) |
-| `TechBanner` | Already `flex-wrap min-w-0` — verify after font size increase |
+| `TechBanner` | Already `flex-wrap min-w-0` - verify after font size increase |
 
 ### Verification checklist (manual, before push)
 

@@ -66,7 +66,7 @@ export function AdminDashboardPage() {
     <div className="flex flex-col gap-8">
       <PageHeader
         title="Dashboard"
-        description="Jump into the content you want to change. Each tile opens a form editor—no JSON."
+        description="Jump into the content you want to change. Each tile opens a form editor-no JSON."
       />
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {tiles.map((tile) => (

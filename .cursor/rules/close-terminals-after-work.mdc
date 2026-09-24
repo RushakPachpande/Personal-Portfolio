@@ -1,5 +1,5 @@
 ---
-description: Strict cleanup — kill agent processes and free ports 3000/5173 before ending; prefer external terminals for dev servers
+description: Strict cleanup - kill agent processes and free ports 3000/5173 before ending; prefer external terminals for dev servers
 alwaysApply: true
 ---
 
@@ -25,7 +25,7 @@ Do **not** leave **3000** or **5173** occupied after your turn if you started an
 ## Required End-of-Turn Checklist
 
 1. Stop every process/job **you** started this chat (dev, watch, background shells).
-2. If you used or may have bound **3000** or **5173**, **force-free those ports** (see below) — even if you already closed the terminal window.
+2. If you used or may have bound **3000** or **5173**, **force-free those ports** (see below) - even if you already closed the terminal window.
 3. Confirm listeners are gone before the final message.
 4. Never rely on the user to clean up.
 
@@ -54,4 +54,4 @@ Killing the terminal session PID alone is insufficient when children keep the po
 
 - Leave a process running **only** if the user explicitly asks (e.g. "leave the server running").
 - Do **not** kill listeners on 3000/5173 that the user already had running in an **external** terminal **unless** you (or an orphan from this chat) are what is holding the port, or the user asked you to free it.
-- Postgres on **5432** (Docker) is out of scope — do not stop the DB container unless asked.
+- Postgres on **5432** (Docker) is out of scope - do not stop the DB container unless asked.

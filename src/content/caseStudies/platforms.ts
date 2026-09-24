@@ -16,7 +16,7 @@ export const platformCaseStudies: CaseStudy[] = [
     status: 'Final development, validation, and rollout',
     featured: true,
     difficulty: 'Complex',
-    timeline: '2025 — Present',
+    timeline: '2025 - Present',
     logo: navdrishtiLogo,
     logoAlt: 'Navdrishti logo',
     coverImage: navdrishtiLogo,
@@ -52,7 +52,7 @@ export const platformCaseStudies: CaseStudy[] = [
       { group: 'Delivery', items: ['GitHub Actions', 'CI/CD'] },
     ],
     businessContext:
-      'The organization needed a student placement management platform that could support role-based access, auditability, and reliable environments—without fragile handoffs between design, development, and operations.',
+      'The organization needed a student placement management platform that could support role-based access, auditability, and reliable environments-without fragile handoffs between design, development, and operations.',
     problem:
       'Building and operating a placement platform requires more than UI features: secure data access, environment separation, deployment discipline, and clear ownership through validation and rollout.',
     objective:
@@ -131,7 +131,7 @@ export const platformCaseStudies: CaseStudy[] = [
     outcome:
       'Established end-to-end technical ownership of Navdrishti with CI/CD and environment separation supporting future platform scalability through final development, validation, and rollout.',
     learnings: [
-      'Ownership means carrying architecture, access control, and deployability—not only feature tickets.',
+      'Ownership means carrying architecture, access control, and deployability-not only feature tickets.',
       'RBAC and environment discipline are product requirements when the system handles real institutional workflows.',
       'CI/CD is how multi-environment platforms stay honest under change.',
     ],
@@ -168,7 +168,7 @@ export const platformCaseStudies: CaseStudy[] = [
     status: 'Production',
     featured: true,
     difficulty: 'Advanced',
-    timeline: '2025 — Present',
+    timeline: '2025 - Present',
     logo: brainpulsesLogo,
     logoAlt: 'BrainPulses logo',
     coverImage: brainpulsesLogo,
@@ -182,7 +182,7 @@ export const platformCaseStudies: CaseStudy[] = [
       { group: 'Automation', items: ['n8n'] },
     ],
     businessContext:
-      'BrainPulses is a live quiz platform used for large-scale events and client-specific experiences. It needed ongoing production care—not a one-time build-and-forget delivery.',
+      'BrainPulses is a live quiz platform used for large-scale events and client-specific experiences. It needed ongoing production care-not a one-time build-and-forget delivery.',
     problem:
       'Production quiz events expose reliability and UX gaps quickly. The platform required continuous fixes, enhancements, customizations, and a clearer path toward a more maintainable next-generation architecture.',
     objective:
@@ -242,7 +242,7 @@ export const platformCaseStudies: CaseStudy[] = [
         challenge:
           'Supporting large-scale live quiz events while continuing feature and UI work.',
         resolution:
-          'Treated production reliability as the primary constraint—fixes and customizations were validated against real event pressure.',
+          'Treated production reliability as the primary constraint-fixes and customizations were validated against real event pressure.',
       },
       {
         challenge:
@@ -256,7 +256,7 @@ export const platformCaseStudies: CaseStudy[] = [
     learnings: [
       'Production ownership is continuous: events reveal what architecture and process must absorb.',
       'Prototype the next architecture while protecting the system that currently earns trust.',
-      'Client-specific needs should not permanently fracture a platform—document and contain them.',
+      'Client-specific needs should not permanently fracture a platform-document and contain them.',
     ],
     gallery: [
       {
@@ -289,7 +289,7 @@ export const platformCaseStudies: CaseStudy[] = [
     status: 'Production',
     featured: true,
     difficulty: 'Complex',
-    timeline: '2025 — Present',
+    timeline: '2025 - Present',
     logo: dishaLogo,
     logoAlt: 'DISHA / ASM logo',
     coverImage: dishaLogo,
@@ -333,7 +333,7 @@ export const platformCaseStudies: CaseStudy[] = [
       },
     ],
     businessContext:
-      'ASM needed a dedicated induction experience for PGDM cohorts—attendance, quizzes, assessments, reflections, and competition—across multiple colleges without bolting onto an unrelated assessment product.',
+      'ASM needed a dedicated induction experience for PGDM cohorts-attendance, quizzes, assessments, reflections, and competition-across multiple colleges without bolting onto an unrelated assessment product.',
     problem:
       'Induction programs fail when attendance is manual, quizzes are offline, and leaderboards lag. Multi-college delivery also needs isolation, live updates, and admin tooling that non-engineers can operate during events.',
     objective:
@@ -444,11 +444,11 @@ export const platformCaseStudies: CaseStudy[] = [
     category: 'platform',
     name: 'LevelUP',
     summary:
-      'Zapienz LevelUP—intelligent school assessment platform with timed multi-subject quizzes, AI-assisted grading, and hardened session security.',
+      'Zapienz LevelUP-intelligent school assessment platform with timed multi-subject quizzes, AI-assisted grading, and hardened session security.',
     status: 'Production',
     featured: true,
     difficulty: 'Complex',
-    timeline: '2025 — Present',
+    timeline: '2025 - Present',
     logo: levelupLogo,
     logoAlt: 'Zapienz LevelUP logo',
     coverImage: levelupLogo,
@@ -597,11 +597,11 @@ export const platformCaseStudies: CaseStudy[] = [
     category: 'platform',
     name: 'Personal Portfolio Studio',
     summary:
-      'One-of-a-kind portfolio platform with a full Studio CMS—projects, logos, tech icons, chrome, nav, brand, and SEO editable without redeploying frontend code.',
+      'One-of-a-kind portfolio platform with a full Studio CMS-projects, logos, tech icons, chrome, nav, brand, and SEO editable without redeploying frontend code.',
     status: 'Production',
     featured: true,
     difficulty: 'Complex',
-    timeline: '2025 — Present',
+    timeline: '2025 - Present',
     logo: personalPortfolioLogo,
     logoAlt: 'Personal portfolio mark',
     coverImage: personalPortfolioLogo,
@@ -639,7 +639,7 @@ export const platformCaseStudies: CaseStudy[] = [
       { group: 'Delivery', items: ['GitHub Actions', 'Azure', 'Docker'] },
     ],
     businessContext:
-      'A personal portfolio should be a production product—not a static brochure. Content, logos, tech icons, and site chrome need to change without waiting on a code deploy every time.',
+      'A personal portfolio should be a production product-not a static brochure. Content, logos, tech icons, and site chrome need to change without waiting on a code deploy every time.',
     problem:
       'Most portfolios hardcode case studies and marketing copy in the repo, so updates require engineering deploys. That blocks iteration and undercuts the claim of owning platforms end-to-end.',
     objective:
@@ -697,7 +697,7 @@ export const platformCaseStudies: CaseStudy[] = [
       {
         decision: 'Featured flag on each case study',
         rationale:
-          'Home spotlight should be editorial—toggle which projects appear without code or redeploys.',
+          'Home spotlight should be editorial-toggle which projects appear without code or redeploys.',
       },
     ],
     challenges: [
@@ -713,7 +713,7 @@ export const platformCaseStudies: CaseStudy[] = [
       },
     ],
     outcome:
-      'A production portfolio platform with Studio CMS ownership—case studies (including DISHA and LevelUP), tech logos, and site configuration editable without frontend redeploys.',
+      'A production portfolio platform with Studio CMS ownership-case studies (including DISHA and LevelUP), tech logos, and site configuration editable without frontend redeploys.',
     learnings: [
       'A portfolio is more credible when it is operated like the platforms it describes.',
       'Config-driven chrome is what turns a content CMS into a white-label site.',

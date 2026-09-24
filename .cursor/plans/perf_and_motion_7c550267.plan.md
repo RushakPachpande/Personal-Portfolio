@@ -40,7 +40,7 @@ sequenceDiagram
   Note over Route: Feels like lag, not motion
 ```
 
-### High — first paint is gated
+### High - first paint is gated
 
 [`AppShell`](src/app/AppShell.tsx) does not render Navbar, Hero, or page content until `usePublicPortfolioQuery()` resolves. [`fetchPublicPortfolio`](src/services/portfolio-public.ts) always loads **eight** tables (profile, settings, case studies, technologies, timeline, philosophy, resume, terminal) even for Home.
 
@@ -48,11 +48,11 @@ Then, on a fresh session, [`BootSequence`](src/components/layout/BootSequence.ts
 
 Admin hits the same query in [`AdminDataLayout`](src/features/admin/AdminDataLayout.tsx), but Studio already shows a skeleton and skip boot.
 
-### High — navigation waits instead of overlapping
+### High - navigation waits instead of overlapping
 
 [`AppShell`](src/app/AppShell.tsx) and [`PreviewPublicChrome`](src/app/publicRoutes.tsx) use `AnimatePresence mode="wait"` with a 350ms fade. Every click: old page must finish exiting, then the lazy page chunk loads (`withSuspense` → “Loading systems...”), then the new page fades in. The fade is small (`y: 12`) so it reads as a pause, not an animation.
 
-### Medium — continuous work on the main thread
+### Medium - continuous work on the main thread
 
 - [`CursorGlow`](src/components/effects/CursorGlow.tsx) calls `setState` on every `pointermove`, then paints a `blur-3xl` layer. That is a React commit per mouse event.
 - [`index.css`](src/index.css) uses `background-attachment: fixed` plus three full-viewport radial glows; Hero adds more `blur-3xl` blobs and a drifting grid.
@@ -63,9 +63,9 @@ Admin hits the same query in [`AdminDataLayout`](src/features/admin/AdminDataLay
 | Mechanism | Effect |
 |---|---|
 | `useReducedMotion()` on Reveal, PageTransition, Hero, Boot | If Windows **Animation effects** is off (`prefers-reduced-motion: reduce`), **all** Framer Motion is skipped. |
-| Global CSS in [`index.css`](src/index.css) lines 297–309 | Same OS setting also forces `animation-duration: 0.01ms !important` on `*`. |
-| Reveal `whileInView` + delay | Above-the-fold blocks often fire before you notice; nested Reveals on Resume stagger 0–160ms and look like a delayed dump. |
-| MagneticButton | CSS hover only — not magnetic, easy to miss next to page-wait lag. |
+| Global CSS in [`index.css`](src/index.css) lines 297-309 | Same OS setting also forces `animation-duration: 0.01ms !important` on `*`. |
+| Reveal `whileInView` + delay | Above-the-fold blocks often fire before you notice; nested Reveals on Resume stagger 0-160ms and look like a delayed dump. |
+| MagneticButton | CSS hover only - not magnetic, easy to miss next to page-wait lag. |
 | Admin `studio-enter` | Studio cards have a clearer CSS entrance than the public site. |
 
 **Check once in the browser:** DevTools → Rendering → emulate `prefers-reduced-motion: reduce` vs `no-preference`. If reduce matches what you see today, OS settings are part of the story; we still fix the wait path so motion is visible when it is allowed.
@@ -74,7 +74,7 @@ No new animation libraries. Keep Framer Motion (already in [`package.json`](pack
 
 ---
 
-## Part 1 — Make it feel fast
+## Part 1 - Make it feel fast
 
 ### 1. Stop blocking the public shell on the full dataset
 
@@ -101,7 +101,7 @@ In [`AppShell.tsx`](src/app/AppShell.tsx) and [`publicRoutes.tsx`](src/app/publi
 - Drop `mode="wait"` (use default / `popLayout`) so enter and exit overlap.
 - Cut [`pageTransition`](src/lib/motion.ts) to ~200ms, slightly larger travel (`y: 16` enter) so it is readable without adding delay.
 - Replace the “Loading systems...” fallback in [`RouteFallback`](src/app/publicRoutes.tsx) with a compact skeleton that matches page chrome (no extra copy delay).
-- Prefetch public route chunks on Navbar `onPointerEnter` / `onFocus` for the main links in [`Navbar.tsx`](src/components/layout/Navbar.tsx) (`HomePage`, `AboutPage`, platforms, etc. — `import()` the same modules already lazy-loaded).
+- Prefetch public route chunks on Navbar `onPointerEnter` / `onFocus` for the main links in [`Navbar.tsx`](src/components/layout/Navbar.tsx) (`HomePage`, `AboutPage`, platforms, etc. - `import()` the same modules already lazy-loaded).
 
 ### 4. Cheap GPU / input wins
 
@@ -112,7 +112,7 @@ In [`AppShell.tsx`](src/app/AppShell.tsx) and [`publicRoutes.tsx`](src/app/publi
 
 ---
 
-## Part 2 — Public motion that you can feel
+## Part 2 - Public motion that you can feel
 
 Scope: **public portfolio first**. Admin keeps current `studio-enter` / hover lifts; no new Studio choreography except sharing faster page transitions inside preview chrome.
 
@@ -127,10 +127,10 @@ Respect `prefers-reduced-motion`: skip travel/parallax; keep instant state chang
 
 ### Interaction (CSS, existing Tailwind / tw-animate)
 
-- Cards ([`OverlayCard`](src/components/cards/OverlayCard.tsx), [`CaseStudyCard`](src/features/case-studies/CaseStudyCard.tsx), timeline glass cards): clearer hover (`translateY` + border/glow), already partially there — ensure `motion-safe:` and duration 200–300ms.
+- Cards ([`OverlayCard`](src/components/cards/OverlayCard.tsx), [`CaseStudyCard`](src/features/case-studies/CaseStudyCard.tsx), timeline glass cards): clearer hover (`translateY` + border/glow), already partially there - ensure `motion-safe:` and duration 200-300ms.
 - [`MagneticButton`](src/components/shared/MagneticButton.tsx): keep CSS lift; add a brief shine via `::after` translate (no pointer-tracking JS).
 - Navbar: animate the mobile sheet (already `animate-in` in [`sheet.tsx`](src/components/ui/sheet.tsx)); give desktop dropdown a short `@starting-style` / opacity+translate so it does not pop.
-- Architecture nodes ([`ArchitectureFlow.tsx`](src/features/case-studies/ArchitectureFlow.tsx)): keep hover; add a 150ms opacity/transform on active — no layout animation.
+- Architecture nodes ([`ArchitectureFlow.tsx`](src/features/case-studies/ArchitectureFlow.tsx)): keep hover; add a 150ms opacity/transform on active - no layout animation.
 
 ### What we will not do
 

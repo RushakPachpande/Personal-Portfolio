@@ -549,7 +549,7 @@
   --card-h: 22.1rem;
 }
 
-/* Featured is a visual accent only — same outer height as standard so
+/* Featured is a visual accent only - same outer height as standard so
    mixed grids (related studies) stay flush. */
 .overlay-card--featured {
   --card-h: 22.1rem;
@@ -599,7 +599,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Soft spotlight behind the mark — keeps side wings from reading as empty void. */
+  /* Soft spotlight behind the mark - keeps side wings from reading as empty void. */
   background:
     radial-gradient(
       circle at 50% 55%,
@@ -665,7 +665,7 @@
   }
 
   .overlay-card--wide .overlay-card__hero-stage {
-    /* Side banner is taller — keep a large square plate. */
+    /* Side banner is taller - keep a large square plate. */
     width: min(100%, var(--card-logo-max));
     height: min(100%, var(--card-logo-max));
   }
@@ -763,7 +763,7 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  /* Square plate — every mark fills the same dedicated cell. */
+  /* Square plate - every mark fills the same dedicated cell. */
   width: min(100%, var(--card-logo-max));
   height: min(100%, var(--card-logo-max));
   aspect-ratio: 1 / 1;

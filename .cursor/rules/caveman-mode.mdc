@@ -1,5 +1,5 @@
 ---
-description: Always enforce Caveman full mode — terse replies, exact code/paths/CLI
+description: Always enforce Caveman full mode - terse replies, exact code/paths/CLI
 alwaysApply: true
 ---
 
@@ -18,7 +18,7 @@ Every reply: apply project skill `.agents/skills/caveman` at **full** intensity.
 ## Do not
 
 - Announce “caveman mode on” or duplicate normal + caveman answers
-- Compress security warnings, irreversible confirms, or steps where dropped words flip meaning — clarity wins, then resume full
+- Compress security warnings, irreversible confirms, or steps where dropped words flip meaning - clarity wins, then resume full
 
 ```text
 ❌ Sure! I'd be happy to help. The issue is likely caused by…

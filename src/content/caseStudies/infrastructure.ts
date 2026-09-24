@@ -97,7 +97,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
       {
         decision: 'Invest in post-migration support',
         rationale:
-          'Tenant moves are not finished at cutover—user and service issues surface after people actually work in the new environment.',
+          'Tenant moves are not finished at cutover-user and service issues surface after people actually work in the new environment.',
       },
     ],
     challenges: [
@@ -144,7 +144,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     status: 'Production',
     featured: true,
     difficulty: 'Complex',
-    timeline: '2025 — Present',
+    timeline: '2025 - Present',
     logo: azureLogo,
     logoAlt: 'Microsoft Azure logo',
     coverImage: azureLogo,
@@ -157,7 +157,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
       { group: 'Compute OS', items: ['Linux'] },
     ],
     businessContext:
-      'Production applications needed a durable Azure home—not ad-hoc resources that become expensive and hard to operate.',
+      'Production applications needed a durable Azure home-not ad-hoc resources that become expensive and hard to operate.',
     problem:
       'Cloud spend and operational clarity drift when production workloads are hosted without ongoing optimization and ownership.',
     objective:
@@ -200,7 +200,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
         decision:
           'Optimize existing Azure footprint rather than only scaling up',
         rationale:
-          'Reliability and cost are both ownership outcomes—unused or oversized resources quietly tax the business.',
+          'Reliability and cost are both ownership outcomes-unused or oversized resources quietly tax the business.',
       },
       {
         decision: 'Keep production hosting under explicit technical ownership',
@@ -212,7 +212,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
       {
         challenge: 'Reducing cost without undermining production reliability.',
         resolution:
-          'Optimized cloud resources with production hosting responsibilities still owned end-to-end—not cut blindly.',
+          'Optimized cloud resources with production hosting responsibilities still owned end-to-end-not cut blindly.',
       },
     ],
     outcome:
@@ -250,7 +250,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
       'Self-hosted Supabase on Linux VPS for development, staging, and future production.',
     status: 'Production foundation',
     difficulty: 'Advanced',
-    timeline: '2025 — Present',
+    timeline: '2025 - Present',
     logo: supabaseLogo,
     logoAlt: 'Supabase logo',
     coverImage: supabaseLogo,
@@ -265,7 +265,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
       { group: 'Infrastructure', items: ['Docker', 'Linux', 'VPS', 'Backups'] },
     ],
     businessContext:
-      'Platform work needed a controlled data/auth/storage foundation across environments—not only a managed black box with no operational learning path.',
+      'Platform work needed a controlled data/auth/storage foundation across environments-not only a managed black box with no operational learning path.',
     problem:
       'Teams building products need PostgreSQL, auth, and storage that can be deployed, backed up, updated, and secured across development and staging with a path to production.',
     objective:
@@ -320,13 +320,13 @@ export const infrastructureCaseStudies: CaseStudy[] = [
         challenge:
           'Operating a full data platform securely with backups and updates.',
         resolution:
-          'Included backups, updates, and secure infrastructure management in the deployment design—not as deferred chores.',
+          'Included backups, updates, and secure infrastructure management in the deployment design-not as deferred chores.',
       },
     ],
     outcome:
       'Configured PostgreSQL, authentication, storage, Docker deployment, backups, updates, and secure infrastructure management for ongoing platform work.',
     learnings: [
-      'Data platforms are infrastructure products—they need ownership beyond “it installed.”',
+      'Data platforms are infrastructure products-they need ownership beyond “it installed.”',
       'Backups and updates are architecture decisions, not ops trivia.',
     ],
     gallery: [
@@ -351,7 +351,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     summary: 'Containerized delivery for self-hosted production platforms.',
     status: 'Production',
     difficulty: 'Advanced',
-    timeline: '2025 — Present',
+    timeline: '2025 - Present',
     logo: dockerLogo,
     logoAlt: 'Docker logo',
     coverImage: dockerLogo,
@@ -412,7 +412,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
       {
         decision: 'Pair containers with CI/CD for application environments',
         rationale:
-          'Containers alone are not a release process—pipelines make multi-environment delivery repeatable.',
+          'Containers alone are not a release process-pipelines make multi-environment delivery repeatable.',
       },
     ],
     challenges: [
@@ -457,7 +457,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     summary: 'Day-to-day ownership of Linux VPS and production hosts.',
     status: 'Ongoing',
     difficulty: 'Advanced',
-    timeline: '2025 — Present',
+    timeline: '2025 - Present',
     logo: linuxLogo,
     logoAlt: 'Linux logo',
     coverImage: linuxLogo,
@@ -473,7 +473,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
       },
     ],
     businessContext:
-      'Self-hosted platforms only stay trustworthy if the underlying Linux hosts are owned—patched, backed up, and operated deliberately.',
+      'Self-hosted platforms only stay trustworthy if the underlying Linux hosts are owned-patched, backed up, and operated deliberately.',
     problem:
       'Without host ownership, Docker platforms and production services accumulate silent risk around updates, access, and recovery.',
     objective:
@@ -518,7 +518,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
         challenge:
           'Keeping multiple self-hosted services healthy on shared operational practices.',
         resolution:
-          'Applied consistent host-level ownership—backups, updates, and secure management—across the platforms those hosts run.',
+          'Applied consistent host-level ownership-backups, updates, and secure management-across the platforms those hosts run.',
       },
     ],
     outcome:
@@ -581,7 +581,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     problem:
       'Legacy NAS hardware and access patterns limited reliability, maintainability, and secure remote use.',
     objective:
-      'Modernize organizational storage by migrating to TrueNAS SCALE—improving hardware reliability, centralizing file storage, and enabling secure remote access for authorized users.',
+      'Modernize organizational storage by migrating to TrueNAS SCALE-improving hardware reliability, centralizing file storage, and enabling secure remote access for authorized users.',
     solution:
       'Planned and executed migration from ThinkStation S30 to P500; configured pools, datasets, permissions, and shares; integrated VPN-based remote access; validated cutover and documented operations.',
     architecture:
@@ -639,7 +639,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
     outcome:
       'Successfully migrated the NAS with minimal disruption while improving performance, scalability, maintainability, and secure remote accessibility.',
     learnings: [
-      'Storage migrations are trust migrations—permissions and remote access matter as much as capacity.',
+      'Storage migrations are trust migrations-permissions and remote access matter as much as capacity.',
       'Documentation turns a successful cutover into an operable platform.',
     ],
     gallery: [
@@ -660,7 +660,7 @@ export const infrastructureCaseStudies: CaseStudy[] = [
       'Sophos Firewall VPN for protected remote access to internal servers and NAS.',
     status: 'Production',
     difficulty: 'Complex',
-    timeline: '2025 — Present',
+    timeline: '2025 - Present',
     logo: shieldLogo,
     logoAlt: 'Sophos firewall logo',
     coverImage: shieldLogo,

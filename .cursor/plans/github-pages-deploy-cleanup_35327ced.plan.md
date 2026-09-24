@@ -73,17 +73,17 @@ Edits to [.github/workflows/deploy.yml](.github/workflows/deploy.yml), keeping i
 - Add `environment: production` at the build step level via `vars`/`secrets` scoping so GitHub *Environment* secrets (not just repo secrets) resolve. Concretely, set the job to use the `github-pages` environment (already there) and read secrets from it; you add `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_ADMIN_BASE_PATH` under Settings → Environments → `github-pages` → Environment secrets.
 - Add a pre-build guard that fails fast with a clear message if `VITE_SUPABASE_URL` or `VITE_SUPABASE_ANON_KEY` is empty, instead of a cryptic Vite throw.
 - Add `npm run lint` and `tsc -b` gating before build (build already runs `tsc -b`).
-- Drop the duplicate `cp dist/index.html dist/404.html` step since `postbuild` already does it, or keep it as an idempotent safety net — I will keep one and remove the other.
+- Drop the duplicate `cp dist/index.html dist/404.html` step since `postbuild` already does it, or keep it as an idempotent safety net - I will keep one and remove the other.
 - `concurrency: pages` with `cancel-in-progress: false` so a deploy in flight is not killed.
 
-No `push:` trigger is added anywhere — deploys stay manual via Actions → Run workflow → `ref`.
+No `push:` trigger is added anywhere - deploys stay manual via Actions → Run workflow → `ref`.
 
 ## 3. Supabase cloud flexibility
 
 - Keep `.env.dev` / `.env.local` for local dev and `.env.prod` for local prod builds (loaded by [scripts/load-app-env.ts](scripts/load-app-env.ts) and Vite's `envDir`).
 - In CI there is no `.env.prod`; the GitHub environment secrets flow straight into `process.env` and Vite picks them up. Nothing to change in [src/lib/env.ts](src/lib/env.ts).
 - Update [.env.example](.env.example) with a comment block listing the exact secret names to create in the GitHub environment, so local and cloud stay in sync.
-- `npm run db:push` / `db:seed:prod` remain manual local operations against the cloud project — no service-role key ever enters CI.
+- `npm run db:push` / `db:seed:prod` remain manual local operations against the cloud project - no service-role key ever enters CI.
 
 ## 4. History scrubbing (cautious, topology-preserving)
 
@@ -105,7 +105,7 @@ Key deviations from [docs/Git History Cleanup.md](docs/Git%20History%20Cleanup.m
 - Use `--prune-empty never` so commits that only touched `.cursor/plans/*` are **not** dropped. This keeps commit count, branch tips, and merge topology identical.
 - Install the tool first: `pip install git-filter-repo` (Python 3.12 present).
 - `git-filter-repo` refuses to run on a repo with a remote or a non-fresh clone; since there is no remote yet it will run, possibly needing `--force`. I will use `--force` only after the physical backup exists.
-- Branches `admin_panel`, `ui/cards`, `updates`, `v3`, `main` are all rewritten in place — none deleted, none re-parented.
+- Branches `admin_panel`, `ui/cards`, `updates`, `v3`, `main` are all rewritten in place - none deleted, none re-parented.
 
 Verification after the rewrite: `git log --all --graph --oneline` compared against a pre-rewrite capture, plus `git log --all --name-only | Select-String '^docs/|^\.cursor/'` returning nothing, and `git branch -a` showing the same five branches.
 

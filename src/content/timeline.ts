@@ -13,7 +13,7 @@ export const timeline: TimelineItem[] = [
     type: 'education',
     title: 'Bachelor of Business Administration (Computer Applications)',
     organization: "ASM's CSIT, Pune",
-    period: '2019 — 2022',
+    period: '2019 - 2022',
     description: 'CGPA: 7.58',
   },
   {
@@ -21,7 +21,7 @@ export const timeline: TimelineItem[] = [
     type: 'education',
     title: 'Master of Computer Applications (MCA)',
     organization: "ASM's IBMR, Pune",
-    period: '2023 — 2025',
+    period: '2023 - 2025',
     description: 'CGPA: 7.57',
   },
   {
@@ -29,11 +29,11 @@ export const timeline: TimelineItem[] = [
     type: 'career',
     title: 'Platform & Technology Professional',
     organization: 'NextGenInnov8, Pune',
-    period: 'Apr 2025 — Present',
+    period: 'Apr 2025 - Present',
     description:
-      'Technical ownership of production platforms, cloud infrastructure, and internal technology systems—ensuring reliable operations and continuous improvement.',
+      'Technical ownership of production platforms, cloud infrastructure, and internal technology systems-ensuring reliable operations and continuous improvement.',
     highlights: [
-      'Primary technical owner — Navdrishti',
+      'Primary technical owner - Navdrishti',
       'Azure infrastructure optimization (~50% cost reduction)',
       'Microsoft 365 migration for 50+ users',
       'Self-hosted Supabase and n8n infrastructure',
@@ -41,14 +41,14 @@ export const timeline: TimelineItem[] = [
     ],
     showOnHome: true,
     homeTitle: 'NextGenInnov8',
-    homeDetail: 'Platform & Technology Professional · Apr 2025 — Present',
+    homeDetail: 'Platform & Technology Professional · Apr 2025 - Present',
     logoPath: ngiLogo,
     logoAlt: 'NextGenInnov8 logo',
   },
   {
     id: 'achieve-navdrishti',
     type: 'achievement',
-    title: 'Primary Technical Owner — Navdrishti',
+    title: 'Primary Technical Owner - Navdrishti',
     organization: 'NextGenInnov8',
     period: 'Achievement',
     description:

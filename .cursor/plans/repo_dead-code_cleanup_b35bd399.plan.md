@@ -33,12 +33,12 @@ flowchart TD
 
 ## Delete (no importers)
 
-- [`src/components/ui/card.tsx`](src/components/ui/card.tsx) and [`src/components/ui/dropdown-menu.tsx`](src/components/ui/dropdown-menu.tsx) — shadcn files with no imports. Navbar uses a CSS class named `nav-dropdown-menu`, not this component. Other `src/components/ui/*` files stay.
-- [`src/services/portfolio.ts`](src/services/portfolio.ts) — unused re-export barrel. Callers already import [`portfolio-public.ts`](src/services/portfolio-public.ts) and [`portfolio-admin.ts`](src/services/portfolio-admin.ts).
-- [`src/content/index.ts`](src/content/index.ts) and [`src/content/stats.ts`](src/content/stats.ts) — barrel and static stats only referenced by that barrel. Live stats come from [`src/lib/portfolio.ts`](src/lib/portfolio.ts).
-- [`src/features/admin/preview/index.ts`](src/features/admin/preview/index.ts) — unused barrel. Preview screens import their modules directly.
-- [`scripts/_cleanup-n8n-webp.ts`](scripts/_cleanup-n8n-webp.ts) and [`scripts/_verify-case-logos.ts`](scripts/_verify-case-logos.ts) — one-off maintenance scripts, not in [`package.json`](package.json).
-- [`public/icons.svg`](public/icons.svg) — Vite scaffold sprite. [`index.html`](index.html) only uses `/favicon.svg`.
+- [`src/components/ui/card.tsx`](src/components/ui/card.tsx) and [`src/components/ui/dropdown-menu.tsx`](src/components/ui/dropdown-menu.tsx) - shadcn files with no imports. Navbar uses a CSS class named `nav-dropdown-menu`, not this component. Other `src/components/ui/*` files stay.
+- [`src/services/portfolio.ts`](src/services/portfolio.ts) - unused re-export barrel. Callers already import [`portfolio-public.ts`](src/services/portfolio-public.ts) and [`portfolio-admin.ts`](src/services/portfolio-admin.ts).
+- [`src/content/index.ts`](src/content/index.ts) and [`src/content/stats.ts`](src/content/stats.ts) - barrel and static stats only referenced by that barrel. Live stats come from [`src/lib/portfolio.ts`](src/lib/portfolio.ts).
+- [`src/features/admin/preview/index.ts`](src/features/admin/preview/index.ts) - unused barrel. Preview screens import their modules directly.
+- [`scripts/_cleanup-n8n-webp.ts`](scripts/_cleanup-n8n-webp.ts) and [`scripts/_verify-case-logos.ts`](scripts/_verify-case-logos.ts) - one-off maintenance scripts, not in [`package.json`](package.json).
+- [`public/icons.svg`](public/icons.svg) - Vite scaffold sprite. [`index.html`](index.html) only uses `/favicon.svg`.
 
 ## Trim dead code inside live files
 

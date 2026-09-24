@@ -13,7 +13,7 @@ When adding or upgrading packages (`npm install <dependency>`), choose **latest 
 - Prefer packages with active maintenance, clear docs, and wide adoption when choices exist.
 - Avoid dependencies with known high/critical vulnerabilities; run `npm audit` when adding or upgrading.
 - Prefer **zero** audit findings. Resolve moderate/high/critical issues before finishing the task.
-- Do not add heavy or redundant libraries when the app already has an equivalent (especially UI — follow shadcn-only rules).
+- Do not add heavy or redundant libraries when the app already has an equivalent (especially UI - follow shadcn-only rules).
 - Pin via the lockfile (`package-lock.json`); install in the project root (`package.json` at repo root).
 - After install or upgrade, confirm the app still type-checks (`npx tsc -b`) and audit is clean.
 
@@ -21,7 +21,7 @@ When adding or upgrading packages (`npm install <dependency>`), choose **latest 
 
 1. After any dependency change: `npm audit`
 2. Apply safe lockfile updates: `npm audit fix`
-3. Re-run `npm audit` — target **0 vulnerabilities**
+3. Re-run `npm audit` - target **0 vulnerabilities**
 4. If `audit fix` cannot resolve an issue:
    - Identify the parent package (`npm ls <vulnerable-pkg>`)
    - Upgrade the parent to a patched release, or replace it with a maintained alternative
@@ -34,9 +34,9 @@ Vulnerabilities often land in nested deps (e.g. `hono`, `js-yaml`, `nanoid`, `br
 ## Examples
 
 ```text
-# ❌ BAD — leave 4 high audit findings after adding a package
-# ❌ BAD — npm audit fix --force without reviewing breaking changes
-# ✅ GOOD — npm audit fix → 0 vulnerabilities → npx tsc -b passes
+# ❌ BAD - leave 4 high audit findings after adding a package
+# ❌ BAD - npm audit fix --force without reviewing breaking changes
+# ✅ GOOD - npm audit fix → 0 vulnerabilities → npx tsc -b passes
 ```
 
 ```bash

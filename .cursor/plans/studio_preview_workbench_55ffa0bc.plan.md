@@ -1,6 +1,6 @@
 ---
 name: Studio Preview Workbench
-overview: "Replace the unstructured preview overlay with a reusable Studio Preview workbench: a device-lab chrome, a real viewport (scroll inside the frame), and a three-zone toolbar—without changing how admin pages pass draft data."
+overview: "Replace the unstructured preview overlay with a reusable Studio Preview workbench: a device-lab chrome, a real viewport (scroll inside the frame), and a three-zone toolbar-without changing how admin pages pass draft data."
 todos:
   - id: preview-module
     content: Extract src/features/admin/preview/ (StudioPreview, PreviewRoot, workbench, toolbar, viewport, routes) and re-export AdminPreviewOverlay
@@ -53,15 +53,15 @@ Mobile/tablet get a rounded bezel (subtle notch on phone). Desktop gets a fake b
 
 Replace the single file with `src/features/admin/preview/`:
 
-- [`StudioPreview.tsx`](src/features/admin/preview/StudioPreview.tsx) — public API (`open`, `onClose`, `draft`, `initialPath`, `extraPaths`, optional `label`). Same props as today so Profile / case study / content pages stay thin.
-- [`PreviewRoot.tsx`](src/features/admin/preview/PreviewRoot.tsx) — `createRoot` on `document.body` + Query/Helmet/Theme providers + `MemoryRouter` (current isolation, just extracted).
-- [`PreviewWorkbench.tsx`](src/features/admin/preview/PreviewWorkbench.tsx) — full-screen shell: toolbar + well + frame.
-- [`PreviewToolbar.tsx`](src/features/admin/preview/PreviewToolbar.tsx) — three zones, never a mixed wrap:
+- [`StudioPreview.tsx`](src/features/admin/preview/StudioPreview.tsx) - public API (`open`, `onClose`, `draft`, `initialPath`, `extraPaths`, optional `label`). Same props as today so Profile / case study / content pages stay thin.
+- [`PreviewRoot.tsx`](src/features/admin/preview/PreviewRoot.tsx) - `createRoot` on `document.body` + Query/Helmet/Theme providers + `MemoryRouter` (current isolation, just extracted).
+- [`PreviewWorkbench.tsx`](src/features/admin/preview/PreviewWorkbench.tsx) - full-screen shell: toolbar + well + frame.
+- [`PreviewToolbar.tsx`](src/features/admin/preview/PreviewToolbar.tsx) - three zones, never a mixed wrap:
   - **Start:** `Badge` “Draft” + `label` (e.g. Profile) + one-line “Not live until you save.”
   - **Center:** viewport `ToggleGroup` (add shadcn ToggleGroup) with Smartphone / Tablet / Monitor icons and the pixel width under each. This is the primary control.
   - **End:** page `Select` (only if `extraPaths` exist) + Close. Current path as mono text, not another button pile.
-- [`PreviewViewport.tsx`](src/features/admin/preview/PreviewViewport.tsx) — device/browser chrome + **fixed viewport height** (fills the well). The public tree scrolls **inside** the frame. Auto `transform: scale` only to fit width (`fit`); GPU-only. Show “Fit · 72%” under the bezel.
-- [`previewRoutes.tsx`](src/features/admin/preview/previewRoutes.tsx) — `useRoutes(PreviewPublicChrome + publicChildRoutes)` moved out of the overlay file.
+- [`PreviewViewport.tsx`](src/features/admin/preview/PreviewViewport.tsx) - device/browser chrome + **fixed viewport height** (fills the well). The public tree scrolls **inside** the frame. Auto `transform: scale` only to fit width (`fit`); GPU-only. Show “Fit · 72%” under the bezel.
+- [`previewRoutes.tsx`](src/features/admin/preview/previewRoutes.tsx) - `useRoutes(PreviewPublicChrome + publicChildRoutes)` moved out of the overlay file.
 
 Keep [`AdminPreviewOverlay.tsx`](src/features/admin/AdminPreviewOverlay.tsx) as a one-line re-export of `StudioPreview` so existing imports in [`AdminDashboardPage.tsx`](src/pages/admin/AdminDashboardPage.tsx), [`AdminCaseStudiesPage.tsx`](src/pages/admin/AdminCaseStudiesPage.tsx), and [`AdminContentPages.tsx`](src/pages/admin/AdminContentPages.tsx) keep working. Pass `label` at those call sites (“Profile”, “Case study”, “Technologies”, …).
 

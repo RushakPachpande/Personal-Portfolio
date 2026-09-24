@@ -153,7 +153,7 @@ export function ContactPanel() {
               </Button>
               {isPreview ? (
                 <p className="font-mono text-xs text-muted-foreground">
-                  Preview only — submissions are disabled.
+                  Preview only - submissions are disabled.
                 </p>
               ) : null}
               {status === 'sent' ? (

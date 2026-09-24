@@ -34,9 +34,9 @@ export const profile = {
     howIThink:
       'I focus on understanding complete systems, identifying root causes, and making well-informed engineering decisions through research, analysis, and practical implementation. I evaluate multiple solution approaches before implementing production changes.',
     whatIEnjoy:
-      'I enjoy solving business problems through technology—designing, building, and operating production platforms, cloud infrastructure, and enterprise systems.',
+      'I enjoy solving business problems through technology-designing, building, and operating production platforms, cloud infrastructure, and enterprise systems.',
     approach:
-      'I take end-to-end technical ownership of applications from solution design and development to deployment, automation, and production support. Infrastructure, documentation, and maintainability are part of the product—not afterthoughts.',
+      'I take end-to-end technical ownership of applications from solution design and development to deployment, automation, and production support. Infrastructure, documentation, and maintainability are part of the product-not afterthoughts.',
   },
   summaryBullets: [
     'End-to-end technical ownership from solution design to deployment, automation, and production support.',

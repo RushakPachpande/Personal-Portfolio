@@ -1,5 +1,5 @@
 ---
-description: Edits must not break other behavior — no errors, crashes, or red diagnostics after changes
+description: Edits must not break other behavior - no errors, crashes, or red diagnostics after changes
 alwaysApply: true
 ---
 
@@ -26,6 +26,6 @@ Every change must leave the rest of the app clean and working. Fix only what the
 ## Examples
 
 ```text
-# ❌ BAD — fix reports export but break admin layout imports / leave TS errors
-# ✅ GOOD — scoped change; diagnostics clean; other pages still work
+# ❌ BAD - fix reports export but break admin layout imports / leave TS errors
+# ✅ GOOD - scoped change; diagnostics clean; other pages still work
 ```

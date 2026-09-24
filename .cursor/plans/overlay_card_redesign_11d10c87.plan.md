@@ -1,6 +1,6 @@
 ---
 name: Overlay Card Redesign
-overview: Replace the current stacked glass-card pattern site-wide with a unified image-forward overlay card system inspired by adityacprtm and vcard portfolios—hero visual, gradient scrim, whole-card navigation, and a lighter SurfaceCard variant for content-heavy panels.
+overview: Replace the current stacked glass-card pattern site-wide with a unified image-forward overlay card system inspired by adityacprtm and vcard portfolios-hero visual, gradient scrim, whole-card navigation, and a lighter SurfaceCard variant for content-heavy panels.
 todos:
   - id: card-primitives
     content: Create OverlayCard, SurfaceCard, and cardGradients.ts with shared hero/scrim/body API
@@ -27,7 +27,7 @@ isProject: false
 The existing cards ([`CaseStudyCard.tsx`](src/features/case-studies/CaseStudyCard.tsx), [`EngineeringAreas.tsx`](src/features/home/EngineeringAreas.tsx), etc.) share the same vertical stack:
 
 ```text
-[ 16:9 logo banner — often empty for small logos ]
+[ 16:9 logo banner - often empty for small logos ]
 [ 4 metadata badges in a row ]
 [ Title → Summary ]
 [ Boxed TechBanner ]
@@ -36,11 +36,11 @@ The existing cards ([`CaseStudyCard.tsx`](src/features/case-studies/CaseStudyCar
 
 Problems vs reference portfolios ([adityacprtm.dev](https://adityacprtm.dev/portfolio), [vcard portfolio](https://codewithsadee.github.io/vcard-personal-portfolio/)):
 
-- **Visual hierarchy is flat** — logo banner, badges, and CTA compete equally
-- **Large logo frame wastes space** — logos float in a empty 16:9 letterbox
-- **Not scannable** — too much metadata before the title
-- **Not portfolio-native** — references use image-forward tiles with overlay text and whole-card click, not boxed CTAs
-- **Same hover pattern everywhere** — `glass` + `-translate-y-1` on every surface
+- **Visual hierarchy is flat** - logo banner, badges, and CTA compete equally
+- **Large logo frame wastes space** - logos float in a empty 16:9 letterbox
+- **Not scannable** - too much metadata before the title
+- **Not portfolio-native** - references use image-forward tiles with overlay text and whole-card click, not boxed CTAs
+- **Same hover pattern everywhere** - `glass` + `-translate-y-1` on every surface
 
 You chose: **all card surfaces** + **image-forward overlay layout**.
 
@@ -76,7 +76,7 @@ Add [`src/components/cards/OverlayCard.tsx`](src/components/cards/OverlayCard.ts
 | Zone | Behavior |
 |------|----------|
 | **Hero** | `aspect-[4/3] sm:aspect-[16/10]`; category-tinted gradient mesh background; centered logo/icon/image (`object-contain`, max 55% height) |
-| **Scrim** | Absolute bottom gradient (`from-background/95 via-background/60 to-transparent`); always shows eyebrow + title (mobile-safe — no hover-only info) |
+| **Scrim** | Absolute bottom gradient (`from-background/95 via-background/60 to-transparent`); always shows eyebrow + title (mobile-safe - no hover-only info) |
 | **Body** | Optional slot below hero: `line-clamp-2` summary, inline tech icons, meta chips |
 | **Interaction** | Wraps in `Link` when `href` passed; `ArrowUpRight` corner icon on hover/focus; `hover:border-primary/50`, subtle `scale-[1.01]`, `motion-reduce` safe |
 | **Variants** | `default`, `featured` (taller hero, `md:col-span-2` support via prop) |
@@ -89,7 +89,7 @@ Add [`src/components/cards/SurfaceCard.tsx`](src/components/cards/SurfaceCard.ts
 
 - Same outer shell: `rounded-2xl`, `ring-1 ring-foreground/10`, `bg-card/70`, `backdrop-blur-xl`
 - Optional thin gradient top border accent (matches category when provided)
-- Standard `header` + `children` slots — for forms, resume sidebar, case-study section panels
+- Standard `header` + `children` slots - for forms, resume sidebar, case-study section panels
 - **Not** full-card clickable
 
 Add utility class in [`src/index.css`](src/index.css):
@@ -104,7 +104,7 @@ Add utility class in [`src/index.css`](src/index.css):
 
 ## Component migrations
 
-### Priority 1 — Case study cards (biggest visual win)
+### Priority 1 - Case study cards (biggest visual win)
 
 Refactor [`CaseStudyCard.tsx`](src/features/case-studies/CaseStudyCard.tsx):
 
@@ -112,7 +112,7 @@ Refactor [`CaseStudyCard.tsx`](src/features/case-studies/CaseStudyCard.tsx):
 - Hero: project logo on category gradient
 - Scrim: `{categoryLabels[study.category]}` + `{study.name}`
 - Body: 2-line `summary`, compact tech icon row (reuse `TechBadge compact`, drop boxed `TechBanner` border)
-- Meta: single row — `timeline` + `status` as small pills (drop redundant difficulty/category duplication in body)
+- Meta: single row - `timeline` + `status` as small pills (drop redundant difficulty/category duplication in body)
 - Pass `featured={study.featured}` for home grid
 
 Update [`HomePage.tsx`](src/pages/HomePage.tsx) grid:
@@ -128,7 +128,7 @@ Deprecate `LogoFrame` `card` variant usage (keep `header` / `gallery` / `lightbo
 
 ---
 
-### Priority 2 — Home & category navigation cards
+### Priority 2 - Home & category navigation cards
 
 | File | Overlay treatment |
 |------|-------------------|
@@ -141,14 +141,14 @@ Deprecate `LogoFrame` `card` variant usage (keep `header` / `gallery` / `lightbo
 
 ---
 
-### Priority 3 — SurfaceCard for content-heavy panels
+### Priority 3 - SurfaceCard for content-heavy panels
 
 | File | Treatment |
 |------|-----------|
 | [`CaseStudyPage.tsx`](src/features/case-studies/CaseStudyPage.tsx) | Replace 7× `Card className="glass"` section wrappers with `SurfaceCard` (Responsibilities, Decisions, Challenges, Stack, Gallery wrapper, Outcome, etc.) |
 | [`ContactPanel.tsx`](src/features/contact/ContactPanel.tsx) | Channels panel → `OverlayCard` with Mail icon hero; form panel → `SurfaceCard` (inputs must stay interactive) |
 | [`ResumePreview.tsx`](src/features/resume/ResumePreview.tsx) | Profile sidebar + Professional Summary → `SurfaceCard` with gradient header strip; highlight mini-tiles → compact `OverlayCard`; expertise group articles → `SurfaceCard` |
-| [`HomePage.tsx`](src/pages/HomePage.tsx) bottom CTA | Keep as full-width banner (not overlay) — already distinct |
+| [`HomePage.tsx`](src/pages/HomePage.tsx) bottom CTA | Keep as full-width banner (not overlay) - already distinct |
 
 ---
 
@@ -156,7 +156,7 @@ Deprecate `LogoFrame` `card` variant usage (keep `header` / `gallery` / `lightbo
 
 | Breakpoint | OverlayCard |
 |------------|-------------|
-| **320–639px** | Single column; hero `aspect-[4/3]`; scrim always visible; no hover-only content; full-card tap target min 44px |
+| **320-639px** | Single column; hero `aspect-[4/3]`; scrim always visible; no hover-only content; full-card tap target min 44px |
 | **640px+** | Hero `aspect-[16/10]`; hover lift + border glow + corner arrow |
 | **768px+** | Grids stay 2-col (case studies) / 3-col (areas, stats); featured card spans 2 cols on home |
 | **1024px+** | No layout change; ensure `min-w-0` on all grid children (existing utilities preserved) |
@@ -172,9 +172,9 @@ Remove redundant patterns globally: `-translate-y-1` on old glass cards, separat
 | **Create** | `src/components/cards/OverlayCard.tsx` |
 | **Create** | `src/components/cards/SurfaceCard.tsx` |
 | **Create** | `src/lib/cardGradients.ts` |
-| **Update** | `src/index.css` — scrim utility, optional `--overlay-hero-min-height` |
+| **Update** | `src/index.css` - scrim utility, optional `--overlay-hero-min-height` |
 | **Rewrite** | `src/features/case-studies/CaseStudyCard.tsx` |
-| **Update** | `src/pages/HomePage.tsx` — featured grid span |
+| **Update** | `src/pages/HomePage.tsx` - featured grid span |
 | **Update** | `src/features/home/EngineeringAreas.tsx` |
 | **Update** | `src/features/home/EngineeringStats.tsx` |
 | **Update** | `src/features/home/HomeSections.tsx` |
@@ -184,7 +184,7 @@ Remove redundant patterns globally: `-translate-y-1` on old glass cards, separat
 | **Update** | `src/features/case-studies/CaseStudyPage.tsx` |
 | **Update** | `src/features/contact/ContactPanel.tsx` |
 | **Update** | `src/features/resume/ResumePreview.tsx` |
-| **Trim** | `src/components/media/LogoFrame.tsx` — remove unused `card` variant |
+| **Trim** | `src/components/media/LogoFrame.tsx` - remove unused `card` variant |
 
 **Out of scope:** Content/data changes, new screenshot assets, filter chips like adityacprtm (can be a follow-up).
 
@@ -192,6 +192,6 @@ Remove redundant patterns globally: `-translate-y-1` on old glass cards, separat
 
 ## Verification
 
-1. `npm run build` — no TS/lint regressions
+1. `npm run build` - no TS/lint regressions
 2. Visual pass at **320 / 375 / 768 / 1024px** on `/`, `/platforms`, `/about`, `/philosophy`, `/technology`, `/resume`, `/contact`, one case study detail
 3. Confirm: whole-card navigation works (keyboard + screen reader `aria-label`), no horizontal overflow, logos readable in hero (not letterboxed in empty 16:9 block)

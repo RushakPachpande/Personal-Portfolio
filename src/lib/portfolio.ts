@@ -111,7 +111,7 @@ export function getFeaturedCaseStudies(caseStudies: CaseStudy[]) {
   return caseStudies.filter((study) => study.featured && !study.incomplete);
 }
 
-/** Home Experience Snapshot cards — admin-flagged timeline rows, in sort order. */
+/** Home Experience Snapshot cards - admin-flagged timeline rows, in sort order. */
 export function getHomeExperienceSnapshot(timeline: TimelineItem[]) {
   return timeline.filter((item) => item.showOnHome);
 }

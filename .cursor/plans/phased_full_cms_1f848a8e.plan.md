@@ -1,6 +1,6 @@
 ---
 name: Phased Full CMS
-overview: Phased rollout to turn Studio into a full white-label CMS (site chrome, nav, categories, brand/theme, and content) so portfolio data and presentation can change without redeploying—except when code itself changes. Early phase also seeds DISHA, LevelUP, and this portfolio as platform case studies with admin-controlled featured flags.
+overview: Phased rollout to turn Studio into a full white-label CMS (site chrome, nav, categories, brand/theme, and content) so portfolio data and presentation can change without redeploying-except when code itself changes. Early phase also seeds DISHA, LevelUP, and this portfolio as platform case studies with admin-controlled featured flags.
 todos:
   - id: phase-0-projects
     content: "Phase 0: Add DISHA, LevelUP, personal-portfolio case studies + logos + optional links field; seed DB; featured via existing Studio switch"
@@ -28,7 +28,7 @@ Studio already CMS-ed: profile, case studies (incl. **Featured** switch), techno
 
 Still code-owned: hero/section chrome, Engineering Areas, footer, nav ([`src/components/layout/navItems.ts`](src/components/layout/navItems.ts)), category labels/paths ([`src/lib/portfolio.ts`](src/lib/portfolio.ts)), SEO strings, theme/favicon, terminal **behavior**, and category DB check (`platform|infrastructure|automation`).
 
-Featured home slots already respect DB: `getFeaturedCaseStudies` + Studio switch on case study Basics tab. No new “featured system” needed—only seed projects and keep that toggle.
+Featured home slots already respect DB: `getFeaturedCaseStudies` + Studio switch on case study Basics tab. No new “featured system” needed-only seed projects and keep that toggle.
 
 ```mermaid
 flowchart LR
@@ -59,14 +59,14 @@ Extend [`site_settings`](supabase/migrations/20260827194842_portfolio_schema.sql
 
 `config` shape (Zod-validated in app):
 
-- `chrome` — hero, home sections, about/contact/category page copy, boot sequence, footer tagline/principles/stack
-- `engineeringAreas` — cards (title, description, examples, href)
-- `stats` — labels, descriptions, baseline year overrides
-- `nav` — same structure as today’s `navStructure`
-- `categories` — `{ id, label, path, seo, gridCopy }[]` (replaces hard-coded three)
-- `brand` — favicon path, optional logo, CSS token overrides
-- `seo` — site-wide defaults; pages merge overrides
-- `featureFlags` — e.g. show terminal, show boot
+- `chrome` - hero, home sections, about/contact/category page copy, boot sequence, footer tagline/principles/stack
+- `engineeringAreas` - cards (title, description, examples, href)
+- `stats` - labels, descriptions, baseline year overrides
+- `nav` - same structure as today’s `navStructure`
+- `categories` - `{ id, label, path, seo, gridCopy }[]` (replaces hard-coded three)
+- `brand` - favicon path, optional logo, CSS token overrides
+- `seo` - site-wide defaults; pages merge overrides
+- `featureFlags` - e.g. show terminal, show boot
 
 Public fetch: expand [`fetchPublicPortfolio`](src/services/portfolio-public.ts) to return `siteConfig`. Admin: new `updateSiteConfig` + Studio pages. Seed: migrate current hardcoded strings into seed defaults in [`scripts/seed-portfolio.ts`](scripts/seed-portfolio.ts).
 
@@ -76,7 +76,7 @@ Public fetch: expand [`fetchPublicPortfolio`](src/services/portfolio-public.ts) 
 
 ---
 
-## Phase 0 — Platform projects in DB (ship first, independent)
+## Phase 0 - Platform projects in DB (ship first, independent)
 
 **Goal:** DISHA, LevelUP, and this portfolio appear as platform case studies; featured is toggled in Studio without code.
 
@@ -85,9 +85,9 @@ Public fetch: expand [`fetchPublicPortfolio`](src/services/portfolio-public.ts) 
    - LevelUP: `d:\Code\LevelUP\levelup-client\public\brand\zapienz-levelup.png`
    - Portfolio: existing site/favicon or a Studio mark under `src/assets/logos/`
 2. Add seed case studies in [`src/content/caseStudies/platforms.ts`](src/content/caseStudies/platforms.ts) (and tech IDs as needed in [`technologies.ts`](src/content/technologies.ts)):
-   - `disha` — multi-college PGDM induction; live student URL; featured default **on**
-   - `levelup` — Zapienz school assessments; live student URL; featured default **on**
-   - `personal-portfolio` — Studio CMS portfolio itself as major platform case study; featured default **on**
+   - `disha` - multi-college PGDM induction; live student URL; featured default **on**
+   - `levelup` - Zapienz school assessments; live student URL; featured default **on**
+   - `personal-portfolio` - Studio CMS portfolio itself as major platform case study; featured default **on**
 3. Full narrative fields matching existing Navdrishti/BrainPulses depth (stack, architecture nodes, decisions, challenges, outcome, learnings, `links` for demos).
 4. Omit private GitHub URLs unless you later confirm public; use live demos:
    - DISHA: https://pgdminduction.nextgeninnov8.com
@@ -99,14 +99,14 @@ Public fetch: expand [`fetchPublicPortfolio`](src/services/portfolio-public.ts) 
 
 ---
 
-## Phase 1 — Site Content CMS (chrome without structural change)
+## Phase 1 - Site Content CMS (chrome without structural change)
 
 **Goal:** Change all marketing copy without deploy.
 
 1. Migration: `config jsonb` on `site_settings`; backfill from current UI strings.
 2. Types + Zod for `SiteConfig['chrome' | 'engineeringAreas' | 'stats']`.
 3. Wire public UI to config (stop reading hardcoded JSX):
-   - [`HeroSection.tsx`](src/features/hero/HeroSection.tsx) — use `profile.headline` + chrome eyebrow/CTA
+   - [`HeroSection.tsx`](src/features/hero/HeroSection.tsx) - use `profile.headline` + chrome eyebrow/CTA
    - Home sections, [`EngineeringAreas.tsx`](src/features/...), stats labels, About/Contact/category eyebrows, [`Footer.tsx`](src/components/layout/Footer.tsx), boot sequence
 4. Studio: **Site → Content** page (grouped editors + preview).
 5. Seed defaults so `db:seed` restores known-good chrome.
@@ -115,7 +115,7 @@ Public fetch: expand [`fetchPublicPortfolio`](src/services/portfolio-public.ts) 
 
 ---
 
-## Phase 2 — Structure CMS (nav + categories + areas CRUD)
+## Phase 2 - Structure CMS (nav + categories + areas CRUD)
 
 **Goal:** Own IA without code.
 
@@ -129,20 +129,20 @@ Public fetch: expand [`fetchPublicPortfolio`](src/services/portfolio-public.ts) 
 
 ---
 
-## Phase 3 — Brand & SEO CMS
+## Phase 3 - Brand & SEO CMS
 
 **Goal:** Visual identity + discovery without deploy.
 
 1. `brand` + `seo` in config; favicon/logo via Media library paths.
 2. Apply CSS variables from `brand.tokens` at runtime (document-safe subset: colors, not arbitrary CSS).
-3. Per-page SEO from config + case study fields; generate/update sitemap from public case study slugs (build step or admin “Publish SEO” that writes `public/sitemap.xml` is optional—prefer runtime `Seo` component first).
+3. Per-page SEO from config + case study fields; generate/update sitemap from public case study slugs (build step or admin “Publish SEO” that writes `public/sitemap.xml` is optional-prefer runtime `Seo` component first).
 4. Studio: **Site → Brand** and **Site → SEO**.
 
 **After Phase 3 deploy:** rebrand colors/favicon/default meta without code.
 
 ---
 
-## Phase 4 — Terminal & polish (optional depth)
+## Phase 4 - Terminal & polish (optional depth)
 
 **Goal:** Close remaining “needs deploy” gaps that are still content-like.
 
@@ -159,7 +159,7 @@ Public fetch: expand [`fetchPublicPortfolio`](src/services/portfolio-public.ts) 
 - Auth/security changes, dependency upgrades
 - Terminal command *behavior* (not copy)
 - Arbitrary theme engines beyond token map
-- Schema migrations (run `db:push` / migration apply—not a Vite frontend deploy, but still ops)
+- Schema migrations (run `db:push` / migration apply-not a Vite frontend deploy, but still ops)
 
 ---
 

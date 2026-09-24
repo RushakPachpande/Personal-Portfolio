@@ -1,6 +1,6 @@
 ---
 name: Infra Initiatives Content
-overview: Replace the two incomplete Infrastructure & Operations placeholder entries (TrueNAS and Sophos VPN) with verified production content from the prompt, mapped into the existing `Initiative` schema—no layout or UI redesign.
+overview: Replace the two incomplete Infrastructure & Operations placeholder entries (TrueNAS and Sophos VPN) with verified production content from the prompt, mapped into the existing `Initiative` schema-no layout or UI redesign.
 todos:
   - id: update-truenas
     content: Replace truenas-migration TODO fields with verified TrueNAS content; clear incomplete flags
@@ -45,7 +45,7 @@ Existing type (keep as-is):
 | My Role (bullets) | `role` | Convert bullets → short prose paragraph (case study, not resume list); detail page already labels this card “My Role” |
 | Technologies | `technologies` | Use the listed stacks as string arrays |
 | Outcome | `outcome` | Use prompt outcome as-is (factual, no invented metrics) |
-| Category | — | **Omit** (not in schema; showing it would require UI changes) |
+| Category | - | **Omit** (not in schema; showing it would require UI changes) |
 
 Also: remove `incomplete` and `todoNote` from both entries so badges show `Initiative` and home can include them if sliced.
 
@@ -58,7 +58,7 @@ Keep existing slugs (`truenas-migration`, `sophos-vpn`) so links stay stable.
 - **name:** `TrueNAS Migration & Secure Remote NAS`
 - **tagline:** Secure, centralized NAS via TrueNAS SCALE migration with VPN-based remote access.
 - **role:** Planned and executed the migration from ThinkStation S30 to P500; configured pools, datasets, permissions, and shares; integrated VPN-based remote access; validated the cutover and documented operations.
-- **objective:** Modernize organizational storage by migrating to TrueNAS SCALE—improving hardware reliability, centralizing file storage, and enabling secure remote access for authorized users.
+- **objective:** Modernize organizational storage by migrating to TrueNAS SCALE-improving hardware reliability, centralizing file storage, and enabling secure remote access for authorized users.
 - **technologies:** `TrueNAS SCALE`, `Linux`, `Storage Management`, `SMB`, `Networking`, `VPN`, `RBAC`
 - **outcome:** Successfully migrated the NAS with minimal disruption while improving performance, scalability, maintainability, and secure remote accessibility.
 

@@ -25,7 +25,7 @@ export function Footer() {
     'Vite',
   ];
   const name = portfolio?.profile.name ?? 'Portfolio';
-  const siteVersion = portfolio?.siteVersion ?? '—';
+  const siteVersion = portfolio?.siteVersion ?? '-';
   const github = portfolio?.profile.socials.github;
   const linkedin = portfolio?.profile.socials.linkedin;
   const navItems = portfolio?.siteConfig.nav

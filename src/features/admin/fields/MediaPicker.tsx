@@ -81,7 +81,7 @@ export function MediaPicker({
           <SheetTitle>Media library</SheetTitle>
           <SheetDescription>
             Reuse a file already in storage, upload into this folder, or paste a
-            known storage path. Selecting a file links it — it does not copy a
+            known storage path. Selecting a file links it - it does not copy a
             new upload.
           </SheetDescription>
         </SheetHeader>

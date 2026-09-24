@@ -199,7 +199,7 @@ async function maybeCreateAdmin() {
   const password = process.env.ADMIN_PASSWORD;
   if (!email || !password) {
     console.log(
-      'ADMIN_EMAIL / ADMIN_PASSWORD not set — skipping admin user create'
+      'ADMIN_EMAIL / ADMIN_PASSWORD not set - skipping admin user create'
     );
     return;
   }

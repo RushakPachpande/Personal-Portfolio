@@ -23,7 +23,7 @@ todos:
 isProject: false
 ---
 
-# Portfolio V3 — Premium Engineering Experience
+# Portfolio V3 - Premium Engineering Experience
 
 Implement [docs/prompts/v3.md](docs/prompts/v3.md) as an evolution of the current case-study architecture (not a redesign). Use approved local/official branding assets and build full gallery infrastructure, populating it where media exists now.
 

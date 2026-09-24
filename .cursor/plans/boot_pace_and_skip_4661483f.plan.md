@@ -19,9 +19,9 @@ Current timings in [`BootSequence.tsx`](src/components/layout/BootSequence.tsx) 
 
 Keep the five existing lines. Change constants only:
 
-- `STEP_MS = 300` — each line stays long enough to parse
-- `HOLD_MS = 400` — “System Ready.” can land
-- `EXIT_MS = 250` — fade out without stretching the wait
+- `STEP_MS = 300` - each line stays long enough to parse
+- `HOLD_MS = 400` - “System Ready.” can land
+- `EXIT_MS = 250` - fade out without stretching the wait
 
 Timeline: four step advances (1.2s) + hold (0.4s) + fade (0.25s) ≈ **1.85s**. Match the progress bar transition to `STEP_MS / 1000` (0.3s) so the bar does not finish before the copy.
 

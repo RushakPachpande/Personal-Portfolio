@@ -19,7 +19,7 @@ export function AboutPage() {
         title="About"
         description={
           siteConfig.seo.defaultDescription ??
-          'Platform engineer focused on ownership—building complete digital platforms from infrastructure to production.'
+          'Platform engineer focused on ownership-building complete digital platforms from infrastructure to production.'
         }
         path="/about"
       />

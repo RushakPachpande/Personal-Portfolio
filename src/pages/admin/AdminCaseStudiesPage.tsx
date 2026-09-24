@@ -262,7 +262,7 @@ export function AdminCaseStudyEditPage({ slug }: { slug?: string }) {
     <div className="flex flex-col gap-6">
       <PageHeader
         title={existing ? study.name || 'Edit case study' : 'New case study'}
-        description="Write the narrative the public site already shows—context, decisions, stack, and media."
+        description="Write the narrative the public site already shows-context, decisions, stack, and media."
       />
       <div className="flex flex-col gap-2">
         <div className="flex flex-wrap gap-2">
@@ -329,7 +329,7 @@ export function AdminCaseStudyEditPage({ slug }: { slug?: string }) {
             />
             <Field
               label="Status"
-              hint="Badge on the case study, for example Live or Draft. Display only — it does not hide the page."
+              hint="Badge on the case study, for example Live or Draft. Display only - it does not hide the page."
             >
               <Input
                 value={study.status}

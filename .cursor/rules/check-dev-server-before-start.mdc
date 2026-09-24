@@ -1,5 +1,5 @@
 ---
-description: Defer to reuse-existing-dev-servers — shell-safe 8000 checks before npm run dev
+description: Defer to reuse-existing-dev-servers - shell-safe 8000 checks before npm run dev
 alwaysApply: true
 ---
 

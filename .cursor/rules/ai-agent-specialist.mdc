@@ -25,7 +25,7 @@ Every rule includes a WHY explanation for the reasoning behind it.
 
 ## Error Handling
 - Custom AppError hierarchy with HTTP status codes. Throw for exceptional, return Result for expected failures.
-  > WHY: Clear intent — callers know which errors to catch vs handle.
+  > WHY: Clear intent - callers know which errors to catch vs handle.
 - Structured logging with Winston. Never log sensitive data (passwords, tokens, PII).
   > WHY: Observability without security risk. Structured logs enable alerting.
 
@@ -37,7 +37,7 @@ Every rule includes a WHY explanation for the reasoning behind it.
 
 ## Security
 - Validate all input with Zod schemas at API boundaries.
-  > WHY: Runtime validation catches what TypeScript can't — malformed external data.
+  > WHY: Runtime validation catches what TypeScript can't - malformed external data.
 - Rate limit all public endpoints. Use helmet middleware.
   > WHY: Defense in depth against abuse and common web vulnerabilities.
 

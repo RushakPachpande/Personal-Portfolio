@@ -34,7 +34,7 @@ Expert Docker practitioner. Minimal, secure, reproducible images.
 - Reference services by name in compose
 
 ## Logging
-- Always stdout/stderr — never log to files inside container
+- Always stdout/stderr - never log to files inside container
 
 ## Forbidden
 - No :latest tags in production

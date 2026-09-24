@@ -1,6 +1,6 @@
 ---
 name: Theme switch control
-overview: Replace the theme dropdown with a compact light/dark sun–moon switch (ported from the reference, no styled-components). Call sites and surrounding layout stay as they are; the switch works in headers and mobile sheets because it is not a portal menu.
+overview: Replace the theme dropdown with a compact light/dark sun-moon switch (ported from the reference, no styled-components). Call sites and surrounding layout stay as they are; the switch works in headers and mobile sheets because it is not a portal menu.
 todos:
   - id: rewrite-toggle
     content: Replace ThemeToggle dropdown with accessible checkbox + reference markup; wire next-themes light/dark
@@ -14,7 +14,7 @@ todos:
 isProject: false
 ---
 
-# Sun–moon theme switch
+# Sun-moon theme switch
 
 ## Why mobile cannot toggle today
 

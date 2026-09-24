@@ -46,7 +46,7 @@ Do **not** name the knob. `zoom` on `.theme-switch__slider` makes that capture g
 
 Instead, split theme apply:
 
-1. Inside `startViewTransition`: `flushSync(() => { document.documentElement.classList.toggle('dark', nextDark) })` only — **do not** `setTheme` yet, so React still renders the knob on the old side in both snapshots (no flick inside the bitmaps).
+1. Inside `startViewTransition`: `flushSync(() => { document.documentElement.classList.toggle('dark', nextDark) })` only - **do not** `setTheme` yet, so React still renders the knob on the old side in both snapshots (no flick inside the bitmaps).
 2. `await transition.finished`, then `setTheme('dark' | 'light')`. The live checkbox updates and `.theme-switch__sun-moon` `transition: transform 0.4s` runs `translateX(0) ↔ translateX(26px)` in both directions.
 
 Pass `nextDark` into the helper (ThemeToggle already knows `checked`). After `setTheme`, next-themes remains source of truth for storage.
@@ -55,9 +55,9 @@ Reduced motion / no VT: call `classList.toggle` + `setTheme` immediately (no spl
 
 ## Files
 
-- [`src/lib/theme-view-transition.ts`](src/lib/theme-view-transition.ts) — clip-path reveal; new `apply` timing; drop names
-- [`src/components/theme/ThemeToggle.tsx`](src/components/theme/ThemeToggle.tsx) — pass next theme into the helper; keep markup
-- [`src/index.css`](src/index.css) — leave rotate-center deleted; keep `transform` transition
+- [`src/lib/theme-view-transition.ts`](src/lib/theme-view-transition.ts) - clip-path reveal; new `apply` timing; drop names
+- [`src/components/theme/ThemeToggle.tsx`](src/components/theme/ThemeToggle.tsx) - pass next theme into the helper; keep markup
+- [`src/index.css`](src/index.css) - leave rotate-center deleted; keep `transform` transition
 
 No new packages. No call-site changes.
 

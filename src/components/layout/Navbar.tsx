@@ -185,7 +185,7 @@ function MobileNavContent({
           Navigate
         </SheetTitle>
         <SheetDescription className="text-left">
-          {shortName}&apos;s portfolio — platforms, profile, and contact.
+          {shortName}&apos;s portfolio - platforms, profile, and contact.
         </SheetDescription>
       </SheetHeader>
 
