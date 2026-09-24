@@ -1,5 +1,5 @@
-import { Navigate, useLocation, useParams } from 'react-router-dom';
-import { getCategoryByPath, getCategoryMeta } from '@/lib/portfolio';
+import { Navigate, useLocation } from 'react-router-dom';
+import { getCategoryByPath } from '@/lib/portfolio';
 import { usePortfolio } from '@/hooks/usePortfolio';
 import { CategoryWorkPage } from '@/pages/CategoryWorkPage';
 import { CaseStudyRoutePage } from '@/pages/CaseStudyRoutePage';
@@ -36,25 +36,6 @@ export function SiteConfigPathResolver() {
       listPath={category.path}
       listLabel={category.label}
       slugOverride={slug}
-    />
-  );
-}
-
-/** Explicit slug route helper for `/c/:categoryId/:slug`. */
-export function CategoryIdCaseStudyPage() {
-  const { categoryId } = useParams();
-  const { siteConfig } = usePortfolio();
-  const meta = categoryId
-    ? getCategoryMeta(siteConfig, categoryId)
-    : undefined;
-  if (!categoryId || !meta) {
-    return <Navigate to="/404" replace />;
-  }
-  return (
-    <CaseStudyRoutePage
-      category={categoryId}
-      listPath={meta.path}
-      listLabel={meta.label}
     />
   );
 }

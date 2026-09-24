@@ -1,43 +1,10 @@
-import { useRef, type CSSProperties, type ReactNode } from 'react';
+import { useRef, type ReactNode } from 'react';
 import {
   motion,
   useReducedMotion,
   useScroll,
   useTransform,
 } from 'framer-motion';
-
-type ParallaxLayerProps = {
-  children: ReactNode;
-  className?: string;
-  /** Multiplier for scroll distance → translateY (px). Positive = moves slower upward feel. */
-  speed?: number;
-  style?: CSSProperties;
-};
-
-export function ParallaxLayer({
-  children,
-  className,
-  speed = 0.2,
-  style,
-}: ParallaxLayerProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
-  const y = useTransform(
-    scrollYProgress,
-    [0, 1],
-    reduced ? [0, 0] : [speed * -80, speed * 80]
-  );
-
-  return (
-    <motion.div ref={ref} className={className} style={{ ...style, y }}>
-      {children}
-    </motion.div>
-  );
-}
 
 type ScrollFadeProps = {
   children: ReactNode;
