@@ -1,0 +1,31 @@
+---
+description: Edits must not break other behavior - no errors, crashes, or red diagnostics after changes
+alwaysApply: true
+---
+
+# No Regressions After Edits
+
+Every change must leave the rest of the app clean and working. Fix only what the requirement needs, without breaking unrelated behavior.
+
+## Requirements
+
+- Do not introduce runtime crashes, broken flows, or regressions outside the requested edit.
+- After code changes, ensure there are **no red marks**: TypeScript errors, ESLint/IDE diagnostics, or broken imports in files you touched (and fix any you caused elsewhere).
+- Preserve existing APIs, routes, props, and contracts unless the task explicitly changes them.
+- Prefer minimal, targeted diffs. Avoid drive-by refactors that risk unrelated breakage.
+- If a change could affect shared paths (auth, layout, API client, schema), verify callers still type-check and behave correctly.
+- Do not leave incomplete stubs, unused broken imports, or `any`-hiding that masks real errors.
+
+## Checklist Before Finishing
+
+1. Touched files compile / have no new diagnostics.
+2. Related call sites still type-check.
+3. Existing features not in scope still work as before.
+4. No half-migrated renames or missing exports.
+
+## Examples
+
+```text
+# ❌ BAD - fix reports export but break admin layout imports / leave TS errors
+# ✅ GOOD - scoped change; diagnostics clean; other pages still work
+```

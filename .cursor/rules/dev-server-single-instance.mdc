@@ -1,0 +1,80 @@
+---
+description: STRICT - one Vite on port 8000; never start if already up; no 8001
+alwaysApply: true
+---
+
+# Single Dev Server (Port 8000)
+
+This portfolio runs **one** Vite instance on **`http://localhost:8000`** only. A second `npm run dev` is always wrong.
+
+## Why agents fail (do not repeat)
+
+1. Skipping the terminals folder when the user already runs `npm run dev` in cmd/PowerShell
+2. Using PowerShell-only `Get-NetTCPConnection` in **cmd** (fails or empty) then concluding "port free"
+3. Treating PowerShell **profile** errors as "8000 free"
+4. Relying on Vite auto-bump (**8001+**) when 8000 is taken - config uses `strictPort: true`; second start must **fail**, not move
+
+## Gate before EVERY `npm run dev` / `vite`
+
+Run **all three**. If **any** says live → **STOP. Reuse 8000. Do not start.**
+
+### A) Terminals folder (required first)
+
+List/read project terminal files. If metadata or output shows active `npm run dev` or `vite` (any shell) → live. Reuse `http://localhost:8000`.
+
+### B) Port check (shell-safe)
+
+Detect shell. Prefer **universal** Windows:
+
+```bat
+netstat -ano | findstr ":8000"
+```
+
+`LISTENING` on `:8000` → live.
+
+| Shell | Allowed | Forbidden |
+|-------|---------|-----------|
+| cmd | `netstat -ano \| findstr ":8000"` | `Get-NetTCPConnection`, `$PSVersionTable` pipelines |
+| PowerShell | same `netstat`, or `Get-NetTCPConnection` if it works | Ignoring profile errors and starting anyway |
+| Git Bash / WSL | `netstat` / `ss` for 8000 | Assuming Windows cmdlets |
+
+### C) HTTP probe (authoritative)
+
+```bat
+curl.exe -s -o NUL -w "%{http_code}" http://localhost:8000
+```
+
+Any status code (200, 404, etc.) or HTML body → **server is up**. Reuse it.
+
+Empty port check + profile noise does **not** mean free. If A or C says live, treat as live.
+
+## Verdict table
+
+| Evidence | Action |
+|----------|--------|
+| Terminals show Vite/dev OR netstat LISTENING OR curl gets a response | **Do not start.** Use `http://localhost:8000` |
+| All three clearly free | May start **once** on 8000 only |
+| Start logs show 8001+ or "Port 8000 is already in use" | **Abort.** Do not retry other ports. Reuse existing or tell user |
+
+## Forbidden
+
+- Second `npm run dev` / `vite` while 8000 is live
+- `--port 8001` or any port other than **8000**
+- `Get-NetTCPConnection` inside **cmd.exe**
+- Killing a listener you did **not** start this chat
+- Long-lived `dev` when `npm run build` / `npx tsc` / curl would suffice
+
+## After your turn (only your processes)
+
+Stop jobs **you** started. If **you** bound 8000, free it with shell-safe tools:
+
+```bat
+netstat -ano | findstr ":8000"
+```
+
+Then stop **your** PID only. Never kill the user's external Vite on 8000.
+
+```text
+BAD: empty Get-NetTCPConnection in cmd → start Vite → 8001
+GOOD: terminals/curl show 8000 → reuse http://localhost:8000
+```

@@ -1,0 +1,31 @@
+---
+description: Never use em or en dashes; use plain ASCII hyphens or other UTF-8
+alwaysApply: true
+---
+
+# No Em or En Dashes
+
+Do not use em dashes (— U+2014) or en dashes (– U+2013) in any output: chat replies, rules, docs, comments, UI copy, commits, or code strings.
+
+## Use instead
+
+- Plain ASCII hyphen-minus: `-` (U+002D) for ranges, compounds, and parenthetical breaks
+- Or another explicit UTF-8 character the user asks for (e.g. `~`, `/`, `|`) when a hyphen is wrong for the meaning
+
+## Examples
+
+```text
+BAD: Improve SEO — then ship
+GOOD: Improve SEO - then ship
+
+BAD: pages 12–15
+GOOD: pages 12-15
+
+BAD: React–Vite stack
+GOOD: React-Vite stack
+```
+
+## Checklist
+
+- Before finishing a file or reply, scan for `—` and `–` and replace with `-` (or the agreed alternative)
+- Do not paste prose that reintroduces em/en dashes from external sources without converting them

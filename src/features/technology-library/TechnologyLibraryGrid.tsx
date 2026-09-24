@@ -8,6 +8,7 @@ import type { TechnologyCategory } from '@/types/portfolio';
 import { usePortfolio } from '@/hooks/usePortfolio';
 import { OverlayCard } from '@/components/cards/OverlayCard';
 import { Reveal, SectionHeader } from '@/components/shared/Reveal';
+import { TechLogo } from '@/components/tech/TechLogo';
 import { cn, responsiveCardGridCompactClassName } from '@/lib/utils';
 
 const categoryOrder: TechnologyCategory[] = [
@@ -25,7 +26,7 @@ const categoryOrder: TechnologyCategory[] = [
 export function TechnologyLibraryGrid() {
   const { technologies, caseStudies } = usePortfolio();
   return (
-    <section className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
+    <section className="mx-auto min-w-0 max-w-6xl xl:max-w-7xl px-4 py-12 sm:px-6">
       <Reveal>
         <SectionHeader
           eyebrow="Technology Library"
@@ -63,28 +64,34 @@ export function TechnologyLibraryGrid() {
                     >
                       <OverlayCard
                         gradient="technology"
+                        size="compact"
                         eyebrow={technologyCategories[technology.category]}
                         title={technology.name}
-                        heroImage={{
-                          src: technology.logo,
-                          alt: `${technology.name} logo`,
-                        }}
+                        hero={
+                          <TechLogo
+                            technologyId={technology.id}
+                            logo={technology.logo}
+                            logoDark={technology.logoDark}
+                            name={technology.name}
+                            className="max-h-[85%] max-w-[85%]"
+                          />
+                        }
                         body={
                           <>
-                            <p className="line-clamp-2 text-sm text-muted-foreground text-pretty">
+                            <p className="text-sm text-muted-foreground text-pretty">
                               {technology.description}
                             </p>
-                            <div>
-                              <p className="font-mono text-xs tracking-wide text-soft-cyan uppercase sm:text-sm">
+                            <div className="min-h-0 overflow-hidden">
+                              <p className="font-mono text-[0.65rem] tracking-wide text-soft-cyan uppercase">
                                 Used in
                               </p>
                               {slugs.length === 0 ? (
-                                <p className="mt-2 text-xs text-muted-foreground">
+                                <p className="mt-1 text-xs text-muted-foreground">
                                   No linked case studies yet.
                                 </p>
                               ) : (
-                                <ul className="mt-2 flex flex-wrap gap-2">
-                                  {slugs.slice(0, 4).map((slug) => {
+                                <ul className="mt-1 flex flex-wrap gap-1.5 overflow-hidden">
+                                  {slugs.slice(0, 3).map((slug) => {
                                     const study = getCaseStudy(
                                       caseStudies,
                                       slug
@@ -94,7 +101,7 @@ export function TechnologyLibraryGrid() {
                                       <li key={`${technology.id}-${slug}`}>
                                         <Link
                                           to={getCaseStudyPath(study)}
-                                          className="rounded-md border border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
+                                          className="rounded-md border border-border px-1.5 py-0.5 text-[0.65rem] text-muted-foreground hover:text-foreground"
                                           onClick={(event) =>
                                             event.stopPropagation()
                                           }

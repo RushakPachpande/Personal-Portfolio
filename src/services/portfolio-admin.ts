@@ -20,6 +20,7 @@ import type {
   TerminalCommand,
   TimelineItem,
 } from '@/types/portfolio';
+import type { SiteConfig } from '@/types/site-config';
 
 export async function upsertSiteProfile(data: Profile) {
   const { resumeUrl: _resumeUrl, ...stored } = data;
@@ -31,13 +32,27 @@ export async function upsertSiteProfile(data: Profile) {
   throwIfError(error);
 }
 
-export async function upsertSiteSettings(siteVersion: string) {
-  const { error } = await supabase.from('site_settings').upsert({
+export async function upsertSiteSettings(
+  siteVersion: string,
+  config?: SiteConfig
+) {
+  const payload: Record<string, unknown> = {
     id: 'main',
     site_version: siteVersion,
     updated_at: new Date().toISOString(),
-  });
+  };
+  if (config) {
+    payload.config = config;
+  }
+  const { error } = await supabase.from('site_settings').upsert(payload);
   throwIfError(error);
+}
+
+export async function upsertSiteConfig(
+  siteVersion: string,
+  config: SiteConfig
+) {
+  await upsertSiteSettings(siteVersion, config);
 }
 
 function caseStudyPayload(study: CaseStudy, sortOrder: number) {
@@ -132,10 +147,16 @@ export async function upsertTimelineItem(
   item: TimelineItem,
   sortOrder: number
 ) {
+  const logoPath = item.logoPath || item.logo;
+  const data: TimelineItem = {
+    ...item,
+    logoPath: logoPath ? toMediaPath(logoPath) : undefined,
+    logo: undefined,
+  };
   const { error } = await supabase.from('timeline_items').upsert({
     id: item.id,
     sort_order: sortOrder,
-    data: item,
+    data,
     updated_at: new Date().toISOString(),
   });
   throwIfError(error);

@@ -13,7 +13,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
 export function ContactPanel() {
-  const { profile } = usePortfolio();
+  const { profile, siteConfig } = usePortfolio();
+  const chrome = siteConfig.chrome.contact;
   const isPreview = usePreviewMode();
   const [status, setStatus] = useState<'idle' | 'sent' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
@@ -41,12 +42,12 @@ export function ContactPanel() {
   };
 
   return (
-    <section className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
+    <section className="mx-auto min-w-0 max-w-6xl xl:max-w-7xl px-4 py-12 sm:px-6">
       <Reveal>
         <SectionHeader
-          eyebrow="Contact"
-          title="Let’s talk platforms"
-          description="Simple, professional channels—email, LinkedIn, GitHub, and resume."
+          eyebrow={chrome.eyebrow}
+          title={chrome.title}
+          description={chrome.description}
         />
       </Reveal>
 
@@ -54,11 +55,13 @@ export function ContactPanel() {
         <Reveal>
           <OverlayCard
             gradient="contact"
+            size="panel"
+            disableTilt
             eyebrow="Contact"
             title="Channels"
             hero={
               <Mail
-                className="size-14 text-soft-cyan/90 sm:size-16"
+                className="size-12 text-soft-cyan/90 sm:size-14"
                 strokeWidth={1.25}
               />
             }
@@ -150,7 +153,7 @@ export function ContactPanel() {
               </Button>
               {isPreview ? (
                 <p className="font-mono text-xs text-muted-foreground">
-                  Preview only — submissions are disabled.
+                  Preview only - submissions are disabled.
                 </p>
               ) : null}
               {status === 'sent' ? (

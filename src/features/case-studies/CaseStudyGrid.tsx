@@ -23,7 +23,7 @@ export function CaseStudyGrid({
 }: CaseStudyGridProps) {
   return (
     <section
-      className={cn('mx-auto max-w-6xl min-w-0 px-4 py-12 sm:px-6', className)}
+      className={cn('mx-auto max-w-6xl xl:max-w-7xl min-w-0 px-4 py-12 sm:px-6', className)}
     >
       {showHeader && title ? (
         <Reveal>

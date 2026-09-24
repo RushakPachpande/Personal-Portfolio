@@ -6,10 +6,14 @@ import { Reveal, SectionHeader } from '@/components/shared/Reveal';
 import { cn, responsiveCardGridCompactClassName } from '@/lib/utils';
 
 export function EngineeringStats() {
-  const { caseStudies, technologies } = usePortfolio();
-  const engineeringStats = computeEngineeringStats(caseStudies, technologies);
+  const { caseStudies, technologies, siteConfig } = usePortfolio();
+  const engineeringStats = computeEngineeringStats(
+    caseStudies,
+    technologies,
+    siteConfig
+  );
   return (
-    <section className="mx-auto max-w-6xl min-w-0 px-4 py-16 sm:px-6">
+    <section className="mx-auto max-w-6xl xl:max-w-7xl min-w-0 px-4 py-16 sm:px-6">
       <Reveal>
         <SectionHeader
           eyebrow="Engineering Metrics"
@@ -28,10 +32,11 @@ export function EngineeringStats() {
           <Reveal key={stat.id} delay={index * 0.04} className="min-w-0">
             <OverlayCard
               gradient="stat"
+              size="compact"
               eyebrow="Metric"
               title={stat.label}
               hero={
-                <p className="font-display text-5xl font-semibold tracking-tight text-foreground sm:text-6xl">
+                <p className="font-display text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
                   <AnimatedCounter
                     value={stat.value}
                     suffix={stat.suffix ?? ''}

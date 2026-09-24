@@ -1,0 +1,34 @@
+---
+description: Never create git commits automatically; leave committing to the user
+alwaysApply: true
+---
+
+# No Agent Commits
+
+Never commit, amend, push, revert, reset, stash, tag, or otherwise write to git history. Committing is always the user's manual action.
+
+## Rules
+
+- Do **not** run `git commit`, `git commit --amend`, `git push`, `git revert`, `git reset`, `git stash`, or `git tag` on your own.
+- Staging (`git add`) is also off-limits unless the user explicitly asks for it.
+- Read-only git is fine: `git status`, `git diff`, `git log`, `git branch --show-current`.
+- Finishing a task is **not** a reason to commit. Leave the working tree dirty.
+- Only exception: the user explicitly asks for a commit **and** confirms a second time when you ask "Confirm: commit these staged changes?". One request alone is not enough.
+- When a commit would normally be the next step, write out the exact commands instead so the user can run them.
+
+## Examples
+
+```text
+❌ BAD: finish a feature → `git add -A && git commit -m "feat: ..."`
+❌ BAD: user says "commit this" → commit immediately without a confirmation prompt
+✅ GOOD: finish a feature → summarize changes → suggest commands for the user to run
+✅ GOOD: user says "commit this" → ask to confirm → user confirms again → commit
+```
+
+Suggested handoff format when work is done:
+
+```bash
+git status
+git add <files>
+git commit -m "<type>: <summary>"
+```

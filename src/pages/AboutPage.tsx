@@ -5,26 +5,30 @@ import { Reveal, SectionHeader } from '@/components/shared/Reveal';
 import { cn, responsiveCardGridCompactClassName } from '@/lib/utils';
 
 export function AboutPage() {
-  const { profile } = usePortfolio();
+  const { profile, siteConfig } = usePortfolio();
+  const chrome = siteConfig.chrome.about;
   const sections = [
-    { title: 'Who I am', body: profile.about.whoIAm },
-    { title: 'How I think', body: profile.about.howIThink },
-    { title: 'What I enjoy building', body: profile.about.whatIEnjoy },
-    { title: 'My engineering approach', body: profile.about.approach },
+    { title: chrome.sectionTitles.whoIAm, body: profile.about.whoIAm },
+    { title: chrome.sectionTitles.howIThink, body: profile.about.howIThink },
+    { title: chrome.sectionTitles.whatIEnjoy, body: profile.about.whatIEnjoy },
+    { title: chrome.sectionTitles.approach, body: profile.about.approach },
   ] as const;
   return (
     <>
       <Seo
         title="About"
-        description="Platform engineer focused on ownership—building complete digital platforms from infrastructure to production."
+        description={
+          siteConfig.seo.defaultDescription ??
+          'Platform engineer focused on ownership-building complete digital platforms from infrastructure to production.'
+        }
         path="/about"
       />
-      <section className="mx-auto min-w-0 max-w-6xl px-4 pt-12 pb-20 sm:px-6">
+      <section className="mx-auto min-w-0 max-w-6xl xl:max-w-7xl px-4 pt-12 pb-20 sm:px-6">
         <Reveal>
           <SectionHeader
-            eyebrow="About"
-            title="Ownership over tickets"
-            description="Not a biography—how I work across products, infrastructure, and automation."
+            eyebrow={chrome.eyebrow}
+            title={chrome.title}
+            description={chrome.description}
           />
         </Reveal>
 
@@ -37,6 +41,7 @@ export function AboutPage() {
             >
               <OverlayCard
                 gradient="about"
+                size="standard"
                 eyebrow="About"
                 title={section.title}
                 hero={
@@ -45,7 +50,7 @@ export function AboutPage() {
                   </span>
                 }
                 body={
-                  <p className="text-sm text-muted-foreground text-pretty sm:text-base">
+                  <p className="text-sm text-muted-foreground text-pretty">
                     {section.body}
                   </p>
                 }

@@ -1,4 +1,8 @@
-import n8nLogo from '@/assets/logos/n8n.webp';
+import n8nLogo from '@/assets/tech/n8n.svg';
+import sharepointLogo from '@/assets/tech/sharepoint.svg';
+import outlookLogo from '@/assets/tech/outlook.svg';
+import microsoftLogo from '@/assets/tech/microsoft.svg';
+import azureLogo from '@/assets/tech/azure.svg';
 import type { CaseStudy } from './types';
 
 export const automationCaseStudies: CaseStudy[] = [
@@ -7,11 +11,11 @@ export const automationCaseStudies: CaseStudy[] = [
     category: 'automation',
     name: 'Self-hosted n8n Platform',
     summary:
-      'Organization’s first production n8n platform—SQLite to PostgreSQL evolution.',
+      'Organization’s first production n8n platform-SQLite to PostgreSQL evolution.',
     status: 'Production',
     featured: true,
     difficulty: 'Complex',
-    timeline: '2025 — Present',
+    timeline: '2025 - Present',
     logo: n8nLogo,
     logoAlt: 'n8n logo',
     coverImage: n8nLogo,
@@ -27,13 +31,13 @@ export const automationCaseStudies: CaseStudy[] = [
       },
     ],
     businessContext:
-      'The organization needed a durable internal automation platform—not ad-hoc scripts—so operational workflows could be owned, monitored, and improved over time.',
+      'The organization needed a durable internal automation platform-not ad-hoc scripts-so operational workflows could be owned, monitored, and improved over time.',
     problem:
       'Without a production-grade automation host, workflow automation stays fragile: hard to back up, hard to upgrade, and hard to trust for business processes.',
     objective:
       'Introduce and operate a self-hosted n8n automation platform suitable for long-term production reliability.',
     solution:
-      'Designed, self-hosted, migrated, and maintained the production n8n platform—initially on SQLite, then redesigned with PostgreSQL. Deployed a secure Docker-based production environment with monitoring, backups, upgrades, and workflow troubleshooting.',
+      'Designed, self-hosted, migrated, and maintained the production n8n platform-initially on SQLite, then redesigned with PostgreSQL. Deployed a secure Docker-based production environment with monitoring, backups, upgrades, and workflow troubleshooting.',
     architecture:
       'Dockerized n8n on Linux VPS. Initial SQLite-backed deployment was migrated to PostgreSQL for production durability, with backups, upgrades, monitoring, and operational troubleshooting as standing practices.',
     architectureNodes: [
@@ -95,7 +99,7 @@ export const automationCaseStudies: CaseStudy[] = [
       'Established and operated the organization’s first production n8n automation platform with a more durable PostgreSQL-backed architecture.',
     learnings: [
       'Automation platforms deserve the same production discipline as product backends.',
-      'Starting simple is fine—shipping the migration plan is what makes it production.',
+      'Starting simple is fine-shipping the migration plan is what makes it production.',
     ],
     gallery: [
       {
@@ -117,14 +121,14 @@ export const automationCaseStudies: CaseStudy[] = [
     category: 'automation',
     name: 'Microsoft 365 & SharePoint Workflow Automation',
     summary:
-      'Outlook–SharePoint workflows that standardize internal IT processes.',
+      'Outlook-SharePoint workflows that standardize internal IT processes.',
     status: 'Implemented',
     difficulty: 'Advanced',
     timeline: '2025',
-    logo: n8nLogo,
-    logoAlt: 'n8n logo',
-    coverImage: n8nLogo,
-    coverImageAlt: 'SharePoint workflow automation branding',
+    logo: sharepointLogo,
+    logoAlt: 'Microsoft SharePoint logo',
+    coverImage: sharepointLogo,
+    coverImageAlt: 'SharePoint workflow automation',
     technologyIds: [
       'microsoft-365',
       'sharepoint',
@@ -195,7 +199,7 @@ export const automationCaseStudies: CaseStudy[] = [
       {
         decision: 'Integrate Outlook intake with automated logging',
         rationale:
-          'People already communicate by email—automation should meet that reality without losing structure.',
+          'People already communicate by email-automation should meet that reality without losing structure.',
       },
     ],
     challenges: [
@@ -236,10 +240,10 @@ export const automationCaseStudies: CaseStudy[] = [
     status: 'Implemented',
     difficulty: 'Advanced',
     timeline: '2025',
-    logo: n8nLogo,
-    logoAlt: 'n8n logo',
-    coverImage: n8nLogo,
-    coverImageAlt: 'IT ticket automation workflow branding',
+    logo: outlookLogo,
+    logoAlt: 'Microsoft Outlook logo',
+    coverImage: outlookLogo,
+    coverImageAlt: 'IT ticket automation via Outlook intake',
     technologyIds: [
       'n8n',
       'outlook',
@@ -262,7 +266,7 @@ export const automationCaseStudies: CaseStudy[] = [
       { group: 'Integration', items: ['REST APIs'] },
     ],
     businessContext:
-      'IT support requests arrived through everyday channels and needed to become structured, trackable work—not lost email threads.',
+      'IT support requests arrived through everyday channels and needed to become structured, trackable work-not lost email threads.',
     problem:
       'Manual ticket handling creates delay, inconsistency, and weak lifecycle visibility when intake is email-first.',
     objective:
@@ -330,7 +334,7 @@ export const automationCaseStudies: CaseStudy[] = [
       'Created a scalable framework that reduces manual IT admin and supports future service desk enhancements.',
     learnings: [
       'Service desk automation is lifecycle design, not only message parsing.',
-      'Extensibility should be planned when the first reliable path works—not bolted on after chaos returns.',
+      'Extensibility should be planned when the first reliable path works-not bolted on after chaos returns.',
     ],
     gallery: [
       {
@@ -354,10 +358,10 @@ export const automationCaseStudies: CaseStudy[] = [
       'Day-to-day ownership of Microsoft 365 and related SaaS platforms.',
     status: 'Ongoing',
     difficulty: 'Intermediate',
-    timeline: '2025 — Present',
-    logo: n8nLogo,
-    logoAlt: 'n8n logo',
-    coverImage: n8nLogo,
+    timeline: '2025 - Present',
+    logo: microsoftLogo,
+    logoAlt: 'Microsoft logo',
+    coverImage: microsoftLogo,
     coverImageAlt: 'Enterprise SaaS operations context',
     technologyIds: ['microsoft-365'],
     technologies: [
@@ -379,7 +383,7 @@ export const automationCaseStudies: CaseStudy[] = [
     objective:
       'Administer Microsoft 365 and related SaaS platforms that keep day-to-day organizational operations running.',
     solution:
-      'Administered Microsoft 365, Google Workspace, Zoho, DNS, domains, and SaaS platforms supporting organizational operations—connecting identity, collaboration, and operational tooling.',
+      'Administered Microsoft 365, Google Workspace, Zoho, DNS, domains, and SaaS platforms supporting organizational operations-connecting identity, collaboration, and operational tooling.',
     architecture:
       'Operational layer spanning Microsoft 365 and adjacent SaaS (Google Workspace, Zoho), with DNS/domain administration as the routing and identity-adjacent foundation those services rely on.',
     architectureNodes: [
@@ -449,10 +453,10 @@ export const automationCaseStudies: CaseStudy[] = [
       'Research-driven automation and platform changes that improve reliability and efficiency.',
     status: 'Ongoing',
     difficulty: 'Advanced',
-    timeline: '2025 — Present',
-    logo: n8nLogo,
-    logoAlt: 'n8n logo',
-    coverImage: n8nLogo,
+    timeline: '2025 - Present',
+    logo: azureLogo,
+    logoAlt: 'Microsoft Azure logo',
+    coverImage: azureLogo,
     coverImageAlt: 'Operational improvement initiatives',
     technologyIds: ['n8n', 'azure', 'github-actions'],
     technologies: ['n8n', 'Zapier', 'CI/CD', 'Azure'],
@@ -462,15 +466,15 @@ export const automationCaseStudies: CaseStudy[] = [
       { group: 'Cloud', items: ['Azure'] },
     ],
     businessContext:
-      'Platform reliability and operational efficiency improve when changes are researched, compared, and implemented deliberately—not reacted to under outage pressure alone.',
+      'Platform reliability and operational efficiency improve when changes are researched, compared, and implemented deliberately-not reacted to under outage pressure alone.',
     problem:
       'Organizations accumulate friction when operational improvements are ad hoc and root causes are never examined before the next workaround.',
     objective:
       'Research and implement automation and platform changes that improve reliability, efficiency, and infrastructure scalability.',
     solution:
-      'Researched and implemented technical solutions improving platform reliability, automation, operational efficiency, and infrastructure scalability—using structured root-cause analysis before production changes.',
+      'Researched and implemented technical solutions improving platform reliability, automation, operational efficiency, and infrastructure scalability-using structured root-cause analysis before production changes.',
     architecture:
-      'Cross-cutting improvement work spanning automation tooling (n8n/Zapier), delivery discipline (CI/CD), and Azure-hosted platforms—applied where analysis showed durable leverage.',
+      'Cross-cutting improvement work spanning automation tooling (n8n/Zapier), delivery discipline (CI/CD), and Azure-hosted platforms-applied where analysis showed durable leverage.',
     architectureNodes: [
       {
         id: 'ops-analysis',

@@ -1,0 +1,49 @@
+---
+description: Source logos from svgl.app with light/dark theme variants for visibility
+alwaysApply: true
+---
+
+# SVG Logo Source (svgl.app + themes)
+
+When adding or replacing brand, product, or technology logos as SVG, get them from **[svgl.app](https://svgl.app)** only (API: `https://api.svgl.app`).
+
+## Default
+
+1. Search: `https://api.svgl.app?search=<name>` (or browse https://svgl.app)
+2. Prefer SVGL assets over CDNs, Simple Icons, Wikipedia, or scrapes
+3. Save under `src/assets/tech/` or `src/assets/logos/` with kebab-case names
+
+## Theme variants (required)
+
+SVGL `route` (and sometimes `wordmark`) is either a single URL **or** `{ light, dark }`.
+
+- If SVGL provides **light + dark**, download **both**. Filenames: `<name>-light.svg` and `<name>-dark.svg` (e.g. `github-light.svg`, `github-dark.svg`)
+- Wire UI to swap by portfolio theme (`light` / `dark`, e.g. `next-themes` / `.dark`). Never ship only the light (or only dark) file when both exist
+- If SVGL returns a **single** SVG, check contrast on **both** themes before shipping:
+  - Near-black fills (e.g. GitHub `#161614`) vanish on dark backgrounds
+  - Near-white / light-only marks vanish on light backgrounds
+- For single-route marks that fail a theme: use SVGL's theme pair if available; otherwise ask before CSS hacks (`invert`, forced `currentColor`) or a second source
+
+## Render checklist
+
+- Preview logo in **light and dark** before finishing
+- Prefer `<img>` (or equivalent) that selects `logoLight` / `logoDark` from theme - not one hardcoded dark-on-transparent asset
+- Wordmarks: same light/dark rules when SVGL exposes `wordmark: { light, dark }`
+
+## Exceptions
+
+Other sources only when the user **explicitly** says so, or when:
+
+- Custom/proprietary mark not on svgl.app
+- User provides a file/URL
+- Non-SVG required and no SVGL SVG fits - ask first
+
+## Examples
+
+```text
+BAD: Use github.svg with fill #161614 alone - invisible in dark theme
+GOOD: github-light.svg + github-dark.svg from svgl.app; swap with theme
+
+BAD: Pull logos from random CDNs / svglogos.dev
+GOOD: https://api.svgl.app?search=github then download route.light and route.dark
+```

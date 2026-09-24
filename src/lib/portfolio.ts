@@ -3,19 +3,19 @@ import type {
   CaseStudyCategory,
   EngineeringStat,
   Technology,
+  TimelineItem,
 } from '@/types/portfolio';
+import type { SiteCategoryConfig, SiteConfig } from '@/types/site-config';
+import { defaultSiteConfig } from '@/content/siteConfig';
 
-export const categoryLabels: Record<CaseStudyCategory, string> = {
-  platform: 'Platform Engineering',
-  infrastructure: 'Infrastructure Engineering',
-  automation: 'Automation Engineering',
-};
+/** Fallback labels when site config is unavailable. */
+export const categoryLabels: Record<string, string> = Object.fromEntries(
+  defaultSiteConfig.categories.map((category) => [category.id, category.label])
+);
 
-export const categoryPaths: Record<CaseStudyCategory, string> = {
-  platform: '/platforms',
-  infrastructure: '/infrastructure',
-  automation: '/automation',
-};
+export const categoryPaths: Record<string, string> = Object.fromEntries(
+  defaultSiteConfig.categories.map((category) => [category.id, category.path])
+);
 
 export const technologyCategories: Record<Technology['category'], string> = {
   frontend: 'Frontend',
@@ -61,10 +61,39 @@ const technologyAliases: Record<string, string> = {
   'github actions': 'github-actions',
   'rest apis': 'rest-apis',
   webhooks: 'webhooks',
+  vite: 'react',
+  express: 'rest-apis',
+  prisma: 'postgresql',
+  redis: 'postgresql',
+  'socket.io': 'webhooks',
+  tailwind: 'react',
+  node: 'rest-apis',
+  'node.js': 'rest-apis',
 };
 
 export function mapTechnologyNameToId(name: string) {
   return technologyAliases[name.toLowerCase().trim()];
+}
+
+export function getCategoryMeta(
+  siteConfig: SiteConfig | undefined,
+  categoryId: string
+): SiteCategoryConfig | undefined {
+  const categories = siteConfig?.categories ?? defaultSiteConfig.categories;
+  return categories.find((category) => category.id === categoryId);
+}
+
+export function getCategoryByPath(
+  siteConfig: SiteConfig | undefined,
+  pathname: string
+): SiteCategoryConfig | undefined {
+  const categories = siteConfig?.categories ?? defaultSiteConfig.categories;
+  const normalized = pathname.replace(/\/+$/, '') || '/';
+  return categories.find(
+    (category) =>
+      category.path === normalized ||
+      normalized.startsWith(`${category.path}/`)
+  );
 }
 
 export function getCaseStudy(caseStudies: CaseStudy[], slug: string) {
@@ -73,13 +102,18 @@ export function getCaseStudy(caseStudies: CaseStudy[], slug: string) {
 
 export function getCaseStudiesByCategory(
   caseStudies: CaseStudy[],
-  category: CaseStudyCategory
+  category: CaseStudyCategory | string
 ) {
   return caseStudies.filter((study) => study.category === category);
 }
 
 export function getFeaturedCaseStudies(caseStudies: CaseStudy[]) {
   return caseStudies.filter((study) => study.featured && !study.incomplete);
+}
+
+/** Home Experience Snapshot cards - admin-flagged timeline rows, in sort order. */
+export function getHomeExperienceSnapshot(timeline: TimelineItem[]) {
+  return timeline.filter((item) => item.showOnHome);
 }
 
 export function getRelatedCaseStudies(
@@ -91,8 +125,15 @@ export function getRelatedCaseStudies(
     .filter((related): related is CaseStudy => Boolean(related));
 }
 
-export function getCaseStudyPath(study: Pick<CaseStudy, 'category' | 'slug'>) {
-  return `${categoryPaths[study.category]}/${study.slug}`;
+export function getCaseStudyPath(
+  study: Pick<CaseStudy, 'category' | 'slug'>,
+  siteConfig?: SiteConfig
+) {
+  const path =
+    getCategoryMeta(siteConfig, study.category)?.path ??
+    categoryPaths[study.category] ??
+    '/platforms';
+  return `${path}/${study.slug}`;
 }
 
 export function getTechnologyById(technologies: Technology[], id: string) {
@@ -117,16 +158,12 @@ export function usedInSlugsFromCaseStudies(caseStudies: CaseStudy[]) {
 
 export function computeEngineeringStats(
   caseStudies: CaseStudy[],
-  technologies: Technology[]
+  technologies: Technology[],
+  siteConfig: SiteConfig = defaultSiteConfig
 ): EngineeringStat[] {
+  const statuses = siteConfig.stats.productionStatuses;
   const productionSystems = caseStudies.filter((study) =>
-    [
-      'Production',
-      'Completed',
-      'Implemented',
-      'Ongoing',
-      'Final development, validation, and rollout',
-    ].includes(study.status)
+    statuses.includes(study.status)
   ).length;
 
   const automationWorkflows = caseStudies.filter(
@@ -143,51 +180,23 @@ export function computeEngineeringStats(
       technology.category
     )
   ).length;
-  const yearsLearning = new Date().getFullYear() - 2019 + 1;
+  const yearsLearning =
+    new Date().getFullYear() - siteConfig.stats.baselineYear + 1;
 
-  return [
-    {
-      id: 'production-systems',
-      label: 'Production Systems',
-      value: productionSystems,
-      description:
-        'Platforms and initiatives actively used or delivered for real operations.',
-    },
-    {
-      id: 'automation-workflows',
-      label: 'Automation Workflows',
-      value: automationWorkflows,
-      description:
-        'Business automation initiatives implemented across n8n and Microsoft flows.',
-    },
-    {
-      id: 'infrastructure-projects',
-      label: 'Infrastructure Projects',
-      value: infrastructureProjects,
-      description:
-        'Cloud, hosting, networking, storage, and remote-access engineering initiatives.',
-    },
-    {
-      id: 'platforms-delivered',
-      label: 'Platforms Delivered',
-      value: platformsDelivered,
-      description:
-        'Product platforms built and maintained with end-to-end ownership.',
-    },
-    {
-      id: 'enterprise-technologies',
-      label: 'Enterprise Technologies',
-      value: enterpriseTechnologies,
-      description:
-        'Cloud, security, and enterprise systems used in shipped initiatives.',
-    },
-    {
-      id: 'years-learning',
-      label: 'Years Learning',
-      value: yearsLearning,
-      suffix: '+',
-      description:
-        'Continuous hands-on learning journey from foundational study to production ownership.',
-    },
-  ];
+  const valueBySource: Record<string, number> = {
+    production: productionSystems,
+    automation: automationWorkflows,
+    infrastructure: infrastructureProjects,
+    platforms: platformsDelivered,
+    'enterprise-tech': enterpriseTechnologies,
+    years: yearsLearning,
+  };
+
+  return siteConfig.stats.items.map((item) => ({
+    id: item.id,
+    label: item.label,
+    value: valueBySource[item.source] ?? 0,
+    suffix: item.suffix,
+    description: item.description,
+  }));
 }

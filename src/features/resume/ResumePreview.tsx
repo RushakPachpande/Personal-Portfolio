@@ -1,49 +1,37 @@
 import { Link } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import {
-  Award,
-  Briefcase,
   Download,
   ExternalLink,
-  GraduationCap,
-  Layers,
   Mail,
   MapPin,
   Phone,
-  Sparkles,
-  Wrench,
 } from 'lucide-react';
 import { usePortfolio } from '@/hooks/usePortfolio';
 import { getCaseStudyPath, getCaseStudy } from '@/lib/portfolio';
-import { OverlayCard } from '@/components/cards/OverlayCard';
-import { SurfaceCard } from '@/components/cards/SurfaceCard';
 import { MagneticButton } from '@/components/shared/MagneticButton';
-import { Reveal, SectionHeader } from '@/components/shared/Reveal';
+import { Reveal } from '@/components/shared/Reveal';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { cn, responsiveCardGridCompactClassName } from '@/lib/utils';
 
-function SectionBlock({
-  icon: Icon,
+const contactLinkClassName =
+  'inline-flex min-h-11 items-center gap-2 rounded-md text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none';
+
+const bulletListClassName =
+  'flex max-w-3xl list-disc flex-col gap-2 pl-5 text-sm text-muted-foreground marker:text-muted-foreground';
+
+function ResumeSection({
   title,
   children,
-  className,
 }: {
-  icon: typeof Briefcase;
   title: string;
   children: ReactNode;
-  className?: string;
 }) {
   return (
-    <section className={cn('flex flex-col gap-5', className)}>
-      <div className="flex items-center gap-3">
-        <span className="inline-flex size-9 items-center justify-center rounded-xl border border-border bg-secondary/40 text-electric-blue">
-          <Icon className="size-4" />
-        </span>
-        <h3 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
-          {title}
-        </h3>
-      </div>
+    <section className="flex flex-col gap-5">
+      <h2 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
+        {title}
+      </h2>
       {children}
     </section>
   );
@@ -57,7 +45,7 @@ function CaseStudyLink({ slug }: { slug: string }) {
   return (
     <Link
       to={getCaseStudyPath(study)}
-      className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+      className="inline-flex min-h-11 items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
     >
       View case study
       <ExternalLink className="size-3.5" />
@@ -76,345 +64,271 @@ export function ResumePreview() {
     highlights: resumeHighlights,
     technicalExpertise,
   } = resume;
+
   return (
-    <div className="pb-20">
+    <div className="flex flex-col gap-8 pb-20">
       <Reveal>
-        <SectionHeader
-          eyebrow="Resume"
-          title="Platform ownership, end to end"
-          description="A full preview of professional experience, projects, and technical scope—download the PDF for sharing."
-        />
+        <header className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex min-w-0 flex-col gap-2">
+              <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+                {profile.name}
+              </h1>
+              <p className="text-lg text-muted-foreground">
+                {profile.resumeTitle}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {profile.roles.map((role) => (
+                  <Badge key={role} variant="secondary">
+                    {role}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+            {profile.resumeUrl ? (
+              <MagneticButton
+                href={profile.resumeUrl}
+                className="min-h-11 w-full sm:w-auto"
+              >
+                Download PDF
+                <Download data-icon="inline-end" />
+              </MagneticButton>
+            ) : null}
+          </div>
+
+          <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
+            <li className="inline-flex min-h-11 items-center gap-2">
+              <MapPin className="size-4 shrink-0" aria-hidden="true" />
+              {profile.location}
+            </li>
+            <li>
+              <a
+                href={`tel:${profile.phone.replace(/\s/g, '')}`}
+                className={contactLinkClassName}
+              >
+                <Phone className="size-4 shrink-0" aria-hidden="true" />
+                {profile.phone}
+              </a>
+            </li>
+            <li>
+              <a href={profile.socials.email} className={contactLinkClassName}>
+                <Mail className="size-4 shrink-0" aria-hidden="true" />
+                {profile.email}
+              </a>
+            </li>
+            <li>
+              <a
+                href={profile.socials.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className={contactLinkClassName}
+              >
+                <ExternalLink className="size-4 shrink-0" aria-hidden="true" />
+                LinkedIn
+              </a>
+            </li>
+            <li>
+              <a
+                href={profile.socials.github}
+                target="_blank"
+                rel="noreferrer"
+                className={contactLinkClassName}
+              >
+                <ExternalLink className="size-4 shrink-0" aria-hidden="true" />
+                GitHub
+              </a>
+            </li>
+          </ul>
+        </header>
       </Reveal>
 
-      <div className="mt-12 grid min-w-0 grid-cols-1 gap-8 xl:grid-cols-[minmax(0,320px)_minmax(0,1fr)] xl:items-start">
-        <Reveal className="xl:sticky xl:top-24">
-          <SurfaceCard
-            gradient="platform"
-            header={
-              <div className="space-y-4 px-5 py-5 sm:px-6">
-                <div>
-                  <h2 className="font-display text-3xl tracking-tight">
-                    {profile.name}
-                  </h2>
-                  <p className="mt-2 text-muted-foreground">
-                    {profile.resumeTitle}
-                  </p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {profile.roles.map((role) => (
-                    <Badge key={role} variant="secondary">
-                      {role}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            }
-          >
-            <div className="flex flex-col gap-4 text-sm">
-              <div className="flex flex-col gap-3 text-muted-foreground">
-                <p className="inline-flex items-center gap-2">
-                  <MapPin className="size-4 shrink-0 text-electric-blue" />
-                  {profile.location}
+      <Separator />
+
+      <ResumeSection title="Professional Summary">
+        <div className="flex max-w-3xl flex-col gap-4">
+          <p className="text-muted-foreground text-pretty">
+            Platform &amp; Solutions Engineer with hands-on experience
+            designing, building, and operating production platforms, cloud
+            infrastructure, and enterprise systems.
+          </p>
+          <ul className={bulletListClassName}>
+            {profile.summaryBullets.map((bullet) => (
+              <li key={bullet} className="text-pretty">
+                {bullet}
+              </li>
+            ))}
+            <li className="text-pretty">
+              Driven to build robust, scalable, and reliable technical
+              solutions.
+            </li>
+          </ul>
+        </div>
+        <div className="flex flex-col gap-3">
+          <h3 className="font-display text-base font-semibold">Highlights</h3>
+          <ul className="grid grid-cols-1 gap-x-8 gap-y-1.5 marker:text-muted-foreground sm:grid-cols-2">
+            {resumeHighlights.map((highlight) => (
+              <li key={highlight.id} className="list-disc pl-5 font-medium">
+                {highlight.label}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </ResumeSection>
+
+      <Separator />
+
+      <ResumeSection title="Professional Experience">
+        <ol className="flex flex-col gap-8 border-l border-border">
+          {professionalExperience.map((entry) => (
+            <li key={entry.id} className="relative flex flex-col gap-2 pl-6">
+              <span
+                className="absolute top-2 left-0 size-2 -translate-x-1/2 rounded-full bg-foreground"
+                aria-hidden="true"
+              />
+              <h3 className="font-display text-lg font-semibold">
+                {entry.organization}
+              </h3>
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                <p className="text-sm text-soft-cyan">{entry.role}</p>
+                <p className="shrink-0 text-sm text-muted-foreground">
+                  {entry.period}
                 </p>
-                <a
-                  href={`tel:${profile.phone.replace(/\s/g, '')}`}
-                  className="inline-flex items-center gap-2 transition-colors hover:text-foreground"
-                >
-                  <Phone className="size-4 shrink-0 text-electric-blue" />
-                  {profile.phone}
-                </a>
-                <a
-                  href={profile.socials.email}
-                  className="inline-flex items-center gap-2 transition-colors hover:text-foreground"
-                >
-                  <Mail className="size-4 shrink-0 text-electric-blue" />
-                  {profile.email}
-                </a>
-                <a
-                  href={profile.socials.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 transition-colors hover:text-foreground"
-                >
-                  <ExternalLink className="size-4 shrink-0 text-electric-blue" />
-                  LinkedIn
-                </a>
-                <a
-                  href={profile.socials.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 transition-colors hover:text-foreground"
-                >
-                  <ExternalLink className="size-4 shrink-0 text-electric-blue" />
-                  GitHub
-                </a>
               </div>
+              <ul className={bulletListClassName}>
+                {entry.bullets.map((bullet) => (
+                  <li key={bullet} className="text-pretty">
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      </ResumeSection>
 
-              <Separator />
+      <Separator />
 
-              {profile.resumeUrl ? (
-                <MagneticButton href={profile.resumeUrl} className="w-full">
-                  Download PDF
-                  <Download data-icon="inline-end" />
-                </MagneticButton>
-              ) : null}
+      <ResumeSection title="Key Projects">
+        <ol className="flex flex-col gap-8 border-l border-border">
+          {keyProjects.map((project) => (
+            <li
+              key={project.id}
+              className="relative flex flex-col gap-3 pl-6"
+            >
+              <span
+                className="absolute top-2 left-0 size-2 -translate-x-1/2 rounded-full bg-foreground"
+                aria-hidden="true"
+              />
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex flex-col gap-1">
+                  <h3 className="font-display text-lg font-semibold">
+                    {project.name}
+                  </h3>
+                  <p className="text-sm text-soft-cyan">{project.role}</p>
+                </div>
+                {project.caseStudy ? (
+                  <CaseStudyLink slug={project.caseStudy.slug} />
+                ) : null}
+              </div>
+              <ul className={bulletListClassName}>
+                {project.bullets.map((bullet) => (
+                  <li key={bullet} className="text-pretty">
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-1.5">
+                {project.stack.map((tech) => (
+                  <Badge key={tech} variant="secondary">
+                    {tech}
+                  </Badge>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </ResumeSection>
 
-              <p className="font-mono text-xs leading-relaxed text-muted-foreground sm:text-sm">
-                Last updated from verified portfolio content. Full case studies
-                available across platform, infrastructure, and automation
-                sections.
+      <Separator />
+
+      <ResumeSection title="Core Competencies">
+        <div className="flex flex-wrap gap-2">
+          {coreCompetencies.map((competency) => (
+            <Badge key={competency} variant="outline">
+              {competency}
+            </Badge>
+          ))}
+        </div>
+      </ResumeSection>
+
+      <Separator />
+
+      <ResumeSection title="Technical Expertise">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {technicalExpertise.map((group) => (
+            <div key={group.id} className="flex flex-col gap-1">
+              <h3 className="text-sm font-medium">{group.title}</h3>
+              <p className="text-sm text-muted-foreground text-pretty">
+                {group.items.join(', ')}
               </p>
             </div>
-          </SurfaceCard>
-        </Reveal>
-
-        <div className="flex flex-col gap-10">
-          <Reveal>
-            <SurfaceCard title="Professional Summary" gradient="platform">
-              <div className="flex flex-col gap-4">
-                <p className="text-muted-foreground text-pretty">
-                  Platform &amp; Solutions Engineer with hands-on experience
-                  designing, building, and operating production platforms, cloud
-                  infrastructure, and enterprise systems.
-                </p>
-                <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
-                  {profile.summaryBullets.map((bullet) => (
-                    <li key={bullet} className="flex gap-2">
-                      <span className="text-soft-cyan">▹</span>
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                  <li className="flex gap-2">
-                    <span className="text-soft-cyan">▹</span>
-                    <span>
-                      Driven to build robust, scalable, and reliable technical
-                      solutions.
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </SurfaceCard>
-          </Reveal>
-
-          <Reveal delay={0.04}>
-            <SectionBlock icon={Sparkles} title="Professional Highlights">
-              <div className="grid gap-3 sm:grid-cols-2">
-                {resumeHighlights.map((highlight) => (
-                  <OverlayCard
-                    key={highlight.id}
-                    gradient="stat"
-                    eyebrow="Highlight"
-                    title={highlight.label}
-                    body={
-                      highlight.detail ? (
-                        <p className="font-mono text-xs text-soft-cyan sm:text-sm">
-                          {highlight.detail}
-                        </p>
-                      ) : null
-                    }
-                  />
-                ))}
-              </div>
-            </SectionBlock>
-          </Reveal>
-
-          <Reveal delay={0.06}>
-            <SectionBlock icon={Layers} title="Core Competencies">
-              <div className="flex flex-wrap gap-2">
-                {coreCompetencies.map((competency) => (
-                  <span
-                    key={competency}
-                    className="rounded-lg border border-border bg-secondary/30 px-3 py-2 text-sm text-muted-foreground"
-                  >
-                    {competency}
-                  </span>
-                ))}
-              </div>
-            </SectionBlock>
-          </Reveal>
-
-          <Reveal delay={0.08}>
-            <SectionBlock icon={Wrench} title="Technical Expertise">
-              <div className="grid gap-4 md:grid-cols-2">
-                {technicalExpertise.map((group) => (
-                  <SurfaceCard
-                    key={group.id}
-                    title={group.title}
-                    gradient="technology"
-                  >
-                    <div className="flex flex-wrap gap-1.5">
-                      {group.items.map((item) => (
-                        <Badge
-                          key={item}
-                          variant="outline"
-                          className="font-normal"
-                        >
-                          {item}
-                        </Badge>
-                      ))}
-                    </div>
-                  </SurfaceCard>
-                ))}
-              </div>
-            </SectionBlock>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <SectionBlock icon={Briefcase} title="Professional Experience">
-              {professionalExperience.map((entry) => (
-                <SurfaceCard key={entry.id} gradient="experience">
-                  <div className="flex flex-wrap items-start justify-between gap-3">
-                    <div>
-                      <h4 className="font-display text-lg font-semibold">
-                        {entry.organization}
-                      </h4>
-                      <p className="mt-1 text-sm text-soft-cyan">
-                        {entry.role}
-                      </p>
-                    </div>
-                    <Badge variant="secondary">{entry.period}</Badge>
-                  </div>
-                  <ul className="mt-5 flex flex-col gap-2.5 text-sm text-muted-foreground">
-                    {entry.bullets.map((bullet) => (
-                      <li key={bullet} className="flex gap-2">
-                        <span className="mt-0.5 text-soft-cyan">▹</span>
-                        <span className="text-pretty">{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </SurfaceCard>
-              ))}
-            </SectionBlock>
-          </Reveal>
-
-          <Reveal delay={0.12}>
-            <SectionBlock icon={Award} title="Key Projects">
-              <div className="grid gap-4">
-                {keyProjects.map((project) => (
-                  <SurfaceCard key={project.id} gradient="platform">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div>
-                        <h4 className="font-display text-lg font-semibold">
-                          {project.name}
-                        </h4>
-                        <p className="mt-1 text-sm text-soft-cyan">
-                          {project.role}
-                        </p>
-                      </div>
-                      {project.caseStudy ? (
-                        <CaseStudyLink slug={project.caseStudy.slug} />
-                      ) : null}
-                    </div>
-                    <ul className="mt-4 flex flex-col gap-2 text-sm text-muted-foreground">
-                      {project.bullets.map((bullet) => (
-                        <li key={bullet} className="flex gap-2">
-                          <span className="text-soft-cyan">▹</span>
-                          <span className="text-pretty">{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-4 flex flex-wrap gap-1.5">
-                      {project.stack.map((tech) => (
-                        <Badge
-                          key={tech}
-                          variant="secondary"
-                          className="font-normal"
-                        >
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-                  </SurfaceCard>
-                ))}
-              </div>
-            </SectionBlock>
-          </Reveal>
-
-          <Reveal delay={0.14}>
-            <SectionBlock icon={GraduationCap} title="Education">
-              <div className={responsiveCardGridCompactClassName}>
-                {resumeEducation.map((entry) => (
-                  <SurfaceCard key={entry.id} gradient="about">
-                    <div className="flex flex-wrap items-start justify-between gap-2">
-                      <h4 className="font-display text-base font-semibold">
-                        {entry.degree}
-                      </h4>
-                      <span className="font-mono text-xs text-muted-foreground">
-                        {entry.period}
-                      </span>
-                    </div>
-                    <p className="mt-1 text-sm text-soft-cyan">
-                      {entry.institution}
-                    </p>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      {entry.detail}
-                    </p>
-                  </SurfaceCard>
-                ))}
-              </div>
-            </SectionBlock>
-          </Reveal>
-
-          <Reveal delay={0.15}>
-            <SectionBlock icon={Award} title="Certifications">
-              <div className={responsiveCardGridCompactClassName}>
-                {resumeCertifications.map((group) => (
-                  <SurfaceCard
-                    key={group.id}
-                    title={group.provider}
-                    gradient="stat"
-                    className={cn(
-                      group.id === 'microsoft-learn' && 'md:col-span-2'
-                    )}
-                  >
-                    <ul
-                      className={cn(
-                        'gap-2 text-sm text-muted-foreground',
-                        group.items.length > 6
-                          ? 'grid min-w-0 grid-cols-1 sm:grid-cols-2'
-                          : 'flex flex-col'
-                      )}
-                    >
-                      {group.items.map((item) => (
-                        <li key={item} className="flex gap-2">
-                          <span className="text-soft-cyan">▹</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </SurfaceCard>
-                ))}
-              </div>
-            </SectionBlock>
-          </Reveal>
-
-          <Reveal delay={0.16}>
-            <div className="glass flex flex-col items-start gap-4 rounded-2xl border-border/80 p-6 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="font-display text-lg font-semibold">
-                  Want the full PDF?
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Download the formatted resume or explore detailed case studies
-                  and experience.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                {profile.resumeUrl ? (
-                  <MagneticButton href={profile.resumeUrl} variant="outline">
-                    Download PDF
-                    <Download data-icon="inline-end" />
-                  </MagneticButton>
-                ) : null}
-                <MagneticButton to="/experience" variant="outline">
-                  View experience
-                </MagneticButton>
-                <MagneticButton to="/contact">Get in touch</MagneticButton>
-              </div>
-            </div>
-          </Reveal>
+          ))}
         </div>
-      </div>
+      </ResumeSection>
+
+      <Separator />
+
+      <ResumeSection title="Education">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          {resumeEducation.map((entry) => (
+            <p key={entry.id} className="text-sm leading-6">
+              <span className="font-semibold text-foreground">
+                {entry.degree}
+              </span>
+              <span className="text-muted-foreground">
+                {' · '}
+                {entry.period}
+                {' · '}
+              </span>
+              <span className="text-soft-cyan">{entry.institution}</span>
+              <span className="text-muted-foreground">
+                {' · '}
+                {entry.detail}
+              </span>
+            </p>
+          ))}
+        </div>
+      </ResumeSection>
+
+      <Separator />
+
+      <ResumeSection title="Certifications">
+        <div className="flex flex-col gap-6">
+          {resumeCertifications.map((group) => (
+            <div key={group.id} className="flex flex-col gap-2">
+              <h3 className="font-display text-base font-semibold">
+                {group.provider}
+              </h3>
+              <ul className="grid grid-cols-1 gap-x-8 gap-y-1.5 text-sm text-muted-foreground marker:text-muted-foreground sm:grid-cols-2">
+                {group.items.map((item) => (
+                  <li key={item} className="list-disc pl-5 text-pretty">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </ResumeSection>
+
+      <Separator />
+
+      <nav className="flex flex-wrap gap-3" aria-label="Related">
+        <MagneticButton to="/experience" variant="outline">
+          View experience
+        </MagneticButton>
+        <MagneticButton to="/contact">Get in touch</MagneticButton>
+      </nav>
     </div>
   );
 }

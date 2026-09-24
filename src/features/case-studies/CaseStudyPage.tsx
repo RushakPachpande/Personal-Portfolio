@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Download } from 'lucide-react';
+import { ArrowLeft, Download, ExternalLink } from 'lucide-react';
 import {
   categoryLabels,
   categoryPaths,
+  getCategoryMeta,
   getRelatedCaseStudies,
   getTechnologyById,
 } from '@/lib/portfolio';
@@ -13,10 +14,10 @@ import { Seo } from '@/components/layout/Seo';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { SurfaceCard } from '@/components/cards/SurfaceCard';
-import type { CardGradientKey } from '@/lib/cardGradients';
 import { Reveal } from '@/components/shared/Reveal';
 import { RelatedCaseStudies } from './CaseStudyGrid';
 import { TechBanner } from '@/components/tech/TechBanner';
+import { TechLogo } from '@/components/tech/TechLogo';
 import { ArchitectureFlow } from './ArchitectureFlow';
 import { LogoFrame } from '@/components/media/LogoFrame';
 import { MediaCarousel } from '@/components/media/MediaCarousel';
@@ -42,17 +43,14 @@ type CaseStudyPageProps = {
   study: CaseStudy;
 };
 
-const categoryGradients: Record<CaseStudy['category'], CardGradientKey> = {
-  platform: 'platform',
-  infrastructure: 'infrastructure',
-  automation: 'automation',
-};
-
 export function CaseStudyPage({ study }: CaseStudyPageProps) {
-  const { profile, caseStudies, technologies } = usePortfolio();
+  const { profile, caseStudies, technologies, siteConfig } = usePortfolio();
   const [activeId, setActiveId] = useState<string>(TOC[0].id);
   const related = getRelatedCaseStudies(caseStudies, study).slice(0, 4);
-  const backPath = categoryPaths[study.category];
+  const categoryMeta = getCategoryMeta(siteConfig, study.category);
+  const backPath = categoryMeta?.path ?? categoryPaths[study.category] ?? '/platforms';
+  const backLabel =
+    categoryMeta?.label ?? categoryLabels[study.category] ?? study.category;
 
   useEffect(() => {
     const nodes = TOC.map((item) => document.getElementById(item.id)).filter(
@@ -81,11 +79,11 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
         description={study.summary}
         path={`${backPath}/${study.slug}`}
       />
-      <article className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
+      <article className="mx-auto min-w-0 max-w-6xl xl:max-w-7xl px-4 py-12 sm:px-6">
         <Button asChild variant="ghost" className="mb-8">
           <Link to={backPath}>
             <ArrowLeft data-icon="inline-start" />
-            Back to {categoryLabels[study.category]}
+            Back to {backLabel}
           </Link>
         </Button>
 
@@ -101,7 +99,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
               ) : null}
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <Badge>{categoryLabels[study.category]}</Badge>
+                  <Badge>{backLabel}</Badge>
                   <Badge variant="secondary">{study.status}</Badge>
                 </div>
                 <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
@@ -110,6 +108,22 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                 <p className="mt-3 max-w-3xl text-lg text-muted-foreground">
                   {study.summary}
                 </p>
+                {study.links && study.links.length > 0 ? (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {study.links.map((link) => (
+                      <Button key={link.url} asChild variant="outline" size="sm">
+                        <a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {link.label}
+                          <ExternalLink data-icon="inline-end" />
+                        </a>
+                      </Button>
+                    ))}
+                  </div>
+                ) : null}
                 <div className="mt-5 space-y-2">
                   <TechBanner technologyIds={study.technologyIds ?? []} />
                   <div className="flex flex-wrap gap-2">
@@ -158,39 +172,19 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
           </nav>
 
           <div className="flex flex-col gap-6">
-            <Section
-              id="business-context"
-              title="Business Context"
-              gradient={categoryGradients[study.category]}
-            >
+            <Section id="business-context" title="Business Context">
               {study.businessContext}
             </Section>
-            <Section
-              id="problem"
-              title="Problem Statement"
-              gradient={categoryGradients[study.category]}
-            >
+            <Section id="problem" title="Problem Statement">
               {study.problem}
             </Section>
-            <Section
-              id="objective"
-              title="Objective"
-              gradient={categoryGradients[study.category]}
-            >
+            <Section id="objective" title="Objective">
               {study.objective}
             </Section>
-            <Section
-              id="solution"
-              title="Solution Overview"
-              gradient={categoryGradients[study.category]}
-            >
+            <Section id="solution" title="Solution Overview">
               {study.solution}
             </Section>
-            <Section
-              id="architecture"
-              title="Architecture"
-              gradient={categoryGradients[study.category]}
-            >
+            <Section id="architecture" title="Architecture">
               {study.architecture}
             </Section>
             <Reveal>
@@ -201,10 +195,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="responsibilities" className="scroll-mt-28">
-                <SurfaceCard
-                  title="My Responsibilities"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="My Responsibilities">
                   <ul className="flex flex-wrap gap-2">
                     {study.responsibilities.map((item) => (
                       <li
@@ -221,10 +212,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="decisions" className="scroll-mt-28">
-                <SurfaceCard
-                  title="Engineering Decisions"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="Engineering Decisions">
                   <div className="flex flex-col gap-4">
                     {study.decisions.map((item) => (
                       <div
@@ -246,10 +234,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="challenges" className="scroll-mt-28">
-                <SurfaceCard
-                  title="Challenges"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="Challenges">
                   <div className="flex flex-col gap-4">
                     {study.challenges.map((item) => (
                       <div
@@ -272,10 +257,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="stack" className="scroll-mt-28">
-                <SurfaceCard
-                  title="Technology Stack"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="Technology Stack">
                   <div className="grid gap-4 sm:grid-cols-2">
                     {study.stack.map((group) => (
                       <div key={group.group}>
@@ -301,10 +283,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="gallery" className="scroll-mt-28">
-                <SurfaceCard
-                  title="Engineering Gallery"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="Engineering Gallery">
                   {study.gallery && study.gallery.length > 0 ? (
                     <MediaCarousel items={study.gallery} />
                   ) : (
@@ -319,10 +298,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
             <Reveal>
               <section id="cross-references" className="scroll-mt-28">
-                <SurfaceCard
-                  title="Used Technologies"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="Used Technologies">
                   <div className="flex flex-wrap gap-2">
                     {(study.technologyIds ?? []).map((technologyId) => {
                       const technology = getTechnologyById(
@@ -335,10 +311,12 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                           key={technology.id}
                           className="inline-flex items-center gap-2 rounded-md border border-border px-2 py-1 text-xs text-muted-foreground"
                         >
-                          <img
-                            src={technology.logo}
-                            alt={`${technology.name} logo`}
-                            className="size-3.5 rounded-sm object-contain"
+                          <TechLogo
+                            technologyId={technology.id}
+                            logo={technology.logo}
+                            logoDark={technology.logoDark}
+                            name={technology.name}
+                            className="size-3.5 rounded-sm"
                           />
                           {technology.name}
                         </span>
@@ -349,20 +327,13 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
               </section>
             </Reveal>
 
-            <Section
-              id="outcome"
-              title="Outcome"
-              gradient={categoryGradients[study.category]}
-            >
+            <Section id="outcome" title="Outcome">
               {study.outcome}
             </Section>
 
             <Reveal>
               <section id="learnings" className="scroll-mt-28">
-                <SurfaceCard
-                  title="Key Learnings"
-                  gradient={categoryGradients[study.category]}
-                >
+                <SurfaceCard title="Key Learnings">
                   <ul className="flex flex-col gap-2 text-muted-foreground">
                     {study.learnings.map((item) => (
                       <li key={item} className="flex gap-2">
@@ -401,17 +372,15 @@ function Section({
   id,
   title,
   children,
-  gradient = 'default',
 }: {
   id: string;
   title: string;
   children: string;
-  gradient?: CardGradientKey;
 }) {
   return (
     <Reveal>
       <section id={id} className="scroll-mt-28">
-        <SurfaceCard title={title} gradient={gradient}>
+        <SurfaceCard title={title}>
           <p className="text-muted-foreground text-pretty">{children}</p>
         </SurfaceCard>
       </section>

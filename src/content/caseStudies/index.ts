@@ -19,9 +19,9 @@ const defaultsByCategory: Record<
   CaseStudyCategory,
   Pick<CaseStudy, 'difficulty' | 'timeline'>
 > = {
-  platform: { difficulty: 'Advanced', timeline: '2025 — Present' },
-  infrastructure: { difficulty: 'Complex', timeline: '2025 — Present' },
-  automation: { difficulty: 'Advanced', timeline: '2025 — Present' },
+  platform: { difficulty: 'Advanced', timeline: '2025 - Present' },
+  infrastructure: { difficulty: 'Complex', timeline: '2025 - Present' },
+  automation: { difficulty: 'Advanced', timeline: '2025 - Present' },
 };
 
 function enrichCaseStudy(study: CaseStudy): CaseStudy {

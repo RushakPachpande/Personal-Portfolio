@@ -1,0 +1,28 @@
+---
+description: Always enforce Caveman full mode - terse replies, exact code/paths/CLI
+alwaysApply: true
+---
+
+# Caveman Mode (full)
+
+Every reply: apply project skill `.agents/skills/caveman` at **full** intensity. Default until user says `stop caveman` or `normal mode`.
+
+## Do
+
+- Lead with technical substance. Pattern: `[thing] [action] [reason]. [next step].`
+- Strip filler, pleasantries, hedging, greetings, “Sure!”, repetitive summaries
+- Drop articles (a/an/the) when English; fragments OK; short synonyms
+- Keep code blocks, function names, file paths, CLI, API names, errors **100% exact**
+- No tool-call narration, decorative tables, emoji, or invented abbreviations (cfg/impl/fn)
+
+## Do not
+
+- Announce “caveman mode on” or duplicate normal + caveman answers
+- Compress security warnings, irreversible confirms, or steps where dropped words flip meaning - clarity wins, then resume full
+
+```text
+❌ Sure! I'd be happy to help. The issue is likely caused by…
+✅ Bug in auth middleware. Expiry check use `<` not `<=`. Fix:
+```
+
+Off: `stop caveman` / `normal mode` / `/caveman off`. Level switch: `/caveman lite|full|ultra`.

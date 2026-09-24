@@ -15,7 +15,8 @@ import n8nLogo from '@/assets/tech/n8n.svg';
 import sharepointLogo from '@/assets/tech/sharepoint.svg';
 import outlookLogo from '@/assets/tech/outlook.svg';
 import gitLogo from '@/assets/tech/git.svg';
-import githubLogo from '@/assets/tech/github.svg';
+import githubLightLogo from '@/assets/tech/github-light.svg';
+import githubDarkLogo from '@/assets/tech/github-dark.svg';
 import githubActionsLogo from '@/assets/tech/githubactions.svg';
 import openapiLogo from '@/assets/tech/openapi.svg';
 import { rawCaseStudies } from '@/content/caseStudies/raw';
@@ -36,6 +37,7 @@ export type Technology = {
   name: string;
   category: TechnologyCategory;
   logo: string;
+  logoDark?: string;
   description: string;
   usedInSlugs: string[];
 };
@@ -192,7 +194,8 @@ const technologyDefinitions: Omit<Technology, 'usedInSlugs'>[] = [
     id: 'github',
     name: 'GitHub',
     category: 'version-control',
-    logo: githubLogo,
+    logo: githubLightLogo,
+    logoDark: githubDarkLogo,
     description: 'Code collaboration and automation platform for CI/CD flows.',
   },
   {

@@ -1,5 +1,11 @@
 import { ArrowDownRight, Download } from 'lucide-react';
-import { motion, useReducedMotion } from 'framer-motion';
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
+import { useRef } from 'react';
 import { usePortfolio } from '@/hooks/usePortfolio';
 import {
   AnimatedGrid,
@@ -9,16 +15,36 @@ import { MagneticButton } from '@/components/shared/MagneticButton';
 import { fadeUp, staggerContainer } from '@/lib/motion';
 
 export function HeroSection() {
-  const { profile } = usePortfolio();
+  const { profile, siteConfig } = usePortfolio();
+  const hero = siteConfig.chrome.hero;
   const reduced = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+  const contentY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduced ? [0, 0] : [0, 72]
+  );
+  const contentOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.75],
+    reduced ? [1, 1] : [1, 0.35]
+  );
 
   return (
-    <section className="relative isolate overflow-hidden pt-10 pb-20 sm:pt-16 sm:pb-28">
+    <section
+      ref={sectionRef}
+      className="relative isolate overflow-hidden pt-10 pb-20 sm:pt-16 sm:pb-28"
+    >
       <AnimatedGrid />
       <GradientBlobs />
 
       <motion.div
-        className="relative mx-auto max-w-6xl px-4 sm:px-6"
+        className="relative mx-auto max-w-6xl xl:max-w-7xl px-4 sm:px-6"
+        style={{ y: contentY, opacity: contentOpacity }}
         variants={staggerContainer}
         initial={reduced ? undefined : 'hidden'}
         animate="visible"
@@ -27,7 +53,7 @@ export function HeroSection() {
           variants={fadeUp}
           className="font-mono text-xs tracking-[0.22em] text-soft-cyan uppercase sm:text-sm"
         >
-          Platform Engineer · Cloud · Automation · Full Stack Systems
+          {hero.eyebrow}
         </motion.p>
 
         <motion.h1
@@ -39,11 +65,9 @@ export function HeroSection() {
 
         <motion.p
           variants={fadeUp}
-          className="mt-4 max-w-2xl font-display text-2xl leading-snug text-muted-foreground sm:text-3xl"
+          className="mt-4 max-w-2xl font-display text-2xl leading-snug whitespace-pre-line text-muted-foreground sm:text-3xl"
         >
-          Building <span className="text-gradient text-shimmer">Systems,</span>
-          <br />
-          Not Just Software.
+          {profile.headline}
         </motion.p>
 
         <motion.p
@@ -57,8 +81,8 @@ export function HeroSection() {
           variants={fadeUp}
           className="mt-8 flex flex-wrap items-center gap-3"
         >
-          <MagneticButton to="/platforms">
-            Explore My Work
+          <MagneticButton to={hero.ctaTo}>
+            {hero.ctaLabel}
             <ArrowDownRight data-icon="inline-end" />
           </MagneticButton>
           {profile.resumeUrl ? (

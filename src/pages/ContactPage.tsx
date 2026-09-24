@@ -6,7 +6,7 @@ export function ContactPage() {
     <>
       <Seo
         title="Contact"
-        description="Contact Rushak Pachpande — email, LinkedIn, GitHub, and resume."
+        description="Contact Rushak Pachpande - email, LinkedIn, GitHub, and resume."
         path="/contact"
       />
       <div className="pt-8">

@@ -1,13 +1,13 @@
 # Rushak Pachpande Portfolio
 
-Engineering case-study website for Rushak Pachpande — Platform Engineer.
+Engineering case-study website for Rushak Pachpande - Platform Engineer.
 
 ## Stack
 
 - React 19 + Vite + TypeScript
 - Tailwind CSS v4 + shadcn/ui
 - Framer Motion + React Router
-- Supabase (Postgres, Auth, Storage) — no separate Express server
+- Supabase (Postgres, Auth, Storage) - no separate Express server
 
 ## Local development
 
@@ -63,7 +63,7 @@ The service role key is used only by the local seed script. It never reaches the
 
 ## Deployment (GitHub Pages)
 
-The site is a static Vite build published to GitHub Pages. Deploys are **manual only** — nothing ships automatically on push.
+The site is a static Vite build published to GitHub Pages. Deploys are **manual only** - nothing ships automatically on push.
 
 ### One-time setup
 
@@ -113,12 +113,12 @@ The workflow checks out the ref, runs lint and `npm run build`, writes `dist/404
 
 ### Troubleshooting
 
-- **Workflow missing under Actions** — `.github/workflows/deploy.yml` must exist on the default branch on GitHub.
-- **Pages permission errors** — Settings → Pages → Source must be **GitHub Actions**.
-- **Build fails on missing Supabase config** — the environment secrets above are not set on the `github-pages` environment.
-- **Routes 404 on refresh** — confirm the SPA fallback step ran, then redeploy.
-- **Blank page** — the build's base path does not match the live URL. Check the **Configure Pages** step in the run log, and redeploy after renaming a repository.
-- **Stale content** — hard-refresh (`Ctrl+Shift+R`).
+- **Workflow missing under Actions** - `.github/workflows/deploy.yml` must exist on the default branch on GitHub.
+- **Pages permission errors** - Settings → Pages → Source must be **GitHub Actions**.
+- **Build fails on missing Supabase config** - the environment secrets above are not set on the `github-pages` environment.
+- **Routes 404 on refresh** - confirm the SPA fallback step ran, then redeploy.
+- **Blank page** - the build's base path does not match the live URL. Check the **Configure Pages** step in the run log, and redeploy after renaming a repository.
+- **Stale content** - hard-refresh (`Ctrl+Shift+R`).
 
 ## Routes
 

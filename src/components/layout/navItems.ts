@@ -1,21 +1,9 @@
-export type NavRoute = {
-  to: string;
-  label: string;
-};
+import type { NavItem, NavGroupItem, NavRoute } from '@/types/site-config';
 
-export type NavLinkItem = NavRoute & {
-  type: 'link';
-};
+export type { NavRoute, NavLinkItem, NavGroupItem, NavItem } from '@/types/site-config';
 
-export type NavGroupItem = {
-  type: 'group';
-  label: string;
-  items: NavRoute[];
-};
-
-export type NavItem = NavLinkItem | NavGroupItem;
-
-export const navStructure: NavItem[] = [
+/** Fallback nav when site config has not loaded yet. */
+export const defaultNavStructure: NavItem[] = [
   { type: 'link', to: '/', label: 'Home' },
   {
     type: 'group',
@@ -40,9 +28,18 @@ export const navStructure: NavItem[] = [
   { type: 'link', to: '/contact', label: 'Contact' },
 ];
 
-export const navItems: NavRoute[] = navStructure.flatMap((item) =>
+/** @deprecated Prefer siteConfig.nav from portfolio data. */
+export const navStructure = defaultNavStructure;
+
+export const navItems: NavRoute[] = defaultNavStructure.flatMap((item) =>
   item.type === 'link' ? [item] : item.items
 );
+
+export function flattenNav(structure: NavItem[]): NavRoute[] {
+  return structure.flatMap((item) =>
+    item.type === 'link' ? [item] : item.items
+  );
+}
 
 function isRouteActive(pathname: string, to: string) {
   return to === '/'

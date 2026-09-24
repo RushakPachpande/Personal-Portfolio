@@ -53,7 +53,7 @@ export const philosophyPillars: PhilosophyPillar[] = [
     title: 'Continuous Learning',
     summary: 'Stay sharp where it compounds.',
     detail:
-      'Deepen cloud, networking, automation, and delivery under real constraints—not every trendy tool.',
+      'Deepen cloud, networking, automation, and delivery under real constraints-not every trendy tool.',
   },
   {
     id: 'business-impact',

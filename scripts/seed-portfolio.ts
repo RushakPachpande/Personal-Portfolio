@@ -16,6 +16,7 @@ import {
   technicalExpertise,
 } from '../src/content/resume.ts';
 import { terminalCommands } from '../src/content/terminal.ts';
+import { defaultSiteConfig } from '../src/content/siteConfig.ts';
 import { usedInSlugsFromCaseStudies } from '../src/lib/portfolio.ts';
 import type { CaseStudy } from '../src/types/portfolio.ts';
 import { loadAppEnv } from './load-app-env.ts';
@@ -123,16 +124,25 @@ async function seedTechnologies() {
   const usage = usedInSlugsFromCaseStudies(caseStudies);
   const rows = [];
   for (const [index, technology] of technologies.entries()) {
-    const ext = path.extname(technology.logo) || '.svg';
-    const logoPath = await resolveMedia(
-      technology.logo,
-      `tech/${technology.id}${ext}`
-    );
+    const ext = path.extname(
+      typeof technology.logo === 'string' ? technology.logo : '.svg'
+    ) || '.svg';
+    const hasThemePair = Boolean(technology.logoDark);
+    const lightDest = hasThemePair
+      ? `tech/${technology.id}-light.svg`
+      : `tech/${technology.id}${ext}`;
+    const logoPath = await resolveMedia(technology.logo, lightDest);
+    if (technology.logoDark) {
+      await resolveMedia(
+        technology.logoDark,
+        `tech/${technology.id}-dark.svg`
+      );
+    }
     rows.push({
       id: technology.id,
       name: technology.name,
       category: technology.category,
-      logo_path: logoPath ?? `tech/${technology.id}${ext}`,
+      logo_path: logoPath ?? lightDest,
       description: technology.description,
       used_in_slugs: usage[technology.id] ?? technology.usedInSlugs,
       sort_order: index,
@@ -198,7 +208,7 @@ async function maybeCreateAdmin() {
   const password = process.env.ADMIN_PASSWORD;
   if (!email || !password) {
     console.log(
-      'ADMIN_EMAIL / ADMIN_PASSWORD not set — skipping admin user create'
+      'ADMIN_EMAIL / ADMIN_PASSWORD not set - skipping admin user create'
     );
     return;
   }
@@ -234,6 +244,7 @@ async function main() {
   const { error: settingsError } = await supabase.from('site_settings').upsert({
     id: 'main',
     site_version: SITE_VERSION,
+    config: defaultSiteConfig,
     updated_at: new Date().toISOString(),
   });
   if (settingsError) throw settingsError;
@@ -241,12 +252,23 @@ async function main() {
   await seedCaseStudies();
   await seedTechnologies();
 
-  const timelineRows = timeline.map((item, index) => ({
-    id: item.id,
-    sort_order: index,
-    data: item,
-    updated_at: new Date().toISOString(),
-  }));
+  const timelineRows = [];
+  for (const [index, item] of timeline.entries()) {
+    const logoPath = await resolveMedia(
+      item.logoPath,
+      `timeline/${item.id}${path.extname(item.logoPath ?? '.png')}`
+    );
+    timelineRows.push({
+      id: item.id,
+      sort_order: index,
+      data: {
+        ...item,
+        logoPath: logoPath ?? item.logoPath,
+        logo: undefined,
+      },
+      updated_at: new Date().toISOString(),
+    });
+  }
   const { error: timelineError } = await supabase
     .from('timeline_items')
     .upsert(timelineRows);

@@ -15,9 +15,9 @@ import {
 } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import {
+  defaultNavStructure,
   isNavGroupActive,
   isNavLinkActive,
-  navStructure,
   type NavGroupItem,
   type NavLinkItem,
 } from './navItems';
@@ -173,6 +173,8 @@ function MobileNavContent({
 }) {
   const portfolio = useOptionalPortfolio();
   const shortName = portfolio?.profile.shortName ?? 'Portfolio';
+  const navStructure = portfolio?.siteConfig.nav ?? defaultNavStructure;
+  const showTerminal = portfolio?.siteConfig.featureFlags.showTerminal ?? true;
   return (
     <SheetContent
       side="right"
@@ -183,7 +185,7 @@ function MobileNavContent({
           Navigate
         </SheetTitle>
         <SheetDescription className="text-left">
-          {shortName}&apos;s portfolio — platforms, profile, and contact.
+          {shortName}&apos;s portfolio - platforms, profile, and contact.
         </SheetDescription>
       </SheetHeader>
 
@@ -246,17 +248,19 @@ function MobileNavContent({
           </p>
           <ThemeToggle />
         </div>
-        <Button
-          variant="outline"
-          className="w-full justify-start"
-          onClick={() => {
-            onClose();
-            onOpenTerminal();
-          }}
-        >
-          <TerminalSquare data-icon="inline-start" />
-          Open command terminal
-        </Button>
+        {showTerminal ? (
+          <Button
+            variant="outline"
+            className="w-full justify-start"
+            onClick={() => {
+              onClose();
+              onOpenTerminal();
+            }}
+          >
+            <TerminalSquare data-icon="inline-start" />
+            Open command terminal
+          </Button>
+        ) : null}
       </div>
     </SheetContent>
   );
@@ -265,6 +269,8 @@ function MobileNavContent({
 export function Navbar({ onOpenTerminal }: { onOpenTerminal: () => void }) {
   const portfolio = useOptionalPortfolio();
   const shortName = portfolio?.profile.shortName ?? 'Portfolio';
+  const navStructure = portfolio?.siteConfig.nav ?? defaultNavStructure;
+  const showTerminal = portfolio?.siteConfig.featureFlags.showTerminal ?? true;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -283,7 +289,7 @@ export function Navbar({ onOpenTerminal }: { onOpenTerminal: () => void }) {
           scrolled && 'border-border/80 bg-background/70 backdrop-blur-xl'
         )}
       >
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+        <div className="mx-auto flex h-16 max-w-6xl xl:max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
           <Link
             to="/"
             className="font-display text-xl font-semibold tracking-tight sm:text-2xl"
@@ -307,15 +313,17 @@ export function Navbar({ onOpenTerminal }: { onOpenTerminal: () => void }) {
 
           <div className="flex items-center gap-2">
             <ThemeToggle className="hidden sm:inline-flex" />
-            <Button
-              variant="ghost"
-              size="icon-lg"
-              aria-label="Open command terminal"
-              onClick={onOpenTerminal}
-              className="hidden sm:inline-flex"
-            >
-              <TerminalSquare className="size-5" />
-            </Button>
+            {showTerminal ? (
+              <Button
+                variant="ghost"
+                size="icon-lg"
+                aria-label="Open command terminal"
+                onClick={onOpenTerminal}
+                className="hidden sm:inline-flex"
+              >
+                <TerminalSquare className="size-5" />
+              </Button>
+            ) : null}
 
             <SheetTrigger asChild>
               <Button

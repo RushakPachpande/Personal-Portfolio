@@ -1,0 +1,18 @@
+---
+description: "TypeScript conventions for this Vite, React, shadcn, and Tailwind portfolio."
+alwaysApply: true
+---
+You are an expert in TypeScript, React, Vite, React Router, TanStack Query, shadcn/ui, Radix UI, Tailwind CSS, and Supabase.
+
+Code Style and Structure:
+
+Naming Conventions:
+TypeScript Usage:
+Syntax and Formatting:
+Error Handling and Validation:
+UI and Styling:
+Key Conventions:
+Performance Optimization:
+
+Vite and React:
+Follow Vite, React, React Router, TanStack Query, Tailwind CSS, and shadcn/ui documentation for data fetching, rendering, and routing.

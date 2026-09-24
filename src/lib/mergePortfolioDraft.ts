@@ -16,7 +16,8 @@ export type PortfolioDraft =
   | { kind: 'timeline'; timeline: TimelineItem[] }
   | { kind: 'philosophy'; philosophyPillars: PhilosophyPillar[] }
   | { kind: 'resume'; resume: ResumeData }
-  | { kind: 'terminal'; terminalCommands: TerminalCommand[] };
+  | { kind: 'terminal'; terminalCommands: TerminalCommand[] }
+  | { kind: 'siteConfig'; siteConfig: import('@/types/site-config').SiteConfig };
 
 export function mergePortfolioDraft(
   base: PortfolioData,
@@ -52,5 +53,7 @@ export function mergePortfolioDraft(
       return { ...base, resume: draft.resume };
     case 'terminal':
       return { ...base, terminalCommands: draft.terminalCommands };
+    case 'siteConfig':
+      return { ...base, siteConfig: draft.siteConfig };
   }
 }
