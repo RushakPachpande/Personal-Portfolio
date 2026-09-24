@@ -1,51 +1,10 @@
 ---
-description: Check for a running dev server before starting npm run dev
+description: Defer to reuse-existing-dev-servers — shell-safe 8000 checks before npm run dev
 alwaysApply: true
 ---
 
 # Check Dev Server Before Starting
 
-Never run `npm run dev` (or `vite`) without checking whether a dev server is already running.
+Follow **`reuse-existing-dev-servers.mdc`**.
 
-## Expected port
-
-This project's Vite dev server is configured for **port 8000** (`vite.config.ts`). Do not silently start on another port (e.g. 8001) because 8000 is taken.
-
-## Before starting
-
-1. **Terminals folder** — list/read terminal metadata for an active `npm run dev` / `vite` process.
-2. **Port check** — verify whether **8000** is listening:
-
-```powershell
-Get-NetTCPConnection -LocalPort 8000 -State Listen -ErrorAction SilentlyContinue
-```
-
-Fallback:
-
-```powershell
-netstat -ano | findstr ":8000"
-```
-
-3. **HTTP probe** (optional) — `curl -s -o NUL -w "%{http_code}" http://localhost:8000` to confirm the app responds.
-
-## If already running
-
-- **Do not** start a second dev server.
-- **Do not** rely on Vite's automatic port bump to 8001+.
-- Reuse the existing server at `http://localhost:8000` for verification (browser, curl, build checks).
-- Tell the user which server you are using (external terminal vs integrated).
-
-## If not running
-
-- Prefer the user's **external** terminal when they already run dev there.
-- Start `npm run dev` only when verification truly needs it — and only after the checks above.
-
-## Examples
-
-```text
-❌ BAD: Port 8000 in use → run dev anyway → server starts on 8001
-✅ GOOD: Port 8000 listening → use http://localhost:8000; skip npm run dev
-
-❌ BAD: Start dev without checking terminals or port
-✅ GOOD: Check terminals + port 8000 first, then decide
-```
+Use **shell-appropriate** checks (cmd → `netstat`/`curl`; PowerShell → same or `Get-NetTCPConnection`). Never treat a failed PowerShell-only command in cmd as “port free.” Valid Vite port: **8000** only.

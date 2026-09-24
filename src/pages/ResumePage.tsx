@@ -9,7 +9,7 @@ export function ResumePage() {
         description="Full resume preview for Rushak Pachpande — platform engineering, cloud infrastructure, automation, and production ownership."
         path="/resume"
       />
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
         <ResumePreview />
       </section>
     </>

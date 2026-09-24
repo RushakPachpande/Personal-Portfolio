@@ -1,0 +1,74 @@
+---
+description: Detect shell; use shell-safe port checks; never false-miss a live Vite on 8000
+alwaysApply: true
+---
+
+# Reuse Existing Dev Servers (Portfolio)
+
+Vite port is **8000** only (`vite.config.ts`). Never start a second `npm run dev` when one is already up — that creates **8001+**.
+
+## Check order (mandatory — do all before starting)
+
+### 1. Terminals folder first (shell-agnostic)
+
+Read terminal metadata under the project terminals folder. If any session shows active `npm run dev` / `vite` (cmd, PowerShell, or other) → **reuse `http://localhost:8000`. Do not start another.**
+
+### 2. Detect which shell you are in
+
+Pick commands that shell actually supports. Do **not** run PowerShell-only cmdlets inside **cmd.exe**.
+
+| Shell | How to tell | Port 8000 check |
+|-------|-------------|-----------------|
+| **cmd.exe** | prompt like `C:\...>`, `$PSVersionTable` fails | `netstat -ano \| findstr ":8000"` |
+| **PowerShell** | `$PSVersionTable` works | Prefer `netstat` (below); `Get-NetTCPConnection` only if it works |
+| **Git Bash / WSL** | `uname` / bash prompt | `ss -ltnp \| grep 8000` or `netstat -ano \| grep 8000` |
+
+**Universal Windows (works in both cmd and PowerShell):**
+
+```bat
+netstat -ano | findstr ":8000"
+```
+
+Look for `LISTENING` on `0.0.0.0:8000` or `[::]:8000` or `127.0.0.1:8000`.
+
+PowerShell-only (cmd **cannot** run this):
+
+```powershell
+Get-NetTCPConnection -LocalPort 8000 -State Listen -ErrorAction SilentlyContinue |
+  Select-Object LocalPort, OwningProcess
+```
+
+### 3. HTTP probe (authoritative)
+
+If port tools are noisy or fail, probe the app:
+
+- cmd: `curl -s -o NUL -w "%{http_code}" http://localhost:8000`
+- PowerShell: `curl.exe -s -o NUL -w "%{http_code}" http://localhost:8000`
+
+**Any HTTP response (even 404) from `http://localhost:8000` means a server is already up → reuse it. Do not start another.**
+
+## Do not misread failures as “port free”
+
+- PowerShell **profile** errors (e.g. `Set-Alias` / `gp` AllScope) are **not** proof that 8000 is free
+- Empty/`SilentlyContinue` output after a broken profile does **not** mean “start Vite”
+- If terminals show a running `dev`, treat that as live even when port cmdlets fail
+
+```text
+❌ BAD: Get-NetTCPConnection fails in cmd / profile errors → “8000 not listening” → start Vite → 8001
+✅ GOOD: terminals show vite OR netstat/curl shows 8000 → reuse http://localhost:8000
+```
+
+## Forbidden
+
+- `Get-NetTCPConnection` (or other PowerShell-only cmdlets) inside **cmd**
+- Starting `npm run dev` after a failed/empty check without also trying `netstat` + HTTP probe
+- Accepting Vite on **8001+**
+- Killing a listener you did **not** start this chat
+
+## If you must start (all checks say free)
+
+Prefer one-shot (`npm run build`, `npx tsc`) over long-lived `dev`. After start: if logs show any port other than **8000**, stop **your** process and reuse whatever holds 8000.
+
+## Cleanup
+
+Stop only servers **you** started this chat. Align with `close-terminals-after-work`.
