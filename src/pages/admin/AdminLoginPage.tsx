@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
 import { getAdminBasePath } from '@/lib/env';
-import { isAdminSession } from '@/features/admin/AdminGuard';
+import { isAdminSession } from '@/features/admin/adminSession';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

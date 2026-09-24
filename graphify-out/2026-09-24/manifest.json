@@ -126,8 +126,8 @@
     "semantic_hash": ""
   },
   "src/components/layout/PageRouteSkeleton.tsx": {
-    "mtime": 1790266264.4700127,
-    "seen": 1790266335.0620131,
+    "mtime": 1790266422.22824,
+    "seen": 1790267198.5896974,
     "ast_hash": "4d0a0ce27484671ce142993b5cb74575",
     "semantic_hash": ""
   },
@@ -540,8 +540,8 @@
     "semantic_hash": ""
   },
   "src/features/case-studies/CaseStudyGrid.tsx": {
-    "mtime": 1790266264.3220994,
-    "seen": 1790266335.0620131,
+    "mtime": 1790266422.3796785,
+    "seen": 1790267198.5896974,
     "ast_hash": "1fbf68132165d78fa8f5064a1c693fbf",
     "semantic_hash": ""
   },
@@ -558,14 +558,14 @@
     "semantic_hash": ""
   },
   "src/features/hero/HeroSection.tsx": {
-    "mtime": 1790266261.0863442,
-    "seen": 1790266335.0620131,
+    "mtime": 1790266422.3872442,
+    "seen": 1790267198.5896974,
     "ast_hash": "9d65293b8504abf8619e1767928abb23",
     "semantic_hash": ""
   },
   "src/features/home/EngineeringAreas.tsx": {
-    "mtime": 1790266263.2540004,
-    "seen": 1790266335.0620131,
+    "mtime": 1790266422.3862314,
+    "seen": 1790267198.5896974,
     "ast_hash": "421caf825b6c98eb4d7bb6fb469d6132",
     "semantic_hash": ""
   },
@@ -576,8 +576,8 @@
     "semantic_hash": ""
   },
   "src/features/home/HomeSections.tsx": {
-    "mtime": 1790266260.354982,
-    "seen": 1790266335.0620131,
+    "mtime": 1790266422.3902493,
+    "seen": 1790267198.5906997,
     "ast_hash": "fd1703ce1bbc03aa149b9cf485b92af9",
     "semantic_hash": ""
   },
@@ -750,9 +750,9 @@
     "semantic_hash": "21de4bd6c9615ab330c454ea81e2a748"
   },
   "src/pages/HomePage.tsx": {
-    "mtime": 1790266261.6053731,
-    "seen": 1790266335.0620131,
-    "ast_hash": "628c8759a65dcbd7f11973fcaf816da4",
+    "mtime": 1790268033.0932975,
+    "seen": 1790268083.8653922,
+    "ast_hash": "df12f3ebac7cf23ea5853352f5bc4217",
     "semantic_hash": ""
   },
   "src/pages/InfrastructurePage.tsx": {
@@ -1380,9 +1380,15 @@
     "semantic_hash": ""
   },
   ".cursor/plans/viewport_visual_pass_56da8f9c.plan.md": {
-    "mtime": 1790266291.789211,
-    "seen": 1790266335.0630133,
-    "ast_hash": "9ca89613004de2b96aae4b537b7bf082",
+    "mtime": 1790266414.7046313,
+    "seen": 1790267198.5968587,
+    "ast_hash": "b4d508641a7001cadbbf3bc655123c9b",
+    "semantic_hash": ""
+  },
+  ".cursor/plans/featured_card_layout_be6ba77b.plan.md": {
+    "mtime": 1790267187.6308074,
+    "seen": 1790267198.5906997,
+    "ast_hash": "d31dca81124c128dcbbc41e6b779bd4e",
     "semantic_hash": ""
   }
 }

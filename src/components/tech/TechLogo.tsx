@@ -9,7 +9,7 @@ const LOCAL_THEME_LOGOS: Record<string, { light: string; dark: string }> = {
   github: { light: githubLight, dark: githubDark },
 };
 
-export function resolveThemedLogoSrc(options: {
+function resolveThemedLogoSrc(options: {
   technologyId?: string;
   logo: string;
   logoDark?: string;
