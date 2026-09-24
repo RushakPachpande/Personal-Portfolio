@@ -1,6 +1,5 @@
 ---
-description: "Cursor rules for GitHub development with code quality integration."
-globs: **/*
+description: "Duplicate code-quality regex list. Not always applied; codequality.mdc covers this portfolio."
 alwaysApply: false
 ---
 {

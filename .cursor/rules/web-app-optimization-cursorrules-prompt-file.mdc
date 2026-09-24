@@ -1,6 +1,5 @@
 ---
-description: "Cursor rules for web app development with optimization integration."
-globs: **/*
+description: "Svelte 5 and SvelteKit only. Not this Vite + React portfolio."
 alwaysApply: false
 ---
 You are an expert in Svelte 5, SvelteKit, TypeScript, and modern web development.

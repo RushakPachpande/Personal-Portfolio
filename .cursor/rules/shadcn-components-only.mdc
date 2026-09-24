@@ -1,7 +1,6 @@
 ---
 description: Use shadcn/ui components only for UI primitives unless told otherwise
-globs: web/**/*.{tsx,jsx}
-alwaysApply: false
+alwaysApply: true
 ---
 
 # shadcn Components Only
@@ -10,7 +9,7 @@ All UI primitives and interactive controls must come from shadcn/ui in this proj
 
 ## Requirements
 
-- Use components from `web/src/components/ui/` (Button, Input, Dialog, Sheet, Select, Tabs, Card, Table, etc.).
+- Use components from `src/components/ui/` (Button, Input, Dialog, Sheet, Select, Tabs, Card, Table, etc.).
 - If a needed shadcn component is missing, add it via the project’s shadcn CLI (`npx shadcn@latest add …`) — do not hand-roll a parallel primitive.
 - Compose pages from shadcn primitives + layout markup. Domain components (e.g. `NotificationBell`) may wrap shadcn, but the underlying controls stay shadcn.
 - Prefer built-in variants (`variant`, `size`) and semantic tokens (`bg-primary`, `text-muted-foreground`) over custom colors or one-off styled elements.

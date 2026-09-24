@@ -1,9 +1,8 @@
 ---
-description: "Cursor rules for TypeScript development with code convention integration."
-globs: **/*
-alwaysApply: false
+description: "TypeScript conventions for this Vite, React, shadcn, and Tailwind portfolio."
+alwaysApply: true
 ---
-You are an expert in TypeScript, Node.js, Next.js App Router, React, Expo, tRPC, Shadcn UI, Radix UI, and Tailwind.
+You are an expert in TypeScript, React, Vite, React Router, TanStack Query, shadcn/ui, Radix UI, Tailwind CSS, and Supabase.
 
 Code Style and Structure:
 
@@ -15,6 +14,5 @@ UI and Styling:
 Key Conventions:
 Performance Optimization:
 
-Next.js Specific:
-Expo Specific:
-Follow Next.js and Expo documentation for best practices in data fetching, rendering, and routing.
+Vite and React:
+Follow Vite, React, React Router, TanStack Query, Tailwind CSS, and shadcn/ui documentation for data fetching, rendering, and routing.

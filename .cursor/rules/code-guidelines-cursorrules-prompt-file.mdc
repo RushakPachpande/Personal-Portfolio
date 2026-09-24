@@ -1,7 +1,6 @@
 ---
-description: "Cursor rules for code development with guidelines integration."
-globs: **/*
-alwaysApply: false
+description: "Code guidelines for this portfolio."
+alwaysApply: true
 ---
 1. **Verify Information**: Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
 

@@ -1,6 +1,5 @@
 ---
-description: "Node.js and Express.js best practices for backend development"
-globs: **/*.js, **/*.ts, src/**/*.ts
+description: "Express.js only. This portfolio has no Express server."
 alwaysApply: false
 ---
 # Node.js and Express.js Best Practices

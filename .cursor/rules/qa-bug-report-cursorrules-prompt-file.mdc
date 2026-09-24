@@ -1,6 +1,5 @@
 ---
-description: "Cursor rules for QA development with bug report integration."
-globs: **/*
+description: "QA bug-report format. Use when writing a bug report."
 alwaysApply: false
 ---
 // QA Bug Report - .cursorrules prompt file

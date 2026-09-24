@@ -1,7 +1,6 @@
 ---
-description: "Cursor rules for Git development with conventional commit messages integration."
-globs: **/*
-alwaysApply: false
+description: "Conventional Commits for this portfolio."
+alwaysApply: true
 ---
 Use the Conventional Commit Messages specification to generate commit messages
 

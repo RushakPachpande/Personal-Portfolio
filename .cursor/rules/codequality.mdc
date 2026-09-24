@@ -1,7 +1,6 @@
 ---
 description: Code Quality Guidelines
-globs: ["**/*"]
-alwaysApply: false
+alwaysApply: true
 ---
 # Code Quality Guidelines
 

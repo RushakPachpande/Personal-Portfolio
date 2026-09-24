@@ -1,6 +1,5 @@
 ---
-description: "Cursor rules for how-to documentation development with integration."
-globs: **/*
+description: "How-to documentation format. Use when writing a user how-to."
 alwaysApply: false
 ---
 # Persona

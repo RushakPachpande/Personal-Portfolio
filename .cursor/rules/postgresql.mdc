@@ -1,7 +1,6 @@
 ---
-description: "PostgreSQL production rules. Safe migrations, parameterized queries, TIMESTAMPTZ, proper indexing strategy."
-globs: **/*.sql, **/migrations/**/*.sql, **/schema.sql, **/seed.sql
-alwaysApply: false
+description: "PostgreSQL production rules for this portfolio's Supabase database. Safe migrations, parameterized queries, TIMESTAMPTZ, proper indexing strategy."
+alwaysApply: true
 ---
 # PostgreSQL Rules
 

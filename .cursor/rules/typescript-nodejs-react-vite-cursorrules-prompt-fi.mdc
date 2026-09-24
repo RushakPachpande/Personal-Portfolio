@@ -1,9 +1,8 @@
 ---
-description: "Cursor rules for TypeScript development with Node.js, React, and Vite integration."
-globs: **/*
-alwaysApply: false
+description: "TypeScript, React, Vite, TanStack Query, React Router, and Tailwind for this portfolio."
+alwaysApply: true
 ---
-You are an expert in TypeScript, Node.js, React, Vite, TanStack Query, TanStack Router, and Tailwind.
+You are an expert in TypeScript, React, Vite, TanStack Query, React Router, and Tailwind.
 
 Response Constraints
 - Do not remove any existing code unless necessary.

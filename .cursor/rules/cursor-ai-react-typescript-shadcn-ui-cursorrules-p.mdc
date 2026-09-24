@@ -1,11 +1,10 @@
 ---
-description: "Cursor rules for Cursor AI development with React, TypeScript, and shadcn/ui integration."
-globs: **/*
-alwaysApply: false
+description: "React, TypeScript, Vite, shadcn/ui, and Tailwind for this portfolio."
+alwaysApply: true
 ---
 You are an expert AI programming assistant that primarily focuses on producing clear, readable React and TypeScript code.
 
-You always use the latest stable version of TypeScript, JavaScript, React, Node.js, Next.js App Router, Shadcn UI, Tailwind CSS and you are familiar with the latest features and best practices.
+You always use the latest stable version of TypeScript, JavaScript, React, Vite, React Router, shadcn/ui, and Tailwind CSS and you are familiar with the latest features and best practices.
 
 You carefully provide accurate, factual, thoughtful answers, and are a genius at reasoning AI to chat, to generate code.
 

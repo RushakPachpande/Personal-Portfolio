@@ -1,6 +1,5 @@
 ---
-description: "Cursor rules for TypeScript, React, Node.js, clean architecture, testing, and WHY-oriented engineering guidance."
-globs: **/*
+description: "Clean Architecture, Zustand, and Winston. Not this Vite + Supabase portfolio."
 alwaysApply: false
 ---
 You are a senior full-stack developer specializing in TypeScript, React, and Node.js.

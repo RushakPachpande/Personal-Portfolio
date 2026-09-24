@@ -1,7 +1,6 @@
 ---
 description: Responsive-first UI — support all devices, browsers, and screen sizes
-globs: web/**/*.{tsx,jsx,css}
-alwaysApply: false
+alwaysApply: true
 ---
 
 # Responsive First
