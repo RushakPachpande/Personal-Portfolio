@@ -23,7 +23,7 @@ export function AboutPage() {
         }
         path="/about"
       />
-      <section className="mx-auto min-w-0 max-w-6xl px-4 pt-12 pb-20 sm:px-6">
+      <section className="mx-auto min-w-0 max-w-6xl xl:max-w-7xl px-4 pt-12 pb-20 sm:px-6">
         <Reveal>
           <SectionHeader
             eyebrow={chrome.eyebrow}

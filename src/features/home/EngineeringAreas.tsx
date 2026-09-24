@@ -18,7 +18,7 @@ export function EngineeringAreas() {
   const areas = siteConfig.engineeringAreas;
 
   return (
-    <section className="relative mx-auto max-w-6xl min-w-0 overflow-hidden px-4 py-16 sm:px-6">
+    <section className="relative mx-auto max-w-6xl xl:max-w-7xl min-w-0 overflow-hidden px-4 py-16 sm:px-6">
       <ScrollFadeIn>
         <SectionHeader
           eyebrow={section.eyebrow}

@@ -12,8 +12,9 @@ export const responsiveCardGridClassName =
 export const responsiveCardGridCompactClassName =
   'grid min-w-0 auto-rows-fr grid-cols-1 gap-4 md:grid-cols-2 [&>*]:min-w-0';
 
+/** 2 columns from 768px. Third column waits until 1024px so titles stay readable. */
 export const responsiveCardGridThreeClassName =
-  'grid min-w-0 auto-rows-fr grid-cols-1 gap-4 md:grid-cols-3 [&>*]:min-w-0';
+  'grid min-w-0 auto-rows-fr grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-0';
 
 /** Fills columns from a min card width so items wrap instead of stretching full-row.
  *  A direct child with `.featured-card-span` claims a full row on md+. */

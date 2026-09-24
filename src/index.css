@@ -619,20 +619,19 @@
   will-change: transform;
 }
 
-/* Wide featured: fixed overall height, side-by-side on md+. */
+/* Wide featured: side-by-side on md+, height follows the copy. */
 @media (min-width: 768px) {
   .overlay-card--wide {
-    --card-h: 18rem;
     --card-banner-h: 100%;
-    --card-title-h: 2.75rem;
-    --card-body-h: 4.5rem;
-    --card-logo-max: 9rem;
+    --card-logo-max: 12rem;
+    height: auto;
+    max-height: none;
     flex-direction: row;
   }
 
   .overlay-card--wide .overlay-card__banner {
-    flex-basis: 38%;
-    width: 38%;
+    flex-basis: 32%;
+    width: 32%;
     height: auto;
     align-self: stretch;
   }
@@ -640,15 +639,20 @@
   .overlay-card--wide .overlay-card__bottom {
     flex: 1;
     min-width: 0;
-    padding: 1rem 1rem 0.85rem;
+    height: auto;
+    grid-template-rows: auto auto auto;
+    padding: 1rem 1.25rem 1rem;
   }
 
   .overlay-card--wide .overlay-card__title {
     text-align: start;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    line-height: 1.2;
   }
 
   .overlay-card--wide .overlay-card__stats {
+    height: auto;
+    min-height: 0;
     justify-content: flex-start;
   }
 
@@ -660,12 +664,21 @@
     padding-left: 0.75rem;
   }
 
+  .overlay-card--wide .overlay-card__stat-value {
+    white-space: normal;
+    text-overflow: unset;
+  }
+
+  .overlay-card--wide .overlay-card__body > p {
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+  }
+
   .overlay-card--wide .overlay-card__hero {
     --card-hero-pad: 0.65rem;
   }
 
   .overlay-card--wide .overlay-card__hero-stage {
-    /* Side banner is taller - keep a large square plate. */
     width: min(100%, var(--card-logo-max));
     height: min(100%, var(--card-logo-max));
   }

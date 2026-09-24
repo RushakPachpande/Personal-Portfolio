@@ -79,7 +79,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
         description={study.summary}
         path={`${backPath}/${study.slug}`}
       />
-      <article className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
+      <article className="mx-auto min-w-0 max-w-6xl xl:max-w-7xl px-4 py-12 sm:px-6">
         <Button asChild variant="ghost" className="mb-8">
           <Link to={backPath}>
             <ArrowLeft data-icon="inline-start" />

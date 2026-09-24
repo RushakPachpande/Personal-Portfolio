@@ -26,7 +26,7 @@ const categoryOrder: TechnologyCategory[] = [
 export function TechnologyLibraryGrid() {
   const { technologies, caseStudies } = usePortfolio();
   return (
-    <section className="mx-auto min-w-0 max-w-6xl px-4 py-12 sm:px-6">
+    <section className="mx-auto min-w-0 max-w-6xl xl:max-w-7xl px-4 py-12 sm:px-6">
       <Reveal>
         <SectionHeader
           eyebrow="Technology Library"

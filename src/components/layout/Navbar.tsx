@@ -289,7 +289,7 @@ export function Navbar({ onOpenTerminal }: { onOpenTerminal: () => void }) {
           scrolled && 'border-border/80 bg-background/70 backdrop-blur-xl'
         )}
       >
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+        <div className="mx-auto flex h-16 max-w-6xl xl:max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
           <Link
             to="/"
             className="font-display text-xl font-semibold tracking-tight sm:text-2xl"

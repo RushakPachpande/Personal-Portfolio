@@ -12,7 +12,7 @@ export function CategoryWorkPage({ categoryId }: CategoryWorkPageProps) {
   const meta = getCategoryMeta(siteConfig, categoryId);
   if (!meta) {
     return (
-      <div className="mx-auto max-w-6xl px-4 py-16 text-muted-foreground">
+      <div className="mx-auto max-w-6xl xl:max-w-7xl px-4 py-16 text-muted-foreground">
         Category not found.
       </div>
     );

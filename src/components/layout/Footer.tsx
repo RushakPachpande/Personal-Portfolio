@@ -34,7 +34,7 @@ export function Footer() {
 
   return (
     <footer className="mt-24 border-t border-border/80 bg-surface/40">
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:px-6">
+      <div className="mx-auto flex max-w-6xl xl:max-w-7xl flex-col gap-8 px-4 py-12 sm:px-6">
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="max-w-sm">
             <p className="font-display text-xl font-semibold">{name}</p>

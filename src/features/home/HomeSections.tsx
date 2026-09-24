@@ -10,7 +10,7 @@ export function HomeAbout() {
   const { profile, siteConfig } = usePortfolio();
   const chrome = siteConfig.chrome.homeAbout;
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <section className="mx-auto max-w-6xl xl:max-w-7xl px-4 py-12 sm:px-6">
       <Reveal>
         <div className="mx-auto max-w-3xl text-center">
           <p className="font-mono text-xs tracking-[0.2em] text-soft-cyan uppercase sm:text-sm">
@@ -44,7 +44,7 @@ export function ExperienceSnapshot() {
   if (highlights.length === 0) return null;
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <section className="mx-auto max-w-6xl xl:max-w-7xl px-4 py-16 sm:px-6">
       <Reveal>
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
@@ -64,7 +64,7 @@ export function ExperienceSnapshot() {
         </div>
       </Reveal>
 
-      <div className="mt-8 grid min-w-0 grid-cols-1 gap-4 md:grid-cols-3">
+      <div className="mt-8 grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {highlights.map((item, index) => {
           const title = item.homeTitle?.trim() || item.title;
           const detail = item.homeDetail?.trim() || item.description;

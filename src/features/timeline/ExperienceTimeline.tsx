@@ -24,7 +24,7 @@ export function ExperienceTimeline() {
   ];
 
   return (
-    <section className="mx-auto max-w-6xl min-w-0 px-4 py-12 sm:px-6">
+    <section className="mx-auto max-w-6xl xl:max-w-7xl min-w-0 px-4 py-12 sm:px-6">
       <Reveal>
         <SectionHeader
           eyebrow="Experience Timeline"

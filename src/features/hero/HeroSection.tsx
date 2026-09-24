@@ -43,7 +43,7 @@ export function HeroSection() {
       <GradientBlobs />
 
       <motion.div
-        className="relative mx-auto max-w-6xl px-4 sm:px-6"
+        className="relative mx-auto max-w-6xl xl:max-w-7xl px-4 sm:px-6"
         style={{ y: contentY, opacity: contentOpacity }}
         variants={staggerContainer}
         initial={reduced ? undefined : 'hidden'}
