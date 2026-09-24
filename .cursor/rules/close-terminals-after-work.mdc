@@ -1,0 +1,57 @@
+---
+description: Strict cleanup — kill agent processes and free ports 3000/5173 before ending; prefer external terminals for dev servers
+alwaysApply: true
+---
+
+# Close Terminals & Free Ports (Strict)
+
+Closing a terminal pane is **not** enough. Orphan Node/Vite processes often keep listening. Before every final reply, stop what you started **and** free the app ports.
+
+## Ports (LevelUp)
+
+| Service | Port |
+|---------|------|
+| API (`api/`) | **3000** |
+| Web / Vite (`web/`) | **5173** |
+
+Do **not** leave **3000** or **5173** occupied after your turn if you started anything that bound them.
+
+## Prefer External Dev Servers
+
+- The user runs long-lived `npm run dev` in an **external** terminal. Prefer that.
+- Do **not** start persistent API/web servers in Cursor integrated terminals unless a short verification requires it.
+- Prefer one-shot checks (`curl`, `npm run build`, `npx tsc`, tests) over keeping `dev` running.
+
+## Required End-of-Turn Checklist
+
+1. Stop every process/job **you** started this chat (dev, watch, background shells).
+2. If you used or may have bound **3000** or **5173**, **force-free those ports** (see below) — even if you already closed the terminal window.
+3. Confirm listeners are gone before the final message.
+4. Never rely on the user to clean up.
+
+## Force-Free Ports (Windows / PowerShell)
+
+Run before ending the turn whenever 3000/5173 may be held by agent work:
+
+```powershell
+foreach ($port in 3000, 5173) {
+  Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue |
+    Select-Object -ExpandProperty OwningProcess -Unique |
+    ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue }
+}
+```
+
+Fallback if `Get-NetTCPConnection` is unavailable:
+
+```powershell
+netstat -ano | findstr ":3000 :5173"
+# then: Stop-Process -Id <PID> -Force
+```
+
+Killing the terminal session PID alone is insufficient when children keep the port.
+
+## Exceptions
+
+- Leave a process running **only** if the user explicitly asks (e.g. "leave the server running").
+- Do **not** kill listeners on 3000/5173 that the user already had running in an **external** terminal **unless** you (or an orphan from this chat) are what is holding the port, or the user asked you to free it.
+- Postgres on **5432** (Docker) is out of scope — do not stop the DB container unless asked.

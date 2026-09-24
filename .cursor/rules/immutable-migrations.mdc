@@ -1,0 +1,39 @@
+---
+description: Never edit existing Supabase migrations — always add a new migration for any DB change
+alwaysApply: true
+---
+
+# Immutable Migrations
+
+Every database schema change is a **new** migration. Never modify, rename, delete, or squash existing migration files. This preserves history and keeps rollback/forward paths safe.
+
+## Requirements
+
+- Treat `supabase/migrations/**` as append-only history.
+- For any schema change (column, index, constraint, enum, table, RLS policy, function, rename, drop) — even a one-line fix — create a **new** migration.
+- Create migrations with the CLI: `npx supabase migration new <descriptive_name>` (never invent a timestamp or filename).
+- Write the SQL change in the new file under `supabase/migrations/`.
+- Apply locally with `npm run db:reset` (migrations + seed) or `supabase migration up`.
+- Push to remote with `npm run db:push` or MCP `apply_migration` — not by editing old files.
+- Do not hand-edit applied migration SQL to “fix” production or local DBs.
+- Do not rewrite the initial schema or any prior timestamped migration.
+
+## Examples
+
+```text
+# ❌ BAD — edit an old migration
+supabase/migrations/20260827194842_portfolio_schema.sql
+
+# ✅ GOOD — add a new migration via CLI
+supabase/migrations/20260828120000_add_contact_status_column.sql
+```
+
+```sql
+-- schema change needed → new migration file, not a patch to yesterday's SQL
+alter table public.contact_submissions
+  add column status text not null default 'new';
+```
+
+## Exceptions
+
+- Only if the user **explicitly** asks to edit or reset migrations (e.g. local-only reset before first deploy). Default remains: never touch existing migrations.

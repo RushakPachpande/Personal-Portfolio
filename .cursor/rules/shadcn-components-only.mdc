@@ -1,0 +1,42 @@
+---
+description: Use shadcn/ui components only for UI primitives unless told otherwise
+globs: web/**/*.{tsx,jsx}
+alwaysApply: false
+---
+
+# shadcn Components Only
+
+All UI primitives and interactive controls must come from shadcn/ui in this project. Do not introduce other component libraries or one-off custom primitives when a shadcn equivalent exists or can be added.
+
+## Requirements
+
+- Use components from `web/src/components/ui/` (Button, Input, Dialog, Sheet, Select, Tabs, Card, Table, etc.).
+- If a needed shadcn component is missing, add it via the project’s shadcn CLI (`npx shadcn@latest add …`) — do not hand-roll a parallel primitive.
+- Compose pages from shadcn primitives + layout markup. Domain components (e.g. `NotificationBell`) may wrap shadcn, but the underlying controls stay shadcn.
+- Prefer built-in variants (`variant`, `size`) and semantic tokens (`bg-primary`, `text-muted-foreground`) over custom colors or one-off styled elements.
+- Do **not** add MUI, Chakra, Ant Design, Headless UI (standalone), React Bootstrap, or similar unless the user explicitly asks.
+
+## Exceptions
+
+- Allowed only when the user specifically requests a non-shadcn library or custom control.
+- Icons: continue using the project’s existing icon approach (e.g. `lucide-react`) — icons are not a competing component library.
+- App-level routing, data, and domain logic are out of scope for this rule.
+
+## Examples
+
+```tsx
+// ❌ BAD
+<button className="rounded bg-blue-500 px-4 py-2 text-white">Save</button>
+
+// ✅ GOOD
+import { Button } from "@/components/ui/button"
+<Button>Save</Button>
+```
+
+```tsx
+// ❌ BAD — custom modal when Dialog/Sheet exists
+<div className="fixed inset-0 z-50 ...">...</div>
+
+// ✅ GOOD
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+```

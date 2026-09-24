@@ -1,0 +1,32 @@
+---
+description: Source brand/tech SVG logos from svglogos.dev unless otherwise specified
+alwaysApply: true
+---
+
+# SVG Logo Source
+
+When adding or replacing brand, product, or technology logos as SVG, get them from **[svglogos.dev](https://svglogos.dev/)** only.
+
+## Default
+
+- Search and download logos from https://svglogos.dev/
+- Prefer official SVG assets from that library over other CDNs, Simple Icons, Wikipedia, or random web scrapes
+- Save into the project's existing logo folders (`src/assets/tech/`, `src/assets/logos/`) using clear kebab-case filenames
+
+## Exceptions
+
+Use a different source only when the user **explicitly** says so, or when:
+
+- The logo is custom/proprietary and not on svglogos.dev (e.g. personal brand, client mark)
+- The user provides a file or URL to use instead
+- A non-SVG format is required (PNG/WebP) and no suitable SVG exists on svglogos.dev — ask before substituting
+
+## Examples
+
+```text
+❌ BAD: Pull React/n8n/GitHub logos from random Google/CDN results
+✅ GOOD: Download the SVG from svglogos.dev, then add it under src/assets/
+
+❌ BAD: Invent or redraw a brand mark when svglogos.dev has it
+✅ GOOD: Use the svglogos.dev asset; note if the mark is missing and ask
+```
